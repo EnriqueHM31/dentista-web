@@ -2,6 +2,7 @@ import SERCIVIO2 from "@/assets/servicios/servicio2.svg";
 import { MdOutlineSecurity } from "react-icons/md";
 import { VENTAJAS } from "@/assets/ts/constantes";
 import { motion } from "framer-motion";
+import TituloSeccion from "./ui/TituloSeccion";
 
 export default function SectionVentajas() {
     return (
@@ -30,7 +31,7 @@ export default function SectionVentajas() {
                     ease: "easeOut",
                 }}
             >
-                <h3 className="text-4xl font-bold">¿Por qué elegir Smile para todos tus tratamientos dentales?</h3>
+                <TituloSeccion titulo="¿Por qué elegir Smile para todos tus tratamientos dentales?" clases="text-4xl font-bold" />
                 <p>Utilizamos solo los materiales de la mejor calidad en el mercado para ofrecer los mejores productos a nuestros pacientes.</p>
                 <ul className="flex flex-col gap-3">
                     {
