@@ -1,31 +1,9 @@
 import { motion, AnimatePresence } from 'framer-motion'
 import { Link, useLocation } from 'react-router-dom'
+import { VARIANTES_MENU } from '@/assets/ts/constantes';
+import { LINKS_NAVEGACION } from '@/assets/ts/constantes';
 
-const LINKS_NAVEGACION = [
-    { name: 'Inicio', path: '/' },
-    { name: 'Servicios', path: '/servicios' },
-    { name: 'Blog', path: '/blog' },
-    { name: 'Sobre nosotros', path: '/sobre-nosotros' },
-    { name: 'Contacto', path: '/contacto' },
-]
 
-const menuVariants = {
-    hidden: {
-        x: '100%',
-        opacity: 0,
-        transition: { duration: 0.4, ease: 'easeInOut' },
-    },
-    visible: {
-        x: 0,
-        opacity: 1,
-        transition: { duration: 0.4, ease: 'easeInOut' },
-    },
-    exit: {
-        x: '100%',
-        opacity: 0,
-        transition: { duration: 0.3, ease: 'easeInOut' },
-    },
-} as const
 
 export default function MenuLateral({ isOpen, toggleMenu }: { isOpen: boolean, toggleMenu: () => void }) {
     const location = useLocation()
@@ -35,7 +13,7 @@ export default function MenuLateral({ isOpen, toggleMenu }: { isOpen: boolean, t
             {isOpen && (
                 <motion.ul
                     key="menu"
-                    variants={menuVariants}
+                    variants={VARIANTES_MENU}
                     initial="hidden"
                     animate="visible"
                     exit="exit"
