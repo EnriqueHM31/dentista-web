@@ -25,10 +25,10 @@ export default function Hero() {
                 transition={{ duration: 0.3 }}
             >
                 <h2 className="text-2xl font-bold xl:text-5xl text-white">¡Prepárate para tu mejor experiencia dental!</h2>
-                <p className='text-normal text-white'>
+                <p className='text-normal text-white/50'>
                     Usamos solo los materiales de la mejor calidad del mercado para ofrecer los mejores tratamientos a nuestros pacientes.
                 </p>
-                <p className='text-normal text-secondary'>
+                <p className='text-normal text-white/50'>
                     Así que no te preocupes por nada y reserva tu cita.
                 </p>
 

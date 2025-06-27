@@ -31,20 +31,20 @@ export default function SectionVentajas() {
                     ease: "easeOut",
                 }}
             >
-                <TituloSeccion titulo="¿Por qué elegir Smile para todos tus tratamientos dentales?" clases="text-4xl font-bold" />
-                <p>Utilizamos solo los materiales de la mejor calidad en el mercado para ofrecer los mejores productos a nuestros pacientes.</p>
+                <TituloSeccion titulo="¿Por qué elegir Smile para todos tus tratamientos dentales?" clases="text-4xl font-bold text-white" />
+                <p className="text-white/70">Utilizamos solo los materiales de la mejor calidad en el mercado para ofrecer los mejores productos a nuestros pacientes.</p>
                 <ul className="flex flex-col gap-3">
                     {
                         VENTAJAS.map((ventaja) => (
                             <li key={ventaja.name} className="flex items-center gap-2">
-                                <MdOutlineSecurity className="text-2xl text-primary border border-primary rounded-full p-1" />
-                                <p>{ventaja.name}</p>
+                                <MdOutlineSecurity className="text-2xl text-white/70 border border-primary rounded-full p-1" />
+                                <p className="text-white/70">{ventaja.name}</p>
                             </li>
                         ))
                     }
                 </ul>
 
-                <button className="w-fit rounded-lg px-3 py-2 bg-primary text-white hover:bg-blue-700 transition duration-300 ease-in-out cursor-pointer ">Realizar una cita</button>
+                <button className="w-fit rounded-lg px-3 py-2 mt-7 bg-white text-primary hover:bg-white/80 transition duration-300 ease-in-out cursor-pointer ">Realizar una cita</button>
             </motion.div>
         </motion.section>
     )

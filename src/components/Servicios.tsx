@@ -39,14 +39,14 @@ export default function Servicios() {
                                 alt={servicio.name} />
                         </div>
                         <div className="p-6 flex flex-col justify-between flex-1  ">
-                            <h5 className="mb-2 text-xl leading-tight text-primary font-bold">{servicio.name}</h5>
-                            <p className="mb-4 text-base text-black">
+                            <h5 className="mb-2 text-xl leading-tight text-primary font-bold group-hover:text-white">{servicio.name}</h5>
+                            <p className="mb-4 text-base text-black group-hover:text-white/50">
                                 {servicio.description}
                             </p>
                             <a
                                 href={'#'}
                                 type="button"
-                                className="inline-block rounded bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-primary-3 ease-in-out hover:bg-primary-accent-300 hover:shadow-primary-2 focus:bg-primary-accent-300 focus:shadow-primary-2 focus:outline-none focus:ring-0 active:bg-primary-600 active:shadow-primary-2 dark:shadow-black/30 dark:hover:shadow-dark-strong dark:focus:shadow-dark-strong dark:active:shadow-dark-strong text-center hover:bg-blue-800 transition duration-300"
+                                className="inline-block rounded bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-primary-3 ease-in-out hover:bg-primary-accent-300 hover:shadow-primary-2 focus:bg-primary-accent-300 focus:shadow-primary-2 focus:outline-none focus:ring-0 active:bg-primary-600 active:shadow-primary-2 dark:shadow-black/30 dark:hover:shadow-dark-strong dark:focus:shadow-dark-strong dark:active:shadow-dark-strong text-center hover:bg-white/80 transition duration-300 group-hover:bg-white group-hover:text-primary"
                                 data-twe-ripple-init
                                 data-twe-ripple-color="light">
                                 Leer mas

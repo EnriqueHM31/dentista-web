@@ -47,10 +47,10 @@ export default function SectionVideo() {
 
                 {!isPlaying && (
                     <button
-                        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-4xl text-white bg-primary p-4 rounded-full flex items-center justify-center size-30"
+                        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-4xl text-white p-4 rounded-full flex items-center justify-center size-30 bg-primary-foreground"
                         onClick={handlePlay}
                     >
-                        <FaPlay />
+                        <FaPlay className="text-primary" />
                     </button>
                 )}
             </motion.div>

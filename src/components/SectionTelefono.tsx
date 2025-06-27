@@ -42,7 +42,7 @@ export default function SectionTelefono() {
                 }}
             >
                 <div className="size-90 relative">
-                    <div className="absolute -z-10 w-full h-full inset-0 flex xl:items-center items-end xl:justify-center xl:flex-1 bg-gradient-to-tr to-primary from-teal-300 from-60% translate-x-7"></div>
+                    <div className="absolute -z-10 w-full h-full inset-0 flex xl:items-center items-end xl:justify-center xl:flex-1 bg-gradient-to-tr to-primary from-indigo-950 from-60% translate-x-7"></div>
                     <img src={IMAGENSERVICIO1} alt="Imagen servicio 1" className="w-full h-full object-cover translate-y-5 " />
                 </div>
             </motion.picture>
