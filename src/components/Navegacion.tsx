@@ -2,7 +2,7 @@ import { AiOutlineDingtalk } from "react-icons/ai";
 import { RiMenu3Fill } from "react-icons/ri";
 import { CgClose } from "react-icons/cg";
 import { motion, AnimatePresence } from 'framer-motion'
-import MenuLateral from './ui/MenuMovil';
+import MenuNavegacion from './ui/MenuNavegacion';
 import { useOpen } from "@/hooks/useOpen";
 
 export default function Navegacion() {
@@ -16,7 +16,7 @@ export default function Navegacion() {
                 <h1 className='text-lg font-semibold'>Dentista LE</h1>
             </div>
 
-            <MenuLateral isOpen={isOpen} toggleMenu={toggleMenu} />
+            <MenuNavegacion isOpen={isOpen} toggleMenu={toggleMenu} />
 
             <button
                 className={` p-1 size-10 rounded-2xl flex items-center justify-center z-100 overflow-hidden xl:hidden relative ${isOpen ? 'bg-white text-primary' : 'bg-primary text-white'}`}
