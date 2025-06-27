@@ -27,7 +27,7 @@ export default function MenuLateral({ isOpen, toggleMenu, clases }: MenuNavegaci
                                 <Link
                                     to={link.path}
                                     onClick={toggleMenu}
-                                    className={`block py-2 text-lg transition duration-300 hover:text-accent ${location.pathname === link.path ? "font-bold" : ""
+                                    className={`block py-2 text-lg transition duration-300 hover:text-primary ${location.pathname === link.path ? "font-bold" : ""
                                         }`}
                                 >
                                     {link.name}
@@ -53,7 +53,7 @@ export default function MenuLateral({ isOpen, toggleMenu, clases }: MenuNavegaci
                     <li key={link.name} className="relative">
                         <Link
                             to={link.path}
-                            className={`relative hover:text-accent transition duration-300 py-1 ${location.pathname === link.path ? "font-bold after:w-full" : "after:w-0"
+                            className={`relative hover:text-white/70 transition duration-300 py-1 ${location.pathname === link.path ? "font-bold after:w-full" : "after:w-0"
                                 }
                 after:content-['']
                 after:block
