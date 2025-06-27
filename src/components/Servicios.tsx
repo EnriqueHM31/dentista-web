@@ -5,39 +5,47 @@ import { motion } from "framer-motion";
 
 export default function Servicios() {
     return (
-        <section className="bg-secondary w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-20 py-10">
-            {SERVICIOS_DATA.map((servicio, index) => (
-                <motion.article
-                    key={servicio.name}
-                    initial={{ opacity: 0, y: 30, scale: 0.95 }}
-                    whileInView={{ opacity: 1, y: 0, scale: 1 }}
-                    transition={{
-                        duration: 0.4,
-                        delay: index * 0.1,
-                        ease: "easeOut",
-                    }}
-                    viewport={{ once: true, amount: 0.3 }}
-                    className="flex flex-col gap-4 p-4 rounded-2xl max-w-11/12 w-full mx-auto items-center justify-center bg-white shadow-lg"
-                >
-                    <div className="flex items-center justify-center rounded-full bg-primary size-15">
-                        <img
-                            src={servicio.img}
-                            alt="servicio"
-                            className="w-full h-full object-contain max-w-10"
-                        />
-                    </div>
-                    <div className="flex flex-col gap-2 items-start">
-                        <h3 className="text-sm font-bold">{servicio.name}</h3>
-                        <p className="text-xs">{servicio.description}</p>
-                    </div>
-                    <a
-                        href="#"
-                        className="text-primary font-semibold hover:underline hover:text-blue-800 transition-all duration-300 ease-out py-1"
-                    >
-                        Leer más
-                    </a>
-                </motion.article>
-            ))}
+        <section className="bg-white w-full gap-4 mt-20 py-20 md:py-15 xl:py-10 ">
+
+            <div className="max-w-10/12 px-2 xl:px-4 mx-auto w-full  grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 ">
+                {SERVICIOS_DATA.map((servicio, index) => (
+
+                    <motion.article
+                        key={servicio.name} initial={{ opacity: 0, y: 30, scale: 0.95 }}
+                        whileInView={{ opacity: 1, y: 0, scale: 1 }} transition={{
+                            duration: 0.4,
+                            delay: index * 0.1,
+                            ease: "easeOut",
+                        }}
+                        viewport={{ once: true, amount: 0.3 }}
+                        className=" rounded-lg bg-white shadow-secondary-1 dark:bg-surface-dark border border-black/10 flex flex-col ">
+                        <div
+                            className="relative overflow-hidden bg-cover bg-no-repeat flex-2"
+                            data-twe-ripple-init
+                            data-twe-ripple-color="light">
+                            <img
+                                className="rounded-t-lg w-full"
+                                src={servicio.img}
+                                alt={servicio.name} />
+                        </div>
+                        <div className="p-6 flex flex-col justify-between flex-1  ">
+                            <h5 className="mb-2 text-xl leading-tight text-primary font-bold">{servicio.name}</h5>
+                            <p className="mb-4 text-base text-black">
+                                {servicio.description}
+                            </p>
+                            <a
+                                href={'#'}
+                                type="button"
+                                className="inline-block rounded bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-primary-3 transition duration-150 ease-in-out hover:bg-primary-accent-300 hover:shadow-primary-2 focus:bg-primary-accent-300 focus:shadow-primary-2 focus:outline-none focus:ring-0 active:bg-primary-600 active:shadow-primary-2 dark:shadow-black/30 dark:hover:shadow-dark-strong dark:focus:shadow-dark-strong dark:active:shadow-dark-strong text-center"
+                                data-twe-ripple-init
+                                data-twe-ripple-color="light">
+                                Leer mas
+                            </a>
+                        </div>
+                    </motion.article>
+                ))}
+
+            </div>
         </section>
     )
 }
