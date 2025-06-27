@@ -22,7 +22,7 @@ export default function Hero() {
                 className='flex-1 xl:max-w-1/2  flex items-center xl:items-start justify-start xl:justify-start gap-3 flex-col text-center xl:text-start order-2 xl:order-1 w-full'
                 initial={{ opacity: 0, x: -200 }}
                 whileInView={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.5 }}
+                transition={{ duration: 0.3 }}
             >
                 <h2 className="text-2xl font-bold xl:text-5xl text-white">¡Prepárate para tu mejor experiencia dental!</h2>
                 <p className='text-normal text-white'>
@@ -38,7 +38,7 @@ export default function Hero() {
                     initial={{ opacity: 0, x: -200 }}
                     whileInView={{ opacity: 1, x: 0 }}
                     transition={{
-                        duration: 0.5,
+                        duration: 0.3,
                         ease: "easeOut",
                         delay: 0.5
                     }}
@@ -66,7 +66,7 @@ export default function Hero() {
                     initial={{ opacity: 0, x: -200 }}
                     whileInView={{ opacity: 1, x: 0 }}
                     transition={{
-                        duration: 0.5,
+                        duration: 0.3,
                         ease: "easeOut",
                         delay: 1
                     }}
