@@ -1,0 +1,45 @@
+import Navegacion from './components/Navegacion'
+import { Routes, Route } from 'react-router-dom'
+import Inicio from '@/pages/Inicio'
+import { Toaster } from 'sonner'
+
+
+
+function App() {
+
+  return (
+    <>
+      <Navegacion />
+      <Routes>
+        <Route path="/" element={<Inicio />} />
+        <Route path="/servicios" element={<h1>Servicios</h1>} />
+        <Route path="/blog" element={<h1>Blog</h1>} />
+        <Route path="/sobre-nosotros" element={<h1>Sobre nosotros</h1>} />
+        <Route path="/contacto" element={<h1>Contacto</h1>} />
+        <Route path="/*" element={<h1>404</h1>} />
+      </Routes>
+
+      <Toaster
+        position="bottom-right"
+        toastOptions={{
+          className: ' text-white',
+          style: {
+            borderRadius: '0.5rem',
+            padding: '0.5rem',
+            border: '2px solid'
+          },
+        }}
+        richColors
+        gap={3}
+        expand={true}
+        duration={5000}
+        mobileOffset={10}
+        swipeDirections={['left', 'right']}
+        theme='light'
+        visibleToasts={3}
+      />
+    </>
+  )
+}
+
+export default App

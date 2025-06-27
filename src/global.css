@@ -1,0 +1,11 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #1376f8;
+  --color-secondary: #e6f6fe;
+  --text-normal: 16px;
+}
+
+* {
+  font-family: "Work Sans", sans-serif;
+}
