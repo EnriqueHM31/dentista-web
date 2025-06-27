@@ -6,7 +6,7 @@ import type { MenuNavegacionProps } from "@/types";
 export default function MenuLateral({ isOpen, toggleMenu, clases }: MenuNavegacionProps) {
     const location = useLocation();
 
-    const { textColor, buttonClasses, buttonMovilClasses, menubackground } = clases;
+    const { textColor, buttonClasses, buttonMovilClasses, menubackground, BackgrounAfter } = clases;
 
 
     return (
@@ -27,7 +27,7 @@ export default function MenuLateral({ isOpen, toggleMenu, clases }: MenuNavegaci
                                 <Link
                                     to={link.path}
                                     onClick={toggleMenu}
-                                    className={`block py-2 text-lg transition-colors duration-300 hover:text-accent ${location.pathname === link.path ? "font-bold" : ""
+                                    className={`block py-2 text-lg transition duration-300 hover:text-accent ${location.pathname === link.path ? "font-bold" : ""
                                         }`}
                                 >
                                     {link.name}
@@ -36,7 +36,7 @@ export default function MenuLateral({ isOpen, toggleMenu, clases }: MenuNavegaci
                         ))}
                         <li>
                             <button
-                                className={`mt-4 font-semibold px-4 py-2 rounded-xl w-full transition-all duration-300 ease-in-out hover:scale-105 cursor-pointer ${buttonMovilClasses}`}
+                                className={`mt-4 font-semibold px-4 py-2 rounded-xl w-full transition duration-300 ease-in-out hover:scale-105 cursor-pointer ${buttonMovilClasses}`}
                             >
                                 Realizar una cita
                             </button>
@@ -47,19 +47,19 @@ export default function MenuLateral({ isOpen, toggleMenu, clases }: MenuNavegaci
 
             {/* 💻 Menú ESCRITORIO */}
             <ul
-                className={`hidden xl:flex gap-8 items-center transition-colors duration-300 ${textColor}`}
+                className={`hidden xl:flex gap-8 items-center transition duration-300 ${textColor}`}
             >
                 {LINKS_NAVEGACION.map((link) => (
                     <li key={link.name} className="relative">
                         <Link
                             to={link.path}
-                            className={`relative hover:text-accent transition-colors duration-300 py-1 ${location.pathname === link.path ? "font-bold after:w-full" : "after:w-0"
+                            className={`relative hover:text-accent transition duration-300 py-1 ${location.pathname === link.path ? "font-bold after:w-full" : "after:w-0"
                                 }
                 after:content-['']
                 after:block
                 after:absolute
                 after:h-0.5
-                after:bg-primary
+                ${BackgrounAfter}
                 after:bottom-0
                 after:left-0
                 after:rounded-full
