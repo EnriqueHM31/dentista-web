@@ -4,6 +4,7 @@ import FondoHero from "@/components/ui/FondoHero";
 import SectionTelefono from "@/components/SectionTelefono";
 import SectionVentajas from "@/components/SectionVentajas";
 import SectionVideo from "@/components/SectionVideo";
+import SectionEspecialistas from "@/components/SectionEspecialistas";
 
 
 
@@ -16,6 +17,7 @@ export default function Inicio() {
             <SectionTelefono />
             <SectionVentajas />
             <SectionVideo />
+            <SectionEspecialistas />
         </>
     );
 }
