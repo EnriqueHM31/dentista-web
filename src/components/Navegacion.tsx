@@ -1,17 +1,13 @@
 import { AiOutlineDingtalk } from "react-icons/ai";
 import { RiMenu3Fill } from "react-icons/ri";
-import { useState } from 'react';
 import { CgClose } from "react-icons/cg";
 import { motion, AnimatePresence } from 'framer-motion'
 import MenuLateral from './ui/MenuMovil';
+import { useOpen } from "@/hooks/useOpen";
 
 export default function Navegacion() {
 
-    const [isOpen, setIsOpen] = useState(false)
-
-    const toggleMenu = () => {
-        setIsOpen(!isOpen)
-    }
+    const { isOpen, toggleMenu } = useOpen()
 
     return (
         <nav className='flex justify-between items-center py-4 px-6 fixed top-0 left-0 right-0 z-50 backdrop-blur-xs'>
