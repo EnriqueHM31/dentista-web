@@ -1,22 +1,12 @@
 import { motion } from "framer-motion";
-import ELIPSE from '@/assets/img/elipse.webp';
-import ELIPSE2 from '@/assets/img/elipse2.webp';
-import DENTISTA from '@/assets/img/dentista.webp';
-import ICONOS from '@/assets/img/iconos.webp';
 import { FaPhone } from "react-icons/fa6";
 import { IoLogoLinkedin } from "react-icons/io5";
 import Tooltip from '@/components/ui/Tooltip';
-import { toast } from 'sonner';
+import ImagenAnimada from "./Hero/ImagenAnimada";
+import { useUtils } from "@/hooks/useUtils";
 
 export default function Hero() {
-    const handleClickCopy = (text: string, mensaje: string) => {
-        if (!navigator.clipboard) {
-            toast.error('No se pudo copiar el texto');
-            return;
-        }
-        navigator.clipboard.writeText(text);
-        toast.success(mensaje);
-    };
+    const { handleClickCopy } = useUtils();
 
     return (
         <motion.section
@@ -27,20 +17,7 @@ export default function Hero() {
             transition={{ staggerChildren: 0.2 }}
         >
             {/* Imagen animada */}
-            <motion.div
-                className="w-full h-40"
-                initial={{ opacity: 0, scale: 0.95 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.6 }}
-            >
-                <div className="relative w-4/6 mx-auto h-full">
-                    <img src={ELIPSE} alt="elipse" className="w-full h-full absolute object-cover z-0" />
-                    <img src={ELIPSE2} alt="elipse2" className="w-full h-full absolute object-cover z-10" />
-                    <img src={DENTISTA} alt="dentista" className="w-full h-full absolute object-contain z-20" />
-                    <img src={ICONOS} alt="iconos" className="w-full h-full absolute object-contain z-30" />
-                    <div className='absolute bg-gradient-to-t from-white from-5% to-accent to-20% w-full h-full z-40 flex flex-col justify-center items-center'></div>
-                </div>
-            </motion.div>
+            <ImagenAnimada />
 
             {/* Textos animados */}
             <motion.div
