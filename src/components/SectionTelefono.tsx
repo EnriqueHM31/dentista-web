@@ -1,5 +1,6 @@
 import IMAGENSERVICIO1 from "@/assets/servicios/servicio1.webp";
 import { motion } from "framer-motion";
+import TituloSeccion from "./ui/TituloSeccion";
 
 export default function SectionTelefono() {
     return (
@@ -13,27 +14,16 @@ export default function SectionTelefono() {
 
         >
             <div className="flex flex-col gap-4 flex-1">
-                <motion.h2 className="font-bold text-4xl"
-                    initial={{ opacity: 0, y: 30 }}
-                    whileInView={{ opacity: 1, y: 0 }} transition={{
-                        duration: 0.3,
-                        ease: "easeOut",
-                    }}
-                >Estamos aceptando nuevos pacientes y no podemos esperar para conocerte</motion.h2>
-                <motion.p
-                    initial={{ opacity: 0, y: 30 }}
-                    whileInView={{ opacity: 1, y: 0 }} transition={{
-                        duration: 0.3,
-                        delay: .5,
-                        ease: "easeOut",
-                    }}
-                >Utilizamos solo los materiales de la mejor calidad en el mercado para ofrecer los mejores productos a nuestros pacientes, así que no te preocupes por nada y reserva tu cita.</motion.p>
+
+                <TituloSeccion titulo="Estamos aceptando nuevos pacientes y no podemos esperar para conocerte" clases="font-bold" />
+
+                <motion.p>Utilizamos solo los materiales de la mejor calidad en el mercado para ofrecer los mejores productos a nuestros pacientes, así que no te preocupes por nada y reserva tu cita.</motion.p>
 
                 <motion.form action="#" className="flex items-center gap-5 w-full max-w-3/4"
                     initial={{ opacity: 0, y: 30 }}
                     whileInView={{ opacity: 1, y: 0 }} transition={{
                         duration: 0.3,
-                        delay: 1,
+                        delay: 0.4,
                         ease: "easeOut",
                     }}
                 >
@@ -47,7 +37,7 @@ export default function SectionTelefono() {
                 whileInView={{ opacity: 1, scale: 1 }}
                 transition={{
                     duration: 0.3,
-                    delay: 1.5,
+                    delay: 0.8,
                     ease: "easeOut",
                 }}
             >
@@ -56,6 +46,6 @@ export default function SectionTelefono() {
                     <img src={IMAGENSERVICIO1} alt="Imagen servicio 1" className="w-full h-full object-cover translate-y-5 " />
                 </div>
             </motion.picture>
-        </motion.section>
+        </motion.section >
     )
 }
