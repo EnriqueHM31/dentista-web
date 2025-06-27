@@ -53,3 +53,18 @@ export const VARIANTES_MENU = {
         transition: { duration: 0.3, ease: 'easeInOut' },
     },
 } as Variants;
+
+export const VENTAJAS = [
+    {
+        name: "Equipo dental de primera calidad",
+    },
+    {
+        name: "Servicios dentales de vanguardia",
+    },
+    {
+        name: "Descuento en todos los tratamientos dentales",
+    },
+    {
+        name: "Inscripción rápida y sencilla",
+    }
+];
