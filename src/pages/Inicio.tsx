@@ -1,6 +1,10 @@
 import Hero from "@/components/Hero";
 import Servicios from "@/components/Servicios";
 import FondoHero from "@/components/ui/FondoHero";
+import SectionTelefono from "@/components/SectionTelefono";
+import SectionVentajas from "@/components/SectionVentajas";
+
+
 
 export default function Inicio() {
     return (
@@ -8,7 +12,9 @@ export default function Inicio() {
             <FondoHero />
             <Hero />
             <Servicios />
-            <section className="min-h-screen"></section>
+            <SectionTelefono />
+            <SectionVentajas />
+
         </>
     );
 }
