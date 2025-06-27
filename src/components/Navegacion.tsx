@@ -16,8 +16,13 @@ export default function Navegacion() {
             setScrolled(window.scrollY > window.innerHeight - 100);
         };
 
+
         window.addEventListener("scroll", handleScroll);
+        window.addEventListener("resize", handleScroll);
+        window.addEventListener("orientationchange", handleScroll);
+        window.addEventListener("load", handleScroll);
         return () => window.removeEventListener("scroll", handleScroll);
+
     }, []);
 
     const textColor = scrolled ? "text-black" : "text-white";
