@@ -15,3 +15,15 @@ export interface TooltipProps {
     children: React.ReactNode
     position?: "top" | "bottom" | "left" | "right"
 }
+
+
+interface MenuNavegacionProps {
+    isOpen: boolean;
+    toggleMenu: () => void;
+    clases: {
+        textColor: string;
+        buttonClasses: string;
+        buttonMovilClasses: string;
+        menubackground: string;
+    };
+}
