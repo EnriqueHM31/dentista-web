@@ -1,10 +1,10 @@
 import { motion } from "framer-motion";
 import { useState } from "react";
-import TituloSeccion from "./ui/TituloSeccion";
+import TituloSeccion from "@/components/ui/TituloSeccion";
 import Testimonio from "@/components/Comentarios/Testimonio";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa6";
 import { TESTIMONIOS } from "@/assets/ts/constantes";
-import Tooltip from "./ui/Tooltip";
+import Tooltip from "@/components/ui/Tooltip";
 
 
 const ITEMS_PER_PAGE = 3;

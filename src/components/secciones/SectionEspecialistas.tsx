@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
-import TituloSeccion from "./ui/TituloSeccion";
-import Carousel from "./ui/carousel";
+import TituloSeccion from "@/components/ui/TituloSeccion";
+import Carousel from "@/components/ui/carousel";
 import { DATASLIDERESPECIALISTAS } from "@/assets/ts/constantes";
 
 export default function SectionEspecialistas() {
