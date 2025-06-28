@@ -113,3 +113,74 @@ export const DATASLIDERESPECIALISTAS = [
         linkedin: "https://www.linkedin.com/in/daniela-perez-medina-a%C3%B1os/",
     },
 ] as SlideData[];
+
+
+export const TESTIMONIOS = [
+    {
+        client_name: "María González",
+        rating: 5,
+        comment:
+            "El servicio fue excepcional. Me acompañaron durante todo el proceso y resolvieron todas mis dudas con mucha paciencia.",
+    },
+    {
+        client_name: "Luis Ramírez",
+        rating: 4,
+        comment:
+            "Muy buena atención y materiales de calidad. Solo mejoraría un poco los tiempos de respuesta.",
+    },
+    {
+        client_name: "Andrea López",
+        rating: 5,
+        comment:
+            "¡Excelente experiencia! Todo fue muy profesional y el resultado superó mis expectativas.",
+    },
+    {
+        client_name: "Carlos Méndez",
+        rating: 3,
+        comment:
+            "Buena atención, aunque sentí que podrían mejorar algunos detalles en la entrega.",
+    },
+    {
+        client_name: "Fernanda Castro",
+        rating: 4,
+        comment:
+            "Me gustó mucho el trato del personal y la calidad de los productos. Sin duda volveré.",
+    },
+    {
+        client_name: "Carlos Méndez",
+        rating: 3,
+        comment:
+            "Buena atención, aunque sentí que podrían mejorar algunos detalles en la entrega.",
+    },
+    {
+        client_name: "Fernanda Castro",
+        rating: 4,
+        comment:
+            "Me gustó mucho el trato del personal y la calidad de los productos. Sin duda volveré.",
+    },
+    {
+        client_name: "Carlos Méndez",
+        rating: 3,
+        comment:
+            "Buena atención, aunque sentí que podrían mejorar algunos detalles en la entrega.",
+    },
+    {
+        client_name: "Fernanda Castro",
+        rating: 4,
+        comment:
+            "Me gustó mucho el trato del personal y la calidad de los productos. Sin duda volveré.",
+    },
+    {
+        client_name: "Carlos Méndez",
+        rating: 3,
+        comment:
+            "Buena atención, aunque sentí que podrían mejorar algunos detalles en la entrega.",
+    },
+    {
+        client_name: "Fernanda Castro",
+        rating: 4,
+        comment:
+            "Me gustó mucho el trato del personal y la calidad de los productos. Sin duda volveré.",
+    },
+
+];
