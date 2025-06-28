@@ -28,3 +28,17 @@ interface MenuNavegacionProps {
         BackgrounAfter: string;
     };
 }
+
+interface SlideData {
+    title: string;
+    descripcion: string;
+    src: string;
+    linkedin: string;
+}
+
+interface SlideProps {
+    slide: SlideData;
+    index: number;
+    current: number;
+    handleSlideClick: (index: number) => void;
+}
