@@ -3,7 +3,7 @@ import { SERVICIOS_DATA } from "@/assets/ts/constantes";
 import { motion } from "framer-motion";
 
 
-export default function Servicios() {
+export default function SectionServicios() {
     return (
         <section className="bg-white w-full gap-8 mt-20 py-20 md:py-15 xl:py-10 min-h-screen flex justify-center flex-col items-center " id="servicios">
 
