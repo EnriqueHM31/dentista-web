@@ -184,3 +184,37 @@ export const TESTIMONIOS = [
     },
 
 ];
+
+
+interface FAQItem {
+    pregunta: string;
+    respuesta: string;
+}
+
+export const PREGUNTASFRECUENTES: FAQItem[] = [
+    {
+        pregunta: "¿Puedo ver quién lee mis campañas de correo electrónico?",
+        respuesta: "Sí, nuestro sistema incluye analytics avanzados que te permiten ver quién abre tus emails, cuándo lo hicieron y qué enlaces han clickeado."
+    },
+    {
+        pregunta: "¿Ofrecen descuentos para organizaciones sin fines de lucro?",
+        respuesta: "Sí, ofrecemos un 20% de descuento para ONGs registradas. Envíanos tu certificado de organización sin fines de lucro para aplicar al descuento."
+    },
+    {
+        pregunta: "¿Qué métodos de pago aceptan?",
+        respuesta: "Aceptamos todas las tarjetas principales (Visa, Mastercard, Amex), transferencias bancarias, PayPal y criptomonedas seleccionadas."
+    },
+    {
+        pregunta: "¿Cuál es su política de devoluciones?",
+        respuesta: "Aceptamos devoluciones dentro de los 30 días posteriores a la compra. El producto debe estar en su estado original y con su empaque completo."
+    },
+    {
+        pregunta: "¿Tienen soporte técnico 24/7?",
+        respuesta: "Ofrecemos soporte técnico por chat y email de lunes a viernes de 8am a 6pm. Para emergencias fuera de este horario, contamos con un servicio premium adicional."
+    },
+    {
+        pregunta: "¿Tienen soporte técnico 24/7?",
+        respuesta: "Ofrecemos soporte técnico por chat y email de lunes a viernes de 8am a 6pm. Para emergencias fuera de este horario, contamos con un servicio premium adicional."
+    }
+];
+
