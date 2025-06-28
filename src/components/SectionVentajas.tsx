@@ -6,7 +6,7 @@ import TituloSeccion from "./ui/TituloSeccion";
 
 export default function SectionVentajas() {
     return (
-        <motion.section className="max-w-10/12 w-full mx-auto py-5 xl:py-10 px-1 md:px-10 lg:px-20 xl:px-10  gap-12 flex items-center min-h-[70dvh] bg-secondary"
+        <motion.section className="max-w-11/12 md:max-w-10/12 w-full mx-auto py-10 xl:py-10 px-1 md:px-10 lg:px-20 xl:px-10  gap-12 flex items-center min-h-[70dvh] bg-secondary flex-col xl:flex-row"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }} transition={{
                 duration: 0.3,
@@ -22,16 +22,16 @@ export default function SectionVentajas() {
                     ease: "easeOut",
                 }}
             >
-                <img src={SERCIVIO2} alt="Imagen servicio 2" className="w-full max-w-3/5 h-full object-cover" />
+                <img src={SERCIVIO2} alt="Imagen servicio 2" className="w-full max-w-full xl:max-w-3/5 h-full object-cover" />
             </motion.picture>
-            <motion.div className="flex-1 flex flex-col gap-4"
+            <motion.div className="flex-1 flex flex-col gap-4 px-6 xl:px-0"
                 initial={{ opacity: 0, x: 100 }}
                 whileInView={{ opacity: 1, x: 0 }} transition={{
                     duration: 0.3,
                     ease: "easeOut",
                 }}
             >
-                <TituloSeccion titulo="¿Por qué elegir Smile para todos tus tratamientos dentales?" clases="text-4xl font-bold text-white" />
+                <TituloSeccion titulo="¿Por qué elegir Smile para todos tus tratamientos dentales?" clases=" font-bold text-white" />
                 <p className="text-white/70">Utilizamos solo los materiales de la mejor calidad en el mercado para ofrecer los mejores productos a nuestros pacientes.</p>
                 <ul className="flex flex-col gap-3">
                     {
