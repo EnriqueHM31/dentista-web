@@ -58,7 +58,7 @@ export default function SectionComentarios() {
                     <button
                         onClick={handlePrevious}
                         disabled={page === 0}
-                        className={`p-2 size-10 rounded-full transition duration-300 ${page === 0 ? "bg-gray-300 cursor-not-allowed" : "bg-primary text-white hover:bg-black/80"
+                        className={`p-2 size-10 rounded-full cursor-pointer transition duration-300 ${page === 0 ? "bg-gray-300 cursor-not-allowed" : "bg-primary text-white hover:bg-black/80"
                             }`}
                         aria-label="Página anterior"
                     >
@@ -75,7 +75,7 @@ export default function SectionComentarios() {
                     <button
                         onClick={handleNext}
                         disabled={page === totalPages - 1}
-                        className={`p-2 size-10 rounded-full transition duration-300 ${page === totalPages - 1 ? "bg-gray-300 cursor-not-allowed" : "bg-primary text-white hover:bg-black/80"
+                        className={`p-2 size-10 rounded-full cursor-pointer  transition duration-300 ${page === totalPages - 1 ? "bg-gray-300 cursor-not-allowed" : "bg-primary text-white hover:bg-black/80"
                             }`}
                         aria-label="Página siguiente"
                     >
