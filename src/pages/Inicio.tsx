@@ -5,6 +5,7 @@ import SectionTelefono from "@/components/SectionTelefono";
 import SectionVentajas from "@/components/SectionVentajas";
 import SectionVideo from "@/components/SectionVideo";
 import SectionEspecialistas from "@/components/SectionEspecialistas";
+import SectionComentarios from "@/components/SectionComentarios";
 
 
 
@@ -18,6 +19,7 @@ export default function Inicio() {
             <SectionVentajas />
             <SectionVideo />
             <SectionEspecialistas />
+            <SectionComentarios />
         </>
     );
 }
