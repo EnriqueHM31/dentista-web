@@ -9,7 +9,7 @@ export default function SectionVideo() {
 
     return (
         <motion.section
-            className="min-h-screen flex flex-col items-center justify-center max-w-10/12 w-full mx-auto py-5 xl:py-20 px-1 md:px-10 lg:px-20 xl:px-10 gap-4"
+            className="min-h-screen flex flex-col items-center justify-center max-w-11/12 xl:max-w-10/12 w-full mx-auto py-5 xl:py-20 px-0 md:px-10 lg:px-20 xl:px-10 gap-4"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{
@@ -20,15 +20,15 @@ export default function SectionVideo() {
         >
             <TituloSeccion
                 titulo="Estamos aceptando nuevos pacientes y estamos ansiosos por conocerte."
-                clases="max-w-3/4 text-center"
+                clases="xl:max-w-3/4 max-w-full text-center"
             />
 
-            <p className="max-w-3/4 text-center">
+            <p className="xl:max-w-3/4 max-w-full w-full text-center">
                 Utilizamos únicamente los materiales de más alta calidad del mercado
                 para ofrecer a nuestros pacientes los mejores tratamientos.
             </p>
 
-            <motion.div className="max-w-3/4 w-full relative rounded-2xl"
+            <motion.div className="max-w-full xl:max-w-3/4 w-full relative rounded-2xl mt-10 xl:mt-0"
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{
@@ -40,14 +40,14 @@ export default function SectionVideo() {
                 <video
                     ref={videoRef}
                     src={VIDEO}
-                    className="w-full h-full object-cover rounded-2xl"
+                    className="w-full xl:h-full md:h-60 h-80  object-cover rounded-2xl"
                     onEnded={handleEnd}
                     controls
                 />
 
                 {!isPlaying && (
                     <button
-                        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-4xl text-white p-4 rounded-full flex items-center justify-center size-30 bg-primary-foreground"
+                        className="absolute hidden  top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-4xl text-white p-4 rounded-full xl:flex items-center justify-center md:size-20 size-10 xl:size-30 bg-primary-foreground"
                         onClick={handlePlay}
                     >
                         <FaPlay className="text-primary" />
