@@ -1,7 +1,12 @@
-import type { Servicio, LinksNavegacionProps } from "@/types";
+import type { Servicio, LinksNavegacionProps, SlideData } from "@/types";
 import IMAGENTRATAMIENTO from "@/assets/servicios/tratamiento.webp";
 import IMAGENSONRISA from "@/assets/servicios/sonrisa.webp";
 import IMAGENIMPLANTE from "@/assets/servicios/implante.webp";
+
+import ESPECIALISTA1 from "@/assets/especialistas/especialista1.webp";
+import ESPECIALISTA2 from "@/assets/especialistas/especialista2.webp";
+import ESPECIALISTA3 from "@/assets/especialistas/especialista3.webp";
+
 import type { Variants } from "framer-motion";
 
 
@@ -68,3 +73,43 @@ export const VENTAJAS = [
         name: "Inscripción rápida y sencilla",
     }
 ];
+
+
+export const DATASLIDERESPECIALISTAS = [
+    {
+        title: "Dra. Mariana López Ramírez",
+        descripcion: "Odontólogo General",
+        src: ESPECIALISTA1,
+        linkedin: "https://www.linkedin.com/in/marianalopezram%C3%ADrez/",
+    },
+    {
+        title: "Dr. José Antonio Méndez",
+        descripcion: "Especialista en Ortodoncia",
+        src: ESPECIALISTA2,
+        linkedin: "https://www.linkedin.com/in/dr-jose-antonio-mendez-a%C3%B1os/",
+    },
+    {
+        title: "Dra. Laura Fernández Soto",
+        descripcion: "Higienista Dental",
+        src: ESPECIALISTA3,
+        linkedin: "https://www.linkedin.com/in/laura-fernandez-soto-a%C3%B1os/",
+    },
+    {
+        title: "Lic. Sofía Aguilar Torres",
+        descripcion: "Recepcionista",
+        src: ESPECIALISTA1,
+        linkedin: "https://www.linkedin.com/in/sofia-aguilar-torres-a%C3%B1os/",
+    },
+    {
+        title: "Téc. Carlos Gómez Ruiz",
+        descripcion: "Técnico en Prótesis Dental",
+        src: ESPECIALISTA2,
+        linkedin: "https://www.linkedin.com/in/carlos-g%C3%B3mez-ruiz-a%C3%B1os/",
+    },
+    {
+        title: "Asist. Daniela Pérez Medina",
+        descripcion: "Asistente Dental",
+        src: ESPECIALISTA3,
+        linkedin: "https://www.linkedin.com/in/daniela-perez-medina-a%C3%B1os/",
+    },
+] as SlideData[];
