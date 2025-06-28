@@ -18,6 +18,13 @@ export default function SectionEspecialistas() {
 
 
             <motion.div className="flex flex-col items-center justify-center relative overflow-x-hidden w-full pb-20     md:max-w-10/12"
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{
+                    duration: 0.3,
+                    ease: "easeOut",
+                }}
+                viewport={{ once: true, amount: 0.3 }}
             >
                 <Carousel slides={DATASLIDERESPECIALISTAS} />
             </motion.div>

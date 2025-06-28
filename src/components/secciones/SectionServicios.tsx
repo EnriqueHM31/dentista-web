@@ -15,6 +15,7 @@ export default function SectionServicios() {
                     delay: 0.5,
                     ease: "easeOut",
                 }}
+                viewport={{ once: true, amount: 0.3 }}
             >Servicios
             </motion.h2>
             <div className="max-w-11/12 md:max-w-10/12 px-2 xl:px-4 mx-auto w-full  grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 ">
