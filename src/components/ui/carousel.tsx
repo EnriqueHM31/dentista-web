@@ -1,7 +1,7 @@
 import { useState, useId } from "react";
 import type { SlideData } from "@/types";
 import Slide from "@/components/Carusel/Slide";
-import CarouselControl from "@/components/Carusel/CaruselContro";
+import CarouselControl from "@/components/Carusel/CaruselControl";
 
 interface CarouselProps {
   slides: SlideData[];
