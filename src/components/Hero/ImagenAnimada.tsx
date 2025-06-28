@@ -10,7 +10,7 @@ export default function ImagenAnimada() {
             whileInView={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.6, delay: 1 }}
         >
-            <img src={HERO} alt="hero" className="w-full h-1/2 xl:h-11/12 object-contain -z-40" />
+            <img src={HERO} alt="hero" className="w-full h-1/3 xl:h-11/12 object-contain -z-40" />
         </motion.div>
     );
 }

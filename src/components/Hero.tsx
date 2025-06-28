@@ -9,7 +9,7 @@ export default function Hero() {
 
     return (
         <motion.section
-            className="max-w-11/12 w-full mx-auto py-5 xl:py-10 px-1 md:px-10 lg:px-20 xl:px-10 flex flex-col xl:flex-row items-start justify-center xl:justify-between gap-6 mt-20 overflow-hidden xl:max-w-10/12 relative min-h-screen"
+            className="max-w-11/12 w-full mx-auto py-5 xl:py-10 px-1 md:px-10 lg:px-20 xl:px-10 flex flex-col xl:flex-row items-start justify-center xl:justify-between gap-6 mt-20 overflow-hidden xl:max-w-10/12 relative xl:min-h-screen min-h-[150dvh]"
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, amount: 0.3 }}
