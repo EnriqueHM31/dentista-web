@@ -19,13 +19,13 @@ export default function Testimonio({ client_name, rating, comment, index }: Test
 
     return (
 
-        <li className="flex flex-col gap-3  px-8 bg-primary text-white rounded-2xl min-h-[30dvh] justify-between "
+        <li className="flex flex-col gap-3  px-8 py-4 bg-primary text-white rounded-2xl min-h-[30dvh] justify-between "
         >
             <div className="flex-1 flex items-center gap-4 ">
                 <img src={getRandomPortraitUrl(index)} alt="cliente" className="size-10 rounded-full object-cover" />
 
-                <div>
-                    <h2 className="text-3xl font-bold">{client_name}</h2>
+                <div className="flex flex-col gap-2">
+                    <h2 className=" text-md md:text-xl xl:text-xl font-bold">{client_name}</h2>
                     <StartsTestimonials numero={rating} />
                 </div>
             </div>
