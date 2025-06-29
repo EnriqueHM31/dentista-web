@@ -2,6 +2,7 @@ import Navegacion from './components/Navegacion'
 import { Routes, Route } from 'react-router-dom'
 import Inicio from '@/pages/Inicio'
 import { Toaster } from 'sonner'
+import Footer from './components/Footer'
 
 
 
@@ -18,6 +19,8 @@ function App() {
         <Route path="/contacto" element={<h1>Contacto</h1>} />
         <Route path="/*" element={<h1>404</h1>} />
       </Routes>
+
+      <Footer />
 
       <Toaster
         position="bottom-right"
