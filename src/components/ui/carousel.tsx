@@ -1,31 +1,15 @@
-import { useState, useId } from "react";
+import { useId } from "react";
 import type { SlideData } from "@/types";
 import Slide from "@/components/Carusel/Slide";
 import CarouselControl from "@/components/Carusel/CaruselControl";
+import { useCarrusel } from "@/hooks/useCarrusel";
 
 interface CarouselProps {
   slides: SlideData[];
 }
 
 export default function Carousel({ slides }: CarouselProps) {
-  const [current, setCurrent] = useState(0);
-
-  const handlePreviousClick = () => {
-    const previous = current - 1;
-    setCurrent(previous < 0 ? slides.length - 1 : previous);
-  };
-
-  const handleNextClick = () => {
-    const next = current + 1;
-    setCurrent(next === slides.length ? 0 : next);
-  };
-
-  const handleSlideClick = (index: number) => {
-    if (current !== index) {
-      setCurrent(index);
-    }
-  };
-
+  const { current, handlePreviousClick, handleNextClick, handleSlideClick } = useCarrusel({ slides });
   const id = useId();
 
   return (
