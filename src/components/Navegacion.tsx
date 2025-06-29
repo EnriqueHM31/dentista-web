@@ -38,6 +38,7 @@ export default function Navegacion() {
     const clasesLogoIcono = scrolled ? "text-primary" : "text-white";
     const clasesLogoText = scrolled ? "text-black" : "text-white";
     const BackgrounAfter = scrolled ? "after:bg-primary" : "after:bg-white";
+    const hoverColor = !scrolled ? "hover:text-white/70" : "hover:text-black/70";
 
     return (
         <nav className={`flex justify-center items-center py-4 px-6 xl:px-10 fixed top-0 left-0 right-0 z-50 backdrop-blur-xs xl:max-w-full w-full xl:mx-auto ${scrolled ? 'bg-white' : 'bg-primary'}`}>
@@ -49,7 +50,7 @@ export default function Navegacion() {
                     <h1 className={`text-lg font-semibold ${clasesLogoText}`}>Dentista LE</h1>
                 </div>
 
-                <MenuNavegacion isOpen={isOpen} toggleMenu={toggleMenu} clases={{ textColor, buttonClasses, buttonMovilClasses, menubackground, BackgrounAfter }} />
+                <MenuNavegacion isOpen={isOpen} toggleMenu={toggleMenu} clases={{ textColor, buttonClasses, buttonMovilClasses, menubackground, BackgrounAfter, hoverColor }} />
 
                 <button
                     className={` p-1 size-10 rounded-2xl flex items-center justify-center z-100 overflow-hidden xl:hidden relative ${isOpen ? 'bg-white text-primary' : 'bg-primary text-white'}`}
