@@ -23,11 +23,11 @@ export function useScroll() {
     if (location.pathname !== "/") {
         return {
             textColor: "text-white",
-            buttonClasses: "bg-primary text-white",
+            buttonClasses: "bg-white text-primary",
             buttonMovilClasses: "bg-white text-primary",
-            menubackground: "bg-white text-black",
+            menubackground: "bg-primary text-white",
             BackgrounAfter: "after:bg-white",
-            hoverColor: "hover:text-black/70",
+            hoverColor: "hover:text-white/70",
             scrolled: false,
             clasesLogoIcono: "text-white",
             clasesLogoText: "text-black"

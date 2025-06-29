@@ -3,12 +3,12 @@ import { RiMenu3Fill } from "react-icons/ri";
 import { CgClose } from "react-icons/cg";
 import { motion, AnimatePresence } from 'framer-motion'
 import MenuNavegacion from '@/components/Inicio/ui/MenuNavegacion';
-import { useOpen } from "@/hooks/useOpen";
+import { useOpenWithTransition } from "@/hooks/useOpenWithTransition";
 import { useScroll } from "@/hooks/useScroll";
 
 export default function Navegacion() {
 
-    const { isOpen, toggleMenu } = useOpen()
+    const { isOpen, toggle } = useOpenWithTransition()
     const { scrolled, clasesLogoIcono, clasesLogoText, menubackground, textColor, buttonClasses, buttonMovilClasses, BackgrounAfter, hoverColor } = useScroll()
 
     return (
@@ -21,11 +21,11 @@ export default function Navegacion() {
                     <h1 className={`text-lg font-semibold ${clasesLogoText}`}>Dentista LE</h1>
                 </div>
 
-                <MenuNavegacion isOpen={isOpen} toggleMenu={toggleMenu} clases={{ textColor, buttonClasses, buttonMovilClasses, menubackground, BackgrounAfter, hoverColor }} />
+                <MenuNavegacion isOpen={isOpen} toggleMenu={toggle} clases={{ textColor, buttonClasses, buttonMovilClasses, menubackground, BackgrounAfter, hoverColor }} />
 
                 <button
                     className={` p-1 size-10 rounded-2xl flex items-center justify-center z-100 overflow-hidden xl:hidden relative ${isOpen ? 'bg-white text-primary' : 'bg-primary text-white'}`}
-                    onClick={toggleMenu}
+                    onClick={toggle}
                     type="button"
                     aria-expanded={isOpen}
                 >

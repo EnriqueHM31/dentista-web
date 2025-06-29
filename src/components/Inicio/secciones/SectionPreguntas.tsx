@@ -42,23 +42,26 @@ export default function SectionPreguntas() {
             </div>
 
             {/* Respuesta visible */}
-            <AnimatePresence mode="wait">
-                {preguntaActiva !== null && (
-                    <motion.div
-                        key={preguntaActiva}
-                        initial={{ opacity: 0, y: 10 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: -10 }}
-                        transition={{ duration: 0.3 }}
-                        className="mt-8 bg-primary text-white p-6 rounded-xl max-w-2xl w-full shadow-lg"
-                    >
-                        <h3 className="text-xl font-semibold mb-2">
-                            {PREGUNTASFRECUENTES[preguntaActiva].pregunta}
-                        </h3>
-                        <p>{PREGUNTASFRECUENTES[preguntaActiva].respuesta}</p>
-                    </motion.div>
-                )}
-            </AnimatePresence>
+            <div className="flex-1 w-full flex items-start justify-center">
+
+                <AnimatePresence mode="wait">
+                    {preguntaActiva !== null && (
+                        <motion.div
+                            key={preguntaActiva}
+                            initial={{ opacity: 0, y: 10 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: -10 }}
+                            transition={{ duration: 0.3 }}
+                            className="mt-8 bg-primary text-white p-6 rounded-xl max-w-2xl w-full shadow-lg"
+                        >
+                            <h3 className="text-xl font-semibold mb-2">
+                                {PREGUNTASFRECUENTES[preguntaActiva].pregunta}
+                            </h3>
+                            <p>{PREGUNTASFRECUENTES[preguntaActiva].respuesta}</p>
+                        </motion.div>
+                    )}
+                </AnimatePresence>
+            </div>
         </motion.section>
     );
 }

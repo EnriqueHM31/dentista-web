@@ -1,30 +1,34 @@
+import { motion } from "framer-motion";
+
 interface ModalServicioProps {
     servicio: {
+        id: number;
         name: string;
         description: string;
         img: string;
     };
 }
 
-
 export default function ModalServicio({ servicio }: ModalServicioProps) {
     return (
-        <article className="flex md:flex-row flex-col items-stretch w-full bg-white gap-6 min-h-[50vh]">
+        <article className="flex flex-col md:flex-row items-stretch w-full bg-white gap-6 min-h-[50vh] rounded-xl overflow-hidden shadow-lg">
             {/* Imagen */}
-            <div className="flex-1">
-                <img
+            <div className="flex-1 min-h-[300px]">
+                <motion.img
+                    layoutId={`image-${servicio.id}`}
                     src={servicio.img}
                     alt={servicio.name}
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-cover rounded-tl-xl rounded-bl-xl z-[100]"
+                    style={{ viewTransitionName: `servicio-img-${servicio.id}` }}
+                    draggable={false}
                 />
             </div>
 
             {/* Texto */}
-            <div className="flex-2 flex flex-col justify-center gap-4 py-4 px-7">
+            <div className="flex-1 flex flex-col justify-center gap-4 py-6 px-9">
                 <h2 className="text-2xl font-bold">{servicio.name}</h2>
                 <p>{servicio.description}</p>
             </div>
         </article>
-
-    )
+    );
 }
