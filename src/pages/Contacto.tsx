@@ -6,10 +6,17 @@ import AnimatedSelect from "@/components/general/Select";
 import { FaUser } from "react-icons/fa";
 import { FaMessage } from "react-icons/fa6";
 import IMAGENCONTACTO from "@/assets/img/contacto.png";
+import { useUtils } from "@/hooks/useUtils";
 
-
+const MAS_CONTACTOS = [
+    { icono: <CgPhone className="text-2xl " />, link: "+56 111 111 1111" },
+    { icono: <MdEmail className="text-2xl" />, link: "dentista@gmail.com" },
+    { icono: <FaMapMarkerAlt className="text-2xl " />, link: "Calle 123, 123 123 123" },
+]
 
 export default function Contacto() {
+
+    const { handleClickCopy } = useUtils();
     return (
         <>
             <section className=" w-full gap-12 mt-20 py-20 md:py-15 xl:py-10 min-h-screen flex justify-center    max-w-10/12 mx-auto p-6 items-stretch " id="contacto">
@@ -17,18 +24,14 @@ export default function Contacto() {
                     <div className="flex flex-col gap-4">
                         <TituloSeccion titulo="Hablemos de algo interesante juntos" clases="text-start max-w-3/4" />
                         <ul>
-                            <li className="flex gap-4 items-center px-4 py-3 rounded-2xl hover:bg-primary/90 transition duration-300 ease-in-out w-full cursor-pointer max-w-1/2 text-primary hover:text-white" >
-                                <MdEmail className="text-2xl" />
-                                <p>dentista@gmail.com</p>
-                            </li>
-                            <li className="flex gap-4 items-center px-4 py-3 rounded-2xl hover:bg-primary/90 transition duration-300 ease-in-out w-full cursor-pointer max-w-1/2 text-primary hover:text-white" >
-                                <CgPhone className="text-2xl " />
-                                <p>+56 111 111 1111</p>
-                            </li>
-                            <li className="flex gap-4 items-center px-4 py-3 rounded-2xl hover:bg-primary/90 transition duration-300 ease-in-out w-full cursor-pointer max-w-1/2 text-primary hover:text-white" >
-                                <FaMapMarkerAlt className="text-2xl " />
-                                <p>Calle 123, 123 123 123</p>
-                            </li>
+                            {
+                                MAS_CONTACTOS.map(({ icono, link }, index) => (
+                                    <li key={index} className="flex gap-4 items-center px-4 py-3 rounded-2xl hover:bg-primary/90 transition duration-300 ease-in-out w-full cursor-pointer max-w-1/2 text-primary hover:text-white" onClick={() => handleClickCopy(link, `Se ha copiado ${link}`)}>
+                                        {icono}
+                                        <p>{link}</p>
+                                    </li>
+                                ))
+                            }
 
                         </ul>
                     </div>
