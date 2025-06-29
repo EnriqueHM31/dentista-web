@@ -3,6 +3,7 @@ import { Routes, Route } from 'react-router-dom'
 import Inicio from '@/pages/Inicio'
 import { Toaster } from 'sonner'
 import Footer from './components/Footer'
+import Servicios from './pages/Servicios'
 
 
 
@@ -13,7 +14,7 @@ function App() {
       <Navegacion />
       <Routes>
         <Route path="/" element={<Inicio />} />
-        <Route path="/servicios" element={<h1>Servicios</h1>} />
+        <Route path="/servicios" element={<Servicios />} />
         <Route path="/blog" element={<h1>Blog</h1>} />
         <Route path="/sobre-nosotros" element={<h1>Sobre nosotros</h1>} />
         <Route path="/contacto" element={<h1>Contacto</h1>} />

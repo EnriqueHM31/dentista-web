@@ -1,4 +1,4 @@
-import ImagenAnimada from "../Hero/ImagenAnimada";
+import ImagenAnimada from "@/components/Inicio/Hero/ImagenAnimada";
 
 export default function FondoHero() {
     return (

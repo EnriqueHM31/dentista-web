@@ -1,6 +1,6 @@
 import IMAGENSERVICIO1 from "@/assets/servicios/servicio1.webp";
 import { motion } from "framer-motion";
-import TituloSeccion from "@/components/ui/TituloSeccion";
+import TituloSeccion from "@/components/Inicio/ui/TituloSeccion";
 
 export default function SectionTelefono() {
     return (

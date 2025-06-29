@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import TituloSeccion from "@/components/ui/TituloSeccion";
+import TituloSeccion from "@/components/Inicio/ui/TituloSeccion";
 import { PREGUNTASFRECUENTES } from "@/assets/ts/constantes";
 
 export default function SectionPreguntas() {

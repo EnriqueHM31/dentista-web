@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import TituloSeccion from "@/components/ui/TituloSeccion";
+import TituloSeccion from "@/components/Inicio/ui/TituloSeccion";
 import VIDEO from "@/assets/videos/seccionvideo.mp4";
 import { FaPlay } from "react-icons/fa";
 import useVideo from "@/hooks/useVideo";

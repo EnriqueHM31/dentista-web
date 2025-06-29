@@ -1,12 +1,11 @@
 import Hero from "@/components/Hero";
-import FondoHero from "@/components/ui/FondoHero";
-import SectionServicios from "@/components/secciones/SectionServicios";
-import SectionTelefono from "@/components/secciones/SectionTelefono";
-import SectionVentajas from "@/components/secciones/SectionVentajas";
-import SectionVideo from "@/components/secciones/SectionVideo";
-import SectionEspecialistas from "@/components/secciones/SectionEspecialistas";
-import SectionComentarios from "@/components/secciones/SectionComentarios";
-import SectionPreguntas from "@/components/secciones/SectionPreguntas";
+import FondoHero from "@/components/Inicio/ui/FondoHero";
+import SectionTelefono from "@/components/Inicio/secciones/SectionTelefono";
+import SectionVentajas from "@/components/Inicio/secciones/SectionVentajas";
+import SectionVideo from "@/components/Inicio/secciones/SectionVideo";
+import SectionEspecialistas from "@/components/Inicio/secciones/SectionEspecialistas";
+import SectionComentarios from "@/components/Inicio/secciones/SectionComentarios";
+import SectionPreguntas from "@/components/Inicio/secciones/SectionPreguntas";
 
 
 
@@ -15,7 +14,6 @@ export default function Inicio() {
         <>
             <FondoHero />
             <Hero />
-            <SectionServicios />
             <SectionTelefono />
             <SectionVentajas />
             <SectionVideo />

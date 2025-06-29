@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { FaPhone } from "react-icons/fa6";
 import { IoLogoLinkedin } from "react-icons/io5";
-import Tooltip from '@/components/ui/Tooltip';
+import Tooltip from '@/components/Inicio/ui/Tooltip';
 import { useUtils } from "@/hooks/useUtils";
 
 export default function Hero() {

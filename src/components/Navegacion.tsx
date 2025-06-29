@@ -2,7 +2,7 @@ import { AiOutlineDingtalk } from "react-icons/ai";
 import { RiMenu3Fill } from "react-icons/ri";
 import { CgClose } from "react-icons/cg";
 import { motion, AnimatePresence } from 'framer-motion'
-import MenuNavegacion from './ui/MenuNavegacion';
+import MenuNavegacion from '@/components/Inicio/ui/MenuNavegacion';
 import { useOpen } from "@/hooks/useOpen";
 import { useScroll } from "@/hooks/useScroll";
 

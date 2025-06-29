@@ -2,9 +2,9 @@ import { FaArrowLeft, FaArrowRight } from "react-icons/fa6";
 import { motion } from "framer-motion";
 import { TESTIMONIOS } from "@/assets/ts/constantes";
 import { useComentarios } from "@/hooks/useComentarios";
-import Testimonio from "@/components/Comentarios/Testimonio";
-import TituloSeccion from "@/components/ui/TituloSeccion";
-import Tooltip from "@/components/ui/Tooltip";
+import Testimonio from "@/components/Inicio/Comentarios/Testimonio";
+import TituloSeccion from "@/components/Inicio/ui/TituloSeccion";
+import Tooltip from "@/components/Inicio/ui/Tooltip";
 
 export default function SectionComentarios() {
     const { page, totalPages, startIndex, visibleTestimonials, handleNext, handlePrevious } = useComentarios({ TESTIMONIOS });

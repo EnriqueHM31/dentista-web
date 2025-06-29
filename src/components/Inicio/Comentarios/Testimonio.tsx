@@ -1,4 +1,4 @@
-import StartsTestimonials from "./StartsTestimonials.";
+import StartsTestimonials from "@/components/Inicio/Comentarios/StartsTestimonials.";
 
 interface TestimonioProps {
     client_name: string;
