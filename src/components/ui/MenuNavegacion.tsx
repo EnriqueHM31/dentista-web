@@ -6,7 +6,7 @@ import type { MenuNavegacionProps } from "@/types";
 export default function MenuLateral({ isOpen, toggleMenu, clases }: MenuNavegacionProps) {
     const location = useLocation();
 
-    const { textColor, buttonClasses, buttonMovilClasses, menubackground, BackgrounAfter } = clases;
+    const { textColor, buttonClasses, buttonMovilClasses, menubackground, BackgrounAfter, hoverColor } = clases;
 
 
     return (
@@ -53,7 +53,7 @@ export default function MenuLateral({ isOpen, toggleMenu, clases }: MenuNavegaci
                     <li key={link.name} className="relative">
                         <Link
                             to={link.path}
-                            className={`relative hover:text-white/70 transition duration-300 py-1 ${location.pathname === link.path ? "font-bold after:w-full" : "after:w-0"
+                            className={`relative ${hoverColor} transition duration-300 py-1 ${location.pathname === link.path ? "font-bold after:w-full" : "after:w-0"
                                 }
                 after:content-['']
                 after:block
