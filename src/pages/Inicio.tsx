@@ -1,4 +1,4 @@
-import Hero from "@/components/Hero";
+import Hero from "@/components/Inicio/Hero";
 import FondoHero from "@/components/Inicio/ui/FondoHero";
 import SectionTelefono from "@/components/Inicio/secciones/SectionTelefono";
 import SectionVentajas from "@/components/Inicio/secciones/SectionVentajas";
