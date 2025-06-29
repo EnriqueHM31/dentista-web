@@ -9,7 +9,6 @@ import type { Variants } from "framer-motion";
 export const LINKS_NAVEGACION = [
     { name: 'Inicio', path: '/' },
     { name: 'Servicios', path: '/servicios' },
-    { name: 'Sobre nosotros', path: '/sobre-nosotros' },
     { name: 'Contacto', path: '/contacto' },
 ] as LinksNavegacionProps[];
 

@@ -4,6 +4,7 @@ import Inicio from '@/pages/Inicio'
 import { Toaster } from 'sonner'
 import Footer from './components/Footer'
 import Servicios from './pages/Servicios'
+import Contacto from './pages/Contacto'
 
 
 
@@ -15,9 +16,8 @@ function App() {
       <Routes>
         <Route path="/" element={<Inicio />} />
         <Route path="/servicios" element={<Servicios />} />
-        <Route path="/blog" element={<h1>Blog</h1>} />
         <Route path="/sobre-nosotros" element={<h1>Sobre nosotros</h1>} />
-        <Route path="/contacto" element={<h1>Contacto</h1>} />
+        <Route path="/contacto" element={<Contacto />} />
         <Route path="/*" element={<h1>404</h1>} />
       </Routes>
 
