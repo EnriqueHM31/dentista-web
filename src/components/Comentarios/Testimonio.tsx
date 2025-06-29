@@ -14,9 +14,6 @@ export default function Testimonio({ client_name, rating, comment, index }: Test
         return `https://randomuser.me/api/portraits/${gender}/${index}.jpg`;
     }
 
-
-
-
     return (
 
         <li className="flex flex-col gap-3  px-8 py-4 bg-primary text-white rounded-2xl min-h-[30dvh] justify-between "

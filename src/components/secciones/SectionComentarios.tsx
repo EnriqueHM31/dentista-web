@@ -1,32 +1,13 @@
-import { motion } from "framer-motion";
-import { useState } from "react";
-import TituloSeccion from "@/components/ui/TituloSeccion";
-import Testimonio from "@/components/Comentarios/Testimonio";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa6";
+import { motion } from "framer-motion";
 import { TESTIMONIOS } from "@/assets/ts/constantes";
+import { useComentarios } from "@/hooks/useComentarios";
+import Testimonio from "@/components/Comentarios/Testimonio";
+import TituloSeccion from "@/components/ui/TituloSeccion";
 import Tooltip from "@/components/ui/Tooltip";
 
-
-const ITEMS_PER_PAGE = 3;
-
 export default function SectionComentarios() {
-    const [page, setPage] = useState(0);
-    const totalPages = Math.ceil(TESTIMONIOS.length / ITEMS_PER_PAGE);
-
-    const startIndex = page * ITEMS_PER_PAGE;
-    const visibleTestimonials = TESTIMONIOS.slice(startIndex, startIndex + ITEMS_PER_PAGE);
-
-    const handleNext = () => {
-        if (page < totalPages - 1) {
-            setPage((prev) => prev + 1);
-        }
-    };
-
-    const handlePrevious = () => {
-        if (page > 0) {
-            setPage((prev) => prev - 1);
-        }
-    };
+    const { page, totalPages, startIndex, visibleTestimonials, handleNext, handlePrevious } = useComentarios({ TESTIMONIOS });
 
     return (
         <motion.section
