@@ -26,6 +26,7 @@ interface MenuNavegacionProps {
         buttonMovilClasses: string;
         menubackground: string;
         BackgrounAfter: string;
+        hoverColor: string;
     };
 }
 
