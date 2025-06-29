@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react";
 
 export function useScroll() {
+
+
+
     const [scrolled, setScrolled] = useState(false);
 
     useEffect(() => {
@@ -16,6 +19,21 @@ export function useScroll() {
         return () => window.removeEventListener("scroll", handleScroll);
 
     }, []);
+
+    if (location.pathname !== "/") {
+        return {
+            textColor: "text-white",
+            buttonClasses: "bg-primary text-white",
+            buttonMovilClasses: "bg-white text-primary",
+            menubackground: "bg-white text-black",
+            BackgrounAfter: "after:bg-white",
+            hoverColor: "hover:text-black/70",
+            scrolled: false,
+            clasesLogoIcono: "text-white",
+            clasesLogoText: "text-black"
+        }
+    }
+
 
     const textColor = scrolled ? "text-black" : "text-white";
     const buttonClasses = scrolled
