@@ -1,0 +1,114 @@
+.calendario-container {
+  background-color: #f9fafb; /* fondo claro */
+  border-radius: 1.5rem;
+  max-width: 1000px;
+  margin: auto;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.calendario-rsuite {
+  background-color: white;
+  border-radius: 1.5rem;
+  padding: 1.5rem;
+  font-family: "Inter", sans-serif;
+}
+
+.rs-calendar-table-cell {
+  padding: 1rem;
+  min-height: 80px;
+  vertical-align: top;
+  border: 1px solid #333333; /* borde claro tipo Tailwind */
+}
+
+.rs-calendar-table-cell-content {
+  border-radius: 0.75rem;
+  transition: background-color 0.3s;
+}
+
+.rs-calendar-table-cell:hover .rs-calendar-table-cell-content {
+  background-color: white; /* azul claro al hacer hover */
+  color: var(--color-teal-950);
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.rs-calendar-table-cell-is-today .rs-calendar-table-cell-content {
+  background-color: var(--color-primary);
+  color: white;
+}
+
+.rs-calendar-table-cell-selected .rs-calendar-table-cell-content {
+  background-color: white;
+  color: white;
+  font-weight: 600;
+}
+.rs-calendar-header-title {
+  background-color: white;
+}
+
+.rs-calendar-header-title:hover {
+  background-color: rgb(208, 205, 205);
+}
+
+.rs-calendar-table-cell-disabled {
+  background-color: rgb(230, 230, 230);
+}
+
+.rs-calendar-table-header-cell {
+  background-color: white;
+  color: var(--color-primary);
+  font-weight: bold;
+  border: 0.5px solid var(--color-primary);
+}
+
+.rs-calendar-table-header-cell .rs-calendar-table-header-cell-content {
+  color: var(--color-primary) !important;
+  font-size: clamp(1rem, 2vw, 1.5rem) !important;
+}
+.rs-calendar-header-month-toolbar {
+  display: flex;
+  gap: 5rem;
+  background-color: white;
+  border-radius: 0.5rem;
+}
+
+.rs-calendar-header-month-toolbar .rs-calendar-header-backward {
+  padding: 0.4rem 0.7rem !important;
+}
+
+.rs-calendar-header-month-toolbar .rs-calendar-header-forward {
+  padding: 0.4rem 0.7rem !important;
+}
+
+.rs-calendar-header-title-date {
+  font-weight: bold !important;
+}
+
+.rs-calendar-btn-today:hover {
+  background-color: #cccaca !important;
+  color: var(--color-primary) !important;
+}
+
+.rs-calendar-table {
+  background-color: var(--color-primary) !important;
+}
+.rs-calendar-table-row .rs-calendar-table-header-row {
+  background-color: var(--color-primary) !important;
+}
+
+.rs-calendar-month-dropdown-row {
+  width: 100%;
+  background-color: var(--color-primary) !important;
+}
+
+.rs-calendar-month-dropdown-row-wrapper {
+  width: 100%;
+}
+
+.rs-calendar-month-dropdown-row-wrapper::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Edge */
+}
+
+.rs-calendar-month-dropdown-cell-content:hover {
+  color: var(--color-primary) !important;
+}

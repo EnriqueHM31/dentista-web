@@ -1,0 +1,37 @@
+[
+    {
+        "id": "c23a9e5a-9a4b-4c12-b1e6-3e99bfa22e8e",
+        "nombre": "Facebook",
+        "referencia": "https://www.facebook.com/odontologia.lehm"
+    },
+    {
+        "id": "b2a5b7c0-1f87-49ab-bd3f-3c72b6494417",
+        "nombre": "Instagram",
+        "referencia": "https://www.instagram.com/odontologia_lehm/"
+    },
+    {
+        "id": "26f678d6-7730-47aa-a2b9-71f196a39638",
+        "nombre": "Twitter",
+        "referencia": "https://twitter.com/OdontologiaLehm"
+    },
+    {
+        "id": "91b6b3d3-9291-4e5d-a4e4-7cb6dd267ccd",
+        "nombre": "Linkedin",
+        "referencia": "https://www.linkedin.com/company/odontologia-lehm/"
+    },
+    {
+        "id": "1f826e30-82d0-4a92-9c29-6ccf6dc53ae9",
+        "nombre": "email",
+        "referencia": "odontologia.lehm@gmail.com"
+    },
+    {
+        "id": "fca8ad67-dfcd-49dc-9e1a-8e89756f22b4",
+        "nombre": "teléfono",
+        "referencia": "(911) 921-9292"
+    },
+    {
+        "id": "eb4723b2-eacd-4d91-a8a3-dc06efc28e34",
+        "nombre": "Dirección",
+        "referencia": "Av. de la Constitución, s/n"
+    }
+]
