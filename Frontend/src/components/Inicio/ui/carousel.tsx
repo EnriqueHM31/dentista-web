@@ -2,7 +2,7 @@ import { useId } from "react";
 import type { SlideData } from "@/types";
 import Slide from "@/components/Inicio/Carusel/Slide";
 import CarouselControl from "@/components/Inicio/Carusel/CaruselControl";
-import { useCarrusel } from "@/hooks/useCarrusel";
+import { useCarrusel } from "@/hooks/general/useCarrusel";
 
 interface CarouselProps {
   slides: SlideData[];

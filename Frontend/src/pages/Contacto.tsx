@@ -6,7 +6,7 @@ import AnimatedSelect from "@/components/general/Select";
 import { FaUser } from "react-icons/fa";
 import { FaMessage } from "react-icons/fa6";
 import IMAGENCONTACTO from "@/assets/img/contacto.png";
-import { useUtils } from "@/hooks/useUtils";
+import { useUtils } from "@/hooks/general/useUtils";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 

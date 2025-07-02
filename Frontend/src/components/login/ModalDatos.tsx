@@ -2,7 +2,7 @@ import { FaUser } from "react-icons/fa";
 import { RiLockPasswordFill } from "react-icons/ri";
 import { toast } from "sonner";
 import { IoEyeSharp } from "react-icons/io5";
-import { useOpenWithTransition } from "@/hooks/useOpenWithTransition";
+import { useOpenWithTransition } from "@/hooks/general/useOpenWithTransition";
 
 
 export default function ModalDatos() {

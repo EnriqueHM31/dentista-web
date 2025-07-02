@@ -1,6 +1,6 @@
 import { motion, AnimatePresence } from "framer-motion"
 import type { TooltipProps } from "@/types"
-import { useTooltip } from "@/hooks/useTooltip"
+import { useTooltip } from "@/hooks/general/useTooltip"
 
 export default function Tooltip({ text, children, position = "top" }: TooltipProps) {
     const { isHovered, positionClasses, handleClickHovered } = useTooltip()

@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import { FaPhone } from "react-icons/fa6";
 import { IoLogoLinkedin } from "react-icons/io5";
 import Tooltip from '@/components/general/Tooltip';
-import { useUtils } from "@/hooks/useUtils";
+import { useUtils } from "@/hooks/general/useUtils";
 
 export default function Hero() {
     const { handleClickCopy } = useUtils();
