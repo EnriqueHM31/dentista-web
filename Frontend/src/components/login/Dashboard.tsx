@@ -1,23 +1,11 @@
-import { useEffect, useState } from "react";
 import AsideMenu from "@/components/login/AsideMenu";
 import Perfil from "@/components/login/secciones/Perfil";
 import Sociales from "./secciones/Sociales";
 import ListaPreguntas from "./secciones/Preguntas";
+import { useNavAsideLocal } from "@/hooks/admin/useNavAsideLocal";
 
 export default function Dashboard() {
-    const [selected, setSelected] = useState(localStorage.getItem("dashboard_selected") || "perfil");
-
-    // Al cargar, lee el valor de localStorage
-    useEffect(() => {
-        const saved = localStorage.getItem("dashboard_selected");
-        if (saved) setSelected(saved);
-    }, []);
-
-    // Cada vez que cambia, lo guarda en localStorage
-    const handleClickSelected = (id: string) => {
-        setSelected(id);
-        localStorage.setItem("dashboard_selected", id);
-    };
+    const { selected, handleClickSelected } = useNavAsideLocal();
 
     return (
         <div className="flex min-h-screen bg-gray-100">

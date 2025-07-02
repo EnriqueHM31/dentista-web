@@ -1,33 +1,14 @@
 import { FaUser } from "react-icons/fa";
 import { RiLockPasswordFill } from "react-icons/ri";
-import { toast } from "sonner";
 import { IoEyeSharp } from "react-icons/io5";
 import { useOpenWithTransition } from "@/hooks/general/useOpenWithTransition";
+import { useDatosAdmin } from "@/hooks/admin/useDatosAdmin";
 
 
 export default function ModalDatos() {
 
     const { isOpen, toggle } = useOpenWithTransition()
-    const handleMostrarConfirmacion = (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-        toast("¿Estás seguro?", {
-            id: "confirmacion",
-            description: "Esta acción no se puede deshacer.",
-            action: {
-                label: "Aceptar",
-                onClick: () => {
-                    toast.success("Acción confirmada");
-                },
-            },
-            cancel: {
-                label: "Cancelar",
-                onClick: () => {
-                    toast.dismiss("confirmacion");
-                },
-            },
-        });
-    };
-
+    const { handleMostrarConfirmacion } = useDatosAdmin();
 
     return (
         <form action="" className="flex flex-col gap-4 p-4  w-full" onSubmit={(e) => handleMostrarConfirmacion(e)}>

@@ -1,34 +1,9 @@
+import { useLogin } from "@/hooks/admin/useLogin";
 import { AiOutlineDingtalk } from "react-icons/ai";
-import { toast } from "sonner";
 
 export default function Formulario() {
 
-    async function handleLogin(e: React.FormEvent<HTMLFormElement>) {
-        e.preventDefault();
-        const data = new FormData(e.currentTarget);
-        const { username, password } = Object.fromEntries(data);
-
-        try {
-            const response = await fetch("http://localhost:3000/api/login", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ username, password }),
-                credentials: "include", // ✅ importante para recibir cookies httpOnly
-            });
-
-            const result = await response.json();
-
-            if (result.success) {
-                toast.success("Inicio de sesión exitoso");
-
-            } else {
-                toast.error(result.message || "Error al iniciar sesión");
-            }
-        } catch (error) {
-            toast.error("Error de conexión con el servidor" + error + username + password);
-        }
-    }
-
+    const { handleLogin } = useLogin();
     return (
         <div className="bg-transparent">
             <div className="min-h-screen flex flex-col items-center justify-center py-6 px-4">
