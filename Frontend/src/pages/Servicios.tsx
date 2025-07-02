@@ -1,6 +1,6 @@
 
 import SERVICIOS_DATA from "@/assets/mooks/servicios.json";
-import CardServicio from "@/components/Servicios/CardServicio";
+import CardServicio from "@/components/Inicio/Servicios/CardServicio";
 import { motion } from "framer-motion";
 
 
