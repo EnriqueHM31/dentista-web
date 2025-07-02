@@ -4,11 +4,22 @@ import ModalEditar from "../Preguntas/ModalEditar";
 import ModalCrear from "../Preguntas/ModalCrear";
 import { usePreguntas } from "@/hooks/admin/usePreguntas";
 import { useModalIndependiente } from "@/hooks/admin/useModalIndependiente";
+import { useEditarPregunta } from "@/hooks/admin/useEditarPregunta";
+import type { Pregunta } from "@/types";
 
 export default function ListaPreguntas() {
-    const { preguntas, handleGuardar, toggleExpand, handleClickModalEditarPregunta, handleClickModalEditarRespuesta, expandedIds, preguntaSeleccionada, handleClickEliminarPregunta, handleClickEditar, obtenerPreguntas } = usePreguntas();
+    const { preguntas, toggleExpand, expandedIds, handleClickEliminarPregunta, obtenerPreguntas, refrescarPreguntaEditada } = usePreguntas();
 
     const { handleClickActivarModalIndependiente, handleClickDesactivarModal, activeModal } = useModalIndependiente();
+
+    const { preguntaSeleccionada, handleGuardarPreguntaModificada, handleClickModalEditarPregunta, handleClickModalEditarRespuesta, handleClickEditar } = useEditarPregunta();
+
+    const handleEditarPregunta = (preguntaSeleccionada: Pregunta, e: React.FormEvent<HTMLFormElement>) => {
+        handleGuardarPreguntaModificada(e);
+        refrescarPreguntaEditada(preguntaSeleccionada);
+        handleClickDesactivarModal();
+    }
+
 
     const handleCrearNuevaPregunta = () => {
         obtenerPreguntas();
@@ -30,7 +41,7 @@ export default function ListaPreguntas() {
                     handleEditarRespuesta={handleClickModalEditarRespuesta}
                     preguntaSeleccionada={preguntaSeleccionada}
                     toggle={handleClickDesactivarModal}
-                    handleGuardar={handleGuardar}
+                    handleGuardar={(e) => handleEditarPregunta(preguntaSeleccionada as Pregunta, e)}
                 />
             </Modal>
 
