@@ -1,16 +1,5 @@
-interface Pregunta {
-    id: number;
-    pregunta: string;
-    respuesta: string;
-}
+import type { ModalEditarProps } from "@/types";
 
-interface ModalEditarProps {
-    preguntaSeleccionada: Pregunta | null;
-    toggle: () => void;
-    handleEditarPregunta: (e: React.ChangeEvent<HTMLInputElement>) => void;
-    handleEditarRespuesta: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
-    handleGuardar: (e: React.FormEvent<HTMLFormElement>) => void;
-}
 
 
 export default function ModalEditar({ handleEditarPregunta, handleEditarRespuesta, preguntaSeleccionada, toggle, handleGuardar }: ModalEditarProps) {

@@ -2,16 +2,7 @@ import { useOpenWithTransition } from "@/hooks/useOpenWithTransition";
 import { motion } from "framer-motion";
 import Modal from "@/components/general/Modal";
 import ModalServicio from "./ModalServicio";
-
-interface CardServicioProps {
-    servicio: {
-        id: number;
-        name: string;
-        description: string;
-        img: string;
-    };
-    index: number;
-}
+import type { CardServicioProps } from "@/types";
 
 export default function CardServicio({ servicio, index }: CardServicioProps) {
     const { isOpen, open, close } = useOpenWithTransition();

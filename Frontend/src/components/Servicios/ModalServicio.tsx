@@ -1,13 +1,5 @@
 import { motion } from "framer-motion";
-
-interface ModalServicioProps {
-    servicio: {
-        id: number;
-        name: string;
-        description: string;
-        img: string;
-    };
-}
+import type { ModalServicioProps } from "@/types";
 
 export default function ModalServicio({ servicio }: ModalServicioProps) {
     return (

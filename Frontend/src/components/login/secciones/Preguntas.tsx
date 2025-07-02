@@ -1,21 +1,10 @@
-import Modal from "@/components/general/Modal";
 import { useEffect, useState } from "react";
-import {
-    FiPlus,
-    FiEdit,
-    FiTrash2,
-    FiChevronDown,
-    FiChevronUp,
-} from "react-icons/fi";
+import { FiPlus, FiEdit, FiTrash2, FiChevronDown, FiChevronUp, } from "react-icons/fi";
 import { toast } from "sonner";
+import Modal from "@/components/general/Modal";
 import ModalEditar from "../Preguntas/ModalEditar";
 import ModalCrear from "../Preguntas/ModalCrear";
-
-interface Pregunta {
-    id: number;
-    pregunta: string;
-    respuesta: string;
-}
+import type { Pregunta } from "@/types";
 
 export default function ListaPreguntas() {
     const [preguntas, setPreguntas] = useState<Pregunta[]>([]);

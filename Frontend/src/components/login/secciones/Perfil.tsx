@@ -8,7 +8,6 @@ import 'rsuite/Calendar/styles/index.css';
 
 export default function Perfil() {
 
-
     const { isOpen, toggle } = useOpenWithTransition()
     return (
         <section className="flex flex-col gap-4 w-full">

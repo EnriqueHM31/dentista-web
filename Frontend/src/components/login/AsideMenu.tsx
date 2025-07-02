@@ -8,8 +8,8 @@ import { GrServices } from "react-icons/gr";
 import { RiLogoutCircleLine } from "react-icons/ri";
 import { IoShareSocialSharp } from "react-icons/io5";
 import { FaQuestionCircle } from "react-icons/fa";
-import Tooltip from "@/components/general/Tooltip"; // tu tooltip personalizado
-
+import Tooltip from "@/components/general/Tooltip";
+import type { AsideMenuProps } from "@/types";
 
 const menuItems = [
     { label: "Perfil", icon: <AiOutlineUser />, id: "perfil" },
@@ -19,10 +19,7 @@ const menuItems = [
 ];
 const logoutItem = { label: "Cerrar sesión", icon: <RiLogoutCircleLine />, id: "logout" };
 
-interface AsideMenuProps {
-    selected: string
-    handleClickSelected: (id: string) => void
-}
+
 
 export default function AsideMenu({ selected, handleClickSelected }: AsideMenuProps) {
     const [isCollapsed, setIsCollapsed] = useState(false);

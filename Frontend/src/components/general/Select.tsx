@@ -1,18 +1,10 @@
 import { useState, useId } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { FaChevronDown } from "react-icons/fa";
+import type { AnimatedSelectProps } from "@/types";
 
-interface AnimatedSelectProps {
-    name: string;
-    options: string[];
-    onChange?: (value: string) => void;
-}
 
-export default function AnimatedSelect({
-    name,
-    options,
-    onChange,
-}: AnimatedSelectProps) {
+export default function AnimatedSelect({ name, options, onChange }: AnimatedSelectProps) {
     const [selected, setSelected] = useState(options[0]);
     const [isOpen, setIsOpen] = useState(false);
     const id = useId();

@@ -1,22 +1,10 @@
 import { useEffect, useState } from 'react';
 import {
-    FaFacebook,
-    FaLinkedin,
-    FaInstagram,
-    FaTwitter,
-    FaPhone,
-    FaEnvelope,
-    FaMapMarkerAlt,
-    FaEdit,
-    FaSave,
+    FaFacebook, FaLinkedin, FaInstagram, FaTwitter, FaPhone, FaEnvelope, FaMapMarkerAlt, FaEdit, FaSave
 } from 'react-icons/fa';
 import { toast } from 'sonner';
+import type { SocialProps } from "@/types";
 
-interface SocialProps {
-    id: string;
-    nombre: string;
-    referencia: string;
-}
 
 export default function Sociales() {
     const [formData, setFormData] = useState<SocialProps[]>([]);

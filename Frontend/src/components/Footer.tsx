@@ -3,6 +3,7 @@ import { FaFacebookF, FaInstagram, FaTwitter, FaLinkedin } from "react-icons/fa6
 import { LINKS_NAVEGACION } from "@/assets/ts/constantes";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
+import type { SocialProps } from "@/types";
 
 const SOCIALS = [
     { label: 'Facebook', icono: <FaFacebookF className="w-5 h-5" /> },
@@ -11,11 +12,7 @@ const SOCIALS = [
     { label: 'LinkedIn', icono: <FaLinkedin className="w-5 h-5" /> },
 ];
 
-interface SocialProps {
-    id: string;
-    nombre: string;
-    referencia: string;
-}
+
 
 export default function Footer() {
     const [formData, setFormData] = useState<SocialProps[]>([]);

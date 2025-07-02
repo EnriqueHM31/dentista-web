@@ -1,11 +1,4 @@
-interface ModalCrearProps {
-    toggle: () => void;
-    handleCrearPregunta: (e: React.FormEvent<HTMLFormElement>) => void;
-    pregunta: string;
-    respuesta: string;
-    setPregunta: React.Dispatch<React.SetStateAction<string>>;
-    setRespuesta: React.Dispatch<React.SetStateAction<string>>;
-}
+import type { ModalCrearProps } from "@/types";
 
 export default function ModalCrear({ toggle, handleCrearPregunta, pregunta, respuesta, setPregunta, setRespuesta }: ModalCrearProps) {
     return (
