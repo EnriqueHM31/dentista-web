@@ -1,30 +1,29 @@
-import { useState } from "react";
 import { AiOutlineMenuFold, AiOutlineMenuUnfold, } from "react-icons/ai";
 import Tooltip from "@/components/general/Tooltip";
 import type { AsideMenuProps } from "@/types";
 import { getIconosAside, getIconoLogout } from "@/components/general/ObjetosIconos";
+import { useOpenWithTransition } from "@/hooks/general/useOpenWithTransition";
 
 
 export default function AsideMenu({ selected, handleClickSelected }: AsideMenuProps) {
-    const [isCollapsed, setIsCollapsed] = useState(false);
-
+    const { isOpen, toggle } = useOpenWithTransition();
     const menuItems = getIconosAside();
     const { label, icon: Icon, id } = getIconoLogout();
 
     return (
         <aside
-            className={`transition-all duration-300 bg-primary text-white p-4 flex flex-col ${isCollapsed ? "w-20" : "w-64"}`}
+            className={`transition-all duration-300 bg-primary text-white p-4 flex flex-col ${isOpen ? "w-20" : "w-64"}`}
         >
             {/* Expand/Collapse */}
             <div className="flex justify-between items-center mb-6 w-full">
-                {!isCollapsed && <h2 className="text-xl font-bold flex-1 truncate">Admin Panel</h2>}
+                {!isOpen && <h2 className="text-xl font-bold flex-1 truncate">Admin Panel</h2>}
                 <button
                     className="text-white text-xl p-2 cursor-pointer"
-                    onClick={() => setIsCollapsed(!isCollapsed)}
-                    title={isCollapsed ? "Expandir" : "Colapsar"}
-                    aria-label={isCollapsed ? "Expandir" : "Colapsar"}
+                    onClick={toggle}
+                    title={isOpen ? "Expandir" : "Colapsar"}
+                    aria-label={isOpen ? "Expandir" : "Colapsar"}
                 >
-                    {isCollapsed ? <AiOutlineMenuUnfold className="text-2xl" /> : <AiOutlineMenuFold className="text-2xl" />}
+                    {isOpen ? <AiOutlineMenuUnfold className="text-2xl" /> : <AiOutlineMenuFold className="text-2xl" />}
                 </button>
             </div>
 
@@ -41,11 +40,11 @@ export default function AsideMenu({ selected, handleClickSelected }: AsideMenuPr
                             title={label}
                         >
                             <span className="text-2xl"><Icon /></span>
-                            {!isCollapsed && <span className="truncate">{label}</span>}
+                            {!isOpen && <span className="truncate">{label}</span>}
                         </button>
                     );
 
-                    return isCollapsed ? (
+                    return isOpen ? (
                         <Tooltip key={id} text={label} position="right">
                             {button}
                         </Tooltip>
@@ -66,10 +65,10 @@ export default function AsideMenu({ selected, handleClickSelected }: AsideMenuPr
                                 title={label}
                             >
                                 <span className="text-2xl">{<Icon />}</span>
-                                {!isCollapsed && <span className="truncate">{label}</span>}
+                                {!isOpen && <span className="truncate">{label}</span>}
                             </button>
                         );
-                        return isCollapsed ? (
+                        return isOpen ? (
                             <Tooltip text={label} position="right">
                                 {button}
                             </Tooltip>
