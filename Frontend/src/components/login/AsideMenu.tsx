@@ -1,28 +1,15 @@
 import { useState } from "react";
-import {
-    AiOutlineUser,
-    AiOutlineMenuFold,
-    AiOutlineMenuUnfold,
-} from "react-icons/ai";
-import { GrServices } from "react-icons/gr";
-import { RiLogoutCircleLine } from "react-icons/ri";
-import { IoShareSocialSharp } from "react-icons/io5";
-import { FaQuestionCircle } from "react-icons/fa";
+import { AiOutlineMenuFold, AiOutlineMenuUnfold, } from "react-icons/ai";
 import Tooltip from "@/components/general/Tooltip";
 import type { AsideMenuProps } from "@/types";
-
-const menuItems = [
-    { label: "Perfil", icon: <AiOutlineUser />, id: "perfil" },
-    { label: "Servicios", icon: <GrServices />, id: "servicios" },
-    { label: "Sociales", icon: <IoShareSocialSharp />, id: "share" },
-    { label: "Preguntas", icon: <FaQuestionCircle />, id: "faq" },
-];
-const logoutItem = { label: "Cerrar sesión", icon: <RiLogoutCircleLine />, id: "logout" };
-
+import { getIconosAside, getIconoLogout } from "@/components/general/ObjetosIconos";
 
 
 export default function AsideMenu({ selected, handleClickSelected }: AsideMenuProps) {
     const [isCollapsed, setIsCollapsed] = useState(false);
+
+    const menuItems = getIconosAside();
+    const { label, icon: Icon, id } = getIconoLogout();
 
     return (
         <aside
@@ -43,23 +30,23 @@ export default function AsideMenu({ selected, handleClickSelected }: AsideMenuPr
 
             {/* Main menu items */}
             <nav className="space-y-4 flex flex-col flex-grow">
-                {menuItems.map((item) => {
+                {menuItems.map(({ label, id, icon: Icon }) => {
                     const button = (
                         <button
-                            key={item.id}
-                            onClick={() => handleClickSelected(item.id)}
-                            className={`group flex cursor-pointer items-center gap-3 w-full text-left p-3 rounded hover:bg-blue-900 transition ${selected === item.id ? "bg-blue-900" : ""
+                            key={id}
+                            onClick={() => handleClickSelected(id)}
+                            className={`group flex cursor-pointer -center gap-3 w-full text-left p-3 rounded hover:bg-blue-900 transition ${selected === id ? "bg-blue-900" : ""
                                 }`}
-                            aria-label={item.label}
-                            title={item.label}
+                            aria-label={label}
+                            title={label}
                         >
-                            <span className="text-2xl">{item.icon}</span>
-                            {!isCollapsed && <span className="truncate">{item.label}</span>}
+                            <span className="text-2xl"><Icon /></span>
+                            {!isCollapsed && <span className="truncate">{label}</span>}
                         </button>
                     );
 
                     return isCollapsed ? (
-                        <Tooltip key={item.id} text={item.label} position="right">
+                        <Tooltip key={id} text={label} position="right">
                             {button}
                         </Tooltip>
                     ) : (
@@ -72,18 +59,18 @@ export default function AsideMenu({ selected, handleClickSelected }: AsideMenuPr
                     {(() => {
                         const button = (
                             <button
-                                onClick={() => handleClickSelected(logoutItem.id)}
-                                className={`group flex cursor-pointer items-center gap-3 w-full text-left p-3 rounded hover:bg-blue-900 transition ${selected === logoutItem.id ? "bg-blue-900" : ""
+                                onClick={() => handleClickSelected(id)}
+                                className={`group flex cursor-pointer items-center gap-3 w-full text-left p-3 rounded hover:bg-blue-900 transition ${selected === id ? "bg-blue-900" : ""
                                     }`}
-                                aria-label={logoutItem.label}
-                                title={logoutItem.label}
+                                aria-label={label}
+                                title={label}
                             >
-                                <span className="text-2xl">{logoutItem.icon}</span>
-                                {!isCollapsed && <span className="truncate">{logoutItem.label}</span>}
+                                <span className="text-2xl">{<Icon />}</span>
+                                {!isCollapsed && <span className="truncate">{label}</span>}
                             </button>
                         );
                         return isCollapsed ? (
-                            <Tooltip text={logoutItem.label} position="right">
+                            <Tooltip text={label} position="right">
                                 {button}
                             </Tooltip>
                         ) : (
