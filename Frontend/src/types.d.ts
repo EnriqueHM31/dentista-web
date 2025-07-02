@@ -46,11 +46,7 @@ interface SlideProps {
 
 interface ModalCrearProps {
     toggle: () => void;
-    handleCrearPregunta: (e: React.FormEvent<HTMLFormElement>) => void;
-    pregunta: string;
-    respuesta: string;
-    setPregunta: React.Dispatch<React.SetStateAction<string>>;
-    setRespuesta: React.Dispatch<React.SetStateAction<string>>;
+    handleCrearNuevaPregunta: () => void;
 }
 
 interface Pregunta {

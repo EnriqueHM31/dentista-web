@@ -1,8 +1,15 @@
+import { useCrearPregunta } from "@/hooks/admin/useCrearPregunta";
 import type { ModalCrearProps } from "@/types";
 
-export default function ModalCrear({ toggle, handleCrearPregunta, pregunta, respuesta, setPregunta, setRespuesta }: ModalCrearProps) {
+export default function ModalCrear({ toggle, handleCrearNuevaPregunta }: ModalCrearProps) {
+
+    const { handleCrearPregunta, preguntaForm, handleCambiarPregunta, handleCambiarRespuesta } = useCrearPregunta();
+
     return (
-        <form onSubmit={handleCrearPregunta} className="w-full p-6">
+        <form onSubmit={async (e) => {
+            await handleCrearPregunta(e);
+            await handleCrearNuevaPregunta();
+        }} className="w-full p-6">
             <h2 className="text-xl font-semibold mb-4 text-primary">Agregar nueva pregunta</h2>
 
             <div className="mb-4">
@@ -12,8 +19,8 @@ export default function ModalCrear({ toggle, handleCrearPregunta, pregunta, resp
                 <input
                     id="pregunta"
                     type="text"
-                    value={pregunta}
-                    onChange={(e) => setPregunta(e.target.value)}
+                    value={preguntaForm.pregunta}
+                    onChange={(e) => handleCambiarPregunta(e)}
                     className="w-full border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary"
                     required
                 />
@@ -25,8 +32,8 @@ export default function ModalCrear({ toggle, handleCrearPregunta, pregunta, resp
                 </label>
                 <textarea
                     id="respuesta"
-                    value={respuesta}
-                    onChange={(e) => setRespuesta(e.target.value)}
+                    value={preguntaForm.respuesta}
+                    onChange={(e) => handleCambiarRespuesta(e)}
                     className="w-full border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary resize-none scrollbar-hide"
                     rows={5}
                     required
@@ -37,13 +44,13 @@ export default function ModalCrear({ toggle, handleCrearPregunta, pregunta, resp
                 <button
                     type="button"
                     onClick={toggle}
-                    className="px-4 py-2 rounded bg-gray-200 text-gray-700 hover:bg-gray-300 transition"
+                    className="px-4 py-2 rounded bg-gray-200 text-gray-700 hover:bg-gray-300 transition cursor-pointer"
                 >
                     Cancelar
                 </button>
                 <button
                     type="submit"
-                    className="px-4 py-2 rounded bg-primary text-white hover:bg-primary-dark transition"
+                    className="px-4 py-2 rounded bg-primary text-white hover:bg-primary-dark transition cursor-pointer"
                 >
                     Crear
                 </button>
