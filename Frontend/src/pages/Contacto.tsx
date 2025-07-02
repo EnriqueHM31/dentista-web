@@ -7,16 +7,74 @@ import { FaUser } from "react-icons/fa";
 import { FaMessage } from "react-icons/fa6";
 import IMAGENCONTACTO from "@/assets/img/contacto.png";
 import { useUtils } from "@/hooks/useUtils";
+import { useEffect, useState } from "react";
+import { toast } from "sonner";
 
 const MAS_CONTACTOS = [
-    { icono: <CgPhone className="text-2xl " />, link: "+56 111 111 1111" },
-    { icono: <MdEmail className="text-2xl" />, link: "dentista@gmail.com" },
-    { icono: <FaMapMarkerAlt className="text-2xl " />, link: "Calle 123, 123 123 123" },
+    { icono: <CgPhone className="text-2xl " />, label: "Telefono" },
+    { icono: <MdEmail className="text-2xl" />, label: "Correo" },
+    { icono: <FaMapMarkerAlt className="text-2xl " />, label: "Direccion" },
 ]
+
+interface SocialProps {
+    id: string;
+    nombre: string;
+    referencia: string;
+}
 
 export default function Contacto() {
 
     const { handleClickCopy } = useUtils();
+
+
+    const [formData, setFormData] = useState<SocialProps[]>([]);
+
+    const handleSubmitCorreo = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        const data = new FormData(e.currentTarget);
+        const { categoria, username, email, message } = Object.fromEntries(data);
+
+        try {
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/contacto`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ categoria, username, email, message }),
+                credentials: "include", // ✅ importante para recibir cookies httpOnly
+            });
+            if (response.ok) {
+                toast.success("Mensaje enviado exitosamente");
+            } else {
+                throw new Error();
+            }
+        } catch (error) {
+            console.error("Error al enviar mensaje", error);
+            toast.error("Error al enviar mensaje");
+        }
+        console.log(categoria, username, email, message);
+    }
+
+    useEffect(() => {
+
+        const obtenerDatosSociales = async () => {
+            try {
+                const res = await fetch(`${import.meta.env.VITE_API_URL}/sociales`);
+                const { message } = await res.json();
+                if (!Array.isArray(message)) {
+                    throw new Error('El formato recibido no es un arreglo');
+                }
+
+                const nombresSocials = MAS_CONTACTOS.map(s => s.label);
+                const sociales = message.filter(item => nombresSocials.includes(item.nombre));
+                setFormData(sociales);
+            } catch (err) {
+                console.error(err);
+                toast.error('Error al cargar redes sociales');
+            }
+
+        };
+        obtenerDatosSociales();
+    }, []);
+
     return (
         <>
             <section className=" w-full gap-12 mt-20 py-20 md:py-15 xl:py-10 min-h-screen flex justify-center    max-w-10/12 mx-auto p-6 items-stretch " id="contacto">
@@ -25,10 +83,10 @@ export default function Contacto() {
                         <TituloSeccion titulo="Hablemos de algo interesante juntos" clases="text-start max-w-3/4" />
                         <ul>
                             {
-                                MAS_CONTACTOS.map(({ icono, link }, index) => (
-                                    <li key={index} className="flex gap-4 items-center px-4 py-3 rounded-2xl hover:bg-primary/90 transition duration-300 ease-in-out w-full cursor-pointer max-w-1/2 text-primary hover:text-white" onClick={() => handleClickCopy(link, `Se ha copiado ${link}`)}>
-                                        {icono}
-                                        <p>{link}</p>
+                                formData.map(({ id, nombre, referencia }) => (
+                                    <li key={id} className="flex gap-4 items-center px-4 py-3 rounded-2xl hover:bg-primary/90 transition duration-300 ease-in-out w-full cursor-pointer max-w-1/2 text-primary hover:text-white" onClick={() => handleClickCopy(referencia, `Se ha copiado ${referencia}`)}>
+                                        {MAS_CONTACTOS.find(s => s.label === nombre)?.icono}
+                                        <p>{referencia}</p>
                                     </li>
                                 ))
                             }
@@ -42,7 +100,7 @@ export default function Contacto() {
                 </div >
 
                 <div className="flex-1 h-full min-h-screen">
-                    <form action="" className="flex flex-col gap-8 bg-primary text-white p-8 rounded-2xl h-full min-h-screen ">
+                    <form action="" className="flex flex-col gap-8 bg-primary text-white p-8 rounded-2xl h-full min-h-screen" onSubmit={(e) => handleSubmitCorreo(e)}>
                         <h2>Estoy interesado en...</h2>
                         <AnimatedSelect
                             name="categoria"
@@ -60,7 +118,6 @@ export default function Contacto() {
                                 name="username"
                                 required
                                 placeholder="Nombre del cliente"
-                                pattern="[A-Za-z][A-Za-z0-9\-]*"
                                 minLength={3}
                                 maxLength={30}
                                 title="Only letters, numbers, or dashes. Must start with a letter."

@@ -8,31 +8,38 @@ interface Pregunta {
     pregunta: string;
     respuesta: string;
 }
+
 export default function SectionPreguntas() {
-    const [preguntaActiva, setPreguntaActiva] = useState<number | null>(0);
+    // Inicializamos en 0 para que la primera pregunta esté activa al cargar
+    const [preguntaActiva, setPreguntaActiva] = useState<number>(0);
     const [preguntas, setPreguntas] = useState<Pregunta[]>([]);
 
     const handleClick = (index: number) => {
-        setPreguntaActiva(prev => (prev === index ? null : index));
+        setPreguntaActiva(prev => (prev === index ? -1 : index));
+        // Opcional: si quieres que al darle clic a la misma pregunta se desactive, usa -1 o null
     };
 
-
     useEffect(() => {
-
         const obtenerPreguntas = async () => {
             try {
                 const res = await fetch(`${import.meta.env.VITE_API_URL}/preguntas`);
                 const { message } = await res.json();
                 if (!Array.isArray(message)) throw new Error("Formato inválido");
                 setPreguntas(message);
+
+                // Opcional: si quieres que al cargar active la primera pregunta solo si hay preguntas
+                if (message.length > 0) {
+                    setPreguntaActiva(0);
+                } else {
+                    setPreguntaActiva(-1); // Ninguna activa si no hay preguntas
+                }
             } catch (err) {
                 console.error(err);
                 toast.error("Error al cargar preguntas");
             }
-
         };
         obtenerPreguntas();
-    }, [])
+    }, []);
 
     return (
         <motion.section
@@ -56,8 +63,8 @@ export default function SectionPreguntas() {
                         key={index}
                         onClick={() => handleClick(index)}
                         className={`px-4 py-2 rounded-full border transition-colors duration-200 cursor-pointer text-sm font-medium ${preguntaActiva === index
-                            ? "bg-primary text-white border-primary"
-                            : "bg-white text-primary border-primary hover:bg-primary hover:text-white"
+                                ? "bg-primary text-white border-primary"
+                                : "bg-white text-primary border-primary hover:bg-primary hover:text-white"
                             }`}
                     >
                         {pregunta}
@@ -67,9 +74,8 @@ export default function SectionPreguntas() {
 
             {/* Respuesta visible */}
             <div className="flex-1 w-full flex items-start justify-center">
-
                 <AnimatePresence mode="wait">
-                    {preguntaActiva !== null && (
+                    {preguntaActiva !== -1 && preguntas[preguntaActiva] && (
                         <motion.div
                             key={preguntaActiva}
                             initial={{ opacity: 0, y: 10 }}

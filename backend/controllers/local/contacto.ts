@@ -3,13 +3,13 @@ import { ModeloContacto } from '../../models/local/contacto';
 
 export class ContrallerContacto {
     static async EnviarMensaje(req: Request, res: Response) {
-        const { nombre, email, interes, mensaje } = req.body;
+        const { username, email, categoria, message: mensaje } = req.body;
 
-        if (!nombre || !email || !mensaje || !interes) {
+        if (!username || !email || !mensaje || !categoria) {
             res.status(400).json({ error: 'Faltan datos' });
         }
 
-        const { success, message } = await ModeloContacto.EnviarMensaje(nombre, email, interes, mensaje);
+        const { success, message } = await ModeloContacto.EnviarMensaje(username, email, categoria, mensaje);
 
         if (success) {
             res.status(200).json({ message });

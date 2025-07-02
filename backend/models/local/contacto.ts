@@ -9,7 +9,7 @@ export class ModeloContacto {
             text: mensaje,
             html: `
             <div style="background-color: rgb(2, 19, 49); color: #ffffff; font-family: Arial, sans-serif; padding: 24px; border-radius: 10px; max-width: 600px; margin: auto;">
-            <h1 style="font-size: 24px; margin: 0; text-align: center;">Nuevo mensaje desde el formulario de contacto</h1>
+            <h1 style="font-size: 24px; margin: 0; text-align: center;">Nuevo mensaje desde Odontología LEHM</h1>
             
             <p style="font-size: 16px; margin: 10px 0;">
             <strong>Nombre:</strong> ${nombre}
