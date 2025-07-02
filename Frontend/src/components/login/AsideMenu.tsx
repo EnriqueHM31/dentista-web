@@ -8,7 +8,7 @@ import { GrServices } from "react-icons/gr";
 import { RiLogoutCircleLine } from "react-icons/ri";
 import { IoShareSocialSharp } from "react-icons/io5";
 import { FaQuestionCircle } from "react-icons/fa";
-import Tooltip from "@/components/Inicio/ui/Tooltip"; // tu tooltip personalizado
+import Tooltip from "@/components/general/Tooltip"; // tu tooltip personalizado
 
 
 const menuItems = [
