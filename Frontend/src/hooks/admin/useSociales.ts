@@ -1,21 +1,23 @@
+import { getDataSociales, updateSocial } from "@/services/Sociales";
 import type { SocialProps } from "@/types";
 import { useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
 
 export function useSociales() {
     const [social, setSocial] = useState<SocialProps[]>([]);
-    const originalSocialRef = useRef<SocialProps[]>([]); // 👈 Referencia mutable
+    const originalSocialRef = useRef<SocialProps[]>([]);
     const [editMode, setEditMode] = useState<Record<string, boolean>>({});
 
     useEffect(() => {
         const obtenerDatosSociales = async () => {
             try {
-                const res = await fetch(`${import.meta.env.VITE_API_URL}/sociales`);
-                const { message } = await res.json();
-                if (!Array.isArray(message)) throw new Error('El formato recibido no es un arreglo');
-
+                const { success, message } = await getDataSociales();
+                if (!success) {
+                    toast.error('Error al cargar redes sociales');
+                    return;
+                }
                 setSocial(message);
-                originalSocialRef.current = message; // 👈 Guardamos datos originales sin setState
+                originalSocialRef.current = message;
             } catch (err) {
                 console.error(err);
                 toast.error('Error al cargar redes sociales');
@@ -50,13 +52,14 @@ export function useSociales() {
 
         try {
             for (const cambio of cambios) {
-                await fetch(`${import.meta.env.VITE_API_URL}/sociales/${cambio.id}`, {
-                    method: 'PUT',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ referencia: cambio.referencia }),
-                });
-            }
+                const { id, referencia } = cambio;
 
+                const { success, message } = await updateSocial(id, referencia);
+                if (!success) {
+                    toast.error(`Error al actualizar ${cambio.nombre}: ${message}`);
+                    return;
+                }
+            }
             toast.success('Cambios guardados exitosamente');
             originalSocialRef.current = [...social];
             setEditMode({});
