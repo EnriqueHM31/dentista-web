@@ -4,7 +4,6 @@ import type { AsideMenuProps } from "@/types";
 import { getIconosAside, getIconoLogout } from "@/components/general/ObjetosIconos";
 import { useOpenWithTransition } from "@/hooks/general/useOpenWithTransition";
 import BotonItemAside from "./aside/BotonItemAside";
-import BotonLOgoutAside from "./aside/BotonLOgoutAside";
 
 
 export default function AsideMenu({ selected, handleClickSelected }: AsideMenuProps) {
@@ -64,7 +63,7 @@ export default function AsideMenu({ selected, handleClickSelected }: AsideMenuPr
 
                         return isOpen ? (
                             <Tooltip text={label} position="right">
-                                <BotonLOgoutAside
+                                <BotonItemAside
                                     key={id}
                                     id={id}
                                     label={label}
@@ -75,7 +74,7 @@ export default function AsideMenu({ selected, handleClickSelected }: AsideMenuPr
                                 />
                             </Tooltip>
                         ) : (
-                            <BotonLOgoutAside
+                            <BotonItemAside
                                 key={id}
                                 id={id}
                                 label={label}
