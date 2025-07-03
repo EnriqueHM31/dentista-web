@@ -7,6 +7,7 @@ import { contactoRouter } from '../routes/contacto';
 import { SocialesRoutes } from '../routes/sociales';
 import { LoginRouter } from '../routes/login';
 import { PreguntasRoutes } from '../routes/preguntas';
+import { UsuarioRouter } from '../routes/datausuario';
 
 
 const PORT = 3000
@@ -36,6 +37,7 @@ app.use('/api/contacto', contactoRouter);
 app.use('/api/sociales', SocialesRoutes);
 app.use('/api/login', LoginRouter);
 app.use('/api/preguntas', PreguntasRoutes);
+app.use('/api/usuario', UsuarioRouter);
 
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`)
