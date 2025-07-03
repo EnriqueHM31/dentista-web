@@ -3,6 +3,8 @@ import Tooltip from "@/components/general/Tooltip";
 import type { AsideMenuProps } from "@/types";
 import { getIconosAside, getIconoLogout } from "@/components/general/ObjetosIconos";
 import { useOpenWithTransition } from "@/hooks/general/useOpenWithTransition";
+import BotonItemAside from "./aside/BotonItemAside";
+import BotonLOgoutAside from "./aside/BotonLOgoutAside";
 
 
 export default function AsideMenu({ selected, handleClickSelected }: AsideMenuProps) {
@@ -30,50 +32,58 @@ export default function AsideMenu({ selected, handleClickSelected }: AsideMenuPr
             {/* Main menu items */}
             <nav className="space-y-4 flex flex-col flex-grow">
                 {menuItems.map(({ label, id, icon: Icon }) => {
-                    const button = (
-                        <button
-                            key={id}
-                            onClick={() => handleClickSelected(id)}
-                            className={`group flex cursor-pointer -center gap-3 w-full text-left p-3 rounded hover:bg-blue-900 transition ${selected === id ? "bg-blue-900" : ""
-                                }`}
-                            aria-label={label}
-                            title={label}
-                        >
-                            <span className="text-2xl"><Icon /></span>
-                            {!isOpen && <span className="truncate">{label}</span>}
-                        </button>
-                    );
 
                     return isOpen ? (
                         <Tooltip key={id} text={label} position="right">
-                            {button}
+                            <BotonItemAside
+                                key={id}
+                                id={id}
+                                label={label}
+                                Icon={<Icon />}
+                                isOpen={isOpen}
+                                selected={selected}
+                                handleClickSelected={handleClickSelected}
+                            />
                         </Tooltip>
                     ) : (
-                        button
+                        <BotonItemAside
+                            key={id}
+                            id={id}
+                            label={label}
+                            Icon={<Icon />}
+                            isOpen={isOpen}
+                            selected={selected}
+                            handleClickSelected={handleClickSelected}
+                        />
                     );
                 })}
 
                 {/* Logout (siempre al final) */}
                 <div className="mt-auto">
                     {(() => {
-                        const button = (
-                            <button
-                                onClick={() => handleClickSelected(id)}
-                                className={`group flex cursor-pointer items-center gap-3 w-full text-left p-3 rounded hover:bg-blue-900 transition ${selected === id ? "bg-blue-900" : ""
-                                    }`}
-                                aria-label={label}
-                                title={label}
-                            >
-                                <span className="text-2xl">{<Icon />}</span>
-                                {!isOpen && <span className="truncate">{label}</span>}
-                            </button>
-                        );
+
                         return isOpen ? (
                             <Tooltip text={label} position="right">
-                                {button}
+                                <BotonLOgoutAside
+                                    key={id}
+                                    id={id}
+                                    label={label}
+                                    Icon={<Icon />}
+                                    isOpen={isOpen}
+                                    selected={selected}
+                                    handleClickSelected={handleClickSelected}
+                                />
                             </Tooltip>
                         ) : (
-                            button
+                            <BotonLOgoutAside
+                                key={id}
+                                id={id}
+                                label={label}
+                                Icon={<Icon />}
+                                isOpen={isOpen}
+                                selected={selected}
+                                handleClickSelected={handleClickSelected}
+                            />
                         );
                     })()}
                 </div>
