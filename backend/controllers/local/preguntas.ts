@@ -7,7 +7,7 @@ export class ControllerPreguntas {
             const { success, message } = await ModeloPreguntas.getAll();
 
             if (success) {
-                res.status(200).json({ message });
+                res.status(200).json({ success, message });
             } else {
                 res.status(500).json({ message });
             }
@@ -26,9 +26,9 @@ export class ControllerPreguntas {
         const { success, message } = await ModeloPreguntas.createPregunta(pregunta, respuesta);
 
         if (success) {
-            res.status(200).json({ message });
+            res.status(200).json({ success, message });
         } else {
-            res.status(500).json({ message });
+            res.status(500).json({ success, message });
         }
     }
 
@@ -43,9 +43,9 @@ export class ControllerPreguntas {
         const { success, message } = await ModeloPreguntas.updatePregunta(id, pregunta, respuesta);
 
         if (success) {
-            res.status(200).json({ message });
+            res.status(200).json({ success, message });
         } else {
-            res.status(500).json({ message });
+            res.status(500).json({ success, message });
         }
     }
 
@@ -59,9 +59,9 @@ export class ControllerPreguntas {
         const { success, message } = await ModeloPreguntas.deletePregunta(id);
 
         if (success) {
-            res.status(200).json({ message });
+            res.status(200).json({ success, message });
         } else {
-            res.status(500).json({ message });
+            res.status(500).json({ success, message });
         }
     }
 }
