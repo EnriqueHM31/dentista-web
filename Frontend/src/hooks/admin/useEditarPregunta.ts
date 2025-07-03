@@ -1,4 +1,5 @@
 
+import { updatePregunta } from "@/services/Preguntas";
 import type { Pregunta } from "@/types";
 import { useState } from "react";
 import { toast } from "sonner";
@@ -30,17 +31,17 @@ export function useEditarPregunta() {
         e.preventDefault();
         const toastId = toast.loading("Guardando cambios...");
         try {
-            await fetch(`${import.meta.env.VITE_API_URL}/preguntas/${preguntaSeleccionada?.id}`, {
-                method: "PUT",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({
-                    pregunta: preguntaSeleccionada?.pregunta,
-                    respuesta: preguntaSeleccionada?.respuesta,
-                }),
-            });
+            if (!preguntaSeleccionada) {
+                toast.error("No hay pregunta seleccionada", { id: toastId });
+                return;
+            }
 
+            const { success, message } = await updatePregunta(preguntaSeleccionada?.id, preguntaSeleccionada?.pregunta, preguntaSeleccionada?.respuesta);
 
-
+            if (!success) {
+                toast.error(message, { id: toastId });
+                return;
+            }
             toast.success("Cambios guardados exitosamente", { id: toastId });
         } catch (err) {
             toast.error("Error al guardar los cambios " + err, { id: toastId });

@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { toast } from "sonner";
 import { useState } from "react";
 import type { Pregunta } from "@/types";
+import { deletePregunta, getDataPreguntas } from "@/services/Preguntas";
 
 export function usePreguntas() {
 
@@ -10,9 +11,12 @@ export function usePreguntas() {
 
     const obtenerPreguntas = async () => {
         try {
-            const res = await fetch(`${import.meta.env.VITE_API_URL}/preguntas`);
-            const { message } = await res.json();
-            if (!Array.isArray(message)) throw new Error("Formato inválido");
+            const { success, message } = await getDataPreguntas();
+
+            if (!success) {
+                toast.error("Error al cargar preguntas");
+                return;
+            }
             setPreguntas(message);
         } catch (err) {
             console.error(err);
@@ -43,9 +47,12 @@ export function usePreguntas() {
     const handleClickEliminarPregunta = async (id: number) => {
 
         try {
-            await fetch(`${import.meta.env.VITE_API_URL}/preguntas/${id}`, {
-                method: "DELETE",
-            });
+            const { success, message } = await deletePregunta(id);
+
+            if (!success) {
+                toast.error(message);
+                return;
+            }
             setPreguntas(prev => prev.filter(p => p.id !== id));
             toast.success("Pregunta eliminada");
         } catch (err) {

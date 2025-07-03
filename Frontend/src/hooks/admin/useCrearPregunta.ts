@@ -1,3 +1,4 @@
+import { createPregunta } from "@/services/Preguntas";
 import { useState } from "react";
 import { toast } from "sonner";
 
@@ -12,18 +13,13 @@ export function useCrearPregunta() {
         const { pregunta, respuesta } = preguntaForm;
         const toastId = toast.loading("Creando pregunta...");
         try {
-            const res = await fetch(`${import.meta.env.VITE_API_URL}/preguntas`, {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ pregunta, respuesta }),
-            });
-
-            if (res.ok) {
-                toast.success("Pregunta creada exitosamente", { id: toastId });
-                setPreguntaForm({ pregunta: "", respuesta: "" });
-            } else {
-                throw new Error();
+            const { success, message } = await createPregunta(pregunta, respuesta);
+            if (!success) {
+                toast.error(message, { id: toastId });
+                return;
             }
+            toast.success("Pregunta creada exitosamente", { id: toastId });
+            setPreguntaForm({ pregunta: "", respuesta: "" });
         } catch {
             toast.error("Error al crear la pregunta", { id: toastId });
         }
