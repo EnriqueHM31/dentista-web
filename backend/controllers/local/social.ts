@@ -7,9 +7,9 @@ export class ContrallerSocial {
             const { success, message } = await ModeloSocial.getAll();
 
             if (success) {
-                res.status(200).json({ message });
+                res.status(200).json({ success, message });
             } else {
-                res.status(500).json({ message });
+                res.status(500).json({ success, message });
             }
         } catch (error) {
             res.status(500).json({ message: 'Ocurrio un error interno del servidor' });
@@ -27,9 +27,9 @@ export class ContrallerSocial {
         const { success, message } = await ModeloSocial.updateSocial(id, referencia);
 
         if (success) {
-            res.status(200).json({ message });
+            res.status(200).json({ success, message });
         } else {
-            res.status(500).json({ message });
+            res.status(500).json({ success, message });
         }
     }
 
