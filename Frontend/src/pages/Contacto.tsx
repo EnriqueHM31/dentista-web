@@ -50,7 +50,6 @@ export default function Contacto() {
             console.error("Error al enviar mensaje", error);
             toast.error("Error al enviar mensaje");
         }
-        console.log(categoria, username, email, message);
     }
 
     useEffect(() => {
@@ -105,7 +104,6 @@ export default function Contacto() {
                         <AnimatedSelect
                             name="categoria"
                             options={["Opción 1", "Opción 2", "Opción 3"]}
-                            onChange={(v) => console.log("Seleccionado:", v)}
                         />
 
                         <h3 className="text-2xl font-bold mt-12">¿Quieres saber más?</h3>
