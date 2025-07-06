@@ -3,4 +3,7 @@ import { ContrallerUsuario } from '../controllers/local/usuario';
 
 export const UsuarioRouter = Router();
 
-UsuarioRouter.put('/:id', ContrallerUsuario.updateUsuario);
+
+UsuarioRouter.get('/', ContrallerUsuario.getUsuario);
+
+UsuarioRouter.put('/', ContrallerUsuario.updateUsuario);
