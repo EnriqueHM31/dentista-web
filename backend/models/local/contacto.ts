@@ -36,7 +36,6 @@ export class ModeloContacto {
             return { success: true, message: 'Mensaje enviado correctamente' };
         }
         catch (error) {
-            console.error(error);
             return { success: false, message: 'Error enviando el mensaje' };
         }
 
