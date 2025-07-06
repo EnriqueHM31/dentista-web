@@ -7,6 +7,5 @@ const db = mysql.createPool({
     database: 'odontologia',
 });
 
-console.log(db)
 
 export default db;
