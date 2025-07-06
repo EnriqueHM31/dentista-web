@@ -21,7 +21,7 @@ export default function Perfil() {
             <CalendarioCitas />
 
             <Modal isOpen={isOpen} onClose={toggle} clases="max-w-1/3 flex items-center justify-center">
-                <ModalDatos />
+                <ModalDatos toggle={toggle} />
             </Modal>
 
         </section>
