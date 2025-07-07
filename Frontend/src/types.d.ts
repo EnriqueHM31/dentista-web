@@ -77,7 +77,7 @@ interface AsideMenuProps {
 
 interface ModalServicioProps {
     servicio: {
-        id: number;
+        id: `${string}-${string}-${string}-${string}-${string}`;
         name: string;
         description: string;
         img: string;
@@ -86,11 +86,11 @@ interface ModalServicioProps {
 
 interface CardServicioProps {
     servicio: {
-        id: number;
+        id: `${string}-${string}-${string}-${string}-${string}`;
         name: string;
         description: string;
         img: string;
-    };
+    }
     index: number;
 }
 
