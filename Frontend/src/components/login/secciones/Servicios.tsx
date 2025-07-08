@@ -18,7 +18,7 @@ interface ServicioResponse extends Servicio {
 
 export default function Servicios() {
     const { isOpen, toggle } = useOpenWithTransition();
-    const { servicios, serviciosRef } = useGetServicios();
+    const { servicios, serviciosRef, refrescarUpdateServicio } = useGetServicios();
     const [preview, setPreview] = useState<keyof Servicio | null>('name');
     const [formValues, setFormValues] = useState<ServicioResponse>({ id: "", name: "", description: "", img: "" });
 
@@ -54,23 +54,25 @@ export default function Servicios() {
 
         // Si hay cambios, confirmar
         toast("¿Estás seguro que quieres guardar los cambios?", {
-            description: "Los cambios se guardarán en el servidor.",
             action: {
                 label: "Guardar",
                 onClick: async () => {
                     try {
-                        const formData = new FormData();
-                        cambios.forEach((key) => {
-                            formData.append(key, formValues[key]);
-                        });
+                        const data = cambios.reduce((acc, key) => {
+                            acc[key] = formValues[key];
+                            return acc;
+                        }, {} as Partial<ServicioResponse>);
 
-                        console.log(formData);
+                        console.log(data);
 
                         const response = await fetch(
                             `${import.meta.env.VITE_API_URL}/servicios/${id}`,
                             {
                                 method: "PUT",
-                                body: formData,
+                                body: JSON.stringify(data),
+                                headers: {
+                                    "content-type": "application/json",
+                                }
                             }
                         );
 
@@ -78,6 +80,7 @@ export default function Servicios() {
 
                         if (success) {
                             toast.success("Cambios guardados correctamente");
+                            refrescarUpdateServicio(id, data);
                             toggle(); // cerrar modal
                         } else {
                             toast.error(message || "Error al guardar los cambios.");
@@ -206,11 +209,11 @@ export default function Servicios() {
             <section className="flex flex-col gap-6">
                 <h2 className="text-2xl font-semibold text-primary">Servicios</h2>
 
-                <ul className="grid md:grid-cols-2 grid-cols-1 w-full gap-6">
+                <ul className="grid xl:grid-cols-2 md:grid-cols-1 w-full gap-6">
                     {servicios.map((servicio) => (
                         <li
                             key={servicio.id}
-                            className="flex justify-between bg-primary text-white px-4 py-2 rounded-lg"
+                            className="flex gap-3 justify-between bg-primary text-white px-4 py-2 rounded-lg"
                         >
                             <h3>{servicio.name}</h3>
                             <div className="flex gap-5">
