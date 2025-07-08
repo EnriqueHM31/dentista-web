@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
 
 interface ServicioResponse {
-    id: `${string}-${string}-${string}-${string}-${string}` | "";
+    id: `${string}-${string}-${string}-${string}-${string}`;
     name: string;
     description: string;
     img: string;
@@ -30,5 +30,28 @@ export function useGetServicios() {
     }, []);
 
 
-    return { servicios, serviciosRef: formRef };
+    const refrescarUpdateServicio = (id: string, updatedValues: { name?: string; description?: string; img?: string }) => {
+        const index = formRef.current.findIndex((s) => s.id === id);
+        if (index === -1) {
+            toast.error("Servicio no encontrado");
+            return;
+        }
+
+        // Lista blanca de claves válidas
+        const allowedKeys: (keyof ServicioResponse)[] = ['name', 'description', 'img'];
+
+        const filteredValues = Object.keys(updatedValues)
+            .filter((key): key is keyof { name: string; description: string; img: string } => allowedKeys.includes(key as keyof ServicioResponse))
+            .reduce((acc, key) => {
+                acc[key] = updatedValues[key];
+                return acc;
+            }, {} as Partial<{ name: string; description: string; img: string }>);
+
+        formRef.current[index] = { ...formRef.current[index], ...filteredValues };
+        setServicios([...formRef.current]);
+    };
+
+
+
+    return { servicios, serviciosRef: formRef, refrescarUpdateServicio };
 }
