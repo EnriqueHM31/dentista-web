@@ -3,6 +3,7 @@ import Perfil from "@/components/login/secciones/Perfil";
 import Sociales from "./secciones/Sociales";
 import ListaPreguntas from "./secciones/Preguntas";
 import { useNavAsideLocal } from "@/hooks/admin/useNavAsideLocal";
+import Servicios from "./secciones/Servicios";
 
 export default function Dashboard() {
     const { selected, handleClickSelected } = useNavAsideLocal();
@@ -15,7 +16,7 @@ export default function Dashboard() {
             <main className="flex-1 p-6">
                 <div className="bg-white rounded shadow">
                     {selected === "perfil" && <Perfil />}
-                    {selected === "servicios" && <p>Administrar servicios ofrecidos.</p>}
+                    {selected === "servicios" && <Servicios />}
                     {selected === "share" && <Sociales />}
                     {selected === "faq" && <ListaPreguntas />}
                     {selected === "logout" && <p>¿Seguro que quieres cerrar sesión?</p>}
