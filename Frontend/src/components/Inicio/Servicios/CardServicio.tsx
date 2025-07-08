@@ -26,8 +26,8 @@ export default function CardServicio({ servicio, index }: CardServicioProps) {
                 initial={{ opacity: 0, y: 30, scale: 0.95 }}
                 whileInView={{ opacity: 1, y: 0, scale: 1 }}
                 transition={{
-                    duration: 0.4,
-                    delay: index * 0.1,
+                    duration: 0.3,
+                    delay: index * 0.05,
                     ease: "easeOut",
                 }}
                 viewport={{ once: true, amount: 0.3 }}
@@ -69,10 +69,6 @@ export default function CardServicio({ servicio, index }: CardServicioProps) {
                         className="inline-block rounded bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-primary-3 ease-in-out hover:bg-primary-accent-300 hover:shadow-primary-2 focus:bg-primary-accent-300 focus:shadow-primary-2 focus:outline-none focus:ring-0 active:bg-primary-600 active:shadow-primary-2 dark:shadow-black/30 dark:hover:shadow-dark-strong dark:focus:shadow-dark-strong dark:active:shadow-dark-strong text-center hover:bg-white/80 transition duration-300 group-hover:bg-white group-hover:text-primary cursor-pointer"
                         data-twe-ripple-init
                         data-twe-ripple-color="light"
-                        onClick={(e) => {
-                            e.stopPropagation();
-                            if (!isOpen) open();
-                        }}
                     >
                         Leer más
                     </button>
