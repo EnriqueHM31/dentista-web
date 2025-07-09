@@ -11,7 +11,7 @@ export function useEditarServicio({ serviciosRef, formValues }: { serviciosRef: 
     };
 
 
-    const handleSubmit = async (e: React.FormEvent, id: string) => {
+    const handleSubmit = async (e: React.FormEvent, id: string, toggle: () => void, refresh: (id: string, data: Partial<ServicioResponse>) => void) => {
         e.preventDefault();
 
         // Verificar si hubo cambios
@@ -52,6 +52,8 @@ export function useEditarServicio({ serviciosRef, formValues }: { serviciosRef: 
 
                         if (success) {
                             toast.success("Cambios guardados correctamente");
+                            toggle();
+                            refresh(id, formValues);
                         } else {
                             toast.error(message || "Error al guardar los cambios.");
                         }
