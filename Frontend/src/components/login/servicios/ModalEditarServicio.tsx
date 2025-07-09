@@ -63,7 +63,7 @@ export default function ModalEditarServicio({ serviciosRef, toggle, formValues, 
                                 name="name"
                                 value={formValues.name}
                                 onChange={handleChange}
-                                className="w-full mt-1 border px-3 py-2 rounded"
+                                className="w-full mt-1 border px-3 py-2 text-white rounded"
                             />
                         </div>
                     )}
@@ -77,7 +77,7 @@ export default function ModalEditarServicio({ serviciosRef, toggle, formValues, 
                                 autoComplete="on"
                                 value={formValues.description}
                                 onChange={handleChange}
-                                className="w-full mt-1 border px-3 py-2 rounded resize-none h-3/4"
+                                className="w-full mt-1 border px-3 py-2 text-white rounded resize-none h-3/4"
                             />
                         </div>
                     )}
@@ -97,7 +97,7 @@ export default function ModalEditarServicio({ serviciosRef, toggle, formValues, 
                                 autoComplete="on"
                                 value={formValues.img}
                                 onChange={handleChange}
-                                className="w-full border px-3 py-2 rounded"
+                                className="w-full border px-3 py-2 text-white rounded"
                             />
                         </div>
                     )}
