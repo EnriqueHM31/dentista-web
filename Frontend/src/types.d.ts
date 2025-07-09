@@ -108,3 +108,13 @@ interface AnimatedSelectProps {
     options: string[];
     onChange?: (value: string) => void;
 }
+
+interface Servicio {
+    name: string;
+    description: string;
+    img: string;
+}
+
+interface ServicioResponse extends Servicio {
+    id: `${string}-${string}-${string}-${string}-${string}` | "";
+}
