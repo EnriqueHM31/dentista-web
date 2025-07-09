@@ -8,12 +8,12 @@ export default function ModalEditarServicio({ serviciosRef, toggle, formValues, 
     const { preview, handlePreview, handleSubmit } = useEditarServicio({ serviciosRef, formValues });
 
     return (
-        <div className="bg-white w-full h-[80vh] rounded-lg overflow-hidden shadow-lg flex">
+        <div className="bg-primary w-full h-[80vh] rounded-lg overflow-hidden shadow-lg flex">
             {/* Aside izquierdo con solo el título y botones */}
             <aside className="flex-1 p-6 border-r overflow-auto flex flex-col justify-between">
                 <div className="flex flex-col gap-4">
 
-                    <h2 className="text-xl font-bold text-primary">Editar Servicio</h2>
+                    <h2 className="text-xl font-bold text-white">Editar Servicio</h2>
 
                     <button
                         type="button"
@@ -51,11 +51,11 @@ export default function ModalEditarServicio({ serviciosRef, toggle, formValues, 
                 className="flex-2 p-6 overflow-auto w-full max-w-full flex flex-col justify-between"
             >
                 <div className="flex flex-col gap-2">
-                    <h2 className="text-lg font-semibold text-gray-700 mb-4">Previsualización y Edición</h2>
+                    <h2 className="text-lg font-semibold text-white mb-4">Previsualización y Edición</h2>
 
                     {preview === "name" && (
                         <div>
-                            <label htmlFor="name" className="text-sm text-gray-600">Nombre</label>
+                            <label htmlFor="name" className="text-sm text-white">Nombre</label>
                             <input
                                 type="text"
                                 id="name"
@@ -70,7 +70,7 @@ export default function ModalEditarServicio({ serviciosRef, toggle, formValues, 
 
                     {preview === "description" && (
                         <div className="h-full">
-                            <label htmlFor="description" className="text-sm text-gray-600">Descripción</label>
+                            <label htmlFor="description" className="text-sm text-white">Descripción</label>
                             <textarea
                                 id="description"
                                 name="description"
