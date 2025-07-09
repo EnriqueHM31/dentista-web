@@ -7,5 +7,7 @@ ServiciosRoutes.get('/', ServiciosController.getServicios)
 
 ServiciosRoutes.put('/:id', ServiciosController.updateServicio)
 
+ServiciosRoutes.delete('/:id', ServiciosController.deleteServicio)
+
 
 
