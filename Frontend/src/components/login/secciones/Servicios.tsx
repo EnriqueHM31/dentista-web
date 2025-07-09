@@ -3,18 +3,46 @@ import { FiEdit, FiTrash2 } from "react-icons/fi";
 import { useOpenWithTransition } from "@/hooks/general/useOpenWithTransition";
 import { useGetServicios } from "@/hooks/admin/useGetServicios";
 import ModalEditarServicio from "../servicios/ModalEditarServicio";
-
+import type { Servicio } from "@/types";
 import { useModalEditarServicio } from "@/hooks/admin/useModalEditarServicio";
+import { toast } from "sonner";
 
 
 export default function Servicios() {
     const { isOpen, toggle } = useOpenWithTransition();
     const { servicios, serviciosRef, refrescarUpdateServicio, handleEliminarServicio } = useGetServicios();
-    const { formValues, handleEdit, handleChange } = useModalEditarServicio();
+    const { formValues, handleEdit, handleChange, formularioOriginal } = useModalEditarServicio();
+
+    const handledescartarCambios = () => {
+        const sonIguales = (Object.keys(formValues) as (keyof Servicio)[]).every((key) => {
+            return formValues[key] === formularioOriginal.current[key];
+        });
+
+        if (sonIguales) {
+            toggle();
+        } else {
+            toast("Estas seguro de deshacer los cambios?", {
+                action: {
+                    label: "Deshacer",
+                    onClick: () => {
+                        toggle();
+                    }
+                },
+                cancel: {
+                    label: "Cancelar",
+                    onClick: () => {
+                        toast.dismiss();
+                    }
+                },
+            });
+        }
+
+    };
+
 
     return (
         <>
-            <Modal isOpen={isOpen} onClose={toggle} clases="max-w-3/4 w-full">
+            <Modal isOpen={isOpen} onClose={handledescartarCambios} clases="max-w-3/4 w-full">
                 <ModalEditarServicio serviciosRef={serviciosRef} toggle={toggle} formValues={formValues} handleChange={handleChange} refresh={refrescarUpdateServicio} />
             </Modal>
 
