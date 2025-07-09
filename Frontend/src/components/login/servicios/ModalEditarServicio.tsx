@@ -46,9 +46,7 @@ export default function ModalEditarServicio({ serviciosRef, toggle, formValues, 
             {/* Derecha: solo se muestra lo seleccionado */}
             <form
                 onSubmit={(e) => {
-                    handleSubmit(e, formValues.id)
-                    refresh(formValues.id, formValues);
-                    toggle();
+                    handleSubmit(e, formValues.id, toggle, refresh)
                 }}
                 className="flex-2 p-6 overflow-auto w-full max-w-full flex flex-col justify-between"
             >
