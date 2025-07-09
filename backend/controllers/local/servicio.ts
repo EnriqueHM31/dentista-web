@@ -22,7 +22,6 @@ export class ServiciosController {
 
     static async updateServicio(req: Request, res: Response) {
         const data = req.body;
-        console.log(data);
         const id = req.params.id
 
         const { success, message } = await ModeloServicio.updateServicio(id, data);
@@ -33,4 +32,17 @@ export class ServiciosController {
             res.status(500).json({ success, message });
         }
     }
+
+    static async deleteServicio(req: Request, res: Response) {
+        const id = req.params.id
+        const { success, message } = await ModeloServicio.deleteServicio(id);
+
+        if (success) {
+            res.status(200).json({ success, message });
+        } else {
+            res.status(500).json({ success, message });
+        }
+    }
+
+
 }
