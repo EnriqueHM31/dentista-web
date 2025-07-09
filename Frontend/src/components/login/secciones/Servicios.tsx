@@ -9,7 +9,7 @@ import { useModalEditarServicio } from "@/hooks/admin/useModalEditarServicio";
 
 export default function Servicios() {
     const { isOpen, toggle } = useOpenWithTransition();
-    const { servicios, serviciosRef, refrescarUpdateServicio } = useGetServicios();
+    const { servicios, serviciosRef, refrescarUpdateServicio, handleEliminarServicio } = useGetServicios();
     const { formValues, handleEdit, handleChange } = useModalEditarServicio();
 
     return (
@@ -40,7 +40,11 @@ export default function Servicios() {
                                     <FiEdit />
                                 </button>
 
-                                <button className="cursor-pointer hover:text-white/80">
+                                <button className="cursor-pointer hover:text-white/80"
+                                    onClick={() => {
+                                        handleEliminarServicio(servicio.id);
+                                    }}
+                                >
                                     <FiTrash2 />
                                 </button>
                             </div>
