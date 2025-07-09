@@ -17,8 +17,6 @@ export class ModeloServicio {
     static async updateServicio(id: string, data: Record<string, string>) {
         try {
 
-            console.log(data);
-            // Lista blanca de campos que sí se pueden actualizar
             const allowedFields = ['name', 'description', 'img']; // puedes agregar más en el futuro
 
             const fields: string[] = [];
@@ -49,6 +47,21 @@ export class ModeloServicio {
         } catch (error) {
             console.error(error);
             return { success: false, message: 'Error al actualizar el servicio' + error };
+        }
+    }
+
+
+    static async deleteServicio(id: string) {
+        try {
+            const [result] = await db.query(`DELETE FROM ServiciosDentales WHERE id = ?`, [id]);
+            if (result) {
+                return { success: true, message: 'Servicio eliminado correctamente' };
+            } else {
+                return { success: false, message: 'No se encontró el servicio o no se realizaron cambios' };
+            }
+        } catch (error) {
+            console.error(error);
+            return { success: false, message: 'Error al eliminar el servicio' + error };
         }
     }
 
