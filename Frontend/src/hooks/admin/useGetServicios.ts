@@ -52,6 +52,32 @@ export function useGetServicios() {
     };
 
 
+    const handleEliminarServicio = async (id: `${string}-${string}-${string}-${string}-${string}`) => {
+        const index = servicios.findIndex((s) => s.id === id);
+        if (index === -1) {
+            toast.error("Servicio no encontrado");
+            return;
+        }
 
-    return { servicios, serviciosRef: formRef, refrescarUpdateServicio };
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/servicios/${id}`, {
+            method: "DELETE",
+            headers: {
+                "content-type": "application/json",
+            }
+        });
+
+        const { success, message } = await response.json();
+
+        if (success) {
+            toast.success("Servicio eliminado correctamente");
+            formRef.current.splice(index, 1);
+            setServicios([...formRef.current]);
+        } else {
+            toast.error(message || "Error al eliminar el servicio");
+        }
+    };
+
+
+
+    return { servicios, serviciosRef: formRef, refrescarUpdateServicio, handleEliminarServicio };
 }
