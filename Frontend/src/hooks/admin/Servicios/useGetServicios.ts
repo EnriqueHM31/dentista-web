@@ -1,12 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
+import type { ServicioResponse } from "@/types";
 
-interface ServicioResponse {
-    id: `${string}-${string}-${string}-${string}-${string}`;
-    name: string;
-    description: string;
-    img: string;
-}
 
 export function useGetServicios() {
 
@@ -52,7 +47,12 @@ export function useGetServicios() {
     };
 
 
-    const handleEliminarServicio = async (id: `${string}-${string}-${string}-${string}-${string}`) => {
+    const refrescarCrearServicio = ({ id, name, description, img }: ServicioResponse) => {
+        setServicios([...formRef.current, { id, name, description, img }]);
+    }
+
+
+    const handleEliminarServicio = async (id: `${string}-${string}-${string}-${string}-${string}` | "") => {
         const index = servicios.findIndex((s) => s.id === id);
         if (index === -1) {
             toast.error("Servicio no encontrado");
@@ -79,5 +79,5 @@ export function useGetServicios() {
 
 
 
-    return { servicios, serviciosRef: formRef, refrescarUpdateServicio, handleEliminarServicio };
+    return { servicios, serviciosRef: formRef, refrescarUpdateServicio, refrescarCrearServicio, handleEliminarServicio };
 }
