@@ -9,7 +9,7 @@ export default function Dashboard() {
     const { selected, handleClickSelected } = useNavAsideLocal();
 
     return (
-        <div className="flex min-h-screen bg-gray-100">
+        <div className="flex min-h-screen bg-white">
             <AsideMenu handleClickSelected={handleClickSelected} selected={selected} />
 
             {/* Main content */}
