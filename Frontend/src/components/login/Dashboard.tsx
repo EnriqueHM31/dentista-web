@@ -13,7 +13,7 @@ export default function Dashboard() {
             <AsideMenu handleClickSelected={handleClickSelected} selected={selected} />
 
             {/* Main content */}
-            <main className="flex-1 p-6">
+            <main className="flex-1 p-6 h-screen overflow-auto">
                 <div className="bg-white rounded shadow">
                     {selected === "perfil" && <Perfil />}
                     {selected === "servicios" && <Servicios />}
