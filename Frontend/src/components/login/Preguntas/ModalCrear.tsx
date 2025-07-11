@@ -9,11 +9,11 @@ export default function ModalCrear({ toggle, handleCrearNuevaPregunta }: ModalCr
         <form onSubmit={async (e) => {
             await handleCrearPregunta(e);
             await handleCrearNuevaPregunta();
-        }} className="w-full p-6 flex flex-col gap-4">
-            <h3 className="text-2xl font-bold text-primary mb-4">Agregar una nueva pregunta</h3>
+        }} className="w-full p-6 flex flex-col gap-4 bg-primary">
+            <h3 className="text-2xl font-bold text-white mb-4">Agregar una nueva pregunta</h3>
 
             <div className="mb-4 flex flex-col gap-4">
-                <label htmlFor="pregunta" className="block text-sm font-medium px-3 py-2 rounded-xl bg-primary text-white w-fit mb-1">
+                <label htmlFor="pregunta" className="block text-sm font-medium px-3 py-2 rounded-xl bg-white text-primary w-fit mb-1">
                     Pregunta
                 </label>
                 <input
@@ -21,20 +21,20 @@ export default function ModalCrear({ toggle, handleCrearNuevaPregunta }: ModalCr
                     type="text"
                     value={preguntaForm.pregunta}
                     onChange={(e) => handleCambiarPregunta(e)}
-                    className="w-full border rounded px-3 py-2 border-primary focus:outline-none focus:ring-2 focus:ring-primary"
+                    className="w-full border rounded px-3 py-2 border-white text-white focus:outline-none focus:ring-2 focus:ring-primary"
                     required
                 />
             </div>
 
             <div className="mb-4 flex flex-col gap-4">
-                <label htmlFor="respuesta" className="block text-sm font-medium px-3 py-2 rounded-xl bg-primary text-white w-fit mb-1">
+                <label htmlFor="respuesta" className="block text-sm font-medium px-3 py-2 rounded-xl bg-white text-primary w-fit mb-1">
                     Respuesta
                 </label>
                 <textarea
                     id="respuesta"
                     value={preguntaForm.respuesta}
                     onChange={(e) => handleCambiarRespuesta(e)}
-                    className="w-full border rounded px-3 py-2 border-primary focus:outline-none focus:ring-2 focus:ring-primary resize-none scrollbar-hide"
+                    className="w-full border rounded px-3 py-2 border-white text-white focus:outline-none focus:ring-2 focus:ring-primary resize-none scrollbar-hide"
                     rows={5}
                     required
                 />
@@ -50,7 +50,7 @@ export default function ModalCrear({ toggle, handleCrearNuevaPregunta }: ModalCr
                 </button>
                 <button
                     type="submit"
-                    className="px-4 py-2 rounded bg-primary text-white hover:bg-primary-dark transition cursor-pointer"
+                    className="px-4 py-2 rounded bg-blue-600 text-white hover:bg-blue-800 transition cursor-pointer"
                 >
                     Crear
                 </button>
