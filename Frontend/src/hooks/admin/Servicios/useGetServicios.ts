@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
 import type { ServicioResponse } from "@/types";
-import { eliminarServicio, getServicios } from "@/services/Servicios";
+import { crearServicio, eliminarServicio, getServicios } from "@/services/Servicios";
 import { esURLValida } from "@/assets/ts/constantes";
 
 
@@ -77,7 +77,7 @@ export function useGetServicios({ handleClickDesactivarModal }: { handleClickDes
         e.preventDefault();
 
         const data = new FormData(e.target as HTMLFormElement);
-        const { titulo, descripcion, img } = Object.fromEntries(data.entries());
+        const { titulo, descripcion, img } = Object.fromEntries(data.entries()) as { titulo: string, descripcion: string, img: string };
 
         if (!titulo || !descripcion || !img) {
             toast.error("Todos los campos son obligatorios");
@@ -90,15 +90,7 @@ export function useGetServicios({ handleClickDesactivarModal }: { handleClickDes
         }
 
         try {
-            const response = await fetch(`${import.meta.env.VITE_API_URL}/servicios`, {
-                method: "POST",
-                body: JSON.stringify({ titulo, descripcion, img }),
-                headers: {
-                    "content-type": "application/json",
-                }
-            });
-
-            const { success, message, servicio } = await response.json();
+            const { success, message, servicio } = await crearServicio({ titulo, descripcion, img });
 
             if (success) {
                 toast.success("Servicio creado correctamente");
