@@ -1,10 +1,10 @@
 import Modal from "@/components/general/Modal";
 import { FiEdit, FiTrash2 } from "react-icons/fi";
 import { useOpenWithTransition } from "@/hooks/general/useOpenWithTransition";
-import { useGetServicios } from "@/hooks/admin/useGetServicios";
+import { useGetServicios } from "@/hooks/admin/Servicios/useGetServicios";
 import ModalEditarServicio from "../servicios/ModalEditarServicio";
 import type { Servicio } from "@/types";
-import { useModalEditarServicio } from "@/hooks/admin/useModalEditarServicio";
+import { useModalEditarServicio } from "@/hooks/admin/Servicios/useModalEditarServicio";
 import { toast } from "sonner";
 
 
@@ -36,7 +36,6 @@ export default function Servicios() {
                 },
             });
         }
-
     };
 
 

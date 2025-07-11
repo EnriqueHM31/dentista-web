@@ -2,7 +2,7 @@ import AsideMenu from "@/components/login/AsideMenu";
 import Perfil from "@/components/login/secciones/Perfil";
 import Sociales from "./secciones/Sociales";
 import ListaPreguntas from "./secciones/Preguntas";
-import { useNavAsideLocal } from "@/hooks/admin/useNavAsideLocal";
+import { useNavAsideLocal } from "@/hooks/general/useNavAsideLocal";
 import Servicios from "./secciones/Servicios";
 
 export default function Dashboard() {

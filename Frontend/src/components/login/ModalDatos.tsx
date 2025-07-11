@@ -2,8 +2,8 @@ import { FaUser } from "react-icons/fa";
 import { RiLockPasswordFill } from "react-icons/ri";
 import { IoEyeSharp } from "react-icons/io5";
 import { useOpenWithTransition } from "@/hooks/general/useOpenWithTransition";
-import { useUpdateUsuario } from "@/hooks/admin/useDatosAdmin";
-import { useGetUsuario } from "@/hooks/admin/useGetUsuario";
+import { useUpdateUsuario } from "@/hooks/admin/Perfil/useDatosAdmin";
+import { useGetUsuario } from "@/hooks/admin/Perfil/useGetUsuario";
 
 
 export default function ModalDatos({ toggle: CerrarMenu }: { toggle: () => void }) {

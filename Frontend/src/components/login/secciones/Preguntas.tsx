@@ -2,9 +2,9 @@ import { FiPlus, FiEdit, FiTrash2, FiChevronDown, FiChevronUp, } from "react-ico
 import Modal from "@/components/general/Modal";
 import ModalEditar from "../Preguntas/ModalEditar";
 import ModalCrear from "../Preguntas/ModalCrear";
-import { usePreguntas } from "@/hooks/admin/usePreguntas";
-import { useModalIndependiente } from "@/hooks/admin/useModalIndependiente";
-import { useEditarPregunta } from "@/hooks/admin/useEditarPregunta";
+import { usePreguntas } from "@/hooks/admin/Preguntas/usePreguntas";
+import { useModalIndependiente } from "@/hooks/general/useModalIndependiente";
+import { useEditarPregunta } from "@/hooks/admin/Preguntas/useEditarPregunta";
 import type { Pregunta } from "@/types";
 
 export default function ListaPreguntas() {

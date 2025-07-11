@@ -1,4 +1,4 @@
-import { useCrearPregunta } from "@/hooks/admin/useCrearPregunta";
+import { useCrearPregunta } from "@/hooks/admin/Preguntas/useCrearPregunta";
 import type { ModalCrearProps } from "@/types";
 
 export default function ModalCrear({ toggle, handleCrearNuevaPregunta }: ModalCrearProps) {

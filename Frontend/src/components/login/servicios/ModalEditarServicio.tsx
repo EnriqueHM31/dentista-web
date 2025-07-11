@@ -1,6 +1,6 @@
 import { Pencil } from "lucide-react";
 import type { ServicioResponse } from "@/types";
-import { useEditarServicio } from "@/hooks/admin/useEditarServicio";
+import { useEditarServicio } from "@/hooks/admin/Servicios/useEditarServicio";
 
 
 export default function ModalEditarServicio({ serviciosRef, toggle, formValues, handleChange, refresh }: { serviciosRef: React.MutableRefObject<ServicioResponse[]>, toggle: () => void, formValues: ServicioResponse, handleChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void, refresh: (id: string, data: Partial<ServicioResponse>) => void }) {
