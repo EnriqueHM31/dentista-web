@@ -45,11 +45,11 @@ export default function Servicios() {
 
     return (
         <>
-            <Modal onClose={handledescartarCambios} modalId="editar_servicio" activeId={activeModal} clases="max-w-1/2 w-full">
+            <Modal onClose={handledescartarCambios} modalId="editar_servicio" activeId={activeModal} clases="max-w-2/3 w-full">
                 <ModalEditarServicio serviciosRef={serviciosRef} toggle={toggle} formValues={formValues} handleChange={handleChange} refresh={refrescarUpdateServicio} />
             </Modal>
 
-            <Modal onClose={handledescartarCambios} modalId="crear_servicio" activeId={activeModal} clases="max-w-1/2 w-full">
+            <Modal onClose={handledescartarCambios} modalId="crear_servicio" activeId={activeModal} clases="max-w-2/3 w-full">
                 <ModalCrearServicio handleClickDesactivarModal={handleClickDesactivarModal} refrescarCrearServicio={refrescarCrearServicio} />
             </Modal>
 

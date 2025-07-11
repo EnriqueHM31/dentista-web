@@ -50,12 +50,12 @@ export default function ModalEditarServicio({ serviciosRef, toggle, formValues, 
                 }}
                 className="flex-2 p-6 overflow-auto w-full max-w-full flex flex-col justify-between"
             >
-                <div className="flex flex-col gap-2">
+                <div className="flex flex-col gap-2 h-full ">
                     <h2 className="text-lg font-semibold text-white mb-4">Previsualización y Edición</h2>
 
                     {preview === "name" && (
-                        <div>
-                            <label htmlFor="name" className="text-sm text-white">Nombre</label>
+                        <div className="flex flex-col gap-4">
+                            <label htmlFor="name" className="text-sm text-primary bg-white px-5 py-1 rounded">Nombre</label>
                             <input
                                 type="text"
                                 id="name"
@@ -69,15 +69,15 @@ export default function ModalEditarServicio({ serviciosRef, toggle, formValues, 
                     )}
 
                     {preview === "description" && (
-                        <div className="h-full">
-                            <label htmlFor="description" className="text-sm text-white">Descripción</label>
+                        <div className="flex flex-col gap-4 h-full">
+                            <label htmlFor="description" className="text-sm text-primary bg-white px-5 py-1 rounded">Descripción</label>
                             <textarea
                                 id="description"
                                 name="description"
                                 autoComplete="on"
                                 value={formValues.description}
                                 onChange={handleChange}
-                                className="w-full mt-1 border px-3 py-2 text-white rounded resize-none h-3/4"
+                                className="w-full mt-1  border px-3 py-2 text-white rounded resize-none h-3/4"
                             />
                         </div>
                     )}

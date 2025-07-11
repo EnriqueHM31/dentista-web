@@ -30,7 +30,7 @@ export function useScroll() {
             hoverColor: "hover:text-white/70",
             scrolled: false,
             clasesLogoIcono: "text-white",
-            clasesLogoText: "text-black"
+            clasesLogoText: "text-white"
         }
     }
 
