@@ -6,7 +6,7 @@ export default function ModalEditar({ handleEditarPregunta, handleEditarRespuest
 
 
     return (
-        <section className="bg-primary text-white rounded-lg shadow p-6 w-full max-w-full">
+        <section className="bg-primary text-white rounded-lg shadow p-6 w-full max-w-full scrollbar-invisible">
             <h3 className="text-2xl font-bold text-white mb-4">Editar pregunta</h3>
             <form className="flex flex-col gap-8" onSubmit={(e) => handleGuardar(e)}>
                 <div className="flex flex-col gap-6">
