@@ -1,10 +1,46 @@
+import { randomUUID } from 'crypto';
 import db from '../../database/db';
 
 export class ModeloServicio {
 
+    static async crearServicio({ titulo, descripcion, img }: Record<string, string>) {
+        try {
+            const id = randomUUID();
+
+            const [result]: any = await db.query(
+                `INSERT INTO ServiciosDentales (id, name, description, img) VALUES (?, ?, ?, ?)`,
+                [id, titulo, descripcion, img]
+            );
+
+            if (result.affectedRows === 1) {
+                return {
+                    success: true,
+                    message: 'Servicio creado correctamente',
+                    servicio: {
+                        id,
+                        name: titulo,
+                        description: descripcion,
+                        img
+                    }
+                };
+            } else {
+                return {
+                    success: false,
+                    message: 'No se insertó el servicio'
+                };
+            }
+        } catch (error) {
+            console.error(error);
+            return {
+                success: false,
+                message: 'Error al crear el servicio: ' + (error as Error).message
+            };
+        }
+    }
+
     static async getServicios() {
         try {
-            const [rows] = await db.query(`SELECT id, name, description, img FROM ServiciosDentales`);
+            const [rows] = await db.query(`SELECT id, name, description, img FROM ServiciosDentales ORDER BY name ASC`);
             return {
                 success: true,
                 message: rows,
