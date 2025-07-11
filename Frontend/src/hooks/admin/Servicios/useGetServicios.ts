@@ -1,6 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
 import type { ServicioResponse } from "@/types";
+import { eliminarServicio, getServicios } from "@/services/Servicios";
+import { esURLValida } from "@/assets/ts/constantes";
 
 
 export function useGetServicios() {
@@ -11,8 +13,7 @@ export function useGetServicios() {
 
     useEffect(() => {
         const fetchServicios = async () => {
-            const response = await fetch(`${import.meta.env.VITE_API_URL}/servicios`);
-            const { success, message } = await response.json();
+            const { success, message } = await getServicios();
             if (success) {
                 setServicios(message);
                 formRef.current = message;
@@ -48,7 +49,7 @@ export function useGetServicios() {
 
 
     const refrescarCrearServicio = ({ id, name, description, img }: ServicioResponse) => {
-        setServicios([...formRef.current, { id, name, description, img }]);
+        setServicios(prev => [...prev, { id, name, description, img }]);
     }
 
 
@@ -59,15 +60,7 @@ export function useGetServicios() {
             return;
         }
 
-        const response = await fetch(`${import.meta.env.VITE_API_URL}/servicios/${id}`, {
-            method: "DELETE",
-            headers: {
-                "content-type": "application/json",
-            }
-        });
-
-        const { success, message } = await response.json();
-
+        const { success, message } = await eliminarServicio(id);
         if (success) {
             toast.success("Servicio eliminado correctamente");
             formRef.current.splice(index, 1);
@@ -77,7 +70,48 @@ export function useGetServicios() {
         }
     };
 
+    const handleSubmitCrearServicio = async (e: React.FormEvent) => {
+
+        e.preventDefault();
+
+        const data = new FormData(e.target as HTMLFormElement);
+        const { titulo, descripcion, img } = Object.fromEntries(data.entries());
+
+        if (!titulo || !descripcion || !img) {
+            toast.error("Todos los campos son obligatorios");
+            return;
+        }
+
+        if (!esURLValida(img.toString())) {
+            toast.error("La imagen no es válida");
+            return;
+        }
+
+        try {
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/servicios`, {
+                method: "POST",
+                body: JSON.stringify({ titulo, descripcion, img }),
+                headers: {
+                    "content-type": "application/json",
+                }
+            });
+
+            const { success, message, servicio } = await response.json();
+
+            if (success) {
+                toast.success("Servicio creado correctamente");
+                refrescarCrearServicio(servicio);
+            } else {
+                toast.error(message || "Error al crear el servicio");
+            }
+        } catch (error) {
+            toast.error("Error de red al crear el servicio");
+            console.error(error);
+        }
+
+    }
 
 
-    return { servicios, serviciosRef: formRef, refrescarUpdateServicio, refrescarCrearServicio, handleEliminarServicio };
+
+    return { servicios, serviciosRef: formRef, refrescarUpdateServicio, refrescarCrearServicio, handleEliminarServicio, handleSubmitCrearServicio };
 }

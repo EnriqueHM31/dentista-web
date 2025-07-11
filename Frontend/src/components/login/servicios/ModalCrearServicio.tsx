@@ -1,55 +1,19 @@
-import { esURLValida } from "@/assets/ts/constantes";
-import type { ServicioResponse } from "@/types";
-import { toast } from "sonner";
+import { useGetServicios } from "@/hooks/admin/Servicios/useGetServicios";
 
-export default function ModalCrearServicio({ handleClickDesactivarModal, refrescarCrearServicio }: { handleClickDesactivarModal: () => void, refrescarCrearServicio: ({ id, name, description, img }: ServicioResponse) => void }) {
+export default function ModalCrearServicio({ handleClickDesactivarModal, }: { handleClickDesactivarModal: () => void }) {
+
+    const { handleSubmitCrearServicio } = useGetServicios();
 
 
 
-    const handleSubmitCrearServicio = async (e: React.FormEvent) => {
 
-        e.preventDefault();
-
-        const data = new FormData(e.target as HTMLFormElement);
-        const { titulo, descripcion, img } = Object.fromEntries(data.entries());
-
-        if (!titulo || !descripcion || !img) {
-            toast.error("Todos los campos son obligatorios");
-            return;
-        }
-
-        if (!esURLValida(img.toString())) {
-            toast.error("La imagen no es válida");
-            return;
-        }
-
-        try {
-            const response = await fetch(`${import.meta.env.VITE_API_URL}/servicios`, {
-                method: "POST",
-                body: JSON.stringify({ titulo, descripcion, img }),
-                headers: {
-                    "content-type": "application/json",
-                }
-            });
-
-            const { success, message, servicio } = await response.json();
-
-            if (success) {
-                toast.success("Servicio creado correctamente");
-                handleClickDesactivarModal();
-                refrescarCrearServicio(servicio);
-            } else {
-                toast.error(message || "Error al crear el servicio");
-            }
-        } catch (error) {
-            toast.error("Error de red al crear el servicio");
-            console.error(error);
-        }
-
-    }
 
     return (
-        <form className="w-full p-6 flex flex-col  gap-4 bg-primary min-h-[70vh]" onSubmit={(e) => handleSubmitCrearServicio(e)}>
+        <form className="w-full p-6 flex flex-col  gap-4 bg-primary min-h-[70vh]" onSubmit={(e) => {
+            handleSubmitCrearServicio(e)
+            handleClickDesactivarModal()
+        }
+        }>
 
             <h3 className="text-2xl font-bold text-white mb-4">Agregar un nuevo servicio</h3>
             <section className="flex gap-6 flex-1">

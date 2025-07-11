@@ -1,6 +1,7 @@
 import { toast } from "sonner";
 import type { ServicioResponse, Servicio } from "@/types";
 import { useState } from "react";
+import { modificarServicio } from "@/services/Servicios";
 
 export function useEditarServicio({ serviciosRef, formValues }: { serviciosRef: React.MutableRefObject<ServicioResponse[]>, formValues: ServicioResponse }) {
     const [preview, setPreview] = useState<keyof Servicio | null>('name');
@@ -37,18 +38,8 @@ export function useEditarServicio({ serviciosRef, formValues }: { serviciosRef: 
                         }, {} as Partial<ServicioResponse>);
 
 
-                        const response = await fetch(
-                            `${import.meta.env.VITE_API_URL}/servicios/${id}`,
-                            {
-                                method: "PUT",
-                                body: JSON.stringify(data),
-                                headers: {
-                                    "content-type": "application/json",
-                                }
-                            }
-                        );
 
-                        const { success, message } = await response.json();
+                        const { success, message } = await modificarServicio(id, data)
 
                         if (success) {
                             toast.success("Cambios guardados correctamente");
