@@ -46,7 +46,7 @@ export default function CardServicio({ servicio, index }: CardServicioProps) {
                 >
                     <motion.img
                         layoutId={`image-${servicio.id}`}
-                        className="rounded-t-lg w-full group-hover:scale-110 transition-transform duration-100 linear z-100"
+                        className="rounded-t-lg w-full group-hover:scale-110 transition-transform duration-100 linear z-100 min-h-[300px]"
                         src={servicio.img}
                         alt={servicio.name}
                         style={{ viewTransitionName: `servicio-img-${servicio.id}` }}
