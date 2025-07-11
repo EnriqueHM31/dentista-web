@@ -118,3 +118,11 @@ interface Servicio {
 interface ServicioResponse extends Servicio {
     id: `${string}-${string}-${string}-${string}-${string}` | "";
 }
+
+interface ModalEditarServicioProps {
+    serviciosRef: React.MutableRefObject<ServicioResponse[]>;
+    handleClickDesactivarModal: () => void;
+    formValues: ServicioResponse;
+    handleChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
+    refresh: (id: string, data: Partial<ServicioResponse>) => void;
+}

@@ -4,6 +4,7 @@ import { LINKS_NAVEGACION } from "@/assets/ts/constantes";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import type { SocialProps } from "@/types";
+import { getDataSociales } from "@/services/Sociales";
 
 const SOCIALS = [
     { label: 'Facebook', icono: <FaFacebookF className="w-5 h-5" /> },
@@ -12,8 +13,6 @@ const SOCIALS = [
     { label: 'LinkedIn', icono: <FaLinkedin className="w-5 h-5" /> },
 ];
 
-
-
 export default function Footer() {
     const [formData, setFormData] = useState<SocialProps[]>([]);
 
@@ -21,8 +20,7 @@ export default function Footer() {
 
         const obtenerDatosSociales = async () => {
             try {
-                const res = await fetch(`${import.meta.env.VITE_API_URL}/sociales`);
-                const { message } = await res.json();
+                const { message } = await getDataSociales();
                 if (!Array.isArray(message)) {
                     throw new Error('El formato recibido no es un arreglo');
                 }
