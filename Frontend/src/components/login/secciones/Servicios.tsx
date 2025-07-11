@@ -2,9 +2,7 @@ import Modal from "@/components/general/Modal";
 import { FiEdit, FiPlus, FiTrash2 } from "react-icons/fi";
 import { useGetServicios } from "@/hooks/admin/Servicios/useGetServicios";
 import ModalEditarServicio from "../servicios/ModalEditarServicio";
-import type { Servicio } from "@/types";
 import { useModalEditarServicio } from "@/hooks/admin/Servicios/useModalEditarServicio";
-import { toast } from "sonner";
 import { useModalIndependiente } from "@/hooks/general/useModalIndependiente";
 import ModalCrearServicio from "../servicios/ModalCrearServicio";
 
@@ -13,41 +11,18 @@ export default function Servicios() {
 
     const { handleClickActivarModalIndependiente, activeModal, handleClickDesactivarModal } = useModalIndependiente();
     const { servicios, serviciosRef, refrescarUpdateServicio, handleSubmitCrearServicio, handleEliminarServicio } = useGetServicios({ handleClickDesactivarModal });
-    const { formValues, handleEdit, handleChange, formularioOriginal } = useModalEditarServicio();
+    const { formValues, handleEdit, handleChange, handledescartarCambios } = useModalEditarServicio();
 
-    const handledescartarCambios = () => {
-        const sonIguales = (Object.keys(formValues) as (keyof Servicio)[]).every((key) => {
-            return formValues[key] === formularioOriginal.current[key];
-        });
 
-        if (sonIguales) {
-            handleClickDesactivarModal();
-        } else {
-            toast("Estas seguro de deshacer los cambios?", {
-                action: {
-                    label: "Deshacer",
-                    onClick: () => {
-                        handleClickDesactivarModal();
-                    }
-                },
-                cancel: {
-                    label: "Cancelar",
-                    onClick: () => {
-                        toast.dismiss();
-                    }
-                },
-            });
-        }
-    };
 
 
     return (
         <>
-            <Modal onClose={handledescartarCambios} modalId="editar_servicio" activeId={activeModal} clases="max-w-2/3 w-full">
+            <Modal onClose={() => handledescartarCambios(handleClickDesactivarModal)} modalId="editar_servicio" activeId={activeModal} clases="max-w-2/3 w-full">
                 <ModalEditarServicio serviciosRef={serviciosRef} handleClickDesactivarModal={handleClickDesactivarModal} formValues={formValues} handleChange={handleChange} refresh={refrescarUpdateServicio} />
             </Modal>
 
-            <Modal onClose={handledescartarCambios} modalId="crear_servicio" activeId={activeModal} clases="max-w-2/3 w-full">
+            <Modal onClose={() => handledescartarCambios(handleClickDesactivarModal)} modalId="crear_servicio" activeId={activeModal} clases="max-w-2/3 w-full">
                 <ModalCrearServicio handleClickDesactivarModal={handleClickDesactivarModal} handleSubmitCrearServicio={handleSubmitCrearServicio} />
             </Modal>
 

@@ -53,6 +53,8 @@ export function useGetServicios({ handleClickDesactivarModal }: { handleClickDes
     }
 
 
+
+
     const handleEliminarServicio = async (id: `${string}-${string}-${string}-${string}-${string}` | "") => {
         const index = servicios.findIndex((s) => s.id === id);
         if (index === -1) {
