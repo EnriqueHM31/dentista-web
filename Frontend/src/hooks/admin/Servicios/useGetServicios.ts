@@ -5,11 +5,10 @@ import { eliminarServicio, getServicios } from "@/services/Servicios";
 import { esURLValida } from "@/assets/ts/constantes";
 
 
-export function useGetServicios() {
+export function useGetServicios({ handleClickDesactivarModal }: { handleClickDesactivarModal: () => void }) {
 
     const [servicios, setServicios] = useState<ServicioResponse[]>([]);
     const formRef = useRef<ServicioResponse[]>([]);
-
 
     useEffect(() => {
         const fetchServicios = async () => {
@@ -49,7 +48,8 @@ export function useGetServicios() {
 
 
     const refrescarCrearServicio = ({ id, name, description, img }: ServicioResponse) => {
-        setServicios(prev => [...prev, { id, name, description, img }]);
+
+        setServicios(prev => [...prev, { id, name, description, img }].sort((a, b) => a.name.localeCompare(b.name)));
     }
 
 
@@ -70,7 +70,7 @@ export function useGetServicios() {
         }
     };
 
-    const handleSubmitCrearServicio = async (e: React.FormEvent) => {
+    const handleSubmitCrearServicio = async (e: React.FormEvent,) => {
 
         e.preventDefault();
 
@@ -100,6 +100,7 @@ export function useGetServicios() {
 
             if (success) {
                 toast.success("Servicio creado correctamente");
+                handleClickDesactivarModal();
                 refrescarCrearServicio(servicio);
             } else {
                 toast.error(message || "Error al crear el servicio");

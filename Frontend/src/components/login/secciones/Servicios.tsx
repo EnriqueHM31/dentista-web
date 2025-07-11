@@ -1,6 +1,5 @@
 import Modal from "@/components/general/Modal";
 import { FiEdit, FiPlus, FiTrash2 } from "react-icons/fi";
-import { useOpenWithTransition } from "@/hooks/general/useOpenWithTransition";
 import { useGetServicios } from "@/hooks/admin/Servicios/useGetServicios";
 import ModalEditarServicio from "../servicios/ModalEditarServicio";
 import type { Servicio } from "@/types";
@@ -11,11 +10,10 @@ import ModalCrearServicio from "../servicios/ModalCrearServicio";
 
 
 export default function Servicios() {
-    const { toggle } = useOpenWithTransition();
-    const { servicios, serviciosRef, refrescarUpdateServicio, refrescarCrearServicio, handleEliminarServicio } = useGetServicios();
-    const { formValues, handleEdit, handleChange, formularioOriginal } = useModalEditarServicio();
 
     const { handleClickActivarModalIndependiente, activeModal, handleClickDesactivarModal } = useModalIndependiente();
+    const { servicios, serviciosRef, refrescarUpdateServicio, handleSubmitCrearServicio, handleEliminarServicio } = useGetServicios({ handleClickDesactivarModal });
+    const { formValues, handleEdit, handleChange, formularioOriginal } = useModalEditarServicio();
 
     const handledescartarCambios = () => {
         const sonIguales = (Object.keys(formValues) as (keyof Servicio)[]).every((key) => {
@@ -46,11 +44,11 @@ export default function Servicios() {
     return (
         <>
             <Modal onClose={handledescartarCambios} modalId="editar_servicio" activeId={activeModal} clases="max-w-2/3 w-full">
-                <ModalEditarServicio serviciosRef={serviciosRef} toggle={toggle} formValues={formValues} handleChange={handleChange} refresh={refrescarUpdateServicio} />
+                <ModalEditarServicio serviciosRef={serviciosRef} handleClickDesactivarModal={handleClickDesactivarModal} formValues={formValues} handleChange={handleChange} refresh={refrescarUpdateServicio} />
             </Modal>
 
             <Modal onClose={handledescartarCambios} modalId="crear_servicio" activeId={activeModal} clases="max-w-2/3 w-full">
-                <ModalCrearServicio handleClickDesactivarModal={handleClickDesactivarModal} refrescarCrearServicio={refrescarCrearServicio} />
+                <ModalCrearServicio handleClickDesactivarModal={handleClickDesactivarModal} handleSubmitCrearServicio={handleSubmitCrearServicio} />
             </Modal>
 
 

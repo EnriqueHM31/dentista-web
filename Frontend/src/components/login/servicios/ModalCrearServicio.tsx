@@ -1,12 +1,5 @@
-import { useGetServicios } from "@/hooks/admin/Servicios/useGetServicios";
 
-export default function ModalCrearServicio({ handleClickDesactivarModal, }: { handleClickDesactivarModal: () => void }) {
-
-    const { handleSubmitCrearServicio } = useGetServicios();
-
-
-
-
+export default function ModalCrearServicio({ handleClickDesactivarModal, handleSubmitCrearServicio }: { handleClickDesactivarModal: () => void, handleSubmitCrearServicio: (e: React.FormEvent) => void }) {
 
     return (
         <form className="w-full p-6 flex flex-col  gap-4 bg-primary min-h-[70vh]" onSubmit={(e) => {

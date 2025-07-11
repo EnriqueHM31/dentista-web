@@ -3,10 +3,17 @@ import type { ServicioResponse } from "@/types";
 import { useEditarServicio } from "@/hooks/admin/Servicios/useEditarServicio";
 
 
-export default function ModalEditarServicio({ serviciosRef, toggle, formValues, handleChange, refresh }: { serviciosRef: React.MutableRefObject<ServicioResponse[]>, toggle: () => void, formValues: ServicioResponse, handleChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void, refresh: (id: string, data: Partial<ServicioResponse>) => void }) {
+interface ModalEditarServicioProps {
+    serviciosRef: React.MutableRefObject<ServicioResponse[]>;
+    handleClickDesactivarModal: () => void;
+    formValues: ServicioResponse;
+    handleChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
+    refresh: (id: string, data: Partial<ServicioResponse>) => void;
+}
 
-    const { preview, handlePreview, handleSubmit } = useEditarServicio({ serviciosRef, formValues });
+export default function ModalEditarServicio({ serviciosRef, handleClickDesactivarModal, formValues, handleChange, refresh }: ModalEditarServicioProps) {
 
+    const { preview, handlePreview, handleSubmit } = useEditarServicio({ serviciosRef, formValues, handleClickDesactivarModal });
     return (
         <div className="bg-primary w-full h-[80vh] rounded-lg overflow-hidden shadow-lg flex">
             {/* Aside izquierdo con solo el título y botones */}
@@ -46,7 +53,7 @@ export default function ModalEditarServicio({ serviciosRef, toggle, formValues, 
             {/* Derecha: solo se muestra lo seleccionado */}
             <form
                 onSubmit={(e) => {
-                    handleSubmit(e, formValues.id, toggle, refresh)
+                    handleSubmit(e, formValues.id, refresh)
                 }}
                 className="flex-2 p-6 overflow-auto w-full max-w-full flex flex-col justify-between"
             >

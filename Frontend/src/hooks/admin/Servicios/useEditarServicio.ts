@@ -3,7 +3,9 @@ import type { ServicioResponse, Servicio } from "@/types";
 import { useState } from "react";
 import { modificarServicio } from "@/services/Servicios";
 
-export function useEditarServicio({ serviciosRef, formValues }: { serviciosRef: React.MutableRefObject<ServicioResponse[]>, formValues: ServicioResponse }) {
+export function useEditarServicio({ serviciosRef, formValues, handleClickDesactivarModal }
+    :
+    { serviciosRef: React.MutableRefObject<ServicioResponse[]>, formValues: ServicioResponse, handleClickDesactivarModal: () => void }) {
     const [preview, setPreview] = useState<keyof Servicio | null>('name');
 
 
@@ -12,7 +14,7 @@ export function useEditarServicio({ serviciosRef, formValues }: { serviciosRef: 
     };
 
 
-    const handleSubmit = async (e: React.FormEvent, id: string, toggle: () => void, refresh: (id: string, data: Partial<ServicioResponse>) => void) => {
+    const handleSubmit = async (e: React.FormEvent, id: string, refresh: (id: string, data: Partial<ServicioResponse>) => void) => {
         e.preventDefault();
 
         // Verificar si hubo cambios
@@ -43,7 +45,7 @@ export function useEditarServicio({ serviciosRef, formValues }: { serviciosRef: 
 
                         if (success) {
                             toast.success("Cambios guardados correctamente");
-                            toggle();
+                            handleClickDesactivarModal();
                             refresh(id, formValues);
                         } else {
                             toast.error(message || "Error al guardar los cambios.");
