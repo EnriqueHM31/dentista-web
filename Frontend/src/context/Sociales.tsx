@@ -3,7 +3,6 @@ import {
     createContext,
     useEffect,
     useState,
-    useContext,
 } from "react";
 import { getDataSociales } from "@/services/Sociales";
 
@@ -13,7 +12,9 @@ interface SocialesContextType {
 }
 
 // 2. Crea y EXPORTA el contexto (¡esto es clave!)
-export const SocialesContext = createContext<SocialesContextType | null>(null);
+export const SocialesContext = createContext<SocialesContextType>({
+    sociales: [],
+});
 
 
 // 3. Proveedor del contexto
@@ -39,5 +40,3 @@ export const SocialesProvider = ({ children }: { children: React.ReactNode }) =>
     );
 };
 
-// 4. Hook personalizado para consumir el contexto
-export const useSocialesContext = () => useContext(SocialesContext);

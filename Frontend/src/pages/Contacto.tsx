@@ -7,8 +7,9 @@ import { FaUser } from "react-icons/fa";
 import { FaMessage } from "react-icons/fa6";
 import IMAGENCONTACTO from "@/assets/img/contacto.png";
 import { useUtils } from "@/hooks/general/useUtils";
-import { useEffect, useState } from "react";
+import { useContext } from "react";
 import { toast } from "sonner";
+import { SocialesContext } from "@/context/Sociales";
 
 const MAS_CONTACTOS = [
     { icono: <CgPhone className="text-2xl " />, label: "Telefono" },
@@ -16,18 +17,14 @@ const MAS_CONTACTOS = [
     { icono: <FaMapMarkerAlt className="text-2xl " />, label: "Direccion" },
 ]
 
-interface SocialProps {
-    id: string;
-    nombre: string;
-    referencia: string;
-}
 
 export default function Contacto() {
 
     const { handleClickCopy } = useUtils();
+    const { sociales } = useContext(SocialesContext);
 
+    const formData = sociales.filter(({ nombre }) => MAS_CONTACTOS.some(({ label }) => label === nombre));
 
-    const [formData, setFormData] = useState<SocialProps[]>([]);
 
     const handleSubmitCorreo = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -52,27 +49,6 @@ export default function Contacto() {
         }
     }
 
-    useEffect(() => {
-
-        const obtenerDatosSociales = async () => {
-            try {
-                const res = await fetch(`${import.meta.env.VITE_API_URL}/sociales`);
-                const { message } = await res.json();
-                if (!Array.isArray(message)) {
-                    throw new Error('El formato recibido no es un arreglo');
-                }
-
-                const nombresSocials = MAS_CONTACTOS.map(s => s.label);
-                const sociales = message.filter(item => nombresSocials.includes(item.nombre));
-                setFormData(sociales);
-            } catch (err) {
-                console.error(err);
-                toast.error('Error al cargar redes sociales');
-            }
-
-        };
-        obtenerDatosSociales();
-    }, []);
 
     return (
         <>

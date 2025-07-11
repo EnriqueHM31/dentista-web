@@ -1,10 +1,8 @@
 import { AiOutlineDingtalk } from "react-icons/ai";
 import { FaFacebookF, FaInstagram, FaTwitter, FaLinkedin } from "react-icons/fa6";
 import { LINKS_NAVEGACION } from "@/assets/ts/constantes";
-import { useEffect, useState } from "react";
-import { toast } from "sonner";
-import type { SocialProps } from "@/types";
-import { getDataSociales } from "@/services/Sociales";
+import { useContext } from "react";
+import { SocialesContext } from "@/context/Sociales";
 
 const SOCIALS = [
     { label: 'Facebook', icono: <FaFacebookF className="w-5 h-5" /> },
@@ -14,28 +12,7 @@ const SOCIALS = [
 ];
 
 export default function Footer() {
-    const [formData, setFormData] = useState<SocialProps[]>([]);
-
-    useEffect(() => {
-
-        const obtenerDatosSociales = async () => {
-            try {
-                const { message } = await getDataSociales();
-                if (!Array.isArray(message)) {
-                    throw new Error('El formato recibido no es un arreglo');
-                }
-
-                const nombresSocials = SOCIALS.map(s => s.label);
-                const sociales = message.filter(item => nombresSocials.includes(item.nombre));
-                setFormData(sociales);
-            } catch (err) {
-                console.error(err);
-                toast.error('Error al cargar redes sociales');
-            }
-
-        };
-        obtenerDatosSociales();
-    }, []);
+    const { sociales: formData } = useContext(SocialesContext);
 
     return (
         <footer className="bg-primary text-white flex flex-col gap-2 py-4">
