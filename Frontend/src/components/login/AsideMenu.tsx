@@ -13,7 +13,7 @@ export default function AsideMenu({ selected, handleClickSelected }: AsideMenuPr
 
     return (
         <aside
-            className={`transition-all duration-300 bg-primary text-white p-4 flex flex-col ${isOpen ? "w-20" : "w-64"}`}
+            className={`transition-all duration-300 bg-primary text-white p-4 h-screen flex flex-col ${isOpen ? "w-20" : "w-64"}`}
         >
             {/* Expand/Collapse */}
             <div className="flex justify-between items-center mb-6 w-full">
