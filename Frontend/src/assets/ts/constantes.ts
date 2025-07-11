@@ -5,6 +5,17 @@ import ESPECIALISTA3 from "@/assets/especialistas/especialista3.webp";
 
 import type { Variants } from "framer-motion";
 
+export const esURLValida = (url: unknown): boolean => {
+    if (typeof url !== "string" || url.trim() === "") return false;
+
+    try {
+        const parsed = new URL(url);
+        return parsed.protocol === "http:" || parsed.protocol === "https:";
+    } catch {
+        return false;
+    }
+};
+
 
 export const LINKS_NAVEGACION = [
     { name: 'Inicio', path: '/' },
