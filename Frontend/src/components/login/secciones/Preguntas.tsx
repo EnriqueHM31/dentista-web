@@ -34,7 +34,7 @@ export default function ListaPreguntas() {
                 modalId="editar"
                 activeId={activeModal}
                 onClose={handleClickDesactivarModal}
-                clases="max-w-1/2 flex items-center justify-center"
+                clases="max-w-2/3 flex items-center justify-center scrollbar-invisible"
             >
                 <ModalEditar
                     handleEditarPregunta={handleClickModalEditarPregunta}
@@ -50,7 +50,7 @@ export default function ListaPreguntas() {
                 modalId="crear"
                 activeId={activeModal}
                 onClose={handleClickDesactivarModal}
-                clases="max-w-1/2 flex items-center justify-center"
+                clases="max-w-2/3 flex items-center justify-center"
             >
                 <ModalCrear
                     toggle={handleClickDesactivarModal}
