@@ -1,17 +1,21 @@
 import Modal from "@/components/general/Modal";
-import { FiEdit, FiTrash2 } from "react-icons/fi";
+import { FiEdit, FiPlus, FiTrash2 } from "react-icons/fi";
 import { useOpenWithTransition } from "@/hooks/general/useOpenWithTransition";
 import { useGetServicios } from "@/hooks/admin/Servicios/useGetServicios";
 import ModalEditarServicio from "../servicios/ModalEditarServicio";
 import type { Servicio } from "@/types";
 import { useModalEditarServicio } from "@/hooks/admin/Servicios/useModalEditarServicio";
 import { toast } from "sonner";
+import { useModalIndependiente } from "@/hooks/general/useModalIndependiente";
+import ModalCrearServicio from "../servicios/ModalCrearServicio";
 
 
 export default function Servicios() {
-    const { isOpen, toggle } = useOpenWithTransition();
-    const { servicios, serviciosRef, refrescarUpdateServicio, handleEliminarServicio } = useGetServicios();
+    const { toggle } = useOpenWithTransition();
+    const { servicios, serviciosRef, refrescarUpdateServicio, refrescarCrearServicio, handleEliminarServicio } = useGetServicios();
     const { formValues, handleEdit, handleChange, formularioOriginal } = useModalEditarServicio();
+
+    const { handleClickActivarModalIndependiente, activeModal, handleClickDesactivarModal } = useModalIndependiente();
 
     const handledescartarCambios = () => {
         const sonIguales = (Object.keys(formValues) as (keyof Servicio)[]).every((key) => {
@@ -19,13 +23,13 @@ export default function Servicios() {
         });
 
         if (sonIguales) {
-            toggle();
+            handleClickDesactivarModal();
         } else {
             toast("Estas seguro de deshacer los cambios?", {
                 action: {
                     label: "Deshacer",
                     onClick: () => {
-                        toggle();
+                        handleClickDesactivarModal();
                     }
                 },
                 cancel: {
@@ -41,13 +45,26 @@ export default function Servicios() {
 
     return (
         <>
-            <Modal isOpen={isOpen} onClose={handledescartarCambios} clases="max-w-3/4 w-full">
+            <Modal onClose={handledescartarCambios} modalId="editar_servicio" activeId={activeModal} clases="max-w-1/2 w-full">
                 <ModalEditarServicio serviciosRef={serviciosRef} toggle={toggle} formValues={formValues} handleChange={handleChange} refresh={refrescarUpdateServicio} />
             </Modal>
 
+            <Modal onClose={handledescartarCambios} modalId="crear_servicio" activeId={activeModal} clases="max-w-1/2 w-full">
+                <ModalCrearServicio handleClickDesactivarModal={handleClickDesactivarModal} refrescarCrearServicio={refrescarCrearServicio} />
+            </Modal>
 
-            <section className="flex flex-col gap-6">
-                <h2 className="text-2xl font-semibold text-primary">Servicios</h2>
+
+            <section className="flex flex-col gap-6 p-4">
+                <div className="flex justify-between items-center mb-6">
+                    <h2 className="text-2xl font-bold">Servicios</h2>
+                    <button
+                        onClick={() => handleClickActivarModalIndependiente("crear_servicio")}
+                        className="flex items-center gap-2 bg-primary text-white px-4 py-2 rounded hover:bg-primary-dark transition cursor-pointer"
+                        type="button"
+                    >
+                        <FiPlus size={18} /> Agregar Servicio
+                    </button>
+                </div>
 
                 <ul className="grid xl:grid-cols-2 md:grid-cols-1 w-full gap-6">
                     {servicios.map((servicio) => (
@@ -61,7 +78,7 @@ export default function Servicios() {
                                     className="cursor-pointer hover:text-white/80"
                                     onClick={() => {
                                         handleEdit(servicio)
-                                        toggle();
+                                        handleClickActivarModalIndependiente("editar_servicio");
                                     }}
                                 >
                                     <FiEdit />
@@ -69,7 +86,7 @@ export default function Servicios() {
 
                                 <button className="cursor-pointer hover:text-white/80"
                                     onClick={() => {
-                                        handleEliminarServicio(servicio.id);
+                                        handleEliminarServicio(servicio.id)
                                     }}
                                 >
                                     <FiTrash2 />
