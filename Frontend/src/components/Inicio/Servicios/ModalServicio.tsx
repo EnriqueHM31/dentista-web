@@ -17,7 +17,7 @@ export default function ModalServicio({ servicio }: ModalServicioProps) {
             </div>
 
             {/* Texto */}
-            <div className="flex-1 flex flex-col justify-center gap-4 py-6 px-9">
+            <div className="flex-1 flex flex-col justify-center gap-4 py-12 px-9">
                 <h2 className="text-2xl font-bold">{servicio.name}</h2>
                 <p>{servicio.description}</p>
             </div>
