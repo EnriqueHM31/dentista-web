@@ -3,6 +3,19 @@ import { ModeloServicio } from '../../models/mysql/servicio';
 
 
 export class ServiciosController {
+
+    static async crearServicio(req: Request, res: Response) {
+        const { titulo, descripcion, img } = req.body;
+
+        const { success, message, servicio } = await ModeloServicio.crearServicio({ titulo, descripcion, img });
+
+        if (success) {
+            res.status(200).json({ success, message, servicio });
+        } else {
+            res.status(500).json({ success, message, servicio: {} });
+        }
+    }
+
     static async getServicios(_req: Request, res: Response) {
         try {
             const { success, message } = await ModeloServicio.getServicios();
