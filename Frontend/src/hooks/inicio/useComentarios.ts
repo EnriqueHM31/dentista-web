@@ -1,18 +1,22 @@
 import { useState } from "react";
 
-interface useComentariosProps {
-    client_name: string;
-    rating: number;
-    comment: string;
+interface Comentario {
+    id: string;
+    nombre: string;
+    mensaje: string;
+    ranking: number;
+    visible: boolean | number;
 }
 
-export function useComentarios({ TESTIMONIOS }: { TESTIMONIOS: useComentariosProps[] }) {
+export function useComentarios(comentariosVisibles: Comentario[]) {
     const ITEMS_PER_PAGE = 3;
     const [page, setPage] = useState(0);
-    const totalPages = Math.ceil(TESTIMONIOS.length / ITEMS_PER_PAGE);
+
+    const comentariosParaEnseñar = comentariosVisibles.filter((comentario) => comentario.visible === true || comentario.visible === 1);
+    const totalPages = Math.ceil(comentariosParaEnseñar.length / ITEMS_PER_PAGE);
 
     const startIndex = page * ITEMS_PER_PAGE;
-    const visibleTestimonials = TESTIMONIOS.slice(startIndex, startIndex + ITEMS_PER_PAGE);
+    const visibleTestimonials = comentariosParaEnseñar.slice(startIndex, startIndex + ITEMS_PER_PAGE);
 
     const handleNext = () => {
         if (page < totalPages - 1) {
