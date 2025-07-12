@@ -1,31 +1,14 @@
 
 import CardServicio from "@/components/Inicio/Servicios/CardServicio";
+import { ServicioContext } from "@/context/Servicio";
 import { motion } from "framer-motion";
-import { useEffect, useState } from "react";
+import { useContext } from "react";
 
-interface Servicio {
-    id: `${string}-${string}-${string}-${string}-${string}`;
-    name: string;
-    description: string;
-    img: string;
-}
+
 
 export default function Servicios() {
 
-    const [servicios, setServicios] = useState([] as Servicio[]);
-
-    useEffect(() => {
-        const getServicios = async () => {
-            const response = await fetch(`${import.meta.env.VITE_API_URL}/servicios`);
-            const { success, message } = await response.json();
-
-            if (success) {
-                setServicios(message);
-            }
-        }
-
-        getServicios();
-    }, []);
+    const { servicios } = useContext(ServicioContext);
     return (
         <>
 

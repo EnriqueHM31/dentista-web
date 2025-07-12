@@ -53,7 +53,7 @@ export default function ModalEditarServicio({ serviciosRef, handleClickDesactiva
 
                     {preview === "name" && (
                         <div className="flex flex-col gap-4">
-                            <label htmlFor="name" className="text-sm text-primary bg-white px-5 py-1 rounded">Nombre</label>
+                            <label htmlFor="name" className="text-sm text-primary bg-white px-5 py-1 rounded w-fit">Nombre</label>
                             <input
                                 type="text"
                                 id="name"
@@ -68,7 +68,7 @@ export default function ModalEditarServicio({ serviciosRef, handleClickDesactiva
 
                     {preview === "description" && (
                         <div className="flex flex-col gap-4 h-full">
-                            <label htmlFor="description" className="text-sm text-primary bg-white px-5 py-1 rounded">Descripción</label>
+                            <label htmlFor="description" className="text-sm text-primary bg-white px-5 py-1 rounded w-fit">Descripción</label>
                             <textarea
                                 id="description"
                                 name="description"
@@ -82,14 +82,14 @@ export default function ModalEditarServicio({ serviciosRef, handleClickDesactiva
 
                     {preview === "img" && (
                         <div className="flex flex-col gap-4 h-fit">
-                            <label htmlFor="img" className="text-sm text-primary font-bold">Imagen (URL)</label>
+                            <label htmlFor="img" className="text-sm text-primary bg-white px-5 py-1 rounded w-fit">Imagen (URL)</label>
                             <img
-                                id="img"
                                 src={formValues.img}
                                 alt="Previsualización"
                                 className="w-full h-70 object-contain rounded mb-2"
                             />
                             <input
+                                id="img"
                                 type="text"
                                 name="img"
                                 autoComplete="on"

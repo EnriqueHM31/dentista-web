@@ -3,9 +3,13 @@ import type { ServicioResponse, Servicio } from "@/types";
 import { useState } from "react";
 import { modificarServicio } from "@/services/Servicios";
 
-export function useEditarServicio({ serviciosRef, formValues, handleClickDesactivarModal }
-    :
-    { serviciosRef: React.MutableRefObject<ServicioResponse[]>, formValues: ServicioResponse, handleClickDesactivarModal: () => void }) {
+interface useEditarServicioProps {
+    serviciosRef: React.RefObject<ServicioResponse[]>,
+    formValues: ServicioResponse,
+    handleClickDesactivarModal: () => void
+}
+
+export function useEditarServicio({ serviciosRef, formValues, handleClickDesactivarModal }: useEditarServicioProps) {
     const [preview, setPreview] = useState<keyof Servicio | null>('name');
 
 
@@ -35,7 +39,7 @@ export function useEditarServicio({ serviciosRef, formValues, handleClickDesacti
                 onClick: async () => {
                     try {
                         const data = cambios.reduce((acc, key) => {
-                            acc[key] = formValues[key];
+                            acc[key] = formValues[key] as `${string}-${string}-${string}-${string}-${string}`;
                             return acc;
                         }, {} as Partial<ServicioResponse>);
 

@@ -1,28 +1,25 @@
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef } from "react";
 import { toast } from "sonner";
 import type { ServicioResponse } from "@/types";
-import { crearServicio, eliminarServicio, getServicios } from "@/services/Servicios";
+import { crearServicio, eliminarServicio } from "@/services/Servicios";
 import { esURLValida } from "@/assets/ts/constantes";
+import { ServicioContext } from "@/context/Servicio";
 
 
-export function useGetServicios({ handleClickDesactivarModal }: { handleClickDesactivarModal: () => void }) {
+interface useGetServiciosProps {
+    handleClickDesactivarModal: () => void
+}
 
-    const [servicios, setServicios] = useState<ServicioResponse[]>([]);
+export function useGetServicios({ handleClickDesactivarModal }: useGetServiciosProps) {
+    const { servicios, setServicios } = useContext(ServicioContext);
     const formRef = useRef<ServicioResponse[]>([]);
 
-    useEffect(() => {
-        const fetchServicios = async () => {
-            const { success, message } = await getServicios();
-            if (success) {
-                setServicios(message);
-                formRef.current = message;
 
-            } else {
-                toast.error(message || "Error al cargar los servicios");
-            }
-        };
-        fetchServicios();
-    }, []);
+    useEffect(() => {
+        if (servicios.length !== 0) {
+            formRef.current = servicios;
+        }
+    }, [servicios]);
 
 
     const refrescarUpdateServicio = (id: string, updatedValues: { name?: string; description?: string; img?: string }) => {
@@ -51,9 +48,6 @@ export function useGetServicios({ handleClickDesactivarModal }: { handleClickDes
 
         setServicios(prev => [...prev, { id, name, description, img }].sort((a, b) => a.name.localeCompare(b.name)));
     }
-
-
-
 
     const handleEliminarServicio = async (id: `${string}-${string}-${string}-${string}-${string}` | "") => {
         const index = servicios.findIndex((s) => s.id === id);

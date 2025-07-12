@@ -1,4 +1,5 @@
 export interface Servicio {
+    id: `${string}-${string}-${string}-${string}-${string}`;
     name: string;
     description: string;
     img: string;
@@ -76,21 +77,11 @@ interface AsideMenuProps {
 
 
 interface ModalServicioProps {
-    servicio: {
-        id: `${string}-${string}-${string}-${string}-${string}`;
-        name: string;
-        description: string;
-        img: string;
-    };
+    servicio: ServicioResponse
 }
 
 interface CardServicioProps {
-    servicio: {
-        id: `${string}-${string}-${string}-${string}-${string}`;
-        name: string;
-        description: string;
-        img: string;
-    }
+    servicio: ServicioResponse;
     index: number;
 }
 
@@ -110,6 +101,7 @@ interface AnimatedSelectProps {
 }
 
 interface Servicio {
+    id: `${string} `
     name: string;
     description: string;
     img: string;

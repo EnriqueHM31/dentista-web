@@ -8,11 +8,11 @@ import SectionComentarios from "@/components/Inicio/secciones/SectionComentarios
 import SectionPreguntas from "@/components/Inicio/secciones/SectionPreguntas";
 import { PreguntasProvider } from "@/context/Preguntas";
 
-
 export default function Inicio() {
     return (
         <>
             <PreguntasProvider>
+
                 <FondoHero />
                 <Hero />
                 <SectionTelefono />
@@ -21,6 +21,7 @@ export default function Inicio() {
                 <SectionEspecialistas />
                 <SectionComentarios />
                 <SectionPreguntas />
+
 
             </PreguntasProvider>
         </>

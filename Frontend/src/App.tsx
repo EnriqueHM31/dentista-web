@@ -9,7 +9,7 @@ import Contacto from './pages/Contacto';
 import Admin from './pages/Admin';
 import Dashboard from './components/login/Dashboard';
 import { SocialesProvider } from './context/Sociales';
-import { PreguntasProvider } from './context/Preguntas';
+import { ServicioProvider } from './context/Servicio';
 
 function App() {
   const location = useLocation();
@@ -23,15 +23,19 @@ function App() {
 
       <Routes>
         <Route path="/" element={<Inicio />} />
-        <Route path="/servicios" element={<Servicios />} />
-        <Route path="/contacto" element={<SocialesProvider><Contacto /></SocialesProvider>} />
+        <Route path="/servicios" element={
+          <ServicioProvider>
+            <Servicios />
+          </ServicioProvider>
+        } />
+        <Route path="/contacto" element={
+          <SocialesProvider>
+            <Contacto />
+          </SocialesProvider>
+        } />
         <Route path="/admin" element={<Admin />} />
         <Route path="/admin/dashboard" element={
-          <SocialesProvider>
-            <PreguntasProvider>
-              <Dashboard />
-            </PreguntasProvider>
-          </SocialesProvider>
+          <Dashboard />
         } />
         <Route path="/*" element={<h1>404</h1>} />
       </Routes>
