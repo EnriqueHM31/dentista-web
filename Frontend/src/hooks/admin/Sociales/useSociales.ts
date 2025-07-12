@@ -1,38 +1,26 @@
-import { getDataSociales, updateSocial } from "@/services/Sociales";
+import { SocialesContext } from "@/context/Sociales";
+import { updateSocial } from "@/services/Sociales";
 import type { SocialProps } from "@/types";
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
 
 export function useSociales() {
-    const [social, setSocial] = useState<SocialProps[]>([]);
-    const originalSocialRef = useRef<SocialProps[]>([]);
     const [editMode, setEditMode] = useState<Record<string, boolean>>({});
+    const { sociales, setSociales } = useContext(SocialesContext);
+    const originalSocialRef = useRef<SocialProps[]>([]);
 
     useEffect(() => {
-        const obtenerDatosSociales = async () => {
-            try {
-                const { success, message } = await getDataSociales();
-                if (!success) {
-                    toast.error('Error al cargar redes sociales');
-                    return;
-                }
-                setSocial(message);
-                originalSocialRef.current = message;
-            } catch (err) {
-                console.error(err);
-                toast.error('Error al cargar redes sociales');
-            }
-        };
-
-        obtenerDatosSociales();
-    }, []);
+        if (sociales.length > 0 && originalSocialRef.current.length === 0) {
+            originalSocialRef.current = [...sociales]; // Clonar solo la primera vez
+        }
+    }, [sociales]);
 
     const handleEditClick = (id: string) => {
         setEditMode((prev) => ({ ...prev, [id]: !prev[id] }));
     };
 
     const handleChange = (id: string, value: string) => {
-        setSocial((prev) =>
+        setSociales((prev) =>
             prev.map((item) =>
                 item.id === id ? { ...item, referencia: value } : item
             )
@@ -40,7 +28,7 @@ export function useSociales() {
     };
 
     const handleGuardar = async () => {
-        const cambios = social.filter((item) => {
+        const cambios = sociales.filter((item) => {
             const original = originalSocialRef.current.find((o) => o.id === item.id);
             return original && original.referencia !== item.referencia;
         });
@@ -61,7 +49,7 @@ export function useSociales() {
                 }
             }
             toast.success('Cambios guardados exitosamente');
-            originalSocialRef.current = [...social];
+            originalSocialRef.current = [...sociales];
             setEditMode({});
         } catch (error) {
             console.error('Error al guardar cambios', error);
@@ -70,7 +58,7 @@ export function useSociales() {
     };
 
     return {
-        social,
+        sociales,
         handleEditClick,
         handleChange,
         handleGuardar,

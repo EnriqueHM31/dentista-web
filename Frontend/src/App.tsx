@@ -8,6 +8,7 @@ import Servicios from './pages/Servicios';
 import Contacto from './pages/Contacto';
 import Admin from './pages/Admin';
 import Dashboard from './components/login/Dashboard';
+import { SocialesProvider } from './context/Sociales';
 
 function App() {
   const location = useLocation();
@@ -22,13 +23,22 @@ function App() {
       <Routes>
         <Route path="/" element={<Inicio />} />
         <Route path="/servicios" element={<Servicios />} />
-        <Route path="/contacto" element={<Contacto />} />
+        <Route path="/contacto" element={<SocialesProvider><Contacto /></SocialesProvider>} />
         <Route path="/admin" element={<Admin />} />
-        <Route path="/admin/dashboard" element={<Dashboard />} />
+        <Route path="/admin/dashboard" element={
+          <SocialesProvider>
+            <Dashboard />
+          </SocialesProvider>
+        } />
         <Route path="/*" element={<h1>404</h1>} />
       </Routes>
 
-      {!isAdminRoute && <Footer />}
+      {!isAdminRoute &&
+        <SocialesProvider>
+          <Footer />
+        </SocialesProvider>
+
+      }
 
       <Toaster
         position="bottom-right"
