@@ -30,7 +30,9 @@ function App() {
         } />
         <Route path="/contacto" element={
           <SocialesProvider>
-            <Contacto />
+            <ServicioProvider>
+              <Contacto />
+            </ServicioProvider>
           </SocialesProvider>
         } />
         <Route path="/admin" element={<Admin />} />
@@ -38,7 +40,7 @@ function App() {
           <Dashboard />
         } />
         <Route path="/*" element={<h1>404</h1>} />
-      </Routes>
+      </Routes >
 
       {!isAdminRoute &&
         <SocialesProvider>

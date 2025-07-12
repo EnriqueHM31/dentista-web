@@ -10,6 +10,8 @@ import { useUtils } from "@/hooks/general/useUtils";
 import { useContext } from "react";
 import { toast } from "sonner";
 import { SocialesContext } from "@/context/Sociales";
+import StarRating from "@/components/Inicio/Comentarios/Ranking";
+import { ServicioContext } from "@/context/Servicio";
 
 const MAS_CONTACTOS = [
     { icono: <CgPhone className="text-2xl " />, label: "Telefono" },
@@ -22,9 +24,9 @@ export default function Contacto() {
 
     const { handleClickCopy } = useUtils();
     const { sociales } = useContext(SocialesContext);
+    const { servicios } = useContext(ServicioContext);
 
     const formData = sociales.filter(({ nombre }) => MAS_CONTACTOS.some(({ label }) => label === nombre));
-
 
     const handleSubmitCorreo = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -75,56 +77,67 @@ export default function Contacto() {
                 </div >
 
                 <div className="flex-1 h-full min-h-screen">
-                    <form action="" className="flex flex-col gap-8 bg-primary text-white p-8 rounded-2xl h-full min-h-screen" onSubmit={(e) => handleSubmitCorreo(e)}>
-                        <h2>Estoy interesado en...</h2>
+
+                    <form
+                        action=""
+                        className="flex flex-col gap-8 bg-primary text-white p-8 rounded-2xl h-full min-h-screen"
+                        onSubmit={(e) => handleSubmitCorreo(e)}
+                    >
+                        <h2 className="text-xl">Manda un comentario o sugerencia de ...</h2>
+
                         <AnimatedSelect
                             name="categoria"
-                            options={["Opción 1", "Opción 2", "Opción 3"]}
+                            options={servicios}
                         />
 
-                        <h3 className="text-2xl font-bold mt-12">¿Quieres saber más?</h3>
+                        <div className="flex flex-col gap-4">
+                            <h4 className="text-xl font-semibold">Nivel de experiencia del cliente</h4>
+                            <StarRating name="experiencia" />
+                        </div>
 
-                        <label className="flex items-center gap-3 border-b-2 border-white px-1 py-2 focus-within:border-white transition-all duration-200">
+                        <h3 className="text-xl font-bold">Escribe tu comentario o sugerencia</h3>
+
+                        <label htmlFor="username" className="flex items-center gap-3 border-b-2 border-white px-1 py-2 focus-within:border-white transition-all duration-200">
                             <FaUser className="text-3xl p-1" />
-
                             <input
+                                id="username"
                                 type="text"
                                 name="username"
                                 required
                                 placeholder="Nombre del cliente"
                                 minLength={3}
                                 maxLength={30}
-                                title="Only letters, numbers, or dashes. Must start with a letter."
+                                autoComplete="on"
                                 className="w-full bg-transparent outline-none placeholder:text-white/50"
                             />
                         </label>
 
-                        <label className="flex items-center gap-3 border-b-2 border-white px-1 py-2 focus-within:border-white transition-all duration-200">
+                        <label htmlFor="email" className="flex items-center gap-3 border-b-2 border-white px-1 py-2 focus-within:border-white transition-all duration-200">
                             <MdEmail className="text-3xl p-1" />
-
                             <input
+                                id="email"
                                 type="email"
                                 name="email"
                                 required
+                                autoComplete="on"
                                 placeholder="Correo electrónico"
                                 pattern="[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$"
-                                title="Must be a valid email address."
                                 className="w-full bg-transparent outline-none placeholder:text-white/50"
                             />
                         </label>
 
-                        <label className="flex items-center gap-3 border-b-2 border-white px-1 py-2 focus-within:border-white transition-all duration-200">
+                        <label htmlFor="message" className="flex items-center gap-3 border-b-2 border-white px-1 py-2 focus-within:border-white transition-all duration-200">
                             <FaMessage className="text-3xl p-1" />
-
                             <input
+                                id="message"
                                 type="text"
                                 name="message"
                                 required
                                 placeholder="Mensaje"
-                                title="Message cannot be empty."
                                 className="w-full bg-transparent outline-none placeholder:text-white/50"
                             />
                         </label>
+
 
 
                         <div className="flex justify-end mt-5">

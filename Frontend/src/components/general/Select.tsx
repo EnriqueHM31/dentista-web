@@ -1,14 +1,22 @@
-import { useState, useId } from "react";
+import { useState, useId, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { FaChevronDown } from "react-icons/fa";
 import type { AnimatedSelectProps } from "@/types";
 
 
 export default function AnimatedSelect({ name, options, onChange }: AnimatedSelectProps) {
-    const [selected, setSelected] = useState(options[0]);
     const [isOpen, setIsOpen] = useState(false);
+    const [selected, setSelected] = useState<string>('');
     const id = useId();
 
+    useEffect(() => {
+        if (!selected && options.length > 0) {
+            setSelected(options[0].name);
+        }
+    }, [options, selected]);
+
+
+    console.log(options);
     const handleSelect = (value: string) => {
         setSelected(value);
         setIsOpen(false);
@@ -16,7 +24,7 @@ export default function AnimatedSelect({ name, options, onChange }: AnimatedSele
     };
 
     return (
-        <div className="relative w-64">
+        <div className="relative max-w-3/4 w-full">
             {/* Hidden native select for form submission */}
             <select
                 id={id}
@@ -30,7 +38,7 @@ export default function AnimatedSelect({ name, options, onChange }: AnimatedSele
             >
                 {options.map((opt, i) => (
                     <option key={i} >
-                        {opt}
+                        {opt.name}
                     </option>
                 ))}
             </select>
@@ -60,10 +68,10 @@ export default function AnimatedSelect({ name, options, onChange }: AnimatedSele
                         {options.map((opt, i) => (
                             <li
                                 key={i}
-                                onClick={() => handleSelect(opt)}
+                                onClick={() => handleSelect(opt.name)}
                                 className="px-4 py-2 cursor-pointer hover:bg-primary hover:text-white transition-colors"
                             >
-                                {opt}
+                                {opt.name}
                             </li>
                         ))}
                     </motion.ul>
