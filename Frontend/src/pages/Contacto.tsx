@@ -61,7 +61,7 @@ export default function Contacto() {
                         <ul>
                             {
                                 formData.map(({ id, nombre, referencia }) => (
-                                    <li key={id} className="flex gap-4 items-center px-4 py-3 rounded-2xl hover:bg-primary/90 transition duration-300 ease-in-out w-full cursor-pointer max-w-1/2 text-primary hover:text-white" onClick={() => handleClickCopy(referencia, `Se ha copiado ${referencia}`)}>
+                                    <li key={id} className="flex gap-4 items-center px-4 py-3 rounded-2xl hover:bg-primary/90 transition duration-300 ease-in-out w-fit cursor-pointer max-w-full text-primary hover:text-white" onClick={() => handleClickCopy(referencia, `Se ha copiado ${referencia}`)}>
                                         {MAS_CONTACTOS.find(s => s.label === nombre)?.icono}
                                         <p>{referencia}</p>
                                     </li>

@@ -34,7 +34,7 @@ export default function StarRating({ name, onChange }: StarRatingProps) {
                     <FaStar
                         className={`transition-all duration-200 ${index <= rating
                             ? "fill-yellow-400"
-                            : "fill-yellow-100"
+                            : "fill-white/50"
                             }`}
                     />
                 </button>

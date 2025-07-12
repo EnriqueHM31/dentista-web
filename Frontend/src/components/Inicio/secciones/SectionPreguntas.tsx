@@ -9,8 +9,6 @@ export default function SectionPreguntas() {
     const [preguntaActiva, setPreguntaActiva] = useState<number>(0);
     const { preguntas } = useContext(PreguntasContext);
 
-    console.log(preguntas);
-
     const handleClick = (index: number) => {
         setPreguntaActiva(prev => (prev === index ? -1 : index));
         // Opcional: si quieres que al darle clic a la misma pregunta se desactive, usa -1 o null

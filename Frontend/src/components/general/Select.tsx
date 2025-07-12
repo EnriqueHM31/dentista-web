@@ -16,7 +16,6 @@ export default function AnimatedSelect({ name, options, onChange }: AnimatedSele
     }, [options, selected]);
 
 
-    console.log(options);
     const handleSelect = (value: string) => {
         setSelected(value);
         setIsOpen(false);

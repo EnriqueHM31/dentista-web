@@ -15,10 +15,6 @@ export default function SectionComentarios() {
 
     const { page, totalPages, startIndex, visibleTestimonials, handleNext, handlePrevious } = useComentarios(comentariosVisibles);
 
-    console.log(comentariosVisibles);
-
-
-
     return (
         <motion.section
             className="min-h-screen flex flex-col items-center justify-center max-w-10/12 w-full mx-auto px-4 py-10 gap-6"
