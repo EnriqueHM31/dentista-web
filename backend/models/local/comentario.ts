@@ -1,10 +1,27 @@
 import { transporter } from '../../utils/contacto';
 import db from '../../database/db';
 export class ModeloContacto {
+
+
+    static async getComentarios() {
+        try {
+            const [rows] = await db.query('SELECT * FROM Comentarios');
+            return { success: true, message: rows };
+        } catch (error) {
+            return { success: false, message: 'Error en la base de datos + error: ' + error };
+        }
+    }
+
+    static async getComentariosVisibles() {
+        try {
+            const [rows] = await db.query('SELECT * FROM Comentarios WHERE visible = 1');
+            return { success: true, message: rows };
+        } catch (error) {
+            return { success: false, message: 'Error en la base de datos + error: ' + error };
+        }
+    }
+
     static async EnviarMensaje(nombre: string, ranking: number, email: string, interes: string, mensaje: string) {
-
-
-
 
         const mailOptions = {
             from: process.env.REMITENTE,
@@ -59,10 +76,19 @@ export class ModeloContacto {
 
         }
         catch (error) {
-            return { success: false, message: 'Error enviando el mensaje' };
+            return { success: false, message: 'Error enviando el mensaje' + error };
         }
+    }
 
-
-
+    static async updateComentario(id: string, visible: boolean) {
+        try {
+            const [rows] = await db.query('UPDATE Comentarios SET visible = ? WHERE id = ?', [visible, id]);
+            if (!rows) {
+                return { success: false, message: 'No se encontró la pregunta a modificar' };
+            }
+            return { success: true, message: rows };
+        } catch (error) {
+            return { success: false, message: 'Error en la base de datos' };
+        }
     }
 }
