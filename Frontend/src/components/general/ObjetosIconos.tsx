@@ -3,6 +3,7 @@ import { IoShareSocialSharp } from "react-icons/io5";
 import { FaQuestionCircle } from "react-icons/fa";
 import { AiOutlineUser } from "react-icons/ai";
 import { RiLogoutCircleLine } from "react-icons/ri";
+import { FaComment } from "react-icons/fa6";
 import {
     FaFacebook, FaLinkedin, FaInstagram, FaTwitter, FaPhone, FaEnvelope, FaMapMarkerAlt
 } from 'react-icons/fa';
@@ -13,6 +14,7 @@ export function getIconosAside() {
         { label: 'Servicios', icon: GrServices, id: "servicios" },
         { label: 'Sociales', icon: IoShareSocialSharp, id: "share" },
         { label: 'Preguntas', icon: FaQuestionCircle, id: "faq" },
+        { label: 'Comentarios', icon: FaComment, id: "comentarios" },
     ];
 }
 
