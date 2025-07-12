@@ -1,7 +1,11 @@
 import { transporter } from '../../utils/contacto';
-
+import db from '../../database/db';
 export class ModeloContacto {
-    static async EnviarMensaje(nombre: string, email: string, interes: string, mensaje: string) {
+    static async EnviarMensaje(nombre: string, ranking: number, email: string, interes: string, mensaje: string) {
+
+
+
+
         const mailOptions = {
             from: process.env.REMITENTE,
             to: process.env.DESTINATARIO,
@@ -20,9 +24,13 @@ export class ModeloContacto {
             </p>
             
             <p style="font-size: 16px; margin: 10px 0;">
-            <strong>Interés:</strong> ${interes}
+            <strong>Comentario sobre:</strong> ${interes}
             </p>
             
+            <p style="font-size: 16px; margin: 10px 0;">
+            <strong>Puntuacion:</strong> ${ranking} estrellas
+            </p>
+
             <div style="background-color: rgb(0, 12, 37); padding: 16px; border-left: 4px solid #ffffff88; border-radius: 8px; margin-top: 20px;">
             <p style="font-size: 16px; margin: 0;"><strong>Mensaje:</strong></p>
             <p style="margin-top: 8px;">${mensaje}</p>
@@ -32,8 +40,23 @@ export class ModeloContacto {
         };
 
         try {
-            await transporter.sendMail(mailOptions);
-            return { success: true, message: 'Mensaje enviado correctamente' };
+            const info = await transporter.sendMail(mailOptions);
+
+            if (info.accepted.length > 0) {
+
+                const [result] = await db.query('INSERT INTO Comentarios (nombre, ranking, email, servicio, mensaje) VALUES (?, ?, ?, ?, ?)', [nombre, ranking, email, interes, mensaje]);
+
+                if (result) {
+                    return { success: true, message: 'Comentario enviado correctamente' };
+                }
+                else {
+                    return { success: false, message: 'Error al guardar el mensaje' };
+                }
+            }
+            else {
+                return { success: false, message: 'Error enviando el mensaje' };
+            }
+
         }
         catch (error) {
             return { success: false, message: 'Error enviando el mensaje' };

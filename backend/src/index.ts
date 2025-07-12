@@ -3,7 +3,7 @@ dotenv.config();
 import express from 'express';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
-import { contactoRouter } from '../routes/contacto';
+import { ComentariosRouter } from '../routes/comentarios';
 import { SocialesRoutes } from '../routes/sociales';
 import { LoginRouter } from '../routes/login';
 import { PreguntasRoutes } from '../routes/preguntas';
@@ -34,7 +34,7 @@ app.use(cors({
 app.use(cookieParser());
 
 
-app.use('/api/contacto', contactoRouter);
+app.use('/api/comentarios', ComentariosRouter);
 app.use('/api/sociales', SocialesRoutes);
 app.use('/api/login', LoginRouter);
 app.use('/api/preguntas', PreguntasRoutes);

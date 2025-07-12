@@ -42,7 +42,7 @@ export default function ListaPreguntas() {
             {/* MODAL EDITAR */}
             <Modal
                 modalId="editar"
-                activeId={activeModal}
+                activeId={activeModal as string}
                 onClose={handleClickDesactivarModal}
                 clases="max-w-2/3 flex items-center justify-center scrollbar-invisible"
             >
@@ -58,7 +58,7 @@ export default function ListaPreguntas() {
             {/* MODAL CREAR */}
             <Modal
                 modalId="crear"
-                activeId={activeModal}
+                activeId={activeModal as string}
                 onClose={handleClickDesactivarModal}
                 clases="max-w-2/3 flex items-center justify-center"
             >

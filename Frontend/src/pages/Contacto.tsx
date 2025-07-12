@@ -31,13 +31,13 @@ export default function Contacto() {
     const handleSubmitCorreo = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         const data = new FormData(e.currentTarget);
-        const { categoria, username, email, message } = Object.fromEntries(data);
+        const { categoria, username, email, message: comentario, experiencia: ranking } = Object.fromEntries(data);
 
         try {
-            const response = await fetch(`${import.meta.env.VITE_API_URL}/contacto`, {
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/comentarios`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ categoria, username, email, message }),
+                body: JSON.stringify({ categoria, username, email, comentario, ranking }),
                 credentials: "include", // ✅ importante para recibir cookies httpOnly
             });
             if (response.ok) {
