@@ -7,20 +7,24 @@ import SectionEspecialistas from "@/components/Inicio/secciones/SectionEspeciali
 import SectionComentarios from "@/components/Inicio/secciones/SectionComentarios";
 import SectionPreguntas from "@/components/Inicio/secciones/SectionPreguntas";
 import { PreguntasProvider } from "@/context/Preguntas";
+import { ComentariosProvider } from "@/context/Comentarios";
 
 export default function Inicio() {
     return (
         <>
             <PreguntasProvider>
+                <ComentariosProvider>
 
-                <FondoHero />
-                <Hero />
-                <SectionTelefono />
-                <SectionVentajas />
-                <SectionVideo />
-                <SectionEspecialistas />
-                <SectionComentarios />
-                <SectionPreguntas />
+                    <FondoHero />
+                    <Hero />
+                    <SectionTelefono />
+                    <SectionVentajas />
+                    <SectionVideo />
+                    <SectionEspecialistas />
+                    <SectionComentarios />
+                    <SectionPreguntas />
+
+                </ComentariosProvider>
 
 
             </PreguntasProvider>
