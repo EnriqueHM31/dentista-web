@@ -1,13 +1,23 @@
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa6";
 import { motion } from "framer-motion";
-import { TESTIMONIOS } from "@/assets/ts/constantes";
 import { useComentarios } from "@/hooks/inicio/useComentarios";
 import Testimonio from "@/components/Inicio/Comentarios/Testimonio";
 import TituloSeccion from "@/components/Inicio/ui/TituloSeccion";
 import Tooltip from "@/components/general/Tooltip";
+import { ComentariosContext } from "@/context/Comentarios";
+import { useContext } from "react";
 
 export default function SectionComentarios() {
-    const { page, totalPages, startIndex, visibleTestimonials, handleNext, handlePrevious } = useComentarios({ TESTIMONIOS });
+
+    const { comentariosVisibles } = useContext(ComentariosContext);
+
+
+
+    const { page, totalPages, startIndex, visibleTestimonials, handleNext, handlePrevious } = useComentarios(comentariosVisibles);
+
+    console.log(comentariosVisibles);
+
+
 
     return (
         <motion.section
@@ -23,12 +33,12 @@ export default function SectionComentarios() {
             </p>
 
             <ul className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-10 mt-10 w-full">
-                {visibleTestimonials.map(({ client_name, rating, comment }, index) => (
+                {visibleTestimonials.map(({ id, mensaje, nombre, ranking }, index) => (
                     <Testimonio
-                        key={index + startIndex}
-                        client_name={client_name}
-                        rating={rating}
-                        comment={comment}
+                        key={id}
+                        client_name={nombre}
+                        rating={ranking}
+                        comment={mensaje}
                         index={index + startIndex}
                     />
                 ))}
