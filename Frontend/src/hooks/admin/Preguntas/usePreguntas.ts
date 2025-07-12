@@ -1,33 +1,13 @@
-import { useEffect } from "react";
+import { useContext } from "react";
 import { toast } from "sonner";
 import { useState } from "react";
 import type { Pregunta } from "@/types";
-import { deletePregunta, getDataPreguntas } from "@/services/Preguntas";
+import { deletePregunta } from "@/services/Preguntas";
+import { PreguntasContext } from "@/context/Preguntas";
 
 export function usePreguntas() {
-
-    const [preguntas, setPreguntas] = useState<Pregunta[]>([]);
+    const { preguntas, setPreguntas } = useContext(PreguntasContext);
     const [expandedIds, setExpandedIds] = useState<number[]>([]);
-
-    const obtenerPreguntas = async () => {
-        try {
-            const { success, message } = await getDataPreguntas();
-
-            if (!success) {
-                toast.error("Error al cargar preguntas");
-                return;
-            }
-            setPreguntas(message);
-        } catch (err) {
-            console.error(err);
-            toast.error("Error al cargar preguntas");
-        }
-    };
-
-    useEffect(() => {
-        obtenerPreguntas();
-    }, []);
-
 
     const refrescarPreguntaEditada = async (preguntaSeleccionada: Pregunta) => {
         setPreguntas(prev =>
@@ -65,7 +45,6 @@ export function usePreguntas() {
         toggleExpand,
         handleClickEliminarPregunta,
         expandedIds,
-        obtenerPreguntas,
         refrescarPreguntaEditada
     };
 

@@ -9,6 +9,7 @@ import Contacto from './pages/Contacto';
 import Admin from './pages/Admin';
 import Dashboard from './components/login/Dashboard';
 import { SocialesProvider } from './context/Sociales';
+import { PreguntasProvider } from './context/Preguntas';
 
 function App() {
   const location = useLocation();
@@ -27,7 +28,9 @@ function App() {
         <Route path="/admin" element={<Admin />} />
         <Route path="/admin/dashboard" element={
           <SocialesProvider>
-            <Dashboard />
+            <PreguntasProvider>
+              <Dashboard />
+            </PreguntasProvider>
           </SocialesProvider>
         } />
         <Route path="/*" element={<h1>404</h1>} />

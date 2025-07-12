@@ -27,7 +27,7 @@ export function useEditarPregunta() {
     }
 
 
-    const handleGuardarPreguntaModificada = async (e: React.FormEvent<HTMLFormElement>) => {
+    const handleEditarPregunta = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         const toastId = toast.loading("Guardando cambios...");
         try {
@@ -52,7 +52,7 @@ export function useEditarPregunta() {
         handleClickEditar,
         handleClickModalEditarPregunta,
         handleClickModalEditarRespuesta,
-        handleGuardarPreguntaModificada,
+        handleEditarPregunta,
         preguntaSeleccionada
     }
 

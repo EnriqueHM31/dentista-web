@@ -27,7 +27,7 @@ export function useSociales() {
         );
     };
 
-    const handleGuardar = async () => {
+    const handleEditarRedSocial = async () => {
         const cambios = sociales.filter((item) => {
             const original = originalSocialRef.current.find((o) => o.id === item.id);
             return original && original.referencia !== item.referencia;
@@ -61,7 +61,7 @@ export function useSociales() {
         sociales,
         handleEditClick,
         handleChange,
-        handleGuardar,
+        handleEditarRedSocial,
         editMode,
     };
 }

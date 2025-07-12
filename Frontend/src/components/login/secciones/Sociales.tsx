@@ -4,7 +4,7 @@ import { useSociales } from '@/hooks/admin/Sociales/useSociales';
 
 
 export default function Sociales() {
-    const { sociales, handleEditClick, handleChange, handleGuardar, editMode } = useSociales();
+    const { sociales, handleEditClick, handleChange, handleEditarRedSocial, editMode } = useSociales();
 
 
     return (
@@ -40,7 +40,7 @@ export default function Sociales() {
             ))}
 
             <button
-                onClick={handleGuardar}
+                onClick={handleEditarRedSocial}
                 className="bg-primary cursor-pointer text-white px-4 py-2 rounded-lg hover:bg-blue-700 flex items-center gap-2 mt-5"
                 type="button"
             >
