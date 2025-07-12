@@ -1,18 +1,17 @@
-import { useOpenWithTransition } from "@/hooks/general/useOpen";
+import { useModalIndependiente } from "@/hooks/general/useModalIndependiente";
 import { motion } from "framer-motion";
 import Modal from "@/components/general/Modal";
 import ModalServicio from "./ModalServicio";
 import type { CardServicioProps } from "@/types";
 
 export default function CardServicio({ servicio, index }: CardServicioProps) {
-    const { isOpen, open, close } = useOpenWithTransition();
+    const { handleClickActivarModalIndependiente, activeModal, handleClickDesactivarModal } = useModalIndependiente();
 
     return (
         <>
             {/* Modal padre */}
             <Modal
-                isOpen={isOpen}
-                onClose={close}
+                onClose={handleClickDesactivarModal}
                 clases="max-w-11/12 xl:max-w-3/4 w-full rounded-2xl overflow-x-hidden"
             >
                 <ModalServicio servicio={servicio} />
@@ -32,10 +31,10 @@ export default function CardServicio({ servicio, index }: CardServicioProps) {
                 }}
                 viewport={{ once: true, amount: 0.3 }}
                 className="group rounded-xl bg-white shadow-secondary-1 dark:bg-surface-dark border border-black/10 flex flex-col hover:bg-secondary transition duration-500 ease-out cursor-pointer"
-                onClick={open}
+                onClick={() => handleClickActivarModalIndependiente('card_servicio')}
                 onKeyDown={(e) => {
                     if (e.key === "Enter" || e.key === " ") {
-                        open();
+                        handleClickActivarModalIndependiente('card_servicio');
                     }
                 }}
             >
@@ -64,7 +63,7 @@ export default function CardServicio({ servicio, index }: CardServicioProps) {
 
                     <button
                         aria-label={`Leer más sobre ${servicio.name}`}
-                        disabled={isOpen}
+                        disabled={activeModal === 'card_servicio'}
                         type="button"
                         className="inline-block rounded bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-primary-3 ease-in-out hover:bg-primary-accent-300 hover:shadow-primary-2 focus:bg-primary-accent-300 focus:shadow-primary-2 focus:outline-none focus:ring-0 active:bg-primary-600 active:shadow-primary-2 dark:shadow-black/30 dark:hover:shadow-dark-strong dark:focus:shadow-dark-strong dark:active:shadow-dark-strong text-center hover:bg-white/80 transition duration-300 group-hover:bg-white group-hover:text-primary cursor-pointer"
                         data-twe-ripple-init

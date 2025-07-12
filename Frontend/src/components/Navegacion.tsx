@@ -3,7 +3,7 @@ import { RiMenu3Fill } from "react-icons/ri";
 import { CgClose } from "react-icons/cg";
 import { motion, AnimatePresence } from 'framer-motion'
 import MenuNavegacion from '@/components/Inicio/ui/MenuNavegacion';
-import { useOpenWithTransition } from "@/hooks/general/useOpen";
+import { useOpenWithTransition } from "@/hooks/general/useOpenWithTransition";
 import { useScroll } from "@/hooks/inicio/useScroll";
 
 export default function Navegacion() {

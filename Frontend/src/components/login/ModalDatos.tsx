@@ -1,7 +1,7 @@
 import { FaUser } from "react-icons/fa";
 import { RiLockPasswordFill } from "react-icons/ri";
 import { IoEyeSharp } from "react-icons/io5";
-import { useOpenWithTransition } from "@/hooks/general/useOpen";
+import { useOpenWithTransition } from "@/hooks/general/useOpenWithTransition";
 import { useUpdateUsuario } from "@/hooks/admin/Perfil/useDatosAdmin";
 import { useGetUsuario } from "@/hooks/admin/Perfil/useGetUsuario";
 
