@@ -1,4 +1,4 @@
-import { useOpenWithTransition } from "@/hooks/general/useOpenWithTransition";
+import { useOpenWithTransition } from "@/hooks/general/useOpen";
 import { motion } from "framer-motion";
 import Modal from "@/components/general/Modal";
 import ModalServicio from "./ModalServicio";

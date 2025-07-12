@@ -2,7 +2,7 @@ import { AiOutlineMenuFold, AiOutlineMenuUnfold, } from "react-icons/ai";
 import Tooltip from "@/components/general/Tooltip";
 import type { AsideMenuProps } from "@/types";
 import { getIconosAside, getIconoLogout } from "@/components/general/ObjetosIconos";
-import { useOpenWithTransition } from "@/hooks/general/useOpenWithTransition";
+import { useOpenWithTransition } from "@/hooks/general/useOpen";
 import BotonItemAside from "./aside/BotonItemAside";
 
 
