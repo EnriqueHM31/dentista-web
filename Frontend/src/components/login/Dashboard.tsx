@@ -7,6 +7,8 @@ import Servicios from "./secciones/Servicios";
 import { SocialesProvider } from "@/context/Sociales";
 import { ServicioProvider } from "@/context/Servicio";
 import { PreguntasProvider } from "@/context/Preguntas";
+import { ComentariosProvider } from "@/context/Comentarios";
+import Comentarios from "./secciones/Comentarios";
 
 export default function Dashboard() {
     const { selected, handleClickSelected } = useNavAsideLocal();
@@ -22,6 +24,7 @@ export default function Dashboard() {
                     {selected === "servicios" && <ServicioProvider> <Servicios /> </ServicioProvider>}
                     {selected === "share" && <SocialesProvider > <Sociales /> </SocialesProvider>}
                     {selected === "faq" && <PreguntasProvider> <ListaPreguntas /> </PreguntasProvider>}
+                    {selected === "comentarios" && <ComentariosProvider> <Comentarios /> </ComentariosProvider>}
                     {selected === "logout" && <p>¿Seguro que quieres cerrar sesión?</p>}
                 </div>
             </main>
