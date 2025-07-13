@@ -35,11 +35,13 @@ export default function MenuLateral({ isOpen, toggleMenu, clases }: MenuNavegaci
                             </li>
                         ))}
                         <li>
-                            <button
+                            <a
+                                href="/citas"
+                                rel="noopener noreferrer"
                                 className={`mt-4 font-semibold px-4 py-2 rounded-xl w-full transition duration-300 ease-in-out hover:scale-105 cursor-pointer ${buttonMovilClasses}`}
                             >
                                 Realizar una cita
-                            </button>
+                            </a>
                         </li>
                     </motion.ul>
                 )}

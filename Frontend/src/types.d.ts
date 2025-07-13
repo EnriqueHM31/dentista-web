@@ -96,7 +96,7 @@ interface ModalProps {
 
 interface AnimatedSelectProps {
     name: string;
-    options: ServicioResponse[];
+    options: string[];
     onChange?: (value: string) => void;
 }
 

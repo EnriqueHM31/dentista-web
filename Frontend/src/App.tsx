@@ -10,6 +10,7 @@ import Admin from './pages/Admin';
 import Dashboard from './components/login/Dashboard';
 import { SocialesProvider } from './context/Sociales';
 import { ServicioProvider } from './context/Servicio';
+import Citas from './pages/Citas';
 
 function App() {
   const location = useLocation();
@@ -39,6 +40,13 @@ function App() {
         <Route path="/admin/dashboard" element={
           <Dashboard />
         } />
+
+
+        <Route path="/citas" element={
+          <ServicioProvider>
+            <Citas />
+          </ServicioProvider>} />
+
         <Route path="/*" element={<h1>404</h1>} />
       </Routes >
 

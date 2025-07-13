@@ -11,7 +11,7 @@ export default function AnimatedSelect({ name, options, onChange }: AnimatedSele
 
     useEffect(() => {
         if (!selected && options.length > 0) {
-            setSelected(options[0].name);
+            setSelected(options[0]);
         }
     }, [options, selected]);
 
@@ -23,7 +23,7 @@ export default function AnimatedSelect({ name, options, onChange }: AnimatedSele
     };
 
     return (
-        <div className="relative max-w-3/4 w-full">
+        <div className="relative max-w-full border border-primary rounded-lg w-full ">
             {/* Hidden native select for form submission */}
             <select
                 id={id}
@@ -36,8 +36,8 @@ export default function AnimatedSelect({ name, options, onChange }: AnimatedSele
                 required
             >
                 {options.map((opt, i) => (
-                    <option key={i} >
-                        {opt.name}
+                    <option key={i} className="cursor-pointer line-clamp-1 text-ellipsis text-wrap" >
+                        {opt.length > 40 ? opt.slice(0, 37) + '...' : opt}
                     </option>
                 ))}
             </select>
@@ -46,9 +46,9 @@ export default function AnimatedSelect({ name, options, onChange }: AnimatedSele
             <button
                 type="button"
                 onClick={() => setIsOpen(!isOpen)}
-                className="w-full px-4 py-3 bg-white text-primary rounded-lg flex justify-between items-center"
+                className="w-full px-4 py-3 cursor-pointer bg-white text-primary rounded-lg flex justify-between items-center"
             >
-                <span>{selected}</span>
+                <span>{selected.length > 15 ? selected.slice(0, 12) + '...' : selected}</span>
                 <FaChevronDown
                     className={`transition-transform duration-200 ${isOpen ? "rotate-180" : ""
                         }`}
@@ -62,15 +62,16 @@ export default function AnimatedSelect({ name, options, onChange }: AnimatedSele
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: -10 }}
                         transition={{ duration: 0.2 }}
-                        className="absolute top-full left-0 mt-1 w-full bg-white border border-primary text-primary rounded-lg shadow-lg z-10 overflow-hidden"
+                        className="absolute top-full left-0 mt-1 w-90 bg-white border border-primary text-primary rounded-lg shadow-lg z-10 overflow-hidden max-h-60 overflow-y-auto"
                     >
                         {options.map((opt, i) => (
                             <li
                                 key={i}
-                                onClick={() => handleSelect(opt.name)}
+                                onClick={() => handleSelect(opt)}
+
                                 className="px-4 py-2 cursor-pointer hover:bg-primary hover:text-white transition-colors"
                             >
-                                {opt.name}
+                                {opt}
                             </li>
                         ))}
                     </motion.ul>

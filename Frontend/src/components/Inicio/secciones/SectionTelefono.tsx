@@ -19,11 +19,6 @@ export default function SectionTelefono() {
 
                 <p>Utilizamos solo los materiales de la mejor calidad en el mercado para ofrecer los mejores productos a nuestros pacientes, así que no te preocupes por nada y reserva tu cita.</p>
 
-                <form action="#" className="flex items-center gap-5 w-full max-w-full md:max-w-3/4"
-                >
-                    <input type="tel" name="phone" id="phone" inputMode="tel" placeholder="Ingresa tu número de teléfono" className="w-full rounded-lg px-3 py-2 text-black border border-gray-400  outline-blue-400 placeholder:text-gray-400 flex-2" required autoComplete="on" />
-                    <button type="submit" className="w-fit rounded-lg px-3 py-2 bg-primary text-white hover:bg-blue-700 transition duration-300 ease-in-out cursor-pointer">Enviar</button>
-                </form>
             </div>
 
             <picture className="relative flex items-center justify-center flex-1 "
