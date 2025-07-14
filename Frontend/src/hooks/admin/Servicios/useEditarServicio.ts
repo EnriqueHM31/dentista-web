@@ -12,7 +12,6 @@ interface useEditarServicioProps {
 export function useEditarServicio({ serviciosRef, formValues, handleClickDesactivarModal }: useEditarServicioProps) {
     const [preview, setPreview] = useState<keyof Servicio | null>('name');
 
-
     const handlePreview = (campo: keyof Servicio) => {
         setPreview(campo);
     };
@@ -23,9 +22,16 @@ export function useEditarServicio({ serviciosRef, formValues, handleClickDesacti
 
         // Verificar si hubo cambios
 
-        const cambios = (Object.keys(formValues) as (keyof Servicio)[]).filter(
-            (key) => formValues[key] !== serviciosRef.current.find((s) => s.id === id)?.[key]
-        );
+        const cambios = (Object.keys(formValues) as (keyof Servicio)[]).filter((key) => {
+            if (key === "id") return false;
+
+            const nuevoValor = formValues[key];
+            const original = serviciosRef.current.find((s) => s.id === id)?.[key];
+
+            return nuevoValor !== original;
+        });
+
+
 
         if (cambios.length === 0) {
             toast.info("No hay cambios para guardar.");
@@ -38,14 +44,15 @@ export function useEditarServicio({ serviciosRef, formValues, handleClickDesacti
                 label: "Guardar",
                 onClick: async () => {
                     try {
-                        const data = cambios.reduce((acc, key) => {
-                            acc[key] = formValues[key] as `${string}-${string}-${string}-${string}-${string}`;
-                            return acc;
-                        }, {} as Partial<ServicioResponse>);
+                        const { success, message } = await modificarServicio(
+                            id,
+                            Object.fromEntries(
+                                (cambios as (keyof ServicioResponse)[])
+                                    .map((key) => [key, formValues[key]])
+                                    .filter(([, value]) => value !== undefined)
+                            ) as Partial<ServicioResponse>
+                        );
 
-
-
-                        const { success, message } = await modificarServicio(id, data)
 
                         if (success) {
                             toast.success("Cambios guardados correctamente");

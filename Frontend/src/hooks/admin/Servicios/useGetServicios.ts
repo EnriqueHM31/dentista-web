@@ -21,49 +21,80 @@ export function useGetServicios({ handleClickDesactivarModal }: useGetServiciosP
         }
     }, [servicios]);
 
-
-    const refrescarUpdateServicio = (id: string, updatedValues: { name?: string; description?: string; img?: string }) => {
+    const refrescarUpdateServicio = (
+        id: string,
+        {
+            name,
+            description,
+            img,
+            duration,
+        }: {
+            name?: string;
+            description?: string;
+            img?: string;
+            duration?: number;
+        }
+    ) => {
         const index = formRef.current.findIndex((s) => s.id === id);
         if (index === -1) {
             toast.error("Servicio no encontrado");
             return;
         }
 
-        // Lista blanca de claves válidas
-        const allowedKeys: (keyof ServicioResponse)[] = ['name', 'description', 'img'];
+        const cambios: Partial<ServicioResponse> = {};
+        if (name !== undefined) cambios.name = name;
+        if (description !== undefined) cambios.description = description;
+        if (img !== undefined) cambios.img = img;
+        if (duration !== undefined) cambios.duration = duration;
 
-        const filteredValues = Object.keys(updatedValues)
-            .filter((key): key is keyof { name: string; description: string; img: string } => allowedKeys.includes(key as keyof ServicioResponse))
-            .reduce((acc, key) => {
-                acc[key] = updatedValues[key];
-                return acc;
-            }, {} as Partial<{ name: string; description: string; img: string }>);
+        formRef.current[index] = {
+            ...formRef.current[index],
+            ...cambios,
+        };
 
-        formRef.current[index] = { ...formRef.current[index], ...filteredValues };
         setServicios([...formRef.current]);
     };
 
 
-    const refrescarCrearServicio = ({ id, name, description, img }: ServicioResponse) => {
 
-        setServicios(prev => [...prev, { id, name, description, img }].sort((a, b) => a.name.localeCompare(b.name)));
+
+
+    const refrescarCrearServicio = ({ id, name, description, img, duration }: ServicioResponse) => {
+
+        setServicios(prev => [...prev, { id, name, description, img, duration }].sort((a, b) => a.name.localeCompare(b.name)));
     }
 
     const handleEliminarServicio = async (id: `${string}-${string}-${string}-${string}-${string}` | "") => {
-        const index = servicios.findIndex((s) => s.id === id);
-        if (index === -1) {
-            toast.error("Servicio no encontrado");
-            return;
-        }
 
-        const { success, message } = await eliminarServicio(id);
-        if (success) {
-            toast.success("Servicio eliminado correctamente");
-            formRef.current.splice(index, 1);
-            setServicios([...formRef.current]);
-        } else {
-            toast.error(message || "Error al eliminar el servicio");
+        toast("¿Estas seguro que quieres eliminar este servicio?", {
+            action: {
+                label: "Eliminar",
+                onClick: async () => {
+                    const index = servicios.findIndex((s) => s.id === id);
+                    if (index === -1) {
+                        toast.error("Servicio no encontrado");
+                        return;
+                    }
+
+                    const { success, message } = await eliminarServicio(id);
+                    if (success) {
+                        toast.success("Servicio eliminado correctamente");
+                        formRef.current.splice(index, 1);
+                        setServicios([...formRef.current]);
+                    } else {
+                        toast.error(message || "Error al eliminar el servicio");
+                    }
+                }
+            },
+            cancel: {
+                label: "Cancelar",
+                onClick: () => {
+                    toast.dismiss();
+                }
+            }
+
         }
+        );
     };
 
     const handleSubmitCrearServicio = async (e: React.FormEvent,) => {
@@ -71,9 +102,9 @@ export function useGetServicios({ handleClickDesactivarModal }: useGetServiciosP
         e.preventDefault();
 
         const data = new FormData(e.target as HTMLFormElement);
-        const { titulo, descripcion, img } = Object.fromEntries(data.entries()) as { titulo: string, descripcion: string, img: string };
+        const { titulo, descripcion, img, duration } = Object.fromEntries(data.entries()) as { titulo: string, descripcion: string, img: string, duration: string };
 
-        if (!titulo || !descripcion || !img) {
+        if (!titulo || !descripcion || !img || !duration) {
             toast.error("Todos los campos son obligatorios");
             return;
         }
@@ -84,7 +115,7 @@ export function useGetServicios({ handleClickDesactivarModal }: useGetServiciosP
         }
 
         try {
-            const { success, message, servicio } = await crearServicio({ titulo, descripcion, img });
+            const { success, message, servicio } = await crearServicio({ titulo, descripcion, img, duration });
 
             if (success) {
                 toast.success("Servicio creado correctamente");

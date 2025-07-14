@@ -3,6 +3,7 @@ export interface Servicio {
     name: string;
     description: string;
     img: string;
+    duration: number;
 }
 
 export interface LinksNavegacionProps {
@@ -95,16 +96,19 @@ interface ModalProps {
 }
 
 interface AnimatedSelectProps {
+    funcion?: (e: React.ChangeEvent<HTMLSelectElement>) => void;
+    select?: string;
     name: string;
     options: string[];
     onChange?: (value: string) => void;
+    clases?: string;
 }
 
 interface Servicio {
-    id: `${string} `
     name: string;
     description: string;
     img: string;
+    duration: number;
 }
 
 interface ServicioResponse extends Servicio {
@@ -115,6 +119,6 @@ interface ModalEditarServicioProps {
     serviciosRef: React.MutableRefObject<ServicioResponse[]>;
     handleClickDesactivarModal: () => void;
     formValues: ServicioResponse;
-    handleChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
+    handleChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => void;
     refresh: (id: string, data: Partial<ServicioResponse>) => void;
 }

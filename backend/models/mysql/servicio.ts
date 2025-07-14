@@ -3,13 +3,13 @@ import db from '../../database/db';
 
 export class ModeloServicio {
 
-    static async crearServicio({ titulo, descripcion, img }: Record<string, string>) {
+    static async crearServicio({ titulo, descripcion, img, duration }: Record<string, string>) {
         try {
             const id = randomUUID();
 
             const [result]: any = await db.query(
-                `INSERT INTO ServiciosDentales (id, name, description, img) VALUES (?, ?, ?, ?)`,
-                [id, titulo, descripcion, img]
+                `INSERT INTO ServiciosDentales (id, name, description, img, duration) VALUES (?, ?, ?, ?, 30)`,
+                [id, titulo, descripcion, img, duration]
             );
 
             if (result.affectedRows === 1) {
@@ -20,7 +20,9 @@ export class ModeloServicio {
                         id,
                         name: titulo,
                         description: descripcion,
-                        img
+                        img,
+                        duration
+
                     }
                 };
             } else {
@@ -40,7 +42,7 @@ export class ModeloServicio {
 
     static async getServicios() {
         try {
-            const [rows] = await db.query(`SELECT id, name, description, img FROM ServiciosDentales ORDER BY name ASC`);
+            const [rows] = await db.query(`SELECT id, name, description, img, duration FROM ServiciosDentales ORDER BY name ASC`);
             return {
                 success: true,
                 message: rows,
@@ -53,7 +55,7 @@ export class ModeloServicio {
     static async updateServicio(id: string, data: Record<string, string>) {
         try {
 
-            const allowedFields = ['name', 'description', 'img']; // puedes agregar más en el futuro
+            const allowedFields = ['name', 'description', 'img', 'duration']; // puedes agregar más en el futuro
 
             const fields: string[] = [];
             const values: string[] = [];

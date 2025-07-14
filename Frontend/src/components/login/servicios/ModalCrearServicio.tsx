@@ -1,3 +1,4 @@
+import AnimatedSelect from "@/components/general/Select"
 
 
 interface ModalCrearServicioProps {
@@ -7,6 +8,16 @@ interface ModalCrearServicioProps {
 
 export default function ModalCrearServicio({ handleClickDesactivarModal, handleSubmitCrearServicio }: ModalCrearServicioProps) {
 
+    const minutosArray = ["30", "60", "90", "120", "150", "180", "210", "240", "270", "300"];
+
+    const formatoHoraMinuto = minutosArray.map((minStr) => {
+        const minutosTotales = parseInt(minStr, 10);
+        const horas = Math.floor(minutosTotales / 60);
+        const minutos = minutosTotales % 60;
+
+        return `${horas > 0 ? `${horas}h ` : ""}${minutos > 0 ? `${minutos}m` : ""}`.trim();
+    });
+
     return (
         <form className="w-full p-6 flex flex-col  gap-4 bg-primary min-h-[70vh]" onSubmit={(e) => {
             handleSubmitCrearServicio(e)
@@ -14,7 +25,7 @@ export default function ModalCrearServicio({ handleClickDesactivarModal, handleS
         }>
 
             <h3 className="text-2xl font-bold text-white mb-4">Agregar un nuevo servicio</h3>
-            <section className="flex gap-6 flex-1">
+            <section className="flex gap-6 flex-2">
                 <div className="flex-1 flex flex-col gap-3">
 
                     <div className="mb-4 flex flex-col gap-4">
@@ -43,8 +54,15 @@ export default function ModalCrearServicio({ handleClickDesactivarModal, handleS
                             required
                         />
                     </div>
+
+                    <div className="mb-4 flex flex-col gap-4">
+                        <label htmlFor="precio" className="block text-sm font-medium px-3 py-1 text-primary rounded-xl bg-white w-fit mb-1">
+                            Duracion
+                        </label>
+                        <AnimatedSelect name="duration" options={formatoHoraMinuto} clases="bg-primary text-white border-white hover:bg-white/80 hover:text-primary" />
+                    </div>
                 </div>
-                <div className="mb-4 flex-1 flex flex-col gap-4">
+                <div className="mb-4 flex-3 flex flex-col gap-4">
                     <label htmlFor="descripcion" className="block text-sm font-medium px-3 py-1 text-primary rounded-xl bg-white w-fit mb-1">
                         Descripción
                     </label>
