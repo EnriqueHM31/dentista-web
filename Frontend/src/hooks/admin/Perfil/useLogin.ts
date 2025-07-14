@@ -45,6 +45,11 @@ export function useLogin() {
                 credentials: "include", // ✅ importante para recibir cookies httpOnly
             });
 
+            if (!response.ok) {
+                toast.error("Error al iniciar sesión");
+                return;
+            }
+
             const { success, message } = await response.json();
 
             if (success) {

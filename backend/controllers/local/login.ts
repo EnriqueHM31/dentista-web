@@ -14,18 +14,18 @@ export class ControllerLogin {
         const { username, password } = req.body;
 
         if (!username || !password) {
-            res.status(400).json({ success: false, message: 'Credenciales incompletas.' });
+            res.status(200).json({ success: false, message: 'Credenciales incompletas.' });
         }
 
         if (typeof username !== 'string' || typeof password !== 'string') {
-            res.status(400).json({ success: false, message: 'Credenciales incorrectas.' });
+            res.status(200).json({ success: false, message: 'Credenciales incorrectas.' });
         }
 
         try {
             const { success, message, token } = await ModeloLogin.InicioSesion(username, password);
 
             if (!success) {
-                res.status(400).json({ success: false, message: message });
+                res.status(200).json({ success: false, message: message });
             }
 
             res.cookie('token', token, {

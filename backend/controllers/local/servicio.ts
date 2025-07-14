@@ -27,7 +27,6 @@ export class ServiciosController {
                 res.status(500).json({ success, message });
             }
         } catch (error) {
-            console.error('Error al obtener los servicios:', error);
             res.status(500).json({ success: false, message: 'Error al obtener los servicios' });
         }
 
