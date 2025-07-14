@@ -56,7 +56,7 @@ export default function ModalCrearServicio({ handleClickDesactivarModal, handleS
                     </div>
 
                     <div className="mb-4 flex flex-col gap-4">
-                        <label htmlFor="precio" className="block text-sm font-medium px-3 py-1 text-primary rounded-xl bg-white w-fit mb-1">
+                        <label htmlFor="duration" className="block text-sm font-medium px-3 py-1 text-primary rounded-xl bg-white w-fit mb-1">
                             Duracion
                         </label>
                         <AnimatedSelect name="duration" options={formatoHoraMinuto} clases="bg-primary text-white border-white hover:bg-white/80 hover:text-primary" />

@@ -97,6 +97,17 @@ export function useGetServicios({ handleClickDesactivarModal }: useGetServiciosP
         );
     };
 
+    function convertirADuracionEnMinutos(valor: string): number {
+        const horasMatch = valor.match(/(\d+)\s*h/);
+        const minutosMatch = valor.match(/(\d+)\s*m/);
+
+        const horas = horasMatch ? parseInt(horasMatch[1], 10) : 0;
+        const minutos = minutosMatch ? parseInt(minutosMatch[1], 10) : 0;
+
+        const totalMinutos = horas * 60 + minutos;
+
+        return totalMinutos; // Retorna número entero: 30, 60, 90, 120...
+    }
     const handleSubmitCrearServicio = async (e: React.FormEvent,) => {
 
         e.preventDefault();
@@ -115,7 +126,7 @@ export function useGetServicios({ handleClickDesactivarModal }: useGetServiciosP
         }
 
         try {
-            const { success, message, servicio } = await crearServicio({ titulo, descripcion, img, duration });
+            const { success, message, servicio } = await crearServicio({ titulo, descripcion, img, duration: convertirADuracionEnMinutos(duration) });
 
             if (success) {
                 toast.success("Servicio creado correctamente");
