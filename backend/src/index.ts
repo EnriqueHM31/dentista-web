@@ -3,12 +3,13 @@ dotenv.config();
 import express from 'express';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
-import { ComentariosRouter } from '../routes/comentarios';
-import { SocialesRoutes } from '../routes/sociales';
-import { LoginRouter } from '../routes/login';
-import { PreguntasRoutes } from '../routes/preguntas';
-import { UsuarioRouter } from '../routes/datausuario';
-import { ServiciosRoutes } from '../routes/servicios';
+import { ComentariosRouter } from './routes/comentarios.routes';
+import { SocialesRoutes } from './routes/sociales.routes';
+import { LoginRouter } from './routes/login.routes';
+import { PreguntasRoutes } from './routes/preguntas.routes';
+import { UsuarioRouter } from './routes/datausuario.routes';
+import { ServiciosRoutes } from './routes/servicios.routes';
+
 
 
 const PORT = 3000

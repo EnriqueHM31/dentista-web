@@ -1,5 +1,5 @@
 import { randomUUID } from 'crypto';
-import db from '../../database/db';
+import db from '../../src/database/db';
 
 export class ModeloServicio {
 

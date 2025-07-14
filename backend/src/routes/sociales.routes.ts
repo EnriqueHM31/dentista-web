@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { ContrallerSocial } from '../controllers/local/social';
+import { ContrallerSocial } from '../../controllers/local/social';
 
 
 export const SocialesRoutes = Router();

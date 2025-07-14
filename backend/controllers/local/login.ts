@@ -23,16 +23,20 @@ export class ControllerLogin {
             res.status(400).json({ success: false, message: 'Contraseña incorrecta.' });
         }
 
-        const token = jwt.sign({ role: 'admin' }, JWT_SECRET, { expiresIn: '1h' });
+        try {
+            const token = jwt.sign({ role: 'admin', username }, JWT_SECRET, { expiresIn: '1h' });
 
-        res.cookie('token', token, {
-            httpOnly: true,
-            secure: false, // true en producción con HTTPS
-            sameSite: 'lax',
-            maxAge: 60 * 60 * 1000, // 1 hora
-        });
+            res.cookie('token', token, {
+                httpOnly: true,
+                secure: process.env.NODE_ENV === 'production', // true en producción con HTTPS
+                sameSite: 'lax',
+                maxAge: 60 * 60 * 1000, // 1 hora
+            });
 
-        res.json({ success: true });
+            res.json({ success: true });
+        } catch (error) {
+            res.status(500).json({ success: false, message: 'Error al iniciar sesión' });
+        }
     }
 
     static async VerificarSesion(req: Request, res: Response) {
@@ -43,14 +47,28 @@ export class ControllerLogin {
         }
 
         try {
-            const decoded = jwt.verify(token, JWT_SECRET) as { role: string };
-            res.json({ success: true, role: decoded.role });
+            const decoded = jwt.verify(token, JWT_SECRET) as { role: string, username: string };
+            res.json({ success: true, message: { role: decoded.role, username: decoded.username } });
+        } catch (error) {
+            res.status(401).json({ success: false, message: 'Token inválido o expirado' });
+        }
+    }
+
+    static async Autenticacion(req: Request, res: Response) {
+        const token = req.cookies.token;
+
+        if (!token) {
+            res.status(200).json({ success: false, message: 'No autorizado' });
+        }
+
+        try {
+            const decoded = jwt.verify(token, JWT_SECRET) as { role: string, username: string };
+            res.json({ success: true, message: { role: decoded.role, username: decoded.username } });
         } catch (error) {
             res.status(401).json({ success: false, message: 'Token inválido o expirado' });
         }
     }
 }
-
 // Middleware para proteger rutas
 export function requireAuth(req: Request, res: Response, next: NextFunction) {
     const token = req.cookies.token;
@@ -69,3 +87,5 @@ export function requireAuth(req: Request, res: Response, next: NextFunction) {
         res.status(401).json({ success: false, message: 'Token inválido o expirado' });
     }
 }
+
+
