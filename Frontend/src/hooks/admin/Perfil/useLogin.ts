@@ -63,7 +63,27 @@ export function useLogin() {
             toast.error("Error de conexión con el servidor" + error + username + password);
         }
     }
+
+    const handleLogout = async () => {
+        const response = await fetch("http://localhost:3000/api/login/logout", {
+            credentials: "include",
+        });
+
+        if (!response.ok) {
+            toast.error("Error al cerrar sesión");
+        }
+        const { success, message } = await response.json();
+
+        if (!success) {
+            toast.error(message || "Error al cerrar sesión");
+        }
+        toast.success(message || "Sesión cerrada correctamente");
+        navigate("/admin");
+
+    }
+
     return {
-        handleLogin
+        handleLogin,
+        handleLogout
     }
 }

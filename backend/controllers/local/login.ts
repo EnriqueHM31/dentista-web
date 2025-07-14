@@ -70,6 +70,16 @@ export class ControllerLogin {
             res.status(401).json({ success: false, message: 'Token inválido o expirado' });
         }
     }
+
+    static async Logout(_req: Request, res: Response) {
+        try {
+            res.clearCookie('token');
+            res.status(200).json({ success: true, message: 'Sesión cerrada correctamente' });
+        }
+        catch (error) {
+            res.status(500).json({ success: false, message: 'Error al cerrar sesión' });
+        }
+    }
 }
 // Middleware para proteger rutas
 export function requireAuth(req: Request, res: Response, next: NextFunction) {

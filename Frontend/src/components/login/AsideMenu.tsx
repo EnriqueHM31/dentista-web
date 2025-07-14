@@ -4,12 +4,14 @@ import type { AsideMenuProps } from "@/types";
 import { getIconosAside, getIconoLogout } from "@/components/general/ObjetosIconos";
 import { useOpenWithTransition } from "@/hooks/general/useOpenWithTransition";
 import BotonItemAside from "./aside/BotonItemAside";
+import { useLogin } from "@/hooks/admin/Perfil/useLogin";
 
 
 export default function AsideMenu({ selected, handleClickSelected }: AsideMenuProps) {
     const { isOpen, toggle } = useOpenWithTransition();
     const menuItems = getIconosAside();
     const { label, icon: Icon, id } = getIconoLogout();
+    const { handleLogout } = useLogin();
 
     return (
         <aside
@@ -63,26 +65,34 @@ export default function AsideMenu({ selected, handleClickSelected }: AsideMenuPr
 
                         return isOpen ? (
                             <Tooltip text={label} position="right">
-                                <BotonItemAside
+                                <button
                                     key={id}
-                                    id={id}
-                                    label={label}
-                                    Icon={<Icon />}
-                                    isOpen={isOpen}
-                                    selected={selected}
-                                    handleClickSelected={handleClickSelected}
-                                />
+                                    onClick={handleLogout}
+                                    className={`group flex cursor-pointer -center gap-3 w-full text-left p-3 rounded hover:bg-blue-900 transition `}
+                                    aria-label={label}
+                                    title={label}
+                                    type="submit"
+                                >
+                                    <span className="text-2xl">
+                                        <Icon />
+                                    </span>
+                                    {!isOpen && <span className="truncate">{label}</span>}
+                                </button>
                             </Tooltip>
                         ) : (
-                            <BotonItemAside
+                            <button
                                 key={id}
-                                id={id}
-                                label={label}
-                                Icon={<Icon />}
-                                isOpen={isOpen}
-                                selected={selected}
-                                handleClickSelected={handleClickSelected}
-                            />
+                                className={`group flex cursor-pointer -center gap-3 w-full text-left p-3 rounded hover:bg-blue-900 transition`}
+                                aria-label={label}
+                                title={label}
+                                onClick={handleLogout}
+                                type="submit"
+                            >
+                                <span className="text-2xl">
+                                    <Icon />
+                                </span>
+                                {!isOpen && <span className="truncate">{label}</span>}
+                            </button>
                         );
                     })()}
                 </div>
