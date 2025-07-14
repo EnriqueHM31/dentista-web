@@ -1,6 +1,6 @@
 import { Calendar, CustomProvider } from 'rsuite';
 import esES from 'rsuite/esm/locales/es_ES';
-import '@/Calendario.css';
+import '@/styles/Calendario.css';
 
 export default function CalendarioCitas() {
     return (
