@@ -135,9 +135,8 @@ export function useGetServicios({ handleClickDesactivarModal }: useGetServiciosP
             } else {
                 toast.error(message || "Error al crear el servicio");
             }
-        } catch (error) {
+        } catch {
             toast.error("Error de red al crear el servicio");
-            console.error(error);
         }
 
     }

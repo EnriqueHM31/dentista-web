@@ -45,8 +45,7 @@ export default function Contacto() {
             } else {
                 throw new Error();
             }
-        } catch (error) {
-            console.error("Error al enviar mensaje", error);
+        } catch {
             toast.error("Error al enviar mensaje");
         }
     }

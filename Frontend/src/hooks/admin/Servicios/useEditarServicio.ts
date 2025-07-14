@@ -61,9 +61,8 @@ export function useEditarServicio({ serviciosRef, formValues, handleClickDesacti
                         } else {
                             toast.error(message || "Error al guardar los cambios.");
                         }
-                    } catch (error) {
+                    } catch {
                         toast.error("Error de red al guardar los cambios.");
-                        console.error(error);
                     }
                 },
             },

@@ -32,7 +32,6 @@ export class ModeloServicio {
                 };
             }
         } catch (error) {
-            console.error(error);
             return {
                 success: false,
                 message: 'Error al crear el servicio: ' + (error as Error).message
@@ -83,7 +82,6 @@ export class ModeloServicio {
                 return { success: false, message: 'No se encontró el servicio o no se realizaron cambios' };
             }
         } catch (error) {
-            console.error(error);
             return { success: false, message: 'Error al actualizar el servicio' + error };
         }
     }
@@ -98,7 +96,6 @@ export class ModeloServicio {
                 return { success: false, message: 'No se encontró el servicio o no se realizaron cambios' };
             }
         } catch (error) {
-            console.error(error);
             return { success: false, message: 'Error al eliminar el servicio' + error };
         }
     }

@@ -51,8 +51,7 @@ export function useSociales() {
             toast.success('Cambios guardados exitosamente');
             originalSocialRef.current = [...sociales];
             setEditMode({});
-        } catch (error) {
-            console.error('Error al guardar cambios', error);
+        } catch {
             toast.error('Error al guardar los cambios');
         }
     };

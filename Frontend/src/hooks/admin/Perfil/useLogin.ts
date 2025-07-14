@@ -45,14 +45,14 @@ export function useLogin() {
                 credentials: "include", // ✅ importante para recibir cookies httpOnly
             });
 
-            const result = await response.json();
+            const { success, message } = await response.json();
 
-            if (result.success) {
-                toast.success("Inicio de sesión exitoso");
+            if (success) {
+                toast.success(message);
                 navigate("/admin/dashboard");
 
             } else {
-                toast.error(result.message || "Error al iniciar sesión");
+                toast.error(message || "Error al iniciar sesión");
             }
         } catch (error) {
             toast.error("Error de conexión con el servidor" + error + username + password);

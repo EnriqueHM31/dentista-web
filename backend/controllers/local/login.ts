@@ -1,7 +1,9 @@
 import type { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
-import dotenv from 'dotenv';
-dotenv.config();
+import { ModeloLogin } from '../../models/mysql/login';
+
+
+
 
 export const JWT_SECRET = process.env.SECRET ?? (() => {
     throw new Error("SECRET no está definido en .env");
@@ -15,16 +17,16 @@ export class ControllerLogin {
             res.status(400).json({ success: false, message: 'Credenciales incompletas.' });
         }
 
-        if (username !== 'admin') {
-            res.status(400).json({ success: false, message: 'El usuario no existe.' });
-        }
-
-        if (password !== '1234') {
-            res.status(400).json({ success: false, message: 'Contraseña incorrecta.' });
+        if (typeof username !== 'string' || typeof password !== 'string') {
+            res.status(400).json({ success: false, message: 'Credenciales incorrectas.' });
         }
 
         try {
-            const token = jwt.sign({ role: 'admin', username }, JWT_SECRET, { expiresIn: '1h' });
+            const { success, message, token } = await ModeloLogin.InicioSesion(username, password);
+
+            if (!success) {
+                res.status(400).json({ success: false, message: message });
+            }
 
             res.cookie('token', token, {
                 httpOnly: true,
@@ -33,9 +35,9 @@ export class ControllerLogin {
                 maxAge: 60 * 60 * 1000, // 1 hora
             });
 
-            res.json({ success: true });
+            res.status(200).json({ success: true, message: 'Sesión iniciada correctamente' });
         } catch (error) {
-            res.status(500).json({ success: false, message: 'Error al iniciar sesión' });
+            res.status(500).json({ success: false, message: 'Error al iniciar sesión' + error });
         }
     }
 
