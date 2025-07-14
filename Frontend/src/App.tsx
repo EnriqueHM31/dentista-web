@@ -8,8 +8,8 @@ import Servicios from './pages/Servicios';
 import Contacto from './pages/Contacto';
 import Admin from './pages/Admin';
 import Dashboard from './components/login/Dashboard';
-import { SocialesProvider } from './context/Sociales';
-import { ServicioProvider } from './context/Servicio';
+import { SocialesProvider } from './provider/Sociales';
+import { ServicioProvider } from './provider/Servicios';
 import Citas from './pages/Citas';
 
 function App() {

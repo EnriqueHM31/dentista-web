@@ -6,8 +6,8 @@ import SectionVideo from "@/components/Inicio/secciones/SectionVideo";
 import SectionEspecialistas from "@/components/Inicio/secciones/SectionEspecialistas";
 import SectionComentarios from "@/components/Inicio/secciones/SectionComentarios";
 import SectionPreguntas from "@/components/Inicio/secciones/SectionPreguntas";
-import { PreguntasProvider } from "@/context/Preguntas";
-import { ComentariosProvider } from "@/context/Comentarios";
+import { PreguntasProvider } from "@/provider/Preguntas";
+import { ComentariosProvider } from "@/provider/Comentarios";
 
 export default function Inicio() {
     return (

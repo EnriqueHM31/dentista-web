@@ -30,6 +30,8 @@ export default function Testimonio({
             {onCheckToggle && (
                 <input
                     type="checkbox"
+                    name="visible"
+                    id={`visible-${index}`}
                     checked={checked}
                     onChange={() => onCheckToggle(index)}
                     className="absolute top-3 right-3 w-5 h-5 accent-white cursor-pointer"

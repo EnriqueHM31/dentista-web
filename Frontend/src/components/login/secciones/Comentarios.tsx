@@ -61,7 +61,7 @@ export default function Comentarios() {
             );
 
             toast.success("Cambios guardados correctamente");
-        } catch (error) {
+        } catch {
             toast.error("Error al guardar los cambios");
         }
     };

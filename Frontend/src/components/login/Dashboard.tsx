@@ -4,10 +4,10 @@ import Sociales from "./secciones/Sociales";
 import ListaPreguntas from "./secciones/Preguntas";
 import { useNavAsideLocal } from "@/hooks/general/useNavAsideLocal";
 import Servicios from "./secciones/Servicios";
-import { SocialesProvider } from "@/context/Sociales";
-import { ServicioProvider } from "@/context/Servicio";
-import { PreguntasProvider } from "@/context/Preguntas";
-import { ComentariosProvider } from "@/context/Comentarios";
+import { SocialesProvider } from "@/provider/Sociales";
+import { ServicioProvider } from "@/provider/Servicios";
+import { PreguntasProvider } from "@/provider/Preguntas";
+import { ComentariosProvider } from "@/provider/Comentarios";
 import Comentarios from "./secciones/Comentarios";
 
 export default function Dashboard() {
