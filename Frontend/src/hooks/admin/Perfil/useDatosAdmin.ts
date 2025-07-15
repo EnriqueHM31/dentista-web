@@ -1,3 +1,4 @@
+import { updateUsuario } from "@/services/Usuario";
 import { toast } from "sonner";
 
 export function useUpdateUsuario(cerrarMenu: () => void) {
@@ -39,15 +40,7 @@ export function useUpdateUsuario(cerrarMenu: () => void) {
 
 
     const updateinfoUsuario = async (username: string, password: string) => {
-        const response = await fetch(`${import.meta.env.VITE_API_URL}/usuario`, {
-            method: "PUT",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ username, password }),
-        });
-
-        const { success, message } = await response.json();
+        const { success, message } = await updateUsuario(username, password);
 
         return { success, message };
     }

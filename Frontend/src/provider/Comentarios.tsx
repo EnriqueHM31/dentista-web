@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { toast } from "sonner";
 import { ComentariosContext } from "@/context/Comentarios";
+import { getComentarios } from "@/services/Comentarios";
 
 
 interface Comentario {
@@ -15,9 +16,8 @@ export function ComentariosProvider({ children }: { children: React.ReactNode })
     const [comentarios, setComentarios] = useState<Comentario[]>([]);
 
     useEffect(() => {
-        const fetchComentarios = async () => {
-            const response = await fetch(`${import.meta.env.VITE_API_URL}/comentarios`);
-            const { success, message } = await response.json();
+        const obtenerComentarios = async () => {
+            const { success, message } = await getComentarios();
 
             if (success) {
                 setComentarios(message);
@@ -27,7 +27,7 @@ export function ComentariosProvider({ children }: { children: React.ReactNode })
             }
         };
 
-        fetchComentarios();
+        obtenerComentarios();
     }, []);
     const comentariosVisibles = comentarios.filter((comentario) => comentario.visible === true || comentario.visible === 1);
 

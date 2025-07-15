@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { ComentariosContext } from "@/context/Comentarios";
 import Testimonio from "@/components/Inicio/Comentarios/Testimonio";
 import { toast } from "sonner";
+import { updateComentarioVisibilidad } from "@/services/Comentarios";
 
 export default function Comentarios() {
     const { comentarios } = useContext(ComentariosContext);
@@ -17,24 +18,6 @@ export default function Comentarios() {
         }
     }, [comentarios]);
 
-
-    async function updateComentarioVisibilidad(id: string, visible: boolean) {
-        const response = await fetch(`${import.meta.env.VITE_API_URL}/comentarios/${id}`, {
-            method: "PUT",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ visible }),
-            credentials: "include", // si usas cookies para auth
-        });
-
-        if (!response.ok) {
-            const error = await response.json().catch(() => ({}));
-            throw new Error(error.message || "Error al actualizar visibilidad");
-        }
-
-        return await response.json();
-    }
 
 
     // Alterna el estado del checkbox
@@ -56,7 +39,7 @@ export default function Comentarios() {
 
             await Promise.all(
                 actualizaciones.map(({ id, visible }) =>
-                    updateComentarioVisibilidad(id, visible)
+                    updateComentarioVisibilidad({ id, visible })
                 )
             );
 

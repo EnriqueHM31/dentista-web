@@ -12,6 +12,7 @@ import { toast } from "sonner";
 import { SocialesContext } from "@/context/Sociales";
 import StarRating from "@/components/Inicio/Comentarios/Ranking";
 import { ServicioContext } from "@/context/Servicio";
+import { createComentario } from "@/services/Comentarios";
 
 const MAS_CONTACTOS = [
     { icono: <CgPhone className="text-2xl " />, label: "Telefono" },
@@ -31,20 +32,16 @@ export default function Contacto() {
     const handleSubmitCorreo = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         const data = new FormData(e.currentTarget);
-        const { categoria, username, email, message: comentario, experiencia: ranking } = Object.fromEntries(data);
+        const form = Object.fromEntries(data) as Record<string, string>;
 
         try {
-            const response = await fetch(`${import.meta.env.VITE_API_URL}/comentarios`, {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ categoria, username, email, comentario, ranking }),
-                credentials: "include", // ✅ importante para recibir cookies httpOnly
-            });
-            if (response.ok) {
-                toast.success("Mensaje enviado exitosamente");
-            } else {
-                throw new Error();
+            const { success, message } = await createComentario(form)
+
+            if (!success) {
+                toast.error(message);
             }
+
+            toast.success(message || "Mensaje enviado exitosamente");
         } catch {
             toast.error("Error al enviar mensaje");
         }
@@ -120,7 +117,6 @@ export default function Contacto() {
                                 required
                                 autoComplete="on"
                                 placeholder="Correo electrónico"
-                                pattern="[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$"
                                 className="w-full bg-transparent outline-none placeholder:text-white/50"
                             />
                         </label>
