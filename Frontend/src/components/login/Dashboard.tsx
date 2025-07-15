@@ -8,8 +8,11 @@ import { SocialesProvider } from "@/provider/Sociales";
 import { ServicioProvider } from "@/provider/Servicios";
 import { PreguntasProvider } from "@/provider/Preguntas";
 import { ComentariosProvider } from "@/provider/Comentarios";
+import { EspecialistasProvider } from "@/provider/Especialistas";
 import Comentarios from "./Secciones/Comentarios";
 import { useCheckearAutenticacion } from "@/hooks/admin/Perfil/useVerificar";
+import Especialistas from "./Secciones/Especialistas";
+
 
 
 export default function Dashboard() {
@@ -27,6 +30,7 @@ export default function Dashboard() {
                     {selected === "share" && <SocialesProvider > <Sociales /> </SocialesProvider>}
                     {selected === "faq" && <PreguntasProvider> <ListaPreguntas /> </PreguntasProvider>}
                     {selected === "comentarios" && <ComentariosProvider> <Comentarios /> </ComentariosProvider>}
+                    {selected === "especialistas" && <EspecialistasProvider> <Especialistas /> </EspecialistasProvider>}
                     {selected === "logout" && <p>¿Seguro que quieres cerrar sesión?</p>}
                 </div>
             </main>

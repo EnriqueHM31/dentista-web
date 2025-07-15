@@ -22,7 +22,7 @@ export function EspecialistasProvider({ children }: { children: React.ReactNode 
     }, []);
 
     return (
-        <EspecialistasContext.Provider value={{ especialistas }
+        <EspecialistasContext.Provider value={{ especialistas, setEspecialistas }
         }>
             {children}
         </EspecialistasContext.Provider>

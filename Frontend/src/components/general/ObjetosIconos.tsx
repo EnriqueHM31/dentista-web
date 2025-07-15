@@ -4,6 +4,8 @@ import { FaQuestionCircle } from "react-icons/fa";
 import { AiOutlineUser } from "react-icons/ai";
 import { RiLogoutCircleLine } from "react-icons/ri";
 import { FaComment } from "react-icons/fa6";
+import { PiUsersFourDuotone } from "react-icons/pi";
+
 import {
     FaFacebook, FaLinkedin, FaInstagram, FaTwitter, FaPhone, FaEnvelope, FaMapMarkerAlt
 } from 'react-icons/fa';
@@ -11,7 +13,7 @@ import {
 export function getIconosAside() {
     return [
         { label: 'Perfil', icon: AiOutlineUser, id: "perfil" },
-        { label: 'Especialistas', icon: AiOutlineUser, id: "especialistas" },
+        { label: 'Especialistas', icon: PiUsersFourDuotone, id: "especialistas" },
         { label: 'Servicios', icon: GrServices, id: "servicios" },
         { label: 'Sociales', icon: IoShareSocialSharp, id: "share" },
         { label: 'Preguntas', icon: FaQuestionCircle, id: "faq" },
