@@ -1,5 +1,5 @@
 import { FiPlus, FiEdit, FiTrash2, FiChevronDown, FiChevronUp, } from "react-icons/fi";
-import Modal from "@/components/general/Modal";
+import Modal from "@/components/General/Modal";
 import ModalEditar from "../Preguntas/ModalEditar";
 import ModalCrear from "../Preguntas/ModalCrear";
 import { usePreguntas } from "@/hooks/admin/Preguntas/usePreguntas";

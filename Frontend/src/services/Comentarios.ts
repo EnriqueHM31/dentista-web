@@ -1,6 +1,5 @@
 import { VITE_API_URL } from "@/config";
 
-
 export async function getComentarios() {
     const response = await fetch(`${VITE_API_URL}/comentarios`, {
         credentials: "include",
@@ -15,8 +14,6 @@ export async function getComentarios() {
 }
 
 export async function createComentario(form: Record<string, string>) {
-
-    console.log(form);
 
     const { categoria, username, email, message: comentario, experiencia: ranking } = form;
     const response = await fetch(`${VITE_API_URL}/comentarios`, {

@@ -1,14 +1,14 @@
 import AsideMenu from "@/components/login/AsideMenu";
-import Perfil from "@/components/login/secciones/Perfil";
-import Sociales from "./secciones/Sociales";
-import ListaPreguntas from "./secciones/Preguntas";
+import Perfil from "@/components/login/Secciones/Perfil";
+import Sociales from "./Secciones/Sociales";
+import ListaPreguntas from "./Secciones/Preguntas";
 import { useNavAsideLocal } from "@/hooks/general/useNavAsideLocal";
-import Servicios from "./secciones/Servicios";
+import Servicios from "./Secciones/Servicios";
 import { SocialesProvider } from "@/provider/Sociales";
 import { ServicioProvider } from "@/provider/Servicios";
 import { PreguntasProvider } from "@/provider/Preguntas";
 import { ComentariosProvider } from "@/provider/Comentarios";
-import Comentarios from "./secciones/Comentarios";
+import Comentarios from "./Secciones/Comentarios";
 import { useCheckearAutenticacion } from "@/hooks/admin/Perfil/useVerificar";
 
 

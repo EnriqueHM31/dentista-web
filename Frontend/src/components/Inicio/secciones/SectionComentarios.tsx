@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { useComentarios } from "@/hooks/inicio/useComentarios";
 import Testimonio from "@/components/Inicio/Comentarios/Testimonio";
 import TituloSeccion from "@/components/Inicio/ui/TituloSeccion";
-import Tooltip from "@/components/general/Tooltip";
+import Tooltip from "@/components/General/Tooltip";
 import { ComentariosContext } from "@/context/Comentarios";
 import { useContext } from "react";
 

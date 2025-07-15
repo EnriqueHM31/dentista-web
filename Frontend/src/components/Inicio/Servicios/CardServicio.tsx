@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import Modal from "@/components/general/Modal";
+import Modal from "@/components/General/Modal";
 import ModalServicio from "./ModalServicio";
 import type { CardServicioProps } from "@/types";
 import { useOpenWithTransition } from "@/hooks/general/useOpenWithTransition";

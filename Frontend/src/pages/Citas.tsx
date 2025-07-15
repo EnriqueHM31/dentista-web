@@ -1,4 +1,4 @@
-import AnimatedSelect from "@/components/general/Select";
+import AnimatedSelect from "@/components/General/Select";
 import { ServicioContext } from "@/context/Servicio";
 import { useContext } from "react";
 

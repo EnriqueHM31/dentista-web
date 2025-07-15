@@ -2,7 +2,7 @@ import TituloSeccion from "@/components/Inicio/ui/TituloSeccion";
 import { CgPhone } from "react-icons/cg";
 import { MdEmail } from "react-icons/md";
 import { FaMapMarkerAlt } from "react-icons/fa";
-import AnimatedSelect from "@/components/general/Select";
+import AnimatedSelect from "@/components/General/Select";
 import { FaUser } from "react-icons/fa";
 import { FaMessage } from "react-icons/fa6";
 import IMAGENCONTACTO from "@/assets/img/contacto.png";

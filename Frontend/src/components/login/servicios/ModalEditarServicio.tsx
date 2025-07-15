@@ -1,7 +1,7 @@
 import { Pencil } from "lucide-react";
 import { useEditarServicio } from "@/hooks/admin/Servicios/useEditarServicio";
 import type { ModalEditarServicioProps } from "@/types";
-import AnimatedSelect from "@/components/general/Select";
+import AnimatedSelect from "@/components/General/Select";
 
 export default function ModalEditarServicio({ serviciosRef, handleClickDesactivarModal, formValues, handleChange, refresh }: ModalEditarServicioProps) {
 

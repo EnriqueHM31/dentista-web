@@ -1,4 +1,4 @@
-import Formulario from '@/components/login/Formulario'
+import Formulario from '@/components/login/InicioSesion/Formulario'
 import LOGIN from '@/assets/img/login.jpg'
 
 export default function Admin() {

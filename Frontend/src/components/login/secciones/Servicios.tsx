@@ -1,10 +1,10 @@
-import Modal from "@/components/general/Modal";
+import Modal from "@/components/General/Modal";
 import { FiEdit, FiPlus, FiTrash2 } from "react-icons/fi";
 import { useGetServicios } from "@/hooks/admin/Servicios/useGetServicios";
-import ModalEditarServicio from "../servicios/ModalEditarServicio";
+import ModalEditarServicio from "../Servicios/ModalEditarServicio";
 import { useModalEditarServicio } from "@/hooks/admin/Servicios/useModalEditarServicio";
 import { useModalIndependiente } from "@/hooks/general/useModalIndependiente";
-import ModalCrearServicio from "../servicios/ModalCrearServicio";
+import ModalCrearServicio from "../Servicios/ModalCrearServicio";
 
 
 export default function Servicios() {
