@@ -8,7 +8,7 @@ export function EspecialistasProvider({ children }: { children: React.ReactNode 
     const [especialistas, setEspecialistas] = useState<Especialista[]>([]);
 
     useEffect(() => {
-        const fetchEspecialistas = async () => {
+        const obtenerEspecialistas = async () => {
             const { success, message } = await getEspecialistas();
 
             if (!success) {
@@ -18,7 +18,7 @@ export function EspecialistasProvider({ children }: { children: React.ReactNode 
 
             setEspecialistas(message);
         };
-        fetchEspecialistas();
+        obtenerEspecialistas();
     }, []);
 
     return (

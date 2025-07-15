@@ -9,6 +9,7 @@ export async function getEspecialistas() {
         throw new Error(message);
     }
 
+    console.log(message);
 
     return { success, message };
 }

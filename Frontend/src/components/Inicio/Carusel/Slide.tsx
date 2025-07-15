@@ -41,15 +41,18 @@ export default function Slide({ slide, index, current, handleSlideClick }: Slide
                                 <AiOutlineDingtalk className="text-4xl md:text-4xl xl:text-5xl relative" />
                                 <div className="flex flex-col gap-1 items-start w-full">
                                     <h2 className="text-md md:text-xl lg:text-2xl font-semibold relative text-start">
-                                        {email}
-                                    </h2>
-                                    <p className="text-xs md:text-sm lg:text-base text-start">
                                         {servicio}
-                                    </p>
+                                    </h2>
+                                    <div className="flex  gap-1 items-start justify-between w-full">
 
-                                    <p className="text-xs md:text-sm lg:text-base text-start">
-                                        {telefono}
-                                    </p>
+                                        <p className="text-xs md:text-sm lg:text-base text-start">
+                                            {email}
+                                        </p>
+
+                                        <p className="text-xs md:text-sm lg:text-base text-start">
+                                            {telefono}
+                                        </p>
+                                    </div>
                                 </div>
                             </article>
                             <div className="absolute top-4 right-4 p-1 rounded-full text-white bg-primary size-12 border border-transparent text-xs flex justify-center items-center hover:shadow-lg transition duration-200 shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)]">
