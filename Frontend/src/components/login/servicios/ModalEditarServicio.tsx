@@ -2,30 +2,10 @@ import { Pencil } from "lucide-react";
 import { useEditarServicio } from "@/hooks/admin/Servicios/useEditarServicio";
 import type { ModalEditarServicioProps } from "@/types";
 import AnimatedSelect from "@/components/General/Select";
+import { formatoHoraMinuto, formatearDuracion } from "@/utils/Hora";
+import { MINUTOS_ARRAY } from "@/utils/constantes";
 
 export default function ModalEditarServicio({ serviciosRef, handleClickDesactivarModal, formValues, handleChange, refresh }: ModalEditarServicioProps) {
-
-    const minutosArray = ["30", "60", "90", "120", "150", "180", "210", "240", "270", "300"];
-
-    const formatoHoraMinuto = minutosArray.map((minStr) => {
-        const minutosTotales = parseInt(minStr, 10);
-        const horas = Math.floor(minutosTotales / 60);
-        const minutos = minutosTotales % 60;
-
-        return `${horas > 0 ? `${horas}h ` : ""}${minutos > 0 ? `${minutos}m` : ""}`.trim();
-    });
-
-    function formatearDuracion(minutos: number): string {
-        const horas = Math.floor(minutos / 60);
-        const minutosRestantes = minutos % 60;
-
-        const partes = [];
-        if (horas > 0) partes.push(`${horas}h`);
-        if (minutosRestantes > 0) partes.push(`${minutosRestantes}m`);
-
-        return partes.join(" ");
-    }
-
 
 
     const { preview, handlePreview, handleSubmit } = useEditarServicio({ serviciosRef, formValues, handleClickDesactivarModal });
@@ -135,7 +115,7 @@ export default function ModalEditarServicio({ serviciosRef, handleClickDesactiva
                         preview === "duration" && (
                             <div className="flex flex-col gap-4">
                                 <label htmlFor="duration" className="text-sm text-primary bg-white px-5 py-1 rounded w-fit">Duración</label>
-                                <AnimatedSelect funcion={handleChange} select={formatearDuracion(formValues.duration)} name="duration" options={formatoHoraMinuto} clases="bg-primary text-white border-white hover:bg-white/80 hover:text-primary" />
+                                <AnimatedSelect funcion={handleChange} select={formatearDuracion(formValues.duration)} name="duration" options={formatoHoraMinuto(MINUTOS_ARRAY)} clases="bg-primary text-white border-white hover:bg-white/80 hover:text-primary" />
                             </div>
                         )
                     }

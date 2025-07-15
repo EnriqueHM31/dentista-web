@@ -2,7 +2,7 @@ import { useContext, useEffect, useRef } from "react";
 import { toast } from "sonner";
 import type { ServicioResponse } from "@/types";
 import { crearServicio, eliminarServicio } from "@/services/Servicios";
-import { esURLValida } from "@/assets/ts/constantes";
+import { esURLValida } from "@/utils/constantes";
 import { ServicioContext } from "@/context/Servicio";
 
 

@@ -1,6 +1,6 @@
 import { AiOutlineDingtalk } from "react-icons/ai";
 import { FaFacebookF, FaInstagram, FaTwitter, FaLinkedin } from "react-icons/fa6";
-import { LINKS_NAVEGACION } from "@/assets/ts/constantes";
+import { LINKS_NAVEGACION } from "@/utils/constantes";
 import { useContext } from "react";
 import { SocialesContext } from "@/context/Sociales";
 

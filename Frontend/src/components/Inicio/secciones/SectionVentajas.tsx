@@ -1,6 +1,6 @@
 import SERCIVIO2 from "@/assets/servicios/servicio2.svg";
 import { MdOutlineSecurity } from "react-icons/md";
-import { VENTAJAS } from "@/assets/ts/constantes";
+import { VENTAJAS } from "@/utils/constantes";
 import { motion } from "framer-motion";
 import TituloSeccion from "@/components/Inicio/ui/TituloSeccion";
 

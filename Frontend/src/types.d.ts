@@ -6,6 +6,16 @@ export interface Servicio {
     duration: number;
 }
 
+
+interface Comentario {
+    id: string;
+    nombre: string;
+    email: string;
+    mensaje: string;
+    ranking: number;
+    visible: boolean | number;
+}
+
 export interface LinksNavegacionProps {
     name: string;
     path: string;

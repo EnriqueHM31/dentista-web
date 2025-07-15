@@ -1,4 +1,6 @@
 import AnimatedSelect from "@/components/General/Select"
+import { formatoHoraMinuto } from "@/utils/Hora"
+import { MINUTOS_ARRAY } from "@/utils/constantes"
 
 
 interface ModalCrearServicioProps {
@@ -8,15 +10,7 @@ interface ModalCrearServicioProps {
 
 export default function ModalCrearServicio({ handleClickDesactivarModal, handleSubmitCrearServicio }: ModalCrearServicioProps) {
 
-    const minutosArray = ["30", "60", "90", "120", "150", "180", "210", "240", "270", "300"];
 
-    const formatoHoraMinuto = minutosArray.map((minStr) => {
-        const minutosTotales = parseInt(minStr, 10);
-        const horas = Math.floor(minutosTotales / 60);
-        const minutos = minutosTotales % 60;
-
-        return `${horas > 0 ? `${horas}h ` : ""}${minutos > 0 ? `${minutos}m` : ""}`.trim();
-    });
 
     return (
         <form className="w-full p-6 flex flex-col  gap-4 bg-primary min-h-[70vh]" onSubmit={(e) => {
@@ -59,7 +53,7 @@ export default function ModalCrearServicio({ handleClickDesactivarModal, handleS
                         <label htmlFor="duration" className="block text-sm font-medium px-3 py-1 text-primary rounded-xl bg-white w-fit mb-1">
                             Duracion
                         </label>
-                        <AnimatedSelect name="duration" options={formatoHoraMinuto} clases="bg-primary text-white border-white hover:bg-white/80 hover:text-primary" />
+                        <AnimatedSelect name="duration" options={formatoHoraMinuto(MINUTOS_ARRAY)} clases="bg-primary text-white border-white hover:bg-white/80 hover:text-primary" />
                     </div>
                 </div>
                 <div className="mb-4 flex-3 flex flex-col gap-4">

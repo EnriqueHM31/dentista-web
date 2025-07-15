@@ -1,15 +1,6 @@
 import { createContext, type Dispatch, type SetStateAction } from "react";
 import { } from "sonner";
-
-
-interface Comentario {
-    id: string;
-    nombre: string;
-    email: string;
-    mensaje: string;
-    ranking: number;
-    visible: boolean | number;
-}
+import type { Comentario } from "@/types";
 
 interface ComentariosContextType {
     comentarios: Comentario[];
