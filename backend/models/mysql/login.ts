@@ -23,7 +23,7 @@ export class ModeloLogin {
             }
 
             if (result[0].username !== username) {
-                return { success: false, message: 'Usuario no encontrado.', token: '' };
+                return { success: false, message: 'Contraseña incorrecta.', token: '' };
             }
 
             if (result[0].password !== password) {
@@ -32,7 +32,6 @@ export class ModeloLogin {
 
             const token = jwt.sign({ role: 'admin', username: result[0].username }, JWT_SECRET, { expiresIn: '1h' });
 
-            console.log(token);
             return { success: true, mesaage: 'Sesión iniciada correctamente', token: token };
 
         } catch (error) {

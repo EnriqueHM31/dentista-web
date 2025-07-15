@@ -28,7 +28,6 @@ export function useModalEditarServicio() {
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
         const { name, value } = e.target;
-        console.log(name, value);
 
         if (name === "duration") {
             setFormValues((prev) => ({ ...prev, [name]: convertirADuracionEnMinutos(value) }));

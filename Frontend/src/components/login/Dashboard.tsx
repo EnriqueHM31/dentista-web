@@ -9,28 +9,12 @@ import { ServicioProvider } from "@/provider/Servicios";
 import { PreguntasProvider } from "@/provider/Preguntas";
 import { ComentariosProvider } from "@/provider/Comentarios";
 import Comentarios from "./secciones/Comentarios";
-import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useCheckearAutenticacion } from "@/hooks/admin/Perfil/useVerificar";
+
 
 export default function Dashboard() {
     const { selected, handleClickSelected } = useNavAsideLocal();
-    const navigate = useNavigate();
-    useEffect(() => {
-        const checkLogin = async () => {
-            const response = await fetch("http://localhost:3000/api/login/autenticacion", {
-                method: "GET",
-                credentials: "include",
-            });
-
-            const { success } = await response.json();
-
-            if (!success) {
-                navigate("/admin");
-            }
-        }
-        checkLogin();
-    }, [navigate]);
-
+    useCheckearAutenticacion();
     return (
         <div className="flex min-h-screen bg-white">
             <AsideMenu handleClickSelected={handleClickSelected} selected={selected} />

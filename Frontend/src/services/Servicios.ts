@@ -8,8 +8,6 @@ export const getServicios = async () => {
 
 export const crearServicio = async ({ titulo, descripcion, img, duration }: { titulo: string, descripcion: string, img: string, duration: number }) => {
 
-    console.log(duration);
-    console.log(titulo, descripcion, img, duration);
     const response = await fetch(`${import.meta.env.VITE_API_URL}/servicios`, {
         method: "POST",
         body: JSON.stringify({ titulo, descripcion, img, duration }),

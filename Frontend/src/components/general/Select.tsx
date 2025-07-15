@@ -6,7 +6,6 @@ import type { AnimatedSelectProps } from "@/types";
 export default function AnimatedSelect({ funcion, select, name, options, onChange, clases }: AnimatedSelectProps) {
     const [isOpen, setIsOpen] = useState(false);
     const [selected, setSelected] = useState<string>(select || '');
-    console.log(selected);
     const buttonRef = useRef<HTMLButtonElement>(null);
     const [dropdownStyles, setDropdownStyles] = useState({ top: 0, left: 0, width: 0 });
 

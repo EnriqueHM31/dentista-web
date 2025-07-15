@@ -2,9 +2,6 @@ import type { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
 import { ModeloLogin } from '../../models/mysql/login';
 
-
-
-
 export const JWT_SECRET = process.env.SECRET ?? (() => {
     throw new Error("SECRET no está definido en .env");
 })();
@@ -30,14 +27,14 @@ export class ControllerLogin {
 
             res.cookie('token', token, {
                 httpOnly: true,
-                secure: process.env.NODE_ENV === 'production', // true en producción con HTTPS
+                secure: process.env.NODE_ENV === 'production',
                 sameSite: 'lax',
-                maxAge: 60 * 60 * 1000, // 1 hora
+                maxAge: 60 * 60 * 1000,
             });
 
             res.status(200).json({ success: true, message: 'Sesión iniciada correctamente' });
         } catch (error) {
-            res.status(500).json({ success: false, message: 'Error al iniciar sesión' + error });
+            res.status(500).json({ success: false, message: 'Error al iniciar sesión: ' + error });
         }
     }
 
@@ -75,8 +72,7 @@ export class ControllerLogin {
         try {
             res.clearCookie('token');
             res.status(200).json({ success: true, message: 'Sesión cerrada correctamente' });
-        }
-        catch (error) {
+        } catch (error) {
             res.status(500).json({ success: false, message: 'Error al cerrar sesión' });
         }
     }

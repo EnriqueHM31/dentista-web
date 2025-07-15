@@ -1,3 +1,4 @@
+
 import { Router } from 'express';
 import { ControllerPreguntas } from '../../controllers/local/preguntas';
 export const PreguntasRoutes = Router();
