@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { ModeloServicio } from '../../models/mysql/servicio';
+import { ModeloServicio } from '../models/mysql/servicio';
 
 
 export class ServiciosController {

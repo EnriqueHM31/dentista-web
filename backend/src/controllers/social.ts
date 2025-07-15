@@ -1,4 +1,4 @@
-import { ModeloSocial } from '../../models/mysql/social';
+import { ModeloSocial } from '../models/mysql/social';
 import { Request, Response } from 'express';
 
 export class ContrallerSocial {

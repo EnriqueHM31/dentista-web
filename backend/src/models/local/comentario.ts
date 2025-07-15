@@ -1,5 +1,5 @@
-import { transporter } from '../../utils/contacto';
-import db from '../../src/database/db';
+import { transporter } from '../../../utils/contacto';
+import db from '../../database/db';
 export class ModeloContacto {
 
 

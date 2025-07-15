@@ -1,4 +1,4 @@
-import { ModeloPreguntas } from '../../models/mysql/preguntas';
+import { ModeloPreguntas } from '../models/mysql/preguntas';
 import { Request, Response } from 'express';
 
 export class ControllerPreguntas {

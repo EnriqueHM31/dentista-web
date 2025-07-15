@@ -1,4 +1,4 @@
-import db from '../../src/database/db';
+import db from '../../database/db';
 
 export class ModeloUsuario {
 
