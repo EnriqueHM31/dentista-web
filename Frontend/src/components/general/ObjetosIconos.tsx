@@ -11,10 +11,12 @@ import {
 export function getIconosAside() {
     return [
         { label: 'Perfil', icon: AiOutlineUser, id: "perfil" },
+        { label: 'Especialistas', icon: AiOutlineUser, id: "especialistas" },
         { label: 'Servicios', icon: GrServices, id: "servicios" },
         { label: 'Sociales', icon: IoShareSocialSharp, id: "share" },
         { label: 'Preguntas', icon: FaQuestionCircle, id: "faq" },
         { label: 'Comentarios', icon: FaComment, id: "comentarios" },
+
     ];
 }
 

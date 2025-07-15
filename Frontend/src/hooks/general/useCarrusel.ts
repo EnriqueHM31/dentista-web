@@ -1,7 +1,7 @@
-import type { SlideData } from "@/types";
+import type { Especialista } from "@/types";
 import { useState } from "react";
 
-export function useCarrusel({ slides }: { slides: SlideData[] }) {
+export function useCarrusel({ slides }: { slides: Especialista[] }) {
     const [current, setCurrent] = useState(0);
 
     const handlePreviousClick = () => {

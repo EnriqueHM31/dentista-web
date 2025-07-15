@@ -3,7 +3,7 @@ import { FaLinkedin } from "react-icons/fa6";
 import type { SlideProps } from "@/types";
 
 export default function Slide({ slide, index, current, handleSlideClick }: SlideProps) {
-    const { src, descripcion, title, linkedin } = slide;
+    const { nombre, apellido, email, telefono, avatar, linkedin, servicio } = slide;
 
 
     return (
@@ -24,8 +24,8 @@ export default function Slide({ slide, index, current, handleSlideClick }: Slide
                     <img
                         className="absolute inset-0 xl:w-[120%] xl:h-[120%] h-full object-cover opacity-100 transition-opacity duration-100 ease-in-out"
 
-                        alt={title}
-                        src={src}
+                        alt={`${nombre} ${apellido}`}
+                        src={avatar}
                     />
                     <div className={`absolute inset-0  ${current === index ? "bg-transparent" : "bg-black/30"}`}>
 
@@ -41,10 +41,14 @@ export default function Slide({ slide, index, current, handleSlideClick }: Slide
                                 <AiOutlineDingtalk className="text-4xl md:text-4xl xl:text-5xl relative" />
                                 <div className="flex flex-col gap-1 items-start w-full">
                                     <h2 className="text-md md:text-xl lg:text-2xl font-semibold relative text-start">
-                                        {title}
+                                        {email}
                                     </h2>
                                     <p className="text-xs md:text-sm lg:text-base text-start">
-                                        {descripcion}
+                                        {servicio}
+                                    </p>
+
+                                    <p className="text-xs md:text-sm lg:text-base text-start">
+                                        {telefono}
                                     </p>
                                 </div>
                             </article>

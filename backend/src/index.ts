@@ -9,6 +9,7 @@ import { LoginRouter } from './routes/login.routes';
 import { PreguntasRoutes } from './routes/preguntas.routes';
 import { UsuarioRouter } from './routes/datausuario.routes';
 import { ServiciosRoutes } from './routes/servicios.routes';
+import { EspecialistasRouter } from './routes/especialistas.routes';
 
 
 
@@ -41,6 +42,7 @@ app.use('/api/login', LoginRouter);
 app.use('/api/preguntas', PreguntasRoutes);
 app.use('/api/usuario', UsuarioRouter);
 app.use('/api/servicios', ServiciosRoutes);
+app.use('/api/especialistas', EspecialistasRouter);
 
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`)

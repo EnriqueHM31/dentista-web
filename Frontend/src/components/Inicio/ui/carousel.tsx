@@ -1,11 +1,11 @@
 import { useId } from "react";
-import type { SlideData } from "@/types";
+import type { Especialista } from "@/types";
 import Slide from "@/components/Inicio/Carusel/Slide";
 import CarouselControl from "@/components/Inicio/Carusel/CaruselControl";
 import { useCarrusel } from "@/hooks/general/useCarrusel";
 
 interface CarouselProps {
-  slides: SlideData[];
+  slides: Especialista[];
 }
 
 export default function Carousel({ slides }: CarouselProps) {

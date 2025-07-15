@@ -6,6 +6,17 @@ export interface Servicio {
     duration: number;
 }
 
+interface Especialista {
+    id: string;
+    nombre: string;
+    apellido: string;
+    email: string;
+    telefono: string;
+    direccion: string;
+    avatar: string;
+    linkedin: string;
+    servicio: string;
+}
 
 interface Comentario {
     id: string;
@@ -50,7 +61,7 @@ interface SlideData {
 }
 
 interface SlideProps {
-    slide: SlideData;
+    slide: Especialista;
     index: number;
     current: number;
     handleSlideClick: (index: number) => void;

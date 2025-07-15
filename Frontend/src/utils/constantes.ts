@@ -56,4 +56,3 @@ export const VENTAJAS = [
         name: "Inscripción rápida y sencilla",
     }
 ];
-

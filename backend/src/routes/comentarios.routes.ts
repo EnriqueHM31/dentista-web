@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { ContrallerContacto } from '../../controllers/local/comentario';
+import { ContrallerContacto } from '../controllers/comentario';
 
 export const ComentariosRouter = Router();
 
