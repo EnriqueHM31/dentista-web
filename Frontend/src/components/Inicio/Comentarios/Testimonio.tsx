@@ -1,4 +1,5 @@
 import StartsTestimonials from "@/components/Inicio/Comentarios/StartsTestimonials.";
+import { FaCheck } from "react-icons/fa6";
 
 interface TestimonioProps {
     client_name: string;
@@ -28,15 +29,30 @@ export default function Testimonio({
         <li className="relative flex flex-col gap-3 px-8 py-4 bg-primary text-white rounded-2xl min-h-[30dvh] justify-between">
             {/* Checkbox de selección para visibilidad */}
             {onCheckToggle && (
-                <input
-                    type="checkbox"
-                    name="visible"
-                    id={`visible-${index}`}
-                    checked={checked}
-                    onChange={() => onCheckToggle(index)}
-                    className="absolute top-3 right-3 w-5 h-5 accent-white cursor-pointer"
-                    title="Mostrar públicamente"
-                />
+                <div className="flex flex-wrap justify-center items-center size-10 mx-auto select-none gap-2 rounded-xl bg-amber-200 absolute top-4 right-4">
+                    <label className="text-gray-500 w-full h-full relative">
+                        <input
+                            type="checkbox"
+                            id={`visible-${index}`}
+                            checked={checked}
+                            onChange={() => onCheckToggle(index)}
+                            className="h-[1px] opacity-0 overflow-hidden absolute whitespace-nowrap w-[1px] peer"
+                        />
+                        <span
+                            className="flex flex-col items-center justify-center rounded-lg shadow-lg transition-all duration-200 cursor-pointer 
+               border-gray-700 border-[3px] bg-gray-800 text-white 
+               peer-checked:border-green-400 peer-checked:shadow-green-400/10 
+               peer-checked:text-green-400 hover:border-green-400 w-full h-full"
+                        >
+                            {/* ✅ Ícono visible sólo cuando está marcado */}
+                            {checked && (
+                                <FaCheck className="text-green-400 text-lg" />
+                            )}
+                        </span>
+                    </label>
+                </div>
+
+
             )}
 
 
