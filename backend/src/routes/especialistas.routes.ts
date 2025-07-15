@@ -6,3 +6,4 @@ export const EspecialistasRouter = Router();
 EspecialistasRouter.get('/', ControllerEspecialistas.getAll);
 EspecialistasRouter.post('/', ControllerEspecialistas.createEspecialista);
 EspecialistasRouter.put('/:id', ControllerEspecialistas.updateEspecialista);
+EspecialistasRouter.delete('/:id', ControllerEspecialistas.deleteEspecialista);
