@@ -25,6 +25,7 @@ export default function Comentarios() {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-4">
                 {comentarios.map(({ id, nombre, mensaje, ranking, visible }, index) => (
                     <Testimonio
+                        id={id}
                         key={id}
                         client_name={nombre}
                         comment={mensaje}

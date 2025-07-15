@@ -1,4 +1,7 @@
+import AnimatedSelect from "@/components/General/Select";
+import { ServicioContext } from "@/context/Servicio";
 import type { Especialista } from "@/types";
+import { useContext } from "react";
 import {
     AiOutlineUser,
     AiOutlineMail,
@@ -12,13 +15,15 @@ import {
 interface PropsModalEditarEspecialista {
     toggle: () => void;
     especialistaSeleccionado: Especialista | null;
-    handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+    handleChange: (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => void;
     handleSubmit: (e: React.FormEvent) => void;
 }
 
 export default function ModalEditarEspecialista({ toggle, especialistaSeleccionado, handleChange, handleSubmit, }: PropsModalEditarEspecialista) {
+
+    const { servicios } = useContext(ServicioContext);
     return (
-        <div className=" w-full  mx-auto p-10 bg-primary text-white ">
+        <div className=" w-full  mx-auto p-5 bg-primary text-white ">
             <h2 className="text-xl font-bold mb-6 text-center">Editar Especialista</h2>
 
             <div className="flex flex-col md:flex-row gap-6">
@@ -34,7 +39,7 @@ export default function ModalEditarEspecialista({ toggle, especialistaSelecciona
                 </div>
 
                 {/* Formulario */}
-                <form onSubmit={handleSubmit} className="flex-2 grid grid-cols-2 gap-4 w-full">
+                <form onSubmit={handleSubmit} className="flex-2 grid grid-cols-2 gap-8 w-full">
                     {/* Nombre */}
                     <label htmlFor="nombre" className="flex flex-col gap-3">
                         <span className="flex items-center gap-2 font-medium text-white/50">
@@ -70,13 +75,12 @@ export default function ModalEditarEspecialista({ toggle, especialistaSelecciona
                         <span className="flex items-center gap-2 font-medium text-white/50">
                             <AiOutlineTool /> Servicio
                         </span>
-                        <input
-                            id="servicio"
-                            type="text"
+                        <AnimatedSelect
                             name="servicio"
-                            value={especialistaSeleccionado?.servicio || ""}
-                            onChange={handleChange}
-                            className="border px-3 py-2 rounded-md text-white"
+                            clases="bg-primary text-white hover:bg-white hover:text-primary border border-white"
+                            options={servicios.map((servicio) => servicio.name)}
+                            select={especialistaSeleccionado?.servicio || ""}
+                            funcion={handleChange}
                         />
                     </label>
 

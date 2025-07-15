@@ -70,7 +70,7 @@ export default function AnimatedSelect({ funcion, select, name, options, onChang
                 onClick={() => setIsOpen(!isOpen)}
                 className={`w-full px-4 py-3 cursor-pointer ${clases} border border-primary rounded-lg flex justify-between items-center`}
             >
-                <span>{selected.length > 15 ? selected.slice(0, 12) + '...' : selected}</span>
+                <span>{selected.length > 30 ? selected.slice(0, 27) + '...' : selected}</span>
                 <FaChevronDown className={`transition-transform duration-200 ${isOpen ? "rotate-180" : ""}`} />
             </button>
 

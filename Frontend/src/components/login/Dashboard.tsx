@@ -30,7 +30,12 @@ export default function Dashboard() {
                     {selected === "share" && <SocialesProvider > <Sociales /> </SocialesProvider>}
                     {selected === "faq" && <PreguntasProvider> <ListaPreguntas /> </PreguntasProvider>}
                     {selected === "comentarios" && <ComentariosProvider> <Comentarios /> </ComentariosProvider>}
-                    {selected === "especialistas" && <EspecialistasProvider> <Especialistas /> </EspecialistasProvider>}
+                    {selected === "especialistas" &&
+                        <EspecialistasProvider>
+                            <ServicioProvider>
+                                <Especialistas />
+                            </ServicioProvider>
+                        </EspecialistasProvider>}
                     {selected === "logout" && <p>¿Seguro que quieres cerrar sesión?</p>}
                 </div>
             </main>

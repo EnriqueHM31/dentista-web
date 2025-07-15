@@ -19,7 +19,7 @@ export function useEspecialistas({ especialistas, toggle }: PropsHookEspecialist
     };
 
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
         const { name, value } = e.target;
         setEspecialistaSeleccionado((prev) =>
             prev ? { ...prev, [name]: value } : null
