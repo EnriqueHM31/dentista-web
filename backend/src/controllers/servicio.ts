@@ -9,7 +9,7 @@ export class ServiciosController {
 
         const result = validarServicio(req.body);
 
-        if (!result.success) {
+        if (result.error) {
             res.status(400).json({ success: false, message: JSON.parse(result.error.message) });
             return;
         }

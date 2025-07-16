@@ -1,5 +1,11 @@
 import db from '@/database/db';
 
+interface Pregunta {
+    pregunta: string;
+    respuesta: string;
+}
+
+
 export class ModeloPreguntas {
     static async getAll() {
         try {
@@ -10,17 +16,18 @@ export class ModeloPreguntas {
         }
     }
 
-    static async createPregunta(pregunta: string, respuesta: string) {
+    static async createPregunta({ pregunta, respuesta }: Pregunta) {
         try {
-            const [rows] = await db.query('INSERT INTO Preguntas (pregunta, respuesta) VALUES (?, ?)', [pregunta, respuesta]);
-            return { success: true, message: rows };
+            const id = crypto.randomUUID();
+            const [rows] = await db.query('INSERT INTO Preguntas (id, pregunta, respuesta) VALUES (?, ?, ?)', [id, pregunta, respuesta]);
+            return { success: true, message: rows, pregunta: { id, pregunta, respuesta } };
         } catch (error) {
             return { success: false, message: 'Error en la base de datos' };
         }
     }
 
 
-    static async updatePregunta(id: string, pregunta: string, respuesta: string) {
+    static async updatePregunta(id: string, { pregunta, respuesta }: Partial<Pregunta>) {
         try {
 
             const [rows] = await db.query('UPDATE Preguntas SET pregunta = ?, respuesta = ? WHERE id = ?', [pregunta, respuesta, id]);

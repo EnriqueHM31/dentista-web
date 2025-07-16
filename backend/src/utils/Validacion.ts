@@ -21,18 +21,29 @@ export class Validacion {
     static servicio = z.object({
         titulo: z.string().min(1, { message: "El titulo es requerido" }),
         descripcion: z.string().min(1, { message: "La descripción es requerida" }),
-        img: z.string().min(1, { message: "La imagen es requerida" }).url({ message: "La imagen debe ser una URL válida" }),
+        img: z.string().min(1, { message: "La imagen es requerida" }).startsWith("https://"),
         duration: z.number().min(1, { message: "La duración es requerida" }).int({ message: "La duración debe ser un número entero" }),
     })
 
     static especialista = z.object({
         nombre: z.string().min(1, { message: "El nombre es requerido" }),
         apellido: z.string().min(1, { message: "El apellido es requerido" }),
-        email: z.string().email({ message: "El email debe ser una dirección de correo electrónico válida" }),
+        email: z.string(),
         telefono: z.string().min(1, { message: "El teléfono es requerido" }),
         direccion: z.string().min(1, { message: "La dirección es requerida" }),
+        avatar: z.string().min(1, { message: "La imagen es requerida" }).startsWith("https://"),
+        linkedin: z.string().min(1, { message: "La referencia es requerida" }).startsWith("https://"),
     })
 
+    static pregunta = z.object({
+        pregunta: z.string().min(1, { message: "La pregunta es requerida" }),
+        respuesta: z.string().min(1, { message: "La respuesta es requerida" }),
+    })
+
+    static user = z.object({
+        username: z.string().min(1, { message: "El nombre de usuario es requerido" }),
+        password: z.string().min(1, { message: "La contraseña es requerida" }),
+    })
 }
 
 export function validarId(data: { id: `${string}-${string}-${string}-${string}-${string}` }) {
@@ -49,4 +60,16 @@ export function validarServicio(data: { nombre: string, descripcion: string, ima
 
 export function validarEditarServicio(data: { nombre: string, descripcion: string, imagen: string }) {
     return Validacion.servicio.partial().safeParse(data);
+}
+
+export function validarPregunta(data: { pregunta: string, respuesta: string }) {
+    return Validacion.pregunta.safeParse(data);
+}
+
+export function validarEditarPregunta(data: { pregunta: string, respuesta: string }) {
+    return Validacion.pregunta.partial().safeParse(data);
+}
+
+export function validarEditarUsuario(data: { username: string, password: string }) {
+    return Validacion.user.partial().safeParse(data);
 }

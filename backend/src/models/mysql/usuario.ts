@@ -1,10 +1,20 @@
 import db from '@/database/db';
+import { validarId } from '@/utils/Validacion';
+interface Usuario {
+    username: string;
+    password: string;
+}
+const ID_USER = process.env.USUARIO_ID;
 
 export class ModeloUsuario {
 
     static async getUsuario() {
         try {
-            const ID_USER = process.env.USUARIO_ID;
+            const resultID = validarId({ id: ID_USER as `${string}-${string}-${string}-${string}-${string}` });
+            if (resultID.error) {
+                return { success: false, message: 'ID de usuario no válido' };
+            }
+
             const [rows] = await db.query(`SELECT username, password FROM Usuario WHERE id = ?`, [ID_USER]);
             return {
                 success: true,
@@ -15,9 +25,12 @@ export class ModeloUsuario {
         }
     }
 
-    static async updateUsuario(username?: string, password?: string) {
+    static async updateUsuario({ username, password }: Partial<Usuario>) {
         try {
-            const ID_USER = process.env.USUARIO_ID;
+            const resultID = validarId({ id: ID_USER as `${string}-${string}-${string}-${string}-${string}` });
+            if (resultID.error) {
+                return { success: false, message: 'ID de usuario no válido' };
+            }
 
             const campos = [];
             const valores = [];

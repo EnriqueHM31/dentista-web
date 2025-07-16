@@ -1,5 +1,6 @@
 import { Request, Response } from 'express'
 import { ModeloUsuario } from '@/models/mysql/usuario';
+import { validarEditarUsuario } from '@/utils/Validacion';
 
 export class ContrallerUsuario {
 
@@ -20,9 +21,14 @@ export class ContrallerUsuario {
     }
 
     static async updateUsuario(req: Request, res: Response) {
-        const { username, password } = req.body;
+        const result = validarEditarUsuario(req.body);
 
-        const { success, message } = await ModeloUsuario.updateUsuario(username, password);
+        if (result.error) {
+            res.status(400).json({ success: false, message: JSON.parse(result.error.message) });
+            return;
+        }
+
+        const { success, message } = await ModeloUsuario.updateUsuario({ ...result.data } as { username: string, password: string });
 
         if (success) {
             res.status(200).json({ success, message });

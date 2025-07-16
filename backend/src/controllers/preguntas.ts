@@ -1,6 +1,11 @@
 import { ModeloPreguntas } from '@/models/mysql/preguntas';
-import { validarId } from '@/utils/Validacion';
+import { validarEditarPregunta, validarId, validarPregunta } from '@/utils/Validacion';
 import { Request, Response } from 'express';
+
+interface Pregunta {
+    pregunta: string;
+    respuesta: string;
+}
 
 export class ControllerPreguntas {
     static async getAll(_req: Request, res: Response) {
@@ -17,24 +22,28 @@ export class ControllerPreguntas {
         }
     }
 
-    static async createPregunta(req: Request, res: Response) {
-        const { pregunta, respuesta } = req.body;
 
-        if (!pregunta || !respuesta) {
-            res.status(400).json({ success: false, message: 'Faltan datos' });
+    static async createPregunta(req: Request, res: Response) {
+
+        const result = validarPregunta(req.body);
+
+        if (result.error) {
+            res.status(400).json({ success: false, message: JSON.parse(result.error.message) });
         }
 
-        const { success, message } = await ModeloPreguntas.createPregunta(pregunta, respuesta);
+
+        const { success, message, pregunta } = await ModeloPreguntas.createPregunta({ ...result.data } as Pregunta);
 
         if (success) {
-            res.status(200).json({ success, message });
+            res.status(200).json({ success, message, pregunta });
         } else {
-            res.status(500).json({ success, message });
+            res.status(500).json({ success, message, pregunta: {} });
         }
     }
 
     static async updatePregunta(req: Request, res: Response) {
-        const { pregunta, respuesta } = req.body;
+
+        const result = validarEditarPregunta(req.body);
         const { id } = req.params as { id: `${string}-${string}-${string}-${string}-${string}` };
 
         const resultID = validarId({ id });
@@ -43,11 +52,12 @@ export class ControllerPreguntas {
             return;
         }
 
-        if (!id || !pregunta || !respuesta) {
-            res.status(400).json({ success: false, message: 'Faltan datos' });
+        if (result.error) {
+            res.status(400).json({ success: false, message: JSON.parse(result.error.message) });
+            return;
         }
 
-        const { success, message } = await ModeloPreguntas.updatePregunta(resultID.data.id, pregunta, respuesta);
+        const { success, message } = await ModeloPreguntas.updatePregunta(resultID.data.id, { ...result.data });
 
         if (success) {
             res.status(200).json({ success, message });
