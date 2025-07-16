@@ -1,6 +1,6 @@
 import type { Request, Response } from 'express';
 import { ModeloContacto } from '@/models/local/comentario';
-import { validarComentario } from '@/utils/Validacion';
+import { validarComentario, validarId } from '@/utils/Validacion';
 
 export class ContrallerContacto {
     static async EnviarMensaje(req: Request, res: Response) {
@@ -45,8 +45,16 @@ export class ContrallerContacto {
 
     static async updateComentario(req: Request, res: Response) {
         const { visible } = req.body;
-        const id = req.params.id
-        const { success, message } = await ModeloContacto.updateComentario(id, visible);
+        const id = req.params.id as `${string}-${string}-${string}-${string}-${string}`;
+
+        const resultID = validarId({ id });
+        if (resultID.error) {
+            res.status(400).json({ success: false, message: resultID.error.message });
+            return;
+        }
+
+
+        const { success, message } = await ModeloContacto.updateComentario(resultID.data.id, visible);
 
         if (success) {
             res.status(200).json({ success, message });
@@ -57,8 +65,15 @@ export class ContrallerContacto {
 
 
     static async deleteComentario(req: Request, res: Response) {
-        const id = req.params.id
-        const { success, message } = await ModeloContacto.deleteComentario(id); // id del comentario
+        const id = req.params.id as `${string}-${string}-${string}-${string}-${string}`;
+
+        const resultID = validarId({ id });
+        if (resultID.error) {
+            res.status(400).json({ success: false, message: resultID.error.message });
+            return;
+        }
+
+        const { success, message } = await ModeloContacto.deleteComentario(resultID.data.id); // id del comentario
         if (success) {
             res.status(200).json({ success, message });
         } else {

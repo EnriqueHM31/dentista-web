@@ -1,6 +1,11 @@
 import { z } from "zod";
 
 export class Validacion {
+    static idsObjetos = z.object({
+        id: z.string().uuid({ message: "El id debe ser un UUID válido" })
+    })
+
+
     static comentario = z.object({
         username: z.string()
             .min(1, { message: "El nombre es requerido" }),
@@ -27,8 +32,12 @@ export class Validacion {
         telefono: z.string().min(1, { message: "El teléfono es requerido" }),
         direccion: z.string().min(1, { message: "La dirección es requerida" }),
     })
+
 }
 
+export function validarId(data: { id: `${string}-${string}-${string}-${string}-${string}` }) {
+    return Validacion.idsObjetos.safeParse(data);
+}
 
 export function validarComentario(data: { username: string, ranking: number, email: string, categoria: string, comentario: string }) {
     return Validacion.comentario.safeParse(data);

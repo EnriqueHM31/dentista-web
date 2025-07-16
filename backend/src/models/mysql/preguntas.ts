@@ -44,7 +44,7 @@ export class ModeloPreguntas {
                 return { success: false, message: 'No se encontró la pregunta a eliminar' };
             }
 
-            return { success: true, message: rows };
+            return { success: true, message: "Pregunta eliminada correctamente" };
         } catch (error) {
             return { success: false, message: 'Error en la base de datos' };
         }

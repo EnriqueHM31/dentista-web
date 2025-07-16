@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import { ModeloServicio } from '../models/mysql/servicio';
-import { validarEditarServicio, validarServicio } from '../utils/Validacion';
+import { validarEditarServicio, validarId, validarServicio } from '../utils/Validacion';
 
 
 export class ServiciosController {
@@ -40,7 +40,13 @@ export class ServiciosController {
     }
 
     static async updateServicio(req: Request, res: Response) {
-        const id = req.params.id
+        const id = req.params.id as `${string}-${string}-${string}-${string}-${string}`;
+
+        const resultID = validarId({ id });
+        if (resultID.error) {
+            res.status(400).json({ success: false, message: resultID.error.message });
+            return;
+        }
 
         const result = validarEditarServicio(req.body);
 
@@ -49,7 +55,7 @@ export class ServiciosController {
             return;
         }
 
-        const { success, message } = await ModeloServicio.updateServicio(id, { ...result.data });
+        const { success, message } = await ModeloServicio.updateServicio(resultID.data.id, { ...result.data });
 
         if (success) {
             res.status(200).json({ success, message });
@@ -59,8 +65,15 @@ export class ServiciosController {
     }
 
     static async deleteServicio(req: Request, res: Response) {
-        const id = req.params.id
-        const { success, message } = await ModeloServicio.deleteServicio(id);
+        const id = req.params.id as `${string}-${string}-${string}-${string}-${string}`;
+
+        const resultID = validarId({ id });
+        if (resultID.error) {
+            res.status(400).json({ success: false, message: resultID.error.message });
+            return;
+        }
+
+        const { success, message } = await ModeloServicio.deleteServicio(resultID.data.id);
 
         if (success) {
             res.status(200).json({ success, message });

@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import { ModeloEspecialista } from '@/models/mysql/especialista';
+import { validarId } from '@/utils/Validacion';
 
 export class ControllerEspecialistas {
     static async getAll(_req: Request, res: Response) {
@@ -32,9 +33,15 @@ export class ControllerEspecialistas {
 
     static async updateEspecialista(req: Request, res: Response) {
         const { nombre, apellido, email, telefono, direccion, foto, nivel, especialidad, usuario } = req.body;
-        const { id } = req.params;
+        const { id } = req.params as { id: `${string}-${string}-${string}-${string}-${string}` };
 
-        const { success, message } = await ModeloEspecialista.updateEspecialista(id, { nombre, apellido, email, telefono, direccion, foto, nivel, especialidad, usuario });
+        const result = validarId({ id });
+        if (result.error) {
+            res.status(400).json({ success: false, message: result.error.message });
+            return;
+        }
+
+        const { success, message } = await ModeloEspecialista.updateEspecialista(result.data.id, { nombre, apellido, email, telefono, direccion, foto, nivel, especialidad, usuario });
 
         if (success) {
             res.status(200).json({ success, message });
@@ -44,8 +51,15 @@ export class ControllerEspecialistas {
     }
 
     static async deleteEspecialista(req: Request, res: Response) {
-        const id = req.params.id
-        const { success, message } = await ModeloEspecialista.deleteEspecialista(id);
+        const id = req.params.id as `${string}-${string}-${string}-${string}-${string}`;
+
+        const result = validarId({ id });
+        if (result.error) {
+            res.status(400).json({ success: false, message: result.error.message });
+            return;
+        }
+
+        const { success, message } = await ModeloEspecialista.deleteEspecialista(result.data.id);
 
         if (success) {
             res.status(200).json({ success, message });
