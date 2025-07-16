@@ -43,7 +43,7 @@ export class ModeloServicio {
         } catch (error) {
             return {
                 success: false,
-                message: 'Error al crear el servicio: ' + (error as Error).message
+                message: 'Error al crear el servicio'
             };
         }
     }

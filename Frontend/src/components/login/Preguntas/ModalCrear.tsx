@@ -1,14 +1,14 @@
 import { useCrearPregunta } from "@/hooks/admin/Preguntas/useCrearPregunta";
 import type { ModalCrearProps } from "@/types";
 
-export default function ModalCrear({ toggle, handleCrearNuevaPregunta }: ModalCrearProps) {
+export default function ModalCrear({ toggle, handleClickDesactivarModal }: ModalCrearProps) {
 
     const { handleCrearPregunta, preguntaForm, handleCambiarPregunta, handleCambiarRespuesta } = useCrearPregunta();
 
     return (
         <form onSubmit={async (e) => {
             await handleCrearPregunta(e);
-            await handleCrearNuevaPregunta();
+            handleClickDesactivarModal();
         }} className="w-full p-6 flex flex-col gap-4 bg-primary">
             <h3 className="text-2xl font-bold text-white mb-4">Agregar una nueva pregunta</h3>
 

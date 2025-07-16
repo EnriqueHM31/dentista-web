@@ -14,12 +14,15 @@ export const PreguntasProvider = ({ children }: { children: React.ReactNode }) =
             toast.error("Error al cargar preguntas");
             return;
         }
-        setPreguntas(message);
+        setPreguntas(message.sort((a: Pregunta, b: Pregunta) => a.pregunta.localeCompare(b.pregunta)));
     };
 
     useEffect(() => {
         obtenerPreguntas();
-    }, []);
+    }, [preguntas]);
+
+
+
 
     return (
         <PreguntasContext.Provider value={{ preguntas, setPreguntas, obtenerPreguntas }}>

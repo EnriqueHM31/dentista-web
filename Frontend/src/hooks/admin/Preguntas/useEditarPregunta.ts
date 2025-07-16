@@ -1,11 +1,13 @@
 
+import { PreguntasContext } from "@/context/Preguntas";
 import { updatePregunta } from "@/services/Preguntas";
 import type { Pregunta } from "@/types";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { toast } from "sonner";
 
 
 export function useEditarPregunta() {
+    const { setPreguntas } = useContext(PreguntasContext);
     const [preguntaSeleccionada, setPreguntaSeleccionada] = useState<Pregunta | null>(null);
 
 
@@ -38,10 +40,16 @@ export function useEditarPregunta() {
 
             const { success, message } = await updatePregunta(preguntaSeleccionada?.id, preguntaSeleccionada?.pregunta, preguntaSeleccionada?.respuesta);
 
+
             if (!success) {
                 toast.error(message, { id: toastId });
                 return;
             }
+            setPreguntas(prev =>
+                prev.map(p =>
+                    p.id === preguntaSeleccionada?.id ? { ...p, ...preguntaSeleccionada } : p
+                )
+            );
             toast.success("Cambios guardados exitosamente", { id: toastId });
         } catch (err) {
             toast.error("Error al guardar los cambios " + err, { id: toastId });

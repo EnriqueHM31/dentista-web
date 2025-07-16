@@ -69,7 +69,7 @@ interface SlideProps {
 
 interface ModalCrearProps {
     toggle: () => void;
-    handleCrearNuevaPregunta: () => void;
+    handleClickDesactivarModal: () => void;
 }
 
 interface Pregunta {

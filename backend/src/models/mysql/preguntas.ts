@@ -19,8 +19,13 @@ export class ModeloPreguntas {
     static async createPregunta({ pregunta, respuesta }: Pregunta) {
         try {
             const id = crypto.randomUUID();
-            const [rows] = await db.query('INSERT INTO Preguntas (id, pregunta, respuesta) VALUES (?, ?, ?)', [id, pregunta, respuesta]);
-            return { success: true, message: rows, pregunta: { id, pregunta, respuesta } };
+            const [result] = await db.query('INSERT INTO Preguntas (id, pregunta, respuesta) VALUES (?, ?, ?)', [id, pregunta, respuesta]);
+
+            if (!result) {
+                return { success: false, message: "Error al crear la pregunta" };
+            }
+
+            return { success: true, message: "Pregunta creada correctamente", pregunta: { id, pregunta, respuesta } };
         } catch (error) {
             return { success: false, message: 'Error en la base de datos' };
         }

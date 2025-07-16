@@ -5,34 +5,23 @@ import ModalCrear from "../Preguntas/ModalCrear";
 import { usePreguntas } from "@/hooks/admin/Preguntas/usePreguntas";
 import { useModalIndependiente } from "@/hooks/general/useModalIndependiente";
 import { useEditarPregunta } from "@/hooks/admin/Preguntas/useEditarPregunta";
-import type { Pregunta } from "@/types";
-import { PreguntasContext } from "@/context/Preguntas";
-import { useContext } from "react";
 
 export default function ListaPreguntas() {
 
-    const { obtenerPreguntas } = useContext(PreguntasContext);
     const { handleClickActivarModalIndependiente, handleClickDesactivarModal, activeModal } = useModalIndependiente();
     const {
         preguntas,
         expandedIds,
         toggleExpand,
         handleClickEliminarPregunta,
-        refrescarPreguntaEditada }
+    }
         = usePreguntas();
 
 
     const { preguntaSeleccionada, handleEditarPregunta, handleClickModalEditarPregunta, handleClickModalEditarRespuesta, handleClickEditar } = useEditarPregunta();
 
-    const handleSubmitEditarPregunta = (preguntaSeleccionada: Pregunta, e: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmitEditarPregunta = (e: React.FormEvent<HTMLFormElement>) => {
         handleEditarPregunta(e);
-        refrescarPreguntaEditada(preguntaSeleccionada);
-        handleClickDesactivarModal();
-    }
-
-
-    const handleCrearNuevaPregunta = () => {
-        obtenerPreguntas();
         handleClickDesactivarModal();
     }
 
@@ -51,7 +40,7 @@ export default function ListaPreguntas() {
                     handleEditarRespuesta={handleClickModalEditarRespuesta}
                     preguntaSeleccionada={preguntaSeleccionada}
                     toggle={handleClickDesactivarModal}
-                    handleGuardar={(e) => handleSubmitEditarPregunta(preguntaSeleccionada as Pregunta, e)}
+                    handleGuardar={(e) => handleSubmitEditarPregunta(e)}
                 />
             </Modal>
 
@@ -64,7 +53,7 @@ export default function ListaPreguntas() {
             >
                 <ModalCrear
                     toggle={handleClickDesactivarModal}
-                    handleCrearNuevaPregunta={handleCrearNuevaPregunta}
+                    handleClickDesactivarModal={handleClickDesactivarModal}
 
                 />
             </Modal>

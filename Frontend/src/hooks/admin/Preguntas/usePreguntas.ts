@@ -1,7 +1,6 @@
 import { useContext } from "react";
 import { toast } from "sonner";
 import { useState } from "react";
-import type { Pregunta } from "@/types";
 import { deletePregunta } from "@/services/Preguntas";
 import { PreguntasContext } from "@/context/Preguntas";
 
@@ -9,13 +8,7 @@ export function usePreguntas() {
     const { preguntas, setPreguntas } = useContext(PreguntasContext);
     const [expandedIds, setExpandedIds] = useState<`${string}-${string}-${string}-${string}-${string}`[]>([]);
 
-    const refrescarPreguntaEditada = async (preguntaSeleccionada: Pregunta) => {
-        setPreguntas(prev =>
-            prev.map(p =>
-                p.id === preguntaSeleccionada?.id ? { ...p, ...preguntaSeleccionada } : p
-            )
-        );
-    }
+
 
     const toggleExpand = (id: `${string}-${string}-${string}-${string}-${string}`) => {
         setExpandedIds(prev =>
@@ -60,7 +53,6 @@ export function usePreguntas() {
         toggleExpand,
         handleClickEliminarPregunta,
         expandedIds,
-        refrescarPreguntaEditada
     };
 
 }
