@@ -77,16 +77,17 @@ export default function Slide({ slide, index, current, handleSlideClick }: Slide
                 <img
                     src={avatar}
                     alt={`${nombre} ${apellido}`}
-                    className="w-full h-full min-h-[70vh] object-cover rounded-t-2xl"
+                    className="w-full h-[70vh] object-cover rounded-t-2xl"
                 />
 
                 <article className="flex gap-2 items-center justify-center p-4  w-full max-w-full mx-auto">
-                    <div className="flex-1">
-                        <AiOutlineDingtalk className="text-4xl" />
-                    </div>
 
                     <div className="flex-[3] flex flex-col gap-2 items-start justify-center ">
-                        <h2 className="text-lg font-semibold text-start">{nombre} {apellido}</h2>
+                        <div className="flex items-center gap-2">
+                            <AiOutlineDingtalk className="text-4xl" />
+                            <h2 className="text-lg font-semibold text-start">{nombre} {apellido}</h2>
+
+                        </div>
                         <p className="text-sm text-start">{servicio}</p>
                         <p className="text-sm text-start">{email}</p>
                     </div>

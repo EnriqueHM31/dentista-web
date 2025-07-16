@@ -60,7 +60,8 @@ export default function Carousel({ slides }: CarouselProps) {
 
   return (
     <section
-      className="relative xl:w-[70vmin] xl:h-[70vmin] h-auto w-full min-h-screen md:min-h-[75vh] mx-auto flex flex-col items-center justify-center"
+      className="relative xl:w-[70vmin] xl:h-[70vmin]  w-full h-[80vh] py-4
+       md:min-h-[75vh] mx-auto flex flex-col items-center justify-center"
       aria-labelledby={`carousel-heading-${id}`}
     >
       <ul
