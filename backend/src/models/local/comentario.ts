@@ -91,4 +91,17 @@ export class ModeloContacto {
             return { success: false, message: 'Error en la base de datos' };
         }
     }
+
+
+    static async deleteComentario(id: string) {
+        try {
+            const [rows] = await db.query('DELETE FROM Comentarios WHERE id = ?', [id]);
+            if (!rows) {
+                return { success: false, message: 'No se encontró la pregunta a eliminar' };
+            }
+            return { success: true, message: "Se elimino el comentario" };
+        } catch (error) {
+            return { success: false, message: 'Error en la base de datos' };
+        }
+    }
 }

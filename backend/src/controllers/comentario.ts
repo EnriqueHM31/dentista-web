@@ -53,5 +53,16 @@ export class ContrallerContacto {
     }
 
 
+    static async deleteComentario(req: Request, res: Response) {
+        const id = req.params.id
+        const { success, message } = await ModeloContacto.deleteComentario(id); // id del comentario
+        if (success) {
+            res.status(200).json({ success, message });
+        } else {
+            res.status(500).json({ success, message });
+        }
+    }
+
+
 
 }

@@ -10,3 +10,5 @@ ComentariosRouter.get('/', ContrallerContacto.getComentarios)
 ComentariosRouter.get('/visibles', ContrallerContacto.getComentariosVisibles)
 
 ComentariosRouter.put('/:id', ContrallerContacto.updateComentario)
+
+ComentariosRouter.delete('/:id', ContrallerContacto.deleteComentario)

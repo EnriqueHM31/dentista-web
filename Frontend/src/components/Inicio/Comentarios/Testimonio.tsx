@@ -3,6 +3,8 @@ import { FaTrash } from "react-icons/fa";
 import { FaCheck } from "react-icons/fa6";
 import { VITE_API_URL } from "@/config";
 import { toast } from "sonner";
+import { ComentariosContext } from "@/context/Comentarios";
+import { useContext } from "react";
 
 interface TestimonioProps {
     id?: string
@@ -21,28 +23,45 @@ export default function Testimonio({ id, client_name, rating, comment, index, vi
         return `https://randomuser.me/api/portraits/${gender}/${index % 100}.jpg`;
     }
 
+    const { setComentarios } = useContext(ComentariosContext);
+    const handleEliminarComentario = (id: string) => {
+        toast("¿Estás seguro de que quieres eliminar el comentario?", {
+            action: {
+                label: "Eliminar",
+                onClick: async () => {
+                    try {
+                        const response = await fetch(`${VITE_API_URL}/comentarios/${id}`, {
+                            method: "DELETE",
+                            headers: {
+                                "Content-Type": "application/json",
+                            },
+                        });
 
-    const handleEliminarComentario = async (id: string) => {
-        const response = await fetch(`${VITE_API_URL}/comentarios/${id}`, {
-            method: "DELETE",
-            headers: {
-                "Content-Type": "application/json",
-            }
-        })
+                        const { success, message } = await response.json();
 
-        const { success, message } = await response.json()
+                        if (!success) {
+                            toast.error(message || "No se pudo eliminar el comentario");
+                            return;
+                        }
 
-        if (!success) {
-            toast.error(message || "No se pudo eliminar el comentario")
-        }
+                        toast.success("Comentario eliminado");
+                        setComentarios(prev => prev.filter(c => c.id !== id));
+                    } catch (error) {
+                        toast.error("Error al eliminar el comentario");
+                        console.error(error);
+                    }
+                },
+            },
+            cancel: {
+                label: "Cancelar",
+                onClick: () => {
+                    toast.dismiss();
+                },
+            },
+        });
+    };
 
-        toast.success("Comentario Eliminado")
 
-
-
-
-
-    }
 
     return (
         <li className="relative flex flex-col gap-3 px-8 py-4 bg-primary text-white rounded-2xl min-h-[30dvh] justify-between">
