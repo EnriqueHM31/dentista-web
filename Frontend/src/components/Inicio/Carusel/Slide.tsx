@@ -7,9 +7,10 @@ export default function Slide({ slide, index, current, handleSlideClick }: Slide
 
 
     return (
-        <div className="">
+
+        <>
             <li
-                className="flex flex-1 flex-col items-center justify-center relative text-center text-white opacity-100 transition-all duration-300 ease-in-out xl:w-[70vmin] scale-75 w-[90vmin] h-[70vh] xl:h-[70vmin] mx-[4vmin] z-10  border border-white rounded-2xl"
+                className="hidden md:flex flex-col items-center justify-center relative text-center text-white opacity-100 transition-all duration-300 ease-in-out xl:w-[70vmin] md:scale-75  w-[90vmin] h-[70vh] xl:h-[70vmin] mx-[4vmin] z-10  border border-white rounded-2xl"
                 onClick={() => handleSlideClick(index)}
                 style={{
                     transform: current !== index ? "scale(0.7)" : "scale(1.2)",
@@ -18,11 +19,11 @@ export default function Slide({ slide, index, current, handleSlideClick }: Slide
                 }}
             >
                 <div
-                    className={` absolute top-0 left-0 w-full h-full rounded-2xl overflow-hidden transition-all duration-100 ease-out border border-primary shadow-xl `}
+                    className={` absolute top-0 left-0 w-full h-full rounded-2xl overflow-hidden transition-all duration-100 ease-out border border-primary shadow-xl group `}
 
                 >
                     <img
-                        className="absolute inset-0 xl:w-[120%] xl:h-[120%] h-full object-cover opacity-100 transition-opacity duration-100 ease-in-out"
+                        className="absolute inset-0 w-full h-full object-cover opacity-100 transition-opacity duration-100 ease-in-out"
 
                         alt={`${nombre} ${apellido}`}
                         src={avatar}
@@ -35,9 +36,9 @@ export default function Slide({ slide, index, current, handleSlideClick }: Slide
                             href={linkedin}
                             target="_blank"
                             rel="noreferrer"
-                            className="absolute inset-0 transition-all duration-100 flex items-end justify-center"
+                            className="absolute inset-0  group-hover:bg-black/25 transition-all duration-100 flex items-end justify-center"
                         >
-                            <article className="flex gap-6 items-center bg-primary px-4 py-4 w-full">
+                            <article className="flex gap-6 items-center bg-primary px-4 py-4 w-full translate-y-40 group-hover:translate-y-0 transition-all duration-400">
                                 <AiOutlineDingtalk className="text-4xl md:text-4xl xl:text-5xl relative" />
                                 <div className="flex flex-col gap-1 items-start w-full">
                                     <h2 className="text-md md:text-xl lg:text-2xl font-semibold relative text-start">
@@ -62,6 +63,38 @@ export default function Slide({ slide, index, current, handleSlideClick }: Slide
                     )}
                 </div>
             </li >
-        </div >
+
+
+            <li
+                className="md:hidden flex-shrink-0 w-full flex flex-col items-center justify-center text-center text-white transition-all duration-300 ease-in-out z-10 border border-white rounded-2xl"
+                onClick={() => handleSlideClick(index)}
+                style={{
+                    transform: current !== index ? "scale(0.9)" : "scale(1)",
+                    transition: "transform 0.5s ease-in-out",
+                    transformOrigin: "bottom center",
+                }}
+            >
+                <img
+                    src={avatar}
+                    alt={`${nombre} ${apellido}`}
+                    className="w-full h-full min-h-[70vh] object-cover rounded-t-2xl"
+                />
+
+                <article className="flex gap-2 items-center justify-center p-4  w-full max-w-full mx-auto">
+                    <div className="flex-1">
+                        <AiOutlineDingtalk className="text-4xl" />
+                    </div>
+
+                    <div className="flex-[3] flex flex-col gap-2 items-start justify-center ">
+                        <h2 className="text-lg font-semibold text-start">{nombre} {apellido}</h2>
+                        <p className="text-sm text-start">{servicio}</p>
+                        <p className="text-sm text-start">{email}</p>
+                    </div>
+                </article>
+            </li>
+
+        </>
+
+
     );
 }

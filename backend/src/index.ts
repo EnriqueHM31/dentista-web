@@ -18,7 +18,8 @@ const PORT = 3000
 const app = express();
 app.use(express.json());
 
-const allowedOrigins = ['http://localhost:3000', 'http://localhost:3001', 'http://localhost:5173'];
+const allowedOrigins = ['http://localhost:3000', 'http://localhost:3001', 'http://localhost:5173',
+    'http://192.168.1.104:5173'];
 
 app.use(cors({
     origin: function (origin, callback) {
@@ -47,3 +48,7 @@ app.use('/api/especialistas', EspecialistasRouter);
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`)
 })
+
+app.listen(3000, '192.168.1.104', () => {
+    console.log("API disponible en toda la red en el ip 192.168.1.104");
+});

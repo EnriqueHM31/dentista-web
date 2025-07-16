@@ -19,8 +19,16 @@ export default function Especialistas() {
                 </div>
             </div>
 
+            {
+                especialistas.length > 0 ? (
+                    <EspecialistasCard especialistas={especialistas} />
+                ) : (
+                    <div className="flex flex-col gap-4 items-center justify-center">
+                        <h2 className="text-2xl font-bold">No hay especialistas</h2>
+                    </div>
+                )
+            }
 
-            <EspecialistasCard especialistas={especialistas} />
         </div >
     )
 }
