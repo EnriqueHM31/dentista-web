@@ -19,6 +19,14 @@ export class Validacion {
         img: z.string().min(1, { message: "La imagen es requerida" }).url({ message: "La imagen debe ser una URL válida" }),
         duration: z.number().min(1, { message: "La duración es requerida" }).int({ message: "La duración debe ser un número entero" }),
     })
+
+    static especialista = z.object({
+        nombre: z.string().min(1, { message: "El nombre es requerido" }),
+        apellido: z.string().min(1, { message: "El apellido es requerido" }),
+        email: z.string().email({ message: "El email debe ser una dirección de correo electrónico válida" }),
+        telefono: z.string().min(1, { message: "El teléfono es requerido" }),
+        direccion: z.string().min(1, { message: "La dirección es requerida" }),
+    })
 }
 
 

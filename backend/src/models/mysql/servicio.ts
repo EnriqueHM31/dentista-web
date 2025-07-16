@@ -50,7 +50,7 @@ export class ModeloServicio {
 
     static async getServicios() {
         try {
-            const [rows] = await db.query(`SELECT id, name, description, img, duration FROM ServiciosDentales ORDER BY name ASC`);
+            const [rows] = await db.query(`SELECT id, titulo, descripcion, img, duration FROM ServiciosDentales ORDER BY titulo ASC`);
             return {
                 success: true,
                 message: rows,
