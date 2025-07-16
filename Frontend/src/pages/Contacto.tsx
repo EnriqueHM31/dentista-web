@@ -85,7 +85,7 @@ export default function Contacto() {
 
                         <AnimatedSelect
                             name="categoria"
-                            options={servicios.map(({ name }) => name)}
+                            options={servicios.map(({ titulo }) => titulo)}
                         />
 
                         <div className="flex flex-col gap-4">

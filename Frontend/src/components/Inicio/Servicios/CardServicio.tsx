@@ -20,7 +20,7 @@ export default function CardServicio({ servicio, index }: CardServicioProps) {
 
             {/* Tarjeta */}
             <motion.article
-                key={servicio.name}
+                key={servicio.id}
                 role="button"
                 tabIndex={0}
                 initial={{ opacity: 0, y: 30, scale: 0.95 }}
@@ -48,7 +48,7 @@ export default function CardServicio({ servicio, index }: CardServicioProps) {
                         layoutId={`image-${servicio.id}`}
                         className="rounded-t-lg w-full group-hover:scale-110 transition-transform duration-100 linear z-100 min-h-[300px]"
                         src={servicio.img}
-                        alt={servicio.name}
+                        alt={servicio.titulo}
                         style={{ viewTransitionName: `servicio-img-${servicio.id}` }}
                         draggable={false}
                     />
@@ -56,14 +56,14 @@ export default function CardServicio({ servicio, index }: CardServicioProps) {
 
                 <div className="p-6 flex flex-col justify-between flex-1">
                     <h5 className="mb-2 text-xl leading-tight text-primary font-bold group-hover:text-white">
-                        {servicio.name}
+                        {servicio.titulo}
                     </h5>
                     <p className="mb-4 text-base text-black group-hover:text-white/50 line-clamp-2">
-                        {servicio.description}
+                        {servicio.descripcion}
                     </p>
 
                     <button
-                        aria-label={`Leer más sobre ${servicio.name}`}
+                        aria-label={`Leer más sobre ${servicio.titulo}`}
                         disabled={isOpen}
                         type="button"
                         className="inline-block rounded bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-primary-3 ease-in-out hover:bg-primary-accent-300 hover:shadow-primary-2 focus:bg-primary-accent-300 focus:shadow-primary-2 focus:outline-none focus:ring-0 active:bg-primary-600 active:shadow-primary-2 dark:shadow-black/30 dark:hover:shadow-dark-strong dark:focus:shadow-dark-strong dark:active:shadow-dark-strong text-center hover:bg-white/80 transition duration-300 group-hover:bg-white group-hover:text-primary cursor-pointer"

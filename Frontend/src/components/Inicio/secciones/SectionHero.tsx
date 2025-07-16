@@ -4,7 +4,7 @@ import { IoLogoLinkedin } from "react-icons/io5";
 import Tooltip from '@/components/General/Tooltip';
 import { useUtils } from "@/hooks/general/useUtils";
 
-export default function Hero() {
+export default function SectionHero() {
     const { handleClickCopy } = useUtils();
 
     return (
@@ -73,7 +73,9 @@ export default function Hero() {
                     viewport={{ once: true, amount: 0.3 }}
                 >
                     <motion.a
-                        href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+                        href="https://www.linkedin.com/in/samantha-edison-6b1b1b1b1b/"
+                        target="_blank"
+                        rel="noopener noreferrer"
                         className='flex flex-col gap-4 p-4 rounded-2xl shadow-md transition-all duration-500 ease-in hover:shadow-gray-900 relative max-w-md w-full bg-white'
                     >
                         <IoLogoLinkedin className='text-3xl text-primary absolute top-6 right-6' />
