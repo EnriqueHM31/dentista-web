@@ -1,5 +1,5 @@
 import { randomUUID } from 'crypto';
-import db from '../../database/db';
+import db from '@/database/db';
 
 interface Servicio {
     titulo: string;

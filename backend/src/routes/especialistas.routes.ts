@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { ControllerEspecialistas } from '../controllers/especialista';
+import { ControllerEspecialistas } from '@/controllers/especialista';
 
 export const EspecialistasRouter = Router();
 

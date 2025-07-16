@@ -1,6 +1,6 @@
 import type { Request, Response } from 'express';
-import { ModeloContacto } from '../models/local/comentario';
-import { validarComentario } from '../../utils/Validacion';
+import { ModeloContacto } from '@/models/local/comentario';
+import { validarComentario } from '@/utils/Validacion';
 
 export class ContrallerContacto {
     static async EnviarMensaje(req: Request, res: Response) {

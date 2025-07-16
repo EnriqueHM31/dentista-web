@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import { ModeloServicio } from '../models/mysql/servicio';
-import { validarEditarServicio, validarServicio } from '../../utils/Validacion';
+import { validarEditarServicio, validarServicio } from '../utils/Validacion';
 
 
 export class ServiciosController {

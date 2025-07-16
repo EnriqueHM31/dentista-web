@@ -1,4 +1,4 @@
-import JSONSOCIALES from '../../mooks/sociales.json';
+import JSONSOCIALES from '@/mooks/sociales.json';
 
 export class ModeloSocial {
     static async getAll() {

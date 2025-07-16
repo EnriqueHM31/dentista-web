@@ -1,6 +1,6 @@
 import type { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
-import { ModeloLogin } from '../models/mysql/login';
+import { ModeloLogin } from '@/models/mysql/login';
 
 export const JWT_SECRET = process.env.SECRET ?? (() => {
     throw new Error("SECRET no está definido en .env");

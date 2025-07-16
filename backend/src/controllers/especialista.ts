@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { ModeloEspecialista } from '../models/mysql/especialista';
+import { ModeloEspecialista } from '@/models/mysql/especialista';
 
 export class ControllerEspecialistas {
     static async getAll(_req: Request, res: Response) {

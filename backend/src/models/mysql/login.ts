@@ -1,5 +1,5 @@
 import { RowDataPacket } from 'mysql2';
-import db from '../../database/db';
+import db from '@/database/db';
 import jwt from 'jsonwebtoken';
 
 export const JWT_SECRET = process.env.SECRET ?? (() => {
