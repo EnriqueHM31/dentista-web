@@ -22,18 +22,7 @@ export function useGetServicios({ handleClickDesactivarModal }: useGetServiciosP
     }, [servicios]);
 
     const refrescarUpdateServicio = (
-        id: string,
-        {
-            name,
-            description,
-            img,
-            duration,
-        }: {
-            name?: string;
-            description?: string;
-            img?: string;
-            duration?: number;
-        }
+        id: string, { titulo, descripcion, img, duration, }: { titulo?: string; descripcion?: string; img?: string; duration?: number; }
     ) => {
         const index = formRef.current.findIndex((s) => s.id === id);
         if (index === -1) {
@@ -42,8 +31,8 @@ export function useGetServicios({ handleClickDesactivarModal }: useGetServiciosP
         }
 
         const cambios: Partial<ServicioResponse> = {};
-        if (name !== undefined) cambios.name = name;
-        if (description !== undefined) cambios.description = description;
+        if (titulo !== undefined) cambios.titulo = titulo;
+        if (descripcion !== undefined) cambios.descripcion = descripcion;
         if (img !== undefined) cambios.img = img;
         if (duration !== undefined) cambios.duration = duration;
 
@@ -59,9 +48,10 @@ export function useGetServicios({ handleClickDesactivarModal }: useGetServiciosP
 
 
 
-    const refrescarCrearServicio = ({ id, name, description, img, duration }: ServicioResponse) => {
+    const refrescarCrearServicio = ({ id, titulo, descripcion, img, duration }: ServicioResponse) => {
 
-        setServicios(prev => [...prev, { id, name, description, img, duration }].sort((a, b) => a.name.localeCompare(b.name)));
+        console.log(id, titulo, descripcion, img, duration);
+        setServicios(prev => [...prev, { id, titulo, descripcion, img, duration }].sort((a, b) => a.titulo.localeCompare(b.titulo)));
     }
 
     const handleEliminarServicio = async (id: `${string}-${string}-${string}-${string}-${string}` | "") => {

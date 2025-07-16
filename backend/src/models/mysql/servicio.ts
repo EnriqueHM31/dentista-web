@@ -17,7 +17,7 @@ export class ModeloServicio {
             const id = randomUUID();
 
             const [result]: any = await db.query(
-                `INSERT INTO ServiciosDentales (id, name, description, img, duration) VALUES (?, ?, ?, ?, 30)`,
+                `INSERT INTO ServiciosDentales (id, titulo, descripcion, img, duration) VALUES (?, ?, ?, ?, 30)`,
                 [id, titulo, descripcion, img, duration]
             );
 
@@ -27,8 +27,8 @@ export class ModeloServicio {
                     message: 'Servicio creado correctamente',
                     servicio: {
                         id,
-                        name: titulo,
-                        description: descripcion,
+                        titulo,
+                        descripcion,
                         img,
                         duration
 

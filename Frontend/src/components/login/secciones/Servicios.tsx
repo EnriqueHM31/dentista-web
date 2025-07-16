@@ -45,7 +45,7 @@ export default function Servicios() {
                             key={servicio.id}
                             className="flex gap-3 justify-between bg-primary text-white px-4 py-2 rounded-lg"
                         >
-                            <h3>{servicio.name}</h3>
+                            <h3>{servicio.titulo}</h3>
                             <div className="flex gap-5">
                                 <button
                                     className="cursor-pointer hover:text-white/80"

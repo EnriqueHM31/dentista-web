@@ -12,9 +12,8 @@ export function useUpdateUsuario(cerrarMenu: () => void) {
             return;
         }
 
-        toast("¿Estás seguro?", {
+        toast("¿Estás seguro de querer actualizar los datos?", {
             id: "confirmacion",
-            description: "Esta acción no se puede deshacer.",
             action: {
                 label: "Aceptar",
                 onClick: async () => {

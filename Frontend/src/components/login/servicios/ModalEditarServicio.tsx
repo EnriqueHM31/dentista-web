@@ -19,16 +19,16 @@ export default function ModalEditarServicio({ serviciosRef, handleClickDesactiva
 
                     <button
                         type="button"
-                        onClick={() => handlePreview("name")}
-                        className={`${preview === "name" ? "bg-blue-700" : "bg-primary"} w-full  text-white px-4 py-2 transition duration-300 ease-in-out rounded-lg hover:bg-blue-700 flex items-center gap-2 `}
+                        onClick={() => handlePreview("titulo")}
+                        className={`${preview === "titulo" ? "bg-blue-700" : "bg-primary"} w-full  text-white px-4 py-2 transition duration-300 ease-in-out rounded-lg hover:bg-blue-700 flex items-center gap-2 `}
                     >
                         <Pencil size={16} /> Editar Nombre
                     </button>
 
                     <button
                         type="button"
-                        onClick={() => handlePreview("description")}
-                        className={`${preview === "description" ? "bg-blue-700" : "bg-primary"} w-full  text-white px-4 py-2 transition duration-300 ease-in-out rounded-lg hover:bg-blue-700 flex items-center gap-2 `}
+                        onClick={() => handlePreview("descripcion")}
+                        className={`${preview === "descripcion" ? "bg-blue-700" : "bg-primary"} w-full  text-white px-4 py-2 transition duration-300 ease-in-out rounded-lg hover:bg-blue-700 flex items-center gap-2 `}
                     >
                         <Pencil size={16} /> Editar Descripción
                     </button>
@@ -63,29 +63,29 @@ export default function ModalEditarServicio({ serviciosRef, handleClickDesactiva
                 <div className="flex flex-col gap-2 h-full ">
                     <h2 className="text-lg font-semibold text-white mb-4">Previsualización y Edición</h2>
 
-                    {preview === "name" && (
+                    {preview === "titulo" && (
                         <div className="flex flex-col gap-4">
-                            <label htmlFor="name" className="text-sm text-primary bg-white px-5 py-1 rounded w-fit">Nombre</label>
+                            <label htmlFor="titulo" className="text-sm text-primary bg-white px-5 py-1 rounded w-fit">Nombre</label>
                             <input
                                 type="text"
-                                id="name"
+                                id="titulo"
                                 autoComplete="on"
-                                name="name"
-                                value={formValues.name}
+                                name="titulo"
+                                value={formValues.titulo}
                                 onChange={handleChange}
                                 className="w-full mt-1 border px-3 py-2 text-white rounded"
                             />
                         </div>
                     )}
 
-                    {preview === "description" && (
+                    {preview === "descripcion" && (
                         <div className="flex flex-col gap-4 h-full">
-                            <label htmlFor="description" className="text-sm text-primary bg-white px-5 py-1 rounded w-fit">Descripción</label>
+                            <label htmlFor="descripcion" className="text-sm text-primary bg-white px-5 py-1 rounded w-fit">Descripción</label>
                             <textarea
-                                id="description"
-                                name="description"
+                                id="descripcion"
+                                name="descripcion"
                                 autoComplete="on"
-                                value={formValues.description}
+                                value={formValues.descripcion}
                                 onChange={handleChange}
                                 className="w-full mt-1  border px-3 py-2 text-white rounded resize-none h-3/4"
                             />

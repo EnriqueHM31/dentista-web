@@ -2,6 +2,14 @@ import type { ServicioResponse } from "@/types";
 import { useRef, useState } from "react";
 import { toast } from "sonner";
 
+const DATA_INITIAL = {
+    id: "",
+    titulo: "",
+    descripcion: "",
+    img: "",
+    duration: 0
+} as ServicioResponse
+
 export function useModalEditarServicio() {
 
     function convertirADuracionEnMinutos(valor: string): number {
@@ -18,8 +26,8 @@ export function useModalEditarServicio() {
 
 
 
-    const [formValues, setFormValues] = useState<ServicioResponse>({ id: "", name: "", description: "", img: "", duration: 0 });
-    const formularioOriginal = useRef<ServicioResponse>({ id: "", name: "", description: "", img: "", duration: 0 });
+    const [formValues, setFormValues] = useState<ServicioResponse>(DATA_INITIAL);
+    const formularioOriginal = useRef<ServicioResponse>(DATA_INITIAL);
 
     const handleEdit = (servicio: ServicioResponse) => {
         setFormValues(servicio);

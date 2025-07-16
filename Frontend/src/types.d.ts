@@ -1,7 +1,7 @@
 export interface Servicio {
     id: `${string}-${string}-${string}-${string}-${string}`;
-    name: string;
-    description: string;
+    titulo: string;
+    descripcion: string;
     img: string;
     duration: number;
 }
@@ -125,14 +125,14 @@ interface AnimatedSelectProps {
     clases?: string;
 }
 
-interface Servicio {
+interface ServicioProps {
     titulo: string;
     descripcion: string;
     img: string;
     duration: number;
 }
 
-interface ServicioResponse extends Servicio {
+interface ServicioResponse extends ServicioProps {
     id: `${string}-${string}-${string}-${string}-${string}` | "";
 }
 

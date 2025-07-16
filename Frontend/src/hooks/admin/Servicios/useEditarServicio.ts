@@ -10,7 +10,7 @@ interface useEditarServicioProps {
 }
 
 export function useEditarServicio({ serviciosRef, formValues, handleClickDesactivarModal }: useEditarServicioProps) {
-    const [preview, setPreview] = useState<keyof Servicio | null>('name');
+    const [preview, setPreview] = useState<keyof Servicio | null>('titulo');
 
     const handlePreview = (campo: keyof Servicio) => {
         setPreview(campo);
@@ -51,7 +51,7 @@ export function useEditarServicio({ serviciosRef, formValues, handleClickDesacti
                                 .filter(([, value]) => value !== undefined)
                         ) as Partial<ServicioResponse>;
 
-                        const { name: titulo, description: descripcion, img, duration } = data;
+                        const { titulo, descripcion, img, duration } = data;
 
                         const { success, message } = await modificarServicio(
                             id,
