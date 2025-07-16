@@ -24,24 +24,24 @@ export default function ModalEditarEspecialista({ toggle, especialistaSelecciona
     const { servicios } = useContext(ServicioContext);
     return (
         <div className=" w-full  mx-auto p-5 bg-primary text-white ">
-            <h2 className="text-xl font-bold mb-6 text-center">Editar Especialista</h2>
+            <h2 className=" text-md md:text-xl font-bold mb-6 text-center">Editar Especialista</h2>
 
             <div className="flex flex-col md:flex-row gap-6">
                 {/* Imagen */}
-                <div className="flex-1 flex items-center justify-center">
+                <div className="md:flex-1 flexitems-center justify-center">
                     {especialistaSeleccionado?.avatar && (
                         <img
                             src={especialistaSeleccionado.avatar}
                             alt="Avatar actual"
-                            className="w-full h-full object-cover border-4 border-white"
+                            className="w-full h-full object-cover border-1 rounded-2xl border-white"
                         />
                     )}
                 </div>
 
                 {/* Formulario */}
-                <form onSubmit={handleSubmit} className="flex-2 grid grid-cols-2 gap-8 w-full">
+                <form onSubmit={handleSubmit} className="md:flex-2 flex-3 md:grid flex flex-col  md:grid-cols-2 gap-8 w-full">
                     {/* Nombre */}
-                    <label htmlFor="nombre" className="flex flex-col gap-3">
+                    <label htmlFor="nombre" className="flex flex-col gap-3 ">
                         <span className="flex items-center gap-2 font-medium text-white/50">
                             <AiOutlineUser /> Nombre
                         </span>
@@ -78,7 +78,7 @@ export default function ModalEditarEspecialista({ toggle, especialistaSelecciona
                         <AnimatedSelect
                             name="servicio"
                             clases="bg-primary text-white hover:bg-white hover:text-primary border border-white"
-                            options={servicios.map((servicio) => servicio.name)}
+                            options={servicios.map((servicio) => servicio.titulo)}
                             select={especialistaSeleccionado?.servicio || ""}
                             funcion={handleChange}
                         />

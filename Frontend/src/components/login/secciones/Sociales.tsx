@@ -8,11 +8,11 @@ export default function Sociales() {
 
 
     return (
-        <div className="max-w-2xl bg-white rounded-xl md:p-8 py-8 px-4 space-y-8 shadow mt-10 md:mt-0">
+        <div className="max-w-2xl bg-white rounded-xl md:p-8 py-8 px-4 space-y-8 shadow ">
             <h2 className="text-2xl font-semibold text-primary text-center md:text-left">Redes Sociales y Contacto</h2>
 
             {sociales.map(({ id, nombre, referencia }) => (
-                <div key={id} className="flex flex-col md:flex-row items-center gap-3 relative">
+                <div key={id} className="flex flex-col md:flex-row items-start md:items-center gap-3 relative">
                     <div className="text-xl flex gap-4 items-center flex-1">
                         {getIconosSociales().find((i) => i.label.toLowerCase() === nombre.toLowerCase())?.icon}
                         <p className="text-lg">{nombre}</p>
@@ -30,7 +30,7 @@ export default function Sociales() {
                     />
                     <button
                         onClick={() => handleEditClick(id)}
-                        className="text-primary hover:text-blue-700 cursor-pointer absolute right-0 top-0 md:relative"
+                        className="text-primary hover:text-blue-700 cursor-pointer absolute right-0 top-1 md:relative"
                         title={editMode[id] ? 'Bloquear' : 'Editar'}
                         aria-label={editMode[id] ? 'Bloquear' : 'Editar'}
                     >

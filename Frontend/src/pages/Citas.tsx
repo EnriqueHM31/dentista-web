@@ -29,13 +29,13 @@ export default function Citas() {
     const horas = generarHoras("08:00", "18:00", 30);
 
     return (
-        <div className="min-h-screen bg-white flex flex-col lg:flex-row items-center justify-center px-4 py-12 mt-10 ">
-            <div className="flex flex-col lg:flex-row max-w-11/12 w-full bg-white border border-gray-500 rounded-xl shadow-2xl ">
+        <div className="min-h-screen bg-white flex flex-col lg:flex-row items-center justify-center px-0 md:px-4 py-12 mt-10 max-w-11/12 md:max-w-10/12 mx-auto w-full">
+            <div className="flex flex-col lg:flex-row max-w-full md:max-w-11/12 w-full bg-white border border-gray-500 rounded-xl shadow-2xl ">
                 {/* Panel Izquierdo - Login */}
-                <div className="w-full  p-8 md:p-12 flex flex-col justify-center gap-6 flex-4">
+                <div className="w-full px-6 py-8 md:p-12 flex flex-col justify-center gap-6 flex-4">
                     <div>
-                        <h1 className="text-3xl font-bold text-primary">Bienvenido Agenda tu cita ahora...</h1>
-                        <p className="text-gray-500 mt-2">
+                        <h1 className="text-xl md:text-3xl font-bold text-primary">Bienvenido agenda tu cita ahora...</h1>
+                        <p className="text-gray-500 mt-2 text-sm md:text-base">
                             Completa el formulario para agendar tu cita
                         </p>
                     </div>

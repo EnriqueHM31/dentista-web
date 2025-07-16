@@ -12,9 +12,9 @@ export default function Navegacion() {
     const { scrolled, clasesLogoIcono, clasesLogoText, menubackground, textColor, buttonClasses, buttonMovilClasses, BackgrounAfter, hoverColor } = useScroll()
 
     return (
-        <nav className={`flex justify-center items-center py-4 px-4 xl:px-10 fixed top-0 left-0 right-0 z-50 backdrop-blur-xs xl:max-w-full w-full xl:mx-auto ${scrolled ? 'bg-white' : 'bg-primary'}`}>
+        <nav className={`flex justify-center items-center py-4 px-2 md:px-4 xl:px-10 fixed top-0 left-0 right-0 z-50 backdrop-blur-xs xl:max-w-full w-full xl:mx-auto ${scrolled ? 'bg-white' : 'bg-primary'}`}>
 
-            <div className="flex items-center justify-between gap-2 max-w-10/12 w-full">
+            <div className="flex items-center justify-between gap-6 md:gap-2 max-w-11/12 md:max-w-10/12 w-full">
 
                 <div className='flex items-center justify-center gap-2'>
                     <AiOutlineDingtalk className={`text-4xl  ${clasesLogoIcono}`} />

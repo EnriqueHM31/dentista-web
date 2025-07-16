@@ -10,7 +10,7 @@ export default function Modal({ isOpen, onClose, children, clases, modalId, acti
         <AnimatePresence>
             {shouldShow && (
                 <motion.div
-                    className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm"
+                    className="fixed inset-0 z-50 flex h-screen w-full items-center justify-center bg-black/50 backdrop-blur-sm"
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
@@ -24,7 +24,7 @@ export default function Modal({ isOpen, onClose, children, clases, modalId, acti
                     >
                         <button
                             onClick={onClose}
-                            className="absolute top-4 right-4 text-black hover:text-red-500 text-2xl font-bold cursor-pointer bg-white rounded-full p-2 z-70"
+                            className="absolute top-4 right-4 text-black hover:text-red-500 text-lg md:text-2xl font-bold cursor-pointer bg-white rounded-full p-2 z-70"
                         >
                             <CgClose />
                         </button>

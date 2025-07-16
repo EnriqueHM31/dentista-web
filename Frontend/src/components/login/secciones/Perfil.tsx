@@ -20,7 +20,7 @@ export default function Perfil() {
 
             <CalendarioCitas />
 
-            <Modal isOpen={isOpen} onClose={toggle} clases="max-w-1/3 flex items-center justify-center">
+            <Modal isOpen={isOpen} onClose={toggle} clases="max-w-11/12 md:max-w-1/3 flex items-center justify-center">
                 <ModalDatos toggle={toggle} />
             </Modal>
 

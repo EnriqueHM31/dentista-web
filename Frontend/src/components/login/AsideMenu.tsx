@@ -5,68 +5,81 @@ import { getIconosAside, getIconoLogout } from "@/components/General/ObjetosIcon
 import { useOpenWithTransition } from "@/hooks/general/useOpenWithTransition";
 import BotonItemAside from "./AsideMenu/BotonItemAside";
 import { useLogin } from "@/hooks/admin/Perfil/useLogin";
+import { useEffect } from "react";
 
 export default function AsideMenu({ selected, handleClickSelected }: AsideMenuProps) {
-    const { isOpen, toggle } = useOpenWithTransition();
+    const { isOpen, toggle, setIsOpen } = useOpenWithTransition();
     const menuItems = getIconosAside();
     const { label, icon: IconLogout, id } = getIconoLogout();
     const { handleLogout } = useLogin();
 
+    useEffect(() => {
+        const width = window.innerWidth;
+        if (width < 768) {
+            setIsOpen(false);
+        }
+    }, [setIsOpen]);
+    console.log(isOpen);
+
     return (
         <>
             {/* Botón flotante en móviles */}
-            <div className="fixed top-4 left-4 z-50 md:hidden">
+            < div className="fixed top-4 left-4 z-50 md:hidden" >
                 <button
-                    className="bg-primary text-white p-3 rounded-full shadow-md"
+                    className="bg-primary text-white p-2 rounded-full shadow-md"
                     onClick={toggle}
                     title="Abrir menú"
                 >
-                    <AiOutlineMenuFold className="text-2xl" />
+                    <AiOutlineMenuFold className="text-xl" />
                 </button>
-            </div>
+            </ div >
 
             {/* Menú móvil */}
-            <aside
-                className={`fixed top-0 left-0 w-64 h-full bg-primary text-white p-4 z-50 md:hidden transition-transform duration-300 transform ${isOpen ? "-translate-x-full" : "translate-x-0"
-                    }`}
-            >
-                <div className="flex justify-between items-center mb-6">
-                    <h2 className="text-xl font-bold">Admin Panel</h2>
-                    <button onClick={toggle}>
-                        <AiOutlineMenuUnfold className="text-2xl" />
-                    </button>
-                </div>
-                <nav className="flex flex-col gap-4">
-                    {menuItems.map(({ label, id, icon: Icon }) => (
-                        <BotonItemAside
-                            key={id}
-                            id={id}
-                            label={label}
-                            Icon={<Icon />}
-                            isOpen={false}
-                            selected={selected}
-                            handleClickSelected={handleClickSelected}
-                        />
-                    ))}
-                    <div className="mt-auto">
-                        <button
-                            onClick={handleLogout}
-                            className="group flex items-center gap-3 w-full p-3 rounded hover:bg-blue-900 transition"
-                            aria-label={label}
-                            title={label}
-                            type="button"
-                        >
-                            <span className="text-2xl">
-                                <IconLogout />
-                            </span>
-                            <span className="truncate">{label}</span>
+            {
+
+                <aside
+                    className={`fixed top-0 left-0 w-64 h-screen bg-primary text-white p-4 z-50 md:hidden transition-transform duration-300 transform ${!isOpen ? "-translate-x-full" : "translate-x-0"
+                        }`
+                    }
+                >
+                    <div className="flex justify-between items-center mb-6">
+                        <h2 className="text-xl font-bold">Admin Panel</h2>
+                        <button onClick={toggle}>
+                            <AiOutlineMenuUnfold className="text-2xl" />
                         </button>
                     </div>
-                </nav>
-            </aside>
+                    <nav className="flex flex-col gap-4">
+                        {menuItems.map(({ label, id, icon: Icon }) => (
+                            <BotonItemAside
+                                key={id}
+                                id={id}
+                                label={label}
+                                Icon={<Icon />}
+                                isOpen={false}
+                                selected={selected}
+                                handleClickSelected={handleClickSelected}
+                            />
+                        ))}
+                        <div className="mt-auto">
+                            <button
+                                onClick={handleLogout}
+                                className="group flex items-center gap-3 w-full p-3 rounded hover:bg-blue-900 transition"
+                                aria-label={label}
+                                title={label}
+                                type="button"
+                            >
+                                <span className="text-2xl">
+                                    <IconLogout />
+                                </span>
+                                <span className="truncate">{label}</span>
+                            </button>
+                        </div>
+                    </nav>
+                </aside >
+            }
 
             {/* Menú escritorio */}
-            <aside className={`hidden md:flex transition-all duration-300 bg-primary text-white p-4 h-screen flex-col ${isOpen ? "w-20" : "w-64"}`}>
+            < aside className={`hidden md:flex transition-all duration-300 bg-primary text-white p-4 h-screen flex-col ${isOpen ? "w-20" : "w-64"}`}>
                 <div className="flex justify-between items-center mb-6 w-full">
                     {!isOpen && <h2 className="text-xl font-bold flex-1 truncate">Admin Panel</h2>}
                     <button
@@ -140,7 +153,7 @@ export default function AsideMenu({ selected, handleClickSelected }: AsideMenuPr
                         )}
                     </div>
                 </nav>
-            </aside>
+            </aside >
         </>
     );
 }

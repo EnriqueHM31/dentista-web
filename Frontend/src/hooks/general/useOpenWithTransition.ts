@@ -12,5 +12,6 @@ export function useOpenWithTransition(initialState = false) {
         open,
         close,
         toggle,
+        setIsOpen
     };
 }

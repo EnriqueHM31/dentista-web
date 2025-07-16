@@ -10,7 +10,7 @@ export default function ModalEditarServicio({ serviciosRef, handleClickDesactiva
 
     const { preview, handlePreview, handleSubmit } = useEditarServicio({ serviciosRef, formValues, handleClickDesactivarModal });
     return (
-        <div className="bg-primary w-full h-[80vh] rounded-lg overflow-hidden shadow-lg flex">
+        <div className="bg-primary w-full h-[80vh] rounded-lg overflow-hidden shadow-lg flex flex-col md:flex-row">
             {/* Aside izquierdo con solo el título y botones */}
             <aside className="flex-1 p-6 border-r overflow-auto flex flex-col justify-between">
                 <div className="flex flex-col gap-4">

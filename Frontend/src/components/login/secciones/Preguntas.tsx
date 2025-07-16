@@ -33,7 +33,7 @@ export default function ListaPreguntas() {
                 modalId="editar"
                 activeId={activeModal as string}
                 onClose={handleClickDesactivarModal}
-                clases="max-w-2/3 flex items-center justify-center scrollbar-invisible"
+                clases="md:max-w-2/3 max-w-11/12 flex items-center justify-center scrollbar-invisible"
             >
                 <ModalEditar
                     handleEditarPregunta={handleClickModalEditarPregunta}
@@ -49,7 +49,7 @@ export default function ListaPreguntas() {
                 modalId="crear"
                 activeId={activeModal as string}
                 onClose={handleClickDesactivarModal}
-                clases="max-w-2/3 flex items-center justify-center"
+                clases="md:max-w-2/3 max-w-11/12 flex items-center justify-center"
             >
                 <ModalCrear
                     toggle={handleClickDesactivarModal}
@@ -59,7 +59,7 @@ export default function ListaPreguntas() {
             </Modal>
 
             {/* UI PRINCIPAL */}
-            <div className="max-w-full mx-auto p-4 mt-10 md:mt-0">
+            <div className="max-w-full mx-auto p-0 md:p-4 ">
                 <div className="flex flex-col md:flex-row gap-4 md:gap-0 justify-between items-center mb-6">
                     <h2 className="text-2xl font-bold">Preguntas frecuentes</h2>
                     <button
@@ -74,7 +74,7 @@ export default function ListaPreguntas() {
                 <div className="flex flex-col gap-4">
                     {preguntas.map(({ id, pregunta, respuesta }) => (
                         <div key={id} className="border rounded shadow-sm overflow-hidden">
-                            <div className="bg-primary text-white flex justify-between items-center px-4 py-3">
+                            <div className="bg-primary text-white flex justify-between items-center gap-5 md:gap-0 px-4 py-3">
                                 <p className="font-semibold">{pregunta}</p>
                                 <div className="flex gap-2">
                                     <button

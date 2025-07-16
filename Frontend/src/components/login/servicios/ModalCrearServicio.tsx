@@ -19,7 +19,7 @@ export default function ModalCrearServicio({ handleClickDesactivarModal, handleS
         }>
 
             <h3 className="text-2xl font-bold text-white mb-4">Agregar un nuevo servicio</h3>
-            <section className="flex gap-6 flex-2">
+            <section className="flex flex-col md:flex-row gap-6 flex-2">
                 <div className="flex-1 flex flex-col gap-3">
 
                     <div className="mb-4 flex flex-col gap-4">

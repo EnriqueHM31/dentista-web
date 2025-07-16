@@ -15,9 +15,9 @@ export default function ModalDatos({ toggle: CerrarMenu }: { toggle: () => void 
     return (
         <form action="" className="flex flex-col gap-4 p-4  w-full" onSubmit={(e) => handleMostrarConfirmacion(e)
         }>
-            <h2 className="text-xl font-bold text-primary">Nuevos datos de usuario</h2>
+            <h2 className="text-xl font-bold text-primary max-w-3/4 w-full ">Nuevos datos de usuario</h2>
             <div className="w-full max-w-full  relative mt-4">
-                <label htmlFor="username" className="block mb-2 text-sm text-slate-600">
+                <label htmlFor="username" className="block mb-2text-sm text-slate-600">
                     Nuevo nombre de usuario
                 </label>
 

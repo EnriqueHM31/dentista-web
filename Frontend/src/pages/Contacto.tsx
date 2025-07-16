@@ -52,14 +52,14 @@ export default function Contacto() {
 
     return (
         <>
-            <section className=" w-full gap-12 mt-20 py-20 md:py-15 xl:py-10 min-h-screen flex flex-col lg:flex-row justify-center max-w-11/12 md:max-w-10/12 mx-auto p-6 items-stretch " id="contacto">
+            <section className=" w-full gap-12 mt-20 py-10 md:py-15 xl:py-10 min-h-screen flex flex-col lg:flex-row justify-start md:justify-center max-w-11/12 md:max-w-10/12 mx-auto px-2 md:px-6 items-center md:items-stretch " id="contacto">
                 <div className="flex-1 flex flex-col gap-8 order-2 md:order-1">
                     <div className="flex flex-col gap-4">
                         <TituloSeccion titulo="Hablemos de algo interesante juntos" clases="text-start max-w-3/4" />
                         <ul>
                             {
                                 formData.map(({ id, nombre, referencia }) => (
-                                    <li key={id} className="flex gap-4 items-center px-4 py-3 rounded-2xl hover:bg-primary/90 transition duration-300 ease-in-out w-fit cursor-pointer max-w-full text-primary hover:text-white" onClick={() => handleClickCopy(referencia, `Se ha copiado ${referencia}`)}>
+                                    <li key={id} className="flex gap-4 items-center px-0 py-3 rounded-2xl hover:bg-primary/90 transition duration-300 ease-in-out w-fit cursor-pointer max-w-full text-primary hover:text-white" onClick={() => handleClickCopy(referencia, `Se ha copiado ${referencia}`)}>
                                         {MAS_CONTACTOS.find(s => s.label === nombre)?.icono}
                                         <p>{referencia}</p>
                                     </li>
@@ -81,7 +81,7 @@ export default function Contacto() {
                         className="flex flex-col gap-8 bg-primary text-white p-8 rounded-2xl md:h-full min-h-screen"
                         onSubmit={(e) => handleSubmitCorreo(e)}
                     >
-                        <h2 className="text-xl">Manda un comentario o sugerencia de ...</h2>
+                        <h2 className="md:text-xl text-md">Manda un comentario o sugerencia de ...</h2>
 
                         <AnimatedSelect
                             name="categoria"
@@ -90,11 +90,11 @@ export default function Contacto() {
                         />
 
                         <div className="flex flex-col gap-4">
-                            <h4 className="text-xl font-semibold">Nivel de experiencia del cliente</h4>
+                            <h4 className="md:text-xl text-md font-semibold">Nivel de experiencia del cliente</h4>
                             <StarRating name="experiencia" />
                         </div>
 
-                        <h3 className="text-xl font-bold">Escribe tu comentario o sugerencia</h3>
+                        <h3 className="md:text-xl text-md font-bold">Escribe tu comentario o sugerencia</h3>
 
                         <label htmlFor="username" className="flex items-center gap-3 border-b-2 border-white px-1 py-2 focus-within:border-white transition-all duration-200">
                             <FaUser className="text-3xl p-1" />
@@ -107,7 +107,7 @@ export default function Contacto() {
                                 minLength={3}
                                 maxLength={30}
                                 autoComplete="on"
-                                className="w-full bg-transparent outline-none placeholder:text-white/50"
+                                className="w-full bg-transparent text-xs md:text-base outline-none placeholder:text-white/50"
                             />
                         </label>
 
@@ -120,7 +120,7 @@ export default function Contacto() {
                                 required
                                 autoComplete="on"
                                 placeholder="Correo electrónico"
-                                className="w-full bg-transparent outline-none placeholder:text-white/50"
+                                className="w-full bg-transparent  text-xs md:text-base  outline-none placeholder:text-white/50"
                             />
                         </label>
 
@@ -132,7 +132,7 @@ export default function Contacto() {
                                 name="message"
                                 required
                                 placeholder="Mensaje"
-                                className="w-full bg-transparent outline-none placeholder:text-white/50"
+                                className="w-full bg-transparent text-xs md:text-base   outline-none placeholder:text-white/50"
                             />
                         </label>
 

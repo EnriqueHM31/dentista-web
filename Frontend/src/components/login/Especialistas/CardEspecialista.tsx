@@ -12,7 +12,7 @@ export default function EspecialistasCard({ especialistas }: { especialistas: Es
 
     return (
         <>
-            <Modal isOpen={isOpen} onClose={toggle} clases="max-w-3/4" >
+            <Modal isOpen={isOpen} onClose={toggle} clases="max-w-11/12 md:max-w-3/4" >
                 <ModalEditarEspecialista toggle={toggle} especialistaSeleccionado={especialistaSeleccionado} handleChange={handleChange} handleSubmit={handleSubmit} />
             </Modal>
 
@@ -20,7 +20,7 @@ export default function EspecialistasCard({ especialistas }: { especialistas: Es
             {
                 especialistas.length === 0 ? (
                     <div className="flex justify-center items-center h-full  w-full py-10">
-                        <p className="text-gray-500 text-2xl">No hay especialistas disponibles</p>
+                        <p className="text-gray-500 md:text-2xl">No hay especialistas disponibles</p>
                     </div>
                 ) : (
 

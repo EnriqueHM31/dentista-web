@@ -18,17 +18,17 @@ export default function Servicios() {
 
     return (
         <>
-            <Modal onClose={() => handledescartarCambios(handleClickDesactivarModal)} modalId="editar_servicio" activeId={activeModal as string} clases="max-w-2/3 w-full">
+            <Modal onClose={() => handledescartarCambios(handleClickDesactivarModal)} modalId="editar_servicio" activeId={activeModal as string} clases="md:max-w-2/3 max-w-11/12 w-full">
                 <ModalEditarServicio serviciosRef={serviciosRef} handleClickDesactivarModal={handleClickDesactivarModal} formValues={formValues} handleChange={handleChange} refresh={refrescarUpdateServicio} />
             </Modal>
 
-            <Modal onClose={() => handledescartarCambios(handleClickDesactivarModal)} modalId="crear_servicio" activeId={activeModal as string} clases="max-w-2/3 w-full">
+            <Modal onClose={() => handledescartarCambios(handleClickDesactivarModal)} modalId="crear_servicio" activeId={activeModal as string} clases="md:max-w-2/3 max-w-11/12 w-full">
                 <ModalCrearServicio handleClickDesactivarModal={handleClickDesactivarModal} handleSubmitCrearServicio={handleSubmitCrearServicio} />
             </Modal>
 
 
             <section className="flex flex-col gap-6 p-4">
-                <div className="flex justify-between items-center mb-6">
+                <div className="flex flex-col md:flex-row gap-4 md:gap-0 justify-between items-center mb-6">
                     <h2 className="text-2xl font-bold">Servicios</h2>
                     <button
                         onClick={() => handleClickActivarModalIndependiente("crear_servicio")}
