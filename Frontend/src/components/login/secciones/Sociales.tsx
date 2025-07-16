@@ -8,11 +8,11 @@ export default function Sociales() {
 
 
     return (
-        <div className="max-w-2xl bg-white rounded-xl p-8 space-y-8 shadow">
-            <h2 className="text-2xl font-semibold text-primary">Redes Sociales y Contacto</h2>
+        <div className="max-w-2xl bg-white rounded-xl md:p-8 py-8 px-4 space-y-8 shadow mt-10 md:mt-0">
+            <h2 className="text-2xl font-semibold text-primary text-center md:text-left">Redes Sociales y Contacto</h2>
 
             {sociales.map(({ id, nombre, referencia }) => (
-                <div key={id} className="flex items-center gap-3">
+                <div key={id} className="flex flex-col md:flex-row items-center gap-3 relative">
                     <div className="text-xl flex gap-4 items-center flex-1">
                         {getIconosSociales().find((i) => i.label.toLowerCase() === nombre.toLowerCase())?.icon}
                         <p className="text-lg">{nombre}</p>
@@ -23,14 +23,14 @@ export default function Sociales() {
                         value={referencia}
                         id={id}
                         onChange={(e) => handleChange(id, e.target.value)}
-                        className={`flex-2 border rounded-lg px-3 py-2 w-full focus:outline-none transition ${editMode[id]
+                        className={`flex-2 border rounded-lg px-3 py-2 w-full focus:outline-none transition  ${editMode[id]
                             ? 'border-primary text-primary bg-white'
                             : 'border-gray-300 bg-gray-100 text-gray-500'
                             }`}
                     />
                     <button
                         onClick={() => handleEditClick(id)}
-                        className="text-primary hover:text-blue-700 cursor-pointer"
+                        className="text-primary hover:text-blue-700 cursor-pointer absolute right-0 top-0 md:relative"
                         title={editMode[id] ? 'Bloquear' : 'Editar'}
                         aria-label={editMode[id] ? 'Bloquear' : 'Editar'}
                     >
@@ -41,7 +41,7 @@ export default function Sociales() {
 
             <button
                 onClick={handleEditarRedSocial}
-                className="bg-primary cursor-pointer text-white px-4 py-2 rounded-lg hover:bg-blue-700 flex items-center gap-2 mt-5"
+                className="bg-primary cursor-pointer text-white px-4 py-2 rounded-lg hover:bg-blue-700 flex items-center gap-2 mt-5 mx-auto md:mx-0"
                 type="button"
             >
                 <FaSave />

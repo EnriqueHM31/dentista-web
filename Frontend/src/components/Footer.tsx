@@ -12,17 +12,19 @@ const SOCIALS = [
 ];
 
 export default function Footer() {
-    const { sociales: formData } = useContext(SocialesContext);
+    const { sociales } = useContext(SocialesContext);
+
+    const DataSocialesFooter = sociales.filter(s => SOCIALS.some(s2 => s2.label === s.nombre));
 
     return (
         <footer className="bg-primary text-white flex flex-col gap-2 py-4">
             <div className="flex flex-col gap-2 max-w-10/12 w-full mx-auto">
-                <section className="flex *:items-center justify-between " >
-                    <div className="flex items-center gap-2">
+                <section className="flex flex-col md:flex-row items-center justify-between " >
+                    <div className="flex items-center gap-2 order-2 md:order-1">
                         <AiOutlineDingtalk className="text-4xl" />
                         <h2>Odontologia LEHM</h2>
                     </div>
-                    <div>
+                    <div className="order-1 md:order-2">
                         <nav>
                             <ul className="flex items-center gap-3">
                                 {LINKS_NAVEGACION.map(({ name, path }, index) => (
@@ -37,13 +39,13 @@ export default function Footer() {
                     </div>
                 </section>
 
-                <section className="flex items-center justify-between">
-                    <p> &copy; {new Date().getFullYear()} Odontologia LEHM</p>
+                <section className="flex flex-col md:flex-row items-center justify-center md:justify-between gap-2">
+                    <p className="order-2 md:order-1"> &copy; {new Date().getFullYear()} Odontologia LEHM</p>
 
-                    <ul className="flex items-center gap-2">
+                    <ul className="order-1 md:order-2 flex w-full justify-center items-center gap-2">
                         {
-                            formData.map(({ nombre, referencia }, index) => (
-                                <li key={index} className="">
+                            DataSocialesFooter.map(({ nombre, referencia }, index) => (
+                                <li key={index} >
                                     <a
                                         href={referencia}
                                         target="_blank"

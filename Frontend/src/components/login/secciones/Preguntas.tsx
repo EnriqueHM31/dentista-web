@@ -59,8 +59,8 @@ export default function ListaPreguntas() {
             </Modal>
 
             {/* UI PRINCIPAL */}
-            <div className="max-w-full mx-auto p-4">
-                <div className="flex justify-between items-center mb-6">
+            <div className="max-w-full mx-auto p-4 mt-10 md:mt-0">
+                <div className="flex flex-col md:flex-row gap-4 md:gap-0 justify-between items-center mb-6">
                     <h2 className="text-2xl font-bold">Preguntas frecuentes</h2>
                     <button
                         onClick={() => handleClickActivarModalIndependiente("crear")}

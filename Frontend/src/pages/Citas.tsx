@@ -29,23 +29,24 @@ export default function Citas() {
     const horas = generarHoras("08:00", "18:00", 30);
 
     return (
-        <div className="min-h-screen bg-white flex items-center justify-center px-4 py-12 mt-10 ">
-            <div className="flex max-w-11/12 w-full bg-white border border-gray-500 rounded-xl shadow-2xl ">
+        <div className="min-h-screen bg-white flex flex-col lg:flex-row items-center justify-center px-4 py-12 mt-10 ">
+            <div className="flex flex-col lg:flex-row max-w-11/12 w-full bg-white border border-gray-500 rounded-xl shadow-2xl ">
                 {/* Panel Izquierdo - Login */}
                 <div className="w-full  p-8 md:p-12 flex flex-col justify-center gap-6 flex-4">
                     <div>
-                        <h1 className="text-3xl font-bold text-primary">Welcome back</h1>
+                        <h1 className="text-3xl font-bold text-primary">Bienvenido Agenda tu cita ahora...</h1>
                         <p className="text-gray-500 mt-2">
-                            Thank you for getting back, please login to your account by filling this form:
+                            Completa el formulario para agendar tu cita
                         </p>
                     </div>
 
                     <form className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
                         {/* Nombre completo */}
                         <div className="flex flex-col">
-                            <label className="text-sm text-gray-600">Nombre completo</label>
+                            <label htmlFor="nombre" className="text-sm text-gray-600">Nombre completo</label>
                             <input
                                 type="text"
+                                id="nombre"
                                 name="nombre"
                                 required
                                 placeholder="Juan Pérez"
@@ -55,8 +56,9 @@ export default function Citas() {
 
                         {/* Correo */}
                         <div className="flex flex-col">
-                            <label className="text-sm text-gray-600">Correo electrónico</label>
+                            <label htmlFor="correo" className="text-sm text-gray-600">Correo electrónico</label>
                             <input
+                                id="correo"
                                 type="email"
                                 name="correo"
                                 required
@@ -67,8 +69,9 @@ export default function Citas() {
 
                         {/* Teléfono */}
                         <div className="flex flex-col">
-                            <label className="text-sm text-gray-600">Teléfono</label>
+                            <label htmlFor="telefono" className="text-sm text-gray-600">Teléfono</label>
                             <input
+                                id="telefono"
                                 type="tel"
                                 name="telefono"
                                 required
@@ -80,14 +83,15 @@ export default function Citas() {
 
                         {/* Servicio odontológico */}
                         <div className="flex flex-col">
-                            <label className="text-sm text-gray-600">Servicio odontológico</label>
-                            <AnimatedSelect name="servicio" options={servicios.map(({ name }) => name)} />
+                            <label htmlFor="servicio" className="text-sm text-gray-600">Servicio odontológico</label>
+                            <AnimatedSelect clases="border-white bg-primary text-white hover:bg-white hover:text-primary" name="servicio" options={servicios.map(({ titulo }) => titulo)} />
                         </div>
 
                         {/* Fecha */}
                         <div className="flex flex-col">
-                            <label className="text-sm text-gray-600">Fecha de la cita</label>
+                            <label htmlFor="fecha" className="text-sm text-gray-600">Fecha de la cita</label>
                             <input
+                                id="fecha"
                                 type="date"
                                 name="fecha"
                                 required
@@ -98,7 +102,7 @@ export default function Citas() {
                         {/* Hora */}
                         <div className="flex flex-col">
                             <div className="flex flex-col">
-                                <label className="text-sm text-gray-600">Hora de la cita</label>
+                                <label htmlFor="hora" className="text-sm text-gray-600">Hora de la cita</label>
                                 <AnimatedSelect name="hora" options={horas} />
                             </div>
 
@@ -106,8 +110,9 @@ export default function Citas() {
 
                         {/* Comentarios (ocupa las tres columnas) */}
                         <div className="md:col-span-2 xl:col-span-3 flex flex-col">
-                            <label className="text-sm text-gray-600">Comentarios adicionales</label>
+                            <label htmlFor="comentarios" className="text-sm text-gray-600">Comentarios adicionales</label>
                             <textarea
+                                id="comentarios"
                                 name="comentarios"
                                 placeholder="Ej. Tengo molestias en una muela..."
                                 className="mt-1 px-4 py-2 border border-primary rounded-md resize-none h-24 focus:outline-none focus:ring-2 focus:ring-primary"

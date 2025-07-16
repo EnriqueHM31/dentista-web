@@ -1,4 +1,4 @@
-import { AiOutlineMenuFold, AiOutlineMenuUnfold, } from "react-icons/ai";
+import { AiOutlineMenuFold, AiOutlineMenuUnfold } from "react-icons/ai";
 import Tooltip from "@/components/General/Tooltip";
 import type { AsideMenuProps } from "@/types";
 import { getIconosAside, getIconoLogout } from "@/components/General/ObjetosIconos";
@@ -6,36 +6,93 @@ import { useOpenWithTransition } from "@/hooks/general/useOpenWithTransition";
 import BotonItemAside from "./AsideMenu/BotonItemAside";
 import { useLogin } from "@/hooks/admin/Perfil/useLogin";
 
-
 export default function AsideMenu({ selected, handleClickSelected }: AsideMenuProps) {
     const { isOpen, toggle } = useOpenWithTransition();
     const menuItems = getIconosAside();
-    const { label, icon: Icon, id } = getIconoLogout();
+    const { label, icon: IconLogout, id } = getIconoLogout();
     const { handleLogout } = useLogin();
 
     return (
-        <aside
-            className={`transition-all duration-300 bg-primary text-white p-4 h-screen flex flex-col ${isOpen ? "w-20" : "w-64"}`}
-        >
-            {/* Expand/Collapse */}
-            <div className="flex justify-between items-center mb-6 w-full">
-                {!isOpen && <h2 className="text-xl font-bold flex-1 truncate">Admin Panel</h2>}
+        <>
+            {/* Botón flotante en móviles */}
+            <div className="fixed top-4 left-4 z-50 md:hidden">
                 <button
-                    className="text-white text-xl p-2 cursor-pointer"
+                    className="bg-primary text-white p-3 rounded-full shadow-md"
                     onClick={toggle}
-                    title={isOpen ? "Expandir" : "Colapsar"}
-                    aria-label={isOpen ? "Expandir" : "Colapsar"}
+                    title="Abrir menú"
                 >
-                    {isOpen ? <AiOutlineMenuUnfold className="text-2xl" /> : <AiOutlineMenuFold className="text-2xl" />}
+                    <AiOutlineMenuFold className="text-2xl" />
                 </button>
             </div>
 
-            {/* Main menu items */}
-            <nav className="space-y-4 flex flex-col flex-grow">
-                {menuItems.map(({ label, id, icon: Icon }) => {
+            {/* Menú móvil */}
+            <aside
+                className={`fixed top-0 left-0 w-64 h-full bg-primary text-white p-4 z-50 md:hidden transition-transform duration-300 transform ${isOpen ? "-translate-x-full" : "translate-x-0"
+                    }`}
+            >
+                <div className="flex justify-between items-center mb-6">
+                    <h2 className="text-xl font-bold">Admin Panel</h2>
+                    <button onClick={toggle}>
+                        <AiOutlineMenuUnfold className="text-2xl" />
+                    </button>
+                </div>
+                <nav className="flex flex-col gap-4">
+                    {menuItems.map(({ label, id, icon: Icon }) => (
+                        <BotonItemAside
+                            key={id}
+                            id={id}
+                            label={label}
+                            Icon={<Icon />}
+                            isOpen={false}
+                            selected={selected}
+                            handleClickSelected={handleClickSelected}
+                        />
+                    ))}
+                    <div className="mt-auto">
+                        <button
+                            onClick={handleLogout}
+                            className="group flex items-center gap-3 w-full p-3 rounded hover:bg-blue-900 transition"
+                            aria-label={label}
+                            title={label}
+                            type="button"
+                        >
+                            <span className="text-2xl">
+                                <IconLogout />
+                            </span>
+                            <span className="truncate">{label}</span>
+                        </button>
+                    </div>
+                </nav>
+            </aside>
 
-                    return isOpen ? (
-                        <Tooltip key={id} text={label} position="right">
+            {/* Menú escritorio */}
+            <aside className={`hidden md:flex transition-all duration-300 bg-primary text-white p-4 h-screen flex-col ${isOpen ? "w-20" : "w-64"}`}>
+                <div className="flex justify-between items-center mb-6 w-full">
+                    {!isOpen && <h2 className="text-xl font-bold flex-1 truncate">Admin Panel</h2>}
+                    <button
+                        className="text-white text-xl p-2 cursor-pointer"
+                        onClick={toggle}
+                        title={isOpen ? "Expandir" : "Colapsar"}
+                        aria-label={isOpen ? "Expandir" : "Colapsar"}
+                    >
+                        {isOpen ? <AiOutlineMenuUnfold className="text-2xl" /> : <AiOutlineMenuFold className="text-2xl" />}
+                    </button>
+                </div>
+
+                <nav className="space-y-4 flex flex-col flex-grow">
+                    {menuItems.map(({ label, id, icon: Icon }) =>
+                        isOpen ? (
+                            <Tooltip key={id} text={label} position="right">
+                                <BotonItemAside
+                                    id={id}
+                                    label={label}
+                                    Icon={<Icon />}
+                                    isOpen={isOpen}
+                                    selected={selected}
+                                    handleClickSelected={handleClickSelected}
+                                />
+                            </Tooltip>
+                        ) : (
                             <BotonItemAside
                                 key={id}
                                 id={id}
@@ -45,36 +102,23 @@ export default function AsideMenu({ selected, handleClickSelected }: AsideMenuPr
                                 selected={selected}
                                 handleClickSelected={handleClickSelected}
                             />
-                        </Tooltip>
-                    ) : (
-                        <BotonItemAside
-                            key={id}
-                            id={id}
-                            label={label}
-                            Icon={<Icon />}
-                            isOpen={isOpen}
-                            selected={selected}
-                            handleClickSelected={handleClickSelected}
-                        />
-                    );
-                })}
+                        )
+                    )}
 
-                {/* Logout (siempre al final) */}
-                <div className="mt-auto">
-                    {(() => {
-
-                        return isOpen ? (
+                    {/* Logout */}
+                    <div className="mt-auto">
+                        {isOpen ? (
                             <Tooltip text={label} position="right">
                                 <button
                                     key={id}
                                     onClick={handleLogout}
-                                    className={`group flex cursor-pointer -center gap-3 w-full text-left p-3 rounded hover:bg-blue-900 transition `}
+                                    className="group flex cursor-pointer items-center gap-3 w-full text-left p-3 rounded hover:bg-blue-900 transition"
                                     aria-label={label}
                                     title={label}
-                                    type="submit"
+                                    type="button"
                                 >
                                     <span className="text-2xl">
-                                        <Icon />
+                                        <IconLogout />
                                     </span>
                                     {!isOpen && <span className="truncate">{label}</span>}
                                 </button>
@@ -82,21 +126,21 @@ export default function AsideMenu({ selected, handleClickSelected }: AsideMenuPr
                         ) : (
                             <button
                                 key={id}
-                                className={`group flex cursor-pointer -center gap-3 w-full text-left p-3 rounded hover:bg-blue-900 transition`}
+                                onClick={handleLogout}
+                                className="group flex cursor-pointer items-center gap-3 w-full text-left p-3 rounded hover:bg-blue-900 transition"
                                 aria-label={label}
                                 title={label}
-                                onClick={handleLogout}
-                                type="submit"
+                                type="button"
                             >
                                 <span className="text-2xl">
-                                    <Icon />
+                                    <IconLogout />
                                 </span>
                                 {!isOpen && <span className="truncate">{label}</span>}
                             </button>
-                        );
-                    })()}
-                </div>
-            </nav>
-        </aside>
-    )
+                        )}
+                    </div>
+                </nav>
+            </aside>
+        </>
+    );
 }

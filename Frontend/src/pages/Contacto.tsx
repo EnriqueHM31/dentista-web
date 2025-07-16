@@ -52,8 +52,8 @@ export default function Contacto() {
 
     return (
         <>
-            <section className=" w-full gap-12 mt-20 py-20 md:py-15 xl:py-10 min-h-screen flex justify-center    max-w-10/12 mx-auto p-6 items-stretch " id="contacto">
-                <div className="flex-1 flex flex-col gap-8 ">
+            <section className=" w-full gap-12 mt-20 py-20 md:py-15 xl:py-10 min-h-screen flex flex-col lg:flex-row justify-center max-w-11/12 md:max-w-10/12 mx-auto p-6 items-stretch " id="contacto">
+                <div className="flex-1 flex flex-col gap-8 order-2 md:order-1">
                     <div className="flex flex-col gap-4">
                         <TituloSeccion titulo="Hablemos de algo interesante juntos" clases="text-start max-w-3/4" />
                         <ul>
@@ -74,17 +74,18 @@ export default function Contacto() {
 
                 </div >
 
-                <div className="flex-1 h-full min-h-screen">
+                <div className="flex-1 md:h-full md:min-h-screen order-1 md:order-2">
 
                     <form
                         action=""
-                        className="flex flex-col gap-8 bg-primary text-white p-8 rounded-2xl h-full min-h-screen"
+                        className="flex flex-col gap-8 bg-primary text-white p-8 rounded-2xl md:h-full min-h-screen"
                         onSubmit={(e) => handleSubmitCorreo(e)}
                     >
                         <h2 className="text-xl">Manda un comentario o sugerencia de ...</h2>
 
                         <AnimatedSelect
                             name="categoria"
+                            clases="border-white bg-primary text-white hover:bg-white hover:text-primary"
                             options={servicios.map(({ titulo }) => titulo)}
                         />
 

@@ -24,7 +24,7 @@ export default function Modal({ isOpen, onClose, children, clases, modalId, acti
                     >
                         <button
                             onClick={onClose}
-                            className="absolute top-4 right-4 text-black hover:text-red-500 text-2xl font-bold cursor-pointer bg-white rounded-full p-2"
+                            className="absolute top-4 right-4 text-black hover:text-red-500 text-2xl font-bold cursor-pointer bg-white rounded-full p-2 z-70"
                         >
                             <CgClose />
                         </button>
