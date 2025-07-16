@@ -126,8 +126,8 @@ interface AnimatedSelectProps {
 }
 
 interface Servicio {
-    name: string;
-    description: string;
+    titulo: string;
+    descripcion: string;
     img: string;
     duration: number;
 }

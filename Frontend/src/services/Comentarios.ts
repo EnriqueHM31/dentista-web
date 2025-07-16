@@ -13,9 +13,8 @@ export async function getComentarios() {
     return { success, message };
 }
 
-export async function createComentario(form: Record<string, string>) {
+export async function createComentario({ categoria, username, email, comentario, ranking }: { categoria: string, username: string, email: string, comentario: string, ranking: number }) {
 
-    const { categoria, username, email, message: comentario, experiencia: ranking } = form;
     const response = await fetch(`${VITE_API_URL}/comentarios`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },

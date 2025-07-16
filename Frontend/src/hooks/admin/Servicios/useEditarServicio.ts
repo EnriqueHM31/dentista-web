@@ -44,13 +44,18 @@ export function useEditarServicio({ serviciosRef, formValues, handleClickDesacti
                 label: "Guardar",
                 onClick: async () => {
                     try {
+
+                        const data = Object.fromEntries(
+                            (cambios as (keyof ServicioResponse)[])
+                                .map((key) => [key, formValues[key]])
+                                .filter(([, value]) => value !== undefined)
+                        ) as Partial<ServicioResponse>;
+
+                        const { name: titulo, description: descripcion, img, duration } = data;
+
                         const { success, message } = await modificarServicio(
                             id,
-                            Object.fromEntries(
-                                (cambios as (keyof ServicioResponse)[])
-                                    .map((key) => [key, formValues[key]])
-                                    .filter(([, value]) => value !== undefined)
-                            ) as Partial<ServicioResponse>
+                            { titulo, descripcion, img, duration }
                         );
 
 

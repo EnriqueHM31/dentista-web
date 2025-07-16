@@ -1,9 +1,18 @@
 import { randomUUID } from 'crypto';
 import db from '../../database/db';
 
+interface Servicio {
+    titulo: string;
+    descripcion: string;
+    img: string;
+    duration: number;
+}
+
+
+
 export class ModeloServicio {
 
-    static async crearServicio({ titulo, descripcion, img, duration }: Record<string, string>) {
+    static async crearServicio({ titulo, descripcion, img, duration }: Servicio) {
         try {
             const id = randomUUID();
 
@@ -51,18 +60,18 @@ export class ModeloServicio {
         }
     }
 
-    static async updateServicio(id: string, data: Record<string, string>) {
+    static async updateServicio(id: string, data: Partial<Servicio>) {
         try {
 
-            const allowedFields = ['name', 'description', 'img', 'duration']; // puedes agregar más en el futuro
+            const allowedFields = ['titulo', 'descripcion', 'img', 'duration']; // puedes agregar más en el futuro
 
             const fields: string[] = [];
             const values: string[] = [];
 
-            for (const key of Object.keys(data)) {
+            for (const key of Object.keys(data) as (keyof Servicio)[]) {
                 if (allowedFields.includes(key) && data[key] !== undefined) {
                     fields.push(`${key} = ?`);
-                    values.push(data[key]);
+                    values.push(data[key] as string);
                 }
             }
 
@@ -82,7 +91,7 @@ export class ModeloServicio {
                 return { success: false, message: 'No se encontró el servicio o no se realizaron cambios' };
             }
         } catch (error) {
-            return { success: false, message: 'Error al actualizar el servicio' + error };
+            return { success: false, message: 'Error al actualizar el servicio' };
         }
     }
 
@@ -96,7 +105,7 @@ export class ModeloServicio {
                 return { success: false, message: 'No se encontró el servicio o no se realizaron cambios' };
             }
         } catch (error) {
-            return { success: false, message: 'Error al eliminar el servicio' + error };
+            return { success: false, message: 'Error al eliminar el servicio' };
         }
     }
 

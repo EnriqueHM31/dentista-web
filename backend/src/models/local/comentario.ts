@@ -21,19 +21,19 @@ export class ModeloContacto {
         }
     }
 
-    static async EnviarMensaje(nombre: string, ranking: number, email: string, interes: string, mensaje: string) {
+    static async EnviarMensaje({ username, ranking, email, categoria, comentario }: { username: string, ranking: number, email: string, categoria: string, comentario: string }) {
 
         const mailOptions = {
             from: process.env.REMITENTE,
             to: process.env.DESTINATARIO,
             subject: 'Nuevo mensaje desde Odontología LEHM',
-            text: mensaje,
+            text: comentario,
             html: `
             <div style="background-color: rgb(2, 19, 49); color: #ffffff; font-family: Arial, sans-serif; padding: 24px; border-radius: 10px; max-width: 600px; margin: auto;">
             <h1 style="font-size: 24px; margin: 0; text-align: center;">Nuevo mensaje desde Odontología LEHM</h1>
             
             <p style="font-size: 16px; margin: 10px 0;">
-            <strong>Nombre:</strong> ${nombre}
+            <strong>Nombre:</strong> ${username}
             </p>
             
             <p style="font-size: 16px; margin: 10px 0;">
@@ -41,7 +41,7 @@ export class ModeloContacto {
             </p>
             
             <p style="font-size: 16px; margin: 10px 0;">
-            <strong>Comentario sobre:</strong> ${interes}
+            <strong>Comentario sobre:</strong> ${categoria}
             </p>
             
             <p style="font-size: 16px; margin: 10px 0;">
@@ -50,7 +50,7 @@ export class ModeloContacto {
 
             <div style="background-color: rgb(0, 12, 37); padding: 16px; border-left: 4px solid #ffffff88; border-radius: 8px; margin-top: 20px;">
             <p style="font-size: 16px; margin: 0;"><strong>Mensaje:</strong></p>
-            <p style="margin-top: 8px;">${mensaje}</p>
+            <p style="margin-top: 8px;">${comentario}</p>
             </div>
         </div>
         `
@@ -61,7 +61,7 @@ export class ModeloContacto {
 
             if (info.accepted.length > 0) {
 
-                const [result] = await db.query('INSERT INTO Comentarios (nombre, ranking, email, servicio, mensaje) VALUES (?, ?, ?, ?, ?)', [nombre, ranking, email, interes, mensaje]);
+                const [result] = await db.query('INSERT INTO Comentarios (nombre, ranking, email, servicio, mensaje) VALUES (?, ?, ?, ?, ?)', [username, ranking, email, categoria, comentario]);
 
                 if (result) {
                     return { success: true, message: 'Comentario enviado correctamente' };

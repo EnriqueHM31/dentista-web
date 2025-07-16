@@ -34,8 +34,10 @@ export default function Contacto() {
         const data = new FormData(e.currentTarget);
         const form = Object.fromEntries(data) as Record<string, string>;
 
+        const { username, email, categoria, message: comentario, experiencia } = form;
+
         try {
-            const { success, message } = await createComentario(form)
+            const { success, message } = await createComentario({ username, email, categoria, comentario, ranking: parseInt(experiencia) })
 
             if (!success) {
                 toast.error(message);

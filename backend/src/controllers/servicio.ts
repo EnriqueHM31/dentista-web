@@ -1,13 +1,20 @@
 import { Request, Response } from 'express';
 import { ModeloServicio } from '../models/mysql/servicio';
+import { validarEditarServicio, validarServicio } from '../../utils/Validacion';
 
 
 export class ServiciosController {
 
     static async crearServicio(req: Request, res: Response) {
-        const { titulo, descripcion, img, duration } = req.body;
 
-        const { success, message, servicio } = await ModeloServicio.crearServicio({ titulo, descripcion, img, duration });
+        const result = validarServicio(req.body);
+
+        if (!result.success) {
+            res.status(400).json({ success: false, message: JSON.parse(result.error.message) });
+            return;
+        }
+
+        const { success, message, servicio } = await ModeloServicio.crearServicio({ ...result.data });
 
         if (success) {
             res.status(200).json({ success, message, servicio });
@@ -33,10 +40,16 @@ export class ServiciosController {
     }
 
     static async updateServicio(req: Request, res: Response) {
-        const data = req.body;
         const id = req.params.id
 
-        const { success, message } = await ModeloServicio.updateServicio(id, data);
+        const result = validarEditarServicio(req.body);
+
+        if (result.error) {
+            res.status(400).json({ success: false, message: JSON.parse(result.error.message) });
+            return;
+        }
+
+        const { success, message } = await ModeloServicio.updateServicio(id, { ...result.data });
 
         if (success) {
             res.status(200).json({ success, message });

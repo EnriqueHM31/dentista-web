@@ -1,15 +1,18 @@
 import type { Request, Response } from 'express';
 import { ModeloContacto } from '../models/local/comentario';
+import { validarComentario } from '../../utils/Validacion';
 
 export class ContrallerContacto {
     static async EnviarMensaje(req: Request, res: Response) {
-        const { username, ranking, email, categoria, comentario } = req.body;
 
-        if (!username || !email || !comentario || !categoria || !ranking) {
-            res.status(400).json({ error: `Faltan datos ${username} ${ranking} ${email} ${categoria} ${comentario}` });
+        const result = validarComentario(req.body);
+
+        if (!result.success) {
+            res.status(400).json({ success: false, message: JSON.parse(result.error.message) });
+            return;
         }
 
-        const { success, message } = await ModeloContacto.EnviarMensaje(username, ranking, email, categoria, comentario);
+        const { success, message } = await ModeloContacto.EnviarMensaje({ ...result.data });
 
         if (success) {
             res.status(200).json({ success, message });
