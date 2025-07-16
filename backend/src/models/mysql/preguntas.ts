@@ -9,7 +9,7 @@ interface Pregunta {
 export class ModeloPreguntas {
     static async getAll() {
         try {
-            const [rows] = await db.query('SELECT id, pregunta, respuesta FROM Preguntas');
+            const [rows] = await db.query('SELECT id, pregunta, respuesta FROM Preguntas ORDER BY pregunta ASC');
             return { success: true, message: rows };
         } catch (error) {
             return { success: false, message: 'Error en la base de datos + error: ' + error };

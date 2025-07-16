@@ -73,7 +73,7 @@ interface ModalCrearProps {
 }
 
 interface Pregunta {
-    id: number;
+    id: `${string}-${string}-${string}-${string}-${string}`;
     pregunta: string;
     respuesta: string;
 }

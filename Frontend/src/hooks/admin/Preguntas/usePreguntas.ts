@@ -7,7 +7,7 @@ import { PreguntasContext } from "@/context/Preguntas";
 
 export function usePreguntas() {
     const { preguntas, setPreguntas } = useContext(PreguntasContext);
-    const [expandedIds, setExpandedIds] = useState<number[]>([]);
+    const [expandedIds, setExpandedIds] = useState<`${string}-${string}-${string}-${string}-${string}`[]>([]);
 
     const refrescarPreguntaEditada = async (preguntaSeleccionada: Pregunta) => {
         setPreguntas(prev =>
@@ -17,27 +17,42 @@ export function usePreguntas() {
         );
     }
 
-    const toggleExpand = (id: number) => {
+    const toggleExpand = (id: `${string}-${string}-${string}-${string}-${string}`) => {
         setExpandedIds(prev =>
             prev.includes(id) ? prev.filter(x => x !== id) : [...prev, id]
         );
     };
 
 
-    const handleClickEliminarPregunta = async (id: number) => {
+    const handleClickEliminarPregunta = async (id: `${string}-${string}-${string}-${string}-${string}`) => {
 
-        try {
-            const { success, message } = await deletePregunta(id);
+        toast("¿Estás seguro de querer eliminar esta pregunta?", {
+            action: {
+                label: "Eliminar",
+                onClick: async () => {
+                    try {
+                        const { success, message } = await deletePregunta(id);
 
-            if (!success) {
-                toast.error(message);
-                return;
+                        if (!success) {
+                            toast.error(message);
+                            return;
+                        }
+                        setPreguntas(prev => prev.filter(p => p.id !== id));
+                        toast.success("Pregunta eliminada");
+                    } catch (err) {
+                        toast.error("Error al eliminar pregunta" + err);
+                    }
+                }
+            },
+            cancel: {
+                label: "Cancelar",
+                onClick: () => {
+                    toast.dismiss();
+                }
             }
-            setPreguntas(prev => prev.filter(p => p.id !== id));
-            toast.success("Pregunta eliminada");
-        } catch (err) {
-            toast.error("Error al eliminar pregunta" + err);
-        }
+        });
+
+
     }
 
     return {

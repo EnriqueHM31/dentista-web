@@ -20,7 +20,7 @@ export const createPregunta = async (pregunta: string, respuesta: string) => {
 
 }
 
-export const deletePregunta = async (id: number) => {
+export const deletePregunta = async (id: `${string}-${string}-${string}-${string}-${string}`) => {
     const response = await fetch(`${VITE_API_URL}/preguntas/${id}`, {
         method: "DELETE",
     });
