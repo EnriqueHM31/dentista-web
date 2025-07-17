@@ -5,6 +5,7 @@ import ModalEditarServicio from "../Servicios/ModalEditarServicio";
 import { useModalEditarServicio } from "@/hooks/admin/Servicios/useModalEditarServicio";
 import { useModalIndependiente } from "@/hooks/general/useModalIndependiente";
 import ModalCrearServicio from "../Servicios/ModalCrearServicio";
+import { formatoHoraMinuto } from "@/utils/Hora";
 
 
 export default function Servicios() {
@@ -27,8 +28,8 @@ export default function Servicios() {
             </Modal>
 
 
-            <section className="flex flex-col gap-6 p-4">
-                <div className="flex flex-col md:flex-row gap-4 md:gap-0 justify-between items-center mb-6">
+            <section className="flex flex-col gap-6 md:p-4">
+                <div className="flex flex-col md:flex-row gap-4 md:gap-0 justify-between items-center md:mb-6">
                     <h2 className="text-2xl font-bold">Servicios</h2>
                     <button
                         onClick={() => handleClickActivarModalIndependiente("crear_servicio")}
@@ -43,10 +44,16 @@ export default function Servicios() {
                     {servicios.map((servicio) => (
                         <li
                             key={servicio.id}
-                            className="flex gap-3 justify-between bg-primary text-white px-4 py-2 rounded-lg"
+                            className="flex gap-6 md:gap-3 justify-between bg-primary text-white px-4 py-4 rounded-lg"
                         >
-                            <h3>{servicio.titulo}</h3>
-                            <div className="flex gap-5">
+                            <div className="flex items-center gap-3">
+                                <img src={servicio.img} alt={servicio.titulo} className="w-10 h-10 object-cover rounded-full" />
+                                <div>
+                                    <h3 className="font-bold">{servicio.titulo}</h3>
+                                    <p className="text-sm text-white/70">Tiempo de duracion por cita aproximado: {formatoHoraMinuto([servicio.duration.toString()])}</p>
+                                </div>
+                            </div>
+                            <div className="flex flex-col md:flex-row justify-center md:justify-start gap-7 md:gap-5">
                                 <button
                                     className="cursor-pointer hover:text-white/80"
                                     onClick={() => {

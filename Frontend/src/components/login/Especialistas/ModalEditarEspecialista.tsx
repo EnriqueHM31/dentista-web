@@ -33,7 +33,7 @@ export default function ModalEditarEspecialista({ toggle, especialistaSelecciona
                         <img
                             src={especialistaSeleccionado.avatar}
                             alt="Avatar actual"
-                            className="w-full h-full object-cover border-1 rounded-2xl border-white"
+                            className="w-3/4 mx-auto md:mx-0 md:w-full h-full object-cover border-1 rounded-2xl border-white"
                         />
                     )}
                 </div>
@@ -41,7 +41,7 @@ export default function ModalEditarEspecialista({ toggle, especialistaSelecciona
                 {/* Formulario */}
                 <form onSubmit={handleSubmit} className="md:flex-2 flex-3 md:grid flex flex-col  md:grid-cols-2 gap-8 w-full">
                     {/* Nombre */}
-                    <label htmlFor="nombre" className="flex flex-col gap-3 ">
+                    <label htmlFor="nombre" className="flex flex-col gap-3">
                         <span className="flex items-center gap-2 font-medium text-white/50">
                             <AiOutlineUser /> Nombre
                         </span>

@@ -7,26 +7,26 @@ export default function ModalEditar({ handleEditarPregunta, handleEditarRespuest
 
     return (
         <section className="bg-primary text-white rounded-lg shadow p-6 w-full max-w-full scrollbar-invisible">
-            <h3 className="text-2xl font-bold text-white mb-4">Editar pregunta</h3>
+            <h3 className="text-lg md:text-2xl font-bold text-white mb-4">Editar pregunta</h3>
             <form className="flex flex-col gap-8" onSubmit={(e) => handleGuardar(e)}>
                 <div className="flex flex-col gap-6">
-                    <label htmlFor="preguntaSeleccionada" className="text-sm font-semibold px-4 py-2 bg-white text-primary rounded-xl w-fit">Pregunta</label>
+                    <label htmlFor="preguntaSeleccionada" className="text-sm font-semibold px-4 py-1 md:py-2 bg-white text-primary rounded-xl w-fit">Pregunta</label>
                     <input
                         id="preguntaSeleccionada"
                         type="text"
                         value={preguntaSeleccionada?.pregunta || ""}
                         onChange={(e) => handleEditarPregunta(e)}
-                        className="w-full border border-gray-500 focus:outline-gray-800  px-3 py-2 rounded"
+                        className="w-full border text-sm md:text-base border-gray-500 focus:outline-gray-800  px-3 py-2 rounded"
                     />
                 </div>
                 <div className="flex flex-col gap-6">
-                    <label htmlFor="respuestaSeleccionada" className="text-sm font-semibold px-4 py-2 bg-white text-primary rounded-xl w-fit">Respuesta</label>
+                    <label htmlFor="respuestaSeleccionada" className="text-sm font-semibold px-4 py-1 md:py-2 bg-white text-primary rounded-xl w-fit">Respuesta</label>
                     <textarea
                         id="respuestaSeleccionada"
                         rows={10}
                         value={preguntaSeleccionada?.respuesta || ""}
                         onChange={(e) => handleEditarRespuesta(e)}
-                        className="w-full border border-gray-500 focus:outline-gray-800  px-3 py-2 rounded resize-none scrollbar-invisible"
+                        className="w-full border text-sm md:text-base border-gray-500 focus:outline-gray-800  px-3 py-2 rounded resize-none scrollbar-invisible "
                     />
                 </div>
 

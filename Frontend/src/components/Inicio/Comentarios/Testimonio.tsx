@@ -68,7 +68,7 @@ export default function Testimonio({ id, client_name, rating, comment, index, vi
         <li className="relative flex flex-col gap-3 px-4 md:px-8 py-4 bg-primary text-white rounded-2xl h-auto justify-between ">
             {/* Checkbox de selección para visibilidad */}
             {onCheckToggle && !movil && (
-                <div className="flex flex-wrap justify-center items-center size-7 mx-auto select-none gap-2 rounded-xl bg-amber-200 absolute top-4 right-14">
+                <div className="flex flex-wrap justify-center items-center size-7 mx-auto select-none gap-2 rounded-xl bg-amber-200 absolute top-4 right-4 md:right-14">
                     <label className="text-gray-500 w-full h-full relative">
                         <input
                             type="checkbox"
@@ -93,7 +93,7 @@ export default function Testimonio({ id, client_name, rating, comment, index, vi
             )}
             {
                 !movil && (
-                    <button className="flex flex-wrap justify-center items-center size-7 mx-auto select-none gap-2 rounded-xl  absolute top-4 right-4 bg-white text-primary hover:bg-red-500 hover:text-white transition duration-300 ease-in-out"
+                    <button className="flex flex-wrap justify-center items-center size-7 mx-auto select-none gap-2 rounded-xl  absolute top-16 md:top-4 right-4 bg-red-500 text-white hover:bg-red-800 hover:text-white transition duration-300 ease-in-out"
                         onClick={() => handleEliminarComentario(id || "")}
                     >
                         <FaTrash />
@@ -102,14 +102,14 @@ export default function Testimonio({ id, client_name, rating, comment, index, vi
             }
 
 
-            <div className="flex-1 flex items-center gap-4">
+            <div className="flex-1 flex items-center gap-4 ">
                 <img
                     src={getRandomPortraitUrl(index)}
                     alt="cliente"
                     className="size-10 rounded-full object-cover"
                 />
                 <div className="flex flex-col gap-2 ">
-                    <h2 className="text-md md:text-xl xl:text-xl font-bold">{client_name}</h2>
+                    <h2 className="text-base md:text-xl xl:text-xl font-bold ">{client_name}</h2>
                     <StartsTestimonials numero={rating} />
                 </div>
             </div>

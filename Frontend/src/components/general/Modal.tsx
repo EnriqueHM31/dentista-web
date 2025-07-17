@@ -10,7 +10,7 @@ export default function Modal({ isOpen, onClose, children, clases, modalId, acti
         <AnimatePresence>
             {shouldShow && (
                 <motion.div
-                    className="fixed inset-0 z-50 flex h-screen w-full items-center justify-center bg-black/50 backdrop-blur-sm"
+                    className="fixed inset-0 z-150 flex h-screen w-full items-center justify-center bg-black/50 backdrop-blur-sm"
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}

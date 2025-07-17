@@ -25,65 +25,48 @@ export default function EspecialistasCard({ especialistas }: { especialistas: Es
                 ) : (
 
                     <ul className="grid md:grid-cols-2 xl:grid-cols-3 gap-6 w-full">
-                        {especialistas.map((esp) => (
-                            <li
-                                key={esp.id}
-                                onClick={() => handleOpen(esp)}
-                                className="relative group rounded-2xl overflow-hidden shadow-lg min-h-[400px] cursor-pointer"
-                            >
-                                {/* Imagen de fondo */}
-                                <img
-                                    src={esp.avatar}
-                                    alt={`${esp.nombre} ${esp.apellido}`}
-                                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                                />
+                        {especialistas.map((especialista) => (
 
-                                {/* Overlay oscuro */}
-                                <div className="absolute inset-0 bg-black/30" />
 
-                                {/* Contenido inferior */}
-                                <div className="absolute bottom-0 w-full bg-primary text-white px-4 py-4 z-10">
-                                    <div className="flex flex-col gap-1 text-sm">
-                                        <p>
-                                            <span className="font-semibold">Nombre completo:</span>{" "}
-                                            {esp.nombre} {esp.apellido}
-                                        </p>
-                                        <p>
-                                            <span className="font-semibold">Servicio:</span> {esp.servicio}
-                                        </p>
-                                        <p>
-                                            <span className="font-semibold">Correo:</span> {esp.email}
-                                        </p>
-                                        <p>
-                                            <span className="font-semibold">Teléfono:</span> {esp.telefono}
-                                        </p>
+
+                            <li onClick={() => handleOpen(especialista)} key={especialista.id} className="bg-primary rounded-2xl px-4 md:py-8 py-4 text-white dark:bg-gray-950 min-h-[300px] flex flex-col justify-center relative">
+                                <article className=" flex justify-between  gap-4 flex-col">
+                                    <div className="flex gap-4 items-center">
+                                        <img src={especialista.avatar} alt={especialista.nombre} className="w-10 h-10 rounded-full" />
+                                        <div className="flex flex-col">
+                                            <p className="text-lg font-semibold text-white dark:text-gray-50 truncate">
+                                                {`${especialista.nombre} ${especialista.apellido}`}
+                                            </p>
+                                            <p className="text-sm text-white/60 dark:text-gray-200 truncate">{especialista.email}</p>
+
+                                        </div>
                                     </div>
-                                </div>
 
-                                {/* Botón de LinkedIn */}
-                                <a
-                                    href={esp.linkedin}
-                                    target="_blank"
-                                    onClick={(e) => {
-                                        e.stopPropagation();
-                                    }}
-                                    rel="noreferrer"
-                                    className="absolute top-4 right-16 bg-white rounded-full shadow-md p-2 hover:bg-blue-600 hover:text-white transition"
-                                >
-                                    <FaLinkedin className="text-xl" />
-                                </a>
+                                    <div>
+                                        <p className="mb-2"><span className="font-bold text-white/60">Especialista: </span> {especialista.servicio}</p>
 
+                                        <p className="mb-2"><span className="font-bold text-white/60">Direccion: </span> {especialista.direccion}</p>
 
-                                <button
-                                    onClick={(e) => {
-                                        e.stopPropagation();
-                                        handleDelete(esp.id);
-                                    }}
-                                    className="absolute top-4 right-4 bg-white rounded-full shadow-md p-2 hover:bg-red-600 hover:text-white transition"
-                                >
-                                    <FaTrash className="text-xl" />
-                                </button>
+                                        <p className="mb-2"><span className="font-bold text-white/60">Telefono: </span> {especialista.telefono}</p>
+
+                                    </div>
+
+                                    <button onClick={(e) => {
+                                        e.stopPropagation()
+                                        handleDelete(especialista.id)
+                                    }
+                                    } className="absolute top-4 text-lg p-2 rounded-full right-5 bg-red-500 hover:bg-red-800 transition-all duration-300">
+                                        <FaTrash />
+                                    </button>
+
+                                    <a href={especialista.linkedin} onClick={(e) => {
+                                        e.stopPropagation()
+                                    }} target="_blank" rel="noopener noreferrer" className="absolute top-4 text-lg p-2 rounded-full right-15 bg-blue-600 text-white hover:bg-blue-700 transition-all duration-300">
+                                        <FaLinkedin />
+                                    </a>
+                                </article>
                             </li>
+
                         ))}
                     </ul >
                 )

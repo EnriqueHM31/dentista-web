@@ -10,10 +10,10 @@ export default function ModalCrear({ toggle, handleClickDesactivarModal }: Modal
             await handleCrearPregunta(e);
             handleClickDesactivarModal();
         }} className="w-full p-6 flex flex-col gap-4 bg-primary">
-            <h3 className="text-2xl font-bold text-white mb-4">Agregar una nueva pregunta</h3>
+            <h3 className="text-lg md:text-2xl font-bold text-white mb-4">Agregar una nueva pregunta</h3>
 
             <div className="mb-4 flex flex-col gap-4">
-                <label htmlFor="pregunta" className="block text-sm font-medium px-3 py-2 rounded-xl bg-white text-primary w-fit mb-1">
+                <label htmlFor="pregunta" className="block text-sm font-medium px-3 py-1 md:py-2 rounded-xl bg-white text-primary w-fit mb-1">
                     Pregunta
                 </label>
                 <input
@@ -27,7 +27,7 @@ export default function ModalCrear({ toggle, handleClickDesactivarModal }: Modal
             </div>
 
             <div className="mb-4 flex flex-col gap-4">
-                <label htmlFor="respuesta" className="block text-sm font-medium px-3 py-2 rounded-xl bg-white text-primary w-fit mb-1">
+                <label htmlFor="respuesta" className="block text-sm font-medium px-3 py-1 md:py-2 rounded-xl bg-white text-primary w-fit mb-1">
                     Respuesta
                 </label>
                 <textarea

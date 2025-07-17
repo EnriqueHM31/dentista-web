@@ -1,104 +1,125 @@
-import { Pencil } from "lucide-react";
+import { useState } from "react";
+import { IoIosArrowDown } from "react-icons/io";
 import { useEditarServicio } from "@/hooks/admin/Servicios/useEditarServicio";
-import type { ModalEditarServicioProps } from "@/types";
+import type { ModalEditarServicioProps, Servicio } from "@/types";
 import AnimatedSelect from "@/components/General/Select";
 import { formatoHoraMinuto, formatearDuracion } from "@/utils/Hora";
 import { MINUTOS_ARRAY } from "@/utils/constantes";
+import { FaPencil } from "react-icons/fa6";
+
+const opciones = [
+    { label: "Nombre", value: "titulo" },
+    { label: "Descripción", value: "descripcion" },
+    { label: "Imagen", value: "img" },
+    { label: "Duración", value: "duration" },
+];
 
 export default function ModalEditarServicio({ serviciosRef, handleClickDesactivarModal, formValues, handleChange, refresh }: ModalEditarServicioProps) {
-
-
     const { preview, handlePreview, handleSubmit } = useEditarServicio({ serviciosRef, formValues, handleClickDesactivarModal });
+    const [mostrarSelector, setMostrarSelector] = useState(false);
+
     return (
         <div className="bg-primary w-full h-[80vh] rounded-lg overflow-hidden shadow-lg flex flex-col md:flex-row">
-            {/* Aside izquierdo con solo el título y botones */}
-            <aside className="flex-1 p-6 border-r overflow-auto flex flex-col justify-between">
+            {/* Aside izquierdo: solo visible en md+ */}
+            <aside className="hidden md:flex flex-1 p-6 border-r flex-col justify-between">
                 <div className="flex flex-col gap-4">
-
                     <h2 className="text-xl font-bold text-white">Editar Servicio</h2>
-
-                    <button
-                        type="button"
-                        onClick={() => handlePreview("titulo")}
-                        className={`${preview === "titulo" ? "bg-blue-700" : "bg-primary"} w-full  text-white px-4 py-2 transition duration-300 ease-in-out rounded-lg hover:bg-blue-700 flex items-center gap-2 `}
-                    >
-                        <Pencil size={16} /> Editar Nombre
-                    </button>
-
-                    <button
-                        type="button"
-                        onClick={() => handlePreview("descripcion")}
-                        className={`${preview === "descripcion" ? "bg-blue-700" : "bg-primary"} w-full  text-white px-4 py-2 transition duration-300 ease-in-out rounded-lg hover:bg-blue-700 flex items-center gap-2 `}
-                    >
-                        <Pencil size={16} /> Editar Descripción
-                    </button>
-
-                    <button
-                        type="button"
-                        onClick={() => handlePreview("img")}
-                        className={`${preview === "img" ? "bg-blue-700" : "bg-primary"} w-full  text-white px-4 py-2 transition duration-300 ease-in-out rounded-lg hover:bg-blue-700 flex items-center gap-2 `}
-                    >
-                        <Pencil size={16} /> Editar Imagen
-                    </button>
-
-                    <button
-                        type="button"
-                        onClick={() => handlePreview("duration")}
-                        className={`${preview === "duration" ? "bg-blue-700" : "bg-primary"} w-full  text-white px-4 py-2 transition duration-300 ease-in-out rounded-lg hover:bg-blue-700 flex items-center gap-2 `}
-                    >
-                        <Pencil size={16} /> Editar Duración
-                    </button>
+                    {opciones.map((op) => (
+                        <button
+                            key={op.value}
+                            type="button"
+                            onClick={() => handlePreview(op.value as keyof Servicio)}
+                            className={`${preview === op.value ? "bg-blue-700" : "bg-primary"} w-full text-white px-4 py-2 rounded-lg hover:bg-blue-700 flex items-center gap-2`}
+                        >
+                            <FaPencil size={16} /> Editar {op.label}
+                        </button>
+                    ))}
                 </div>
-
-
             </aside>
 
-            {/* Derecha: solo se muestra lo seleccionado */}
-            <form
-                onSubmit={(e) => {
-                    handleSubmit(e, formValues.id, refresh)
-                }}
-                className="flex-2 p-6 overflow-auto w-full max-w-full flex flex-col justify-between"
-            >
-                <div className="flex flex-col gap-2 h-full ">
-                    <h2 className="text-lg font-semibold text-white mb-4">Previsualización y Edición</h2>
+            {/* Modal selector móvil */}
+            {mostrarSelector && (
+                <div className="fixed inset-0 z-40 bg-black/50 flex items-center justify-center md:hidden">
+                    <div className="bg-white rounded-lg p-6 w-5/6 max-w-sm">
+                        <h3 className="text-primary text-lg font-semibold mb-4">Seleccionar campo a editar</h3>
+                        <div className="flex flex-col gap-2">
+                            {opciones.map((op) => (
+                                <button
+                                    key={op.value}
+                                    onClick={() => {
+                                        handlePreview(op.value as keyof Servicio);
+                                        setMostrarSelector(false);
+                                    }}
+                                    className="text-white rounded-2xl bg-primary  border border-primary  px-4 py-2 hover:bg-primary hover:text-white"
+                                >
+                                    {op.label}
+                                </button>
+                            ))}
+                        </div>
+                    </div>
+                </div>
+            )}
 
+            {/* Derecha: contenido editable */}
+            <form
+                onSubmit={(e) => handleSubmit(e, formValues.id, refresh)}
+                className="flex-2 p-6 overflow-auto w-full max-w-full flex flex-col justify-between relative"
+            >
+                {/* Botón selector móvil */}
+
+                <div className="flex flex-col gap-5 md:gap-2 h-full">
+                    <h2 className="text-lg font-semibold text-white mb-4 max-w-3/4 md:max-w-full">Previsualización y Edición</h2>
+
+                    <button
+                        type="button"
+                        className="md:hidden flex items-center gap-2 justify-between px-6 z-30 bg-white p-2  rounded-2xl shadow mb-4"
+                        onClick={() => setMostrarSelector(true)}
+                    >
+                        {
+                            preview && (
+
+                                preview?.charAt(0).toUpperCase() + preview?.slice(1) || "Seleccionar campo"
+                            )
+
+                        }
+                        <IoIosArrowDown />
+                    </button>
                     {preview === "titulo" && (
                         <div className="flex flex-col gap-4">
-                            <label htmlFor="titulo" className="text-sm text-primary bg-white px-5 py-1 rounded w-fit">Nombre</label>
+                            <label htmlFor="titulo" className="text-sm hidden md:flex text-primary bg-white px-5 py-1 rounded w-fit">Nombre</label>
                             <input
                                 type="text"
                                 id="titulo"
-                                autoComplete="on"
                                 name="titulo"
+                                autoComplete="on"
                                 value={formValues.titulo}
                                 onChange={handleChange}
-                                className="w-full mt-1 border px-3 py-2 text-white rounded"
+                                className="w-full border px-3 py-2 text-white rounded"
                             />
                         </div>
                     )}
 
                     {preview === "descripcion" && (
                         <div className="flex flex-col gap-4 h-full">
-                            <label htmlFor="descripcion" className="text-sm text-primary bg-white px-5 py-1 rounded w-fit">Descripción</label>
+                            <label htmlFor="descripcion" className="text-sm hidden md:flex text-primary bg-white px-5 py-1 rounded w-fit">Descripción</label>
                             <textarea
                                 id="descripcion"
                                 name="descripcion"
                                 autoComplete="on"
                                 value={formValues.descripcion}
                                 onChange={handleChange}
-                                className="w-full mt-1  border px-3 py-2 text-white rounded resize-none h-3/4"
+                                className="w-full border px-3 py-2 text-white rounded resize-none h-full md:h-3/4"
                             />
                         </div>
                     )}
 
                     {preview === "img" && (
-                        <div className="flex flex-col gap-4 h-fit">
-                            <label htmlFor="img" className="text-sm text-primary bg-white px-5 py-1 rounded w-fit">Imagen (URL)</label>
+                        <div className="flex flex-col gap-4">
+                            <label htmlFor="img" className="text-sm hidden md:flex text-primary bg-white px-5 py-1 rounded w-fit">Imagen (URL)</label>
                             <img
                                 src={formValues.img}
                                 alt="Previsualización"
-                                className="w-full h-70 object-contain rounded mb-2"
+                                className="w-full h-full md:h-60 object-contain rounded mb-2"
                             />
                             <input
                                 id="img"
@@ -111,26 +132,27 @@ export default function ModalEditarServicio({ serviciosRef, handleClickDesactiva
                             />
                         </div>
                     )}
-                    {
-                        preview === "duration" && (
-                            <div className="flex flex-col gap-4">
-                                <label htmlFor="duration" className="text-sm text-primary bg-white px-5 py-1 rounded w-fit">Duración</label>
-                                <AnimatedSelect funcion={handleChange} select={formatearDuracion(formValues.duration)} name="duration" options={formatoHoraMinuto(MINUTOS_ARRAY)} clases="bg-primary text-white border-white hover:bg-white/80 hover:text-primary" />
-                            </div>
-                        )
-                    }
+
+                    {preview === "duration" && (
+                        <div className="flex flex-col gap-4">
+                            <label htmlFor="duration" className="text-sm hidden md:flex text-primary bg-white px-5 py-1 rounded w-fit">Duración</label>
+                            <AnimatedSelect
+                                funcion={handleChange}
+                                select={formatearDuracion(formValues.duration)}
+                                name="duration"
+                                options={formatoHoraMinuto(MINUTOS_ARRAY)}
+                                clases="bg-primary text-white border-white hover:bg-white/80 hover:text-primary"
+                            />
+                        </div>
+                    )}
                 </div>
 
                 <div className="flex justify-end mt-4">
-                    <button
-                        type="submit"
-                        className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 w-fit"
-                    >
+                    <button type="submit" className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 w-fit">
                         Guardar cambios
                     </button>
                 </div>
-
             </form>
         </div>
-    )
+    );
 }
