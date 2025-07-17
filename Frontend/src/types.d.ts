@@ -1,5 +1,5 @@
 export interface Servicio {
-    id: `${string}-${string}-${string}-${string}-${string}`;
+    id: `${string}-${string}-${string}-${string}-${string}` | "";
     titulo: string;
     descripcion: string;
     img: string;
@@ -141,5 +141,4 @@ interface ModalEditarServicioProps {
     handleClickDesactivarModal: () => void;
     formValues: ServicioResponse;
     handleChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => void;
-    refresh: (id: string, data: Partial<ServicioResponse>) => void;
 }

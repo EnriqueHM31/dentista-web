@@ -3,13 +3,7 @@ import { ServicioContext } from "@/context/Servicio";
 import type { Especialista } from "@/types";
 import { useContext } from "react";
 import {
-    AiOutlineUser,
-    AiOutlineMail,
-    AiOutlinePhone,
-    AiOutlineLink,
-    AiOutlinePicture,
-    AiOutlineTool,
-    AiOutlineHome,
+    AiOutlineUser, AiOutlineMail, AiOutlinePhone, AiOutlineLink, AiOutlinePicture, AiOutlineTool, AiOutlineHome,
 } from "react-icons/ai";
 
 interface PropsModalEditarEspecialista {
@@ -128,8 +122,6 @@ export default function ModalEditarEspecialista({ toggle, especialistaSelecciona
                             className="border px-3 py-2 rounded-md text-white"
                         />
                     </label>
-
-
 
                     {/* LinkedIn */}
                     <label htmlFor="linkedin" className="flex flex-col gap-3">

@@ -9,14 +9,8 @@ import { useEditarPregunta } from "@/hooks/admin/Preguntas/useEditarPregunta";
 export default function ListaPreguntas() {
 
     const { handleClickActivarModalIndependiente, handleClickDesactivarModal, activeModal } = useModalIndependiente();
-    const {
-        preguntas,
-        expandedIds,
-        toggleExpand,
-        handleClickEliminarPregunta,
-    }
-        = usePreguntas();
 
+    const { preguntas, expandedIds, toggleExpand, handleClickEliminarPregunta } = usePreguntas();
 
     const { preguntaSeleccionada, handleEditarPregunta, handleClickModalEditarPregunta, handleClickModalEditarRespuesta, handleClickEditar } = useEditarPregunta();
 
@@ -54,7 +48,6 @@ export default function ListaPreguntas() {
                 <ModalCrear
                     toggle={handleClickDesactivarModal}
                     handleClickDesactivarModal={handleClickDesactivarModal}
-
                 />
             </Modal>
 

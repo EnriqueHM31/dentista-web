@@ -4,6 +4,7 @@ import type { ServicioResponse } from "@/types";
 import { crearServicio, eliminarServicio } from "@/services/Servicios";
 import { esURLValida } from "@/utils/constantes";
 import { ServicioContext } from "@/context/Servicio";
+import { convertirADuracionEnMinutos } from "@/utils/Hora";
 
 
 interface useGetServiciosProps {
@@ -21,41 +22,13 @@ export function useGetServicios({ handleClickDesactivarModal }: useGetServiciosP
         }
     }, [servicios]);
 
-    const refrescarUpdateServicio = (
-        id: string, { titulo, descripcion, img, duration, }: { titulo?: string; descripcion?: string; img?: string; duration?: number; }
-    ) => {
-        const index = formRef.current.findIndex((s) => s.id === id);
-        if (index === -1) {
-            toast.error("Servicio no encontrado");
-            return;
-        }
-
-        const cambios: Partial<ServicioResponse> = {};
-        if (titulo !== undefined) cambios.titulo = titulo;
-        if (descripcion !== undefined) cambios.descripcion = descripcion;
-        if (img !== undefined) cambios.img = img;
-        if (duration !== undefined) cambios.duration = duration;
-
-        formRef.current[index] = {
-            ...formRef.current[index],
-            ...cambios,
-        };
-
-        setServicios([...formRef.current]);
-    };
-
-
-
-
-
-    const refrescarCrearServicio = ({ id, titulo, descripcion, img, duration }: ServicioResponse) => {
-
-        console.log(id, titulo, descripcion, img, duration);
-        setServicios(prev => [...prev, { id, titulo, descripcion, img, duration }].sort((a, b) => a.titulo.localeCompare(b.titulo)));
-    }
 
     const handleEliminarServicio = async (id: `${string}-${string}-${string}-${string}-${string}` | "") => {
 
+        if (id === "" || id === undefined) {
+            toast.error("Servicio no encontrado");
+            return;
+        }
         toast("¿Estas seguro que quieres eliminar este servicio?", {
             action: {
                 label: "Eliminar",
@@ -87,18 +60,6 @@ export function useGetServicios({ handleClickDesactivarModal }: useGetServiciosP
         );
     };
 
-    function convertirADuracionEnMinutos(valor: string): number {
-        const horasMatch = valor.match(/(\d+)\s*h/);
-        const minutosMatch = valor.match(/(\d+)\s*m/);
-
-        const horas = horasMatch ? parseInt(horasMatch[1], 10) : 0;
-        const minutos = minutosMatch ? parseInt(minutosMatch[1], 10) : 0;
-
-        const totalMinutos = horas * 60 + minutos;
-
-        return totalMinutos; // Retorna número entero: 30, 60, 90, 120...
-    }
-
 
     const handleSubmitCrearServicio = async (e: React.FormEvent,) => {
 
@@ -123,7 +84,7 @@ export function useGetServicios({ handleClickDesactivarModal }: useGetServiciosP
             if (success) {
                 toast.success("Servicio creado correctamente");
                 handleClickDesactivarModal();
-                refrescarCrearServicio(servicio);
+                setServicios(prev => [...prev, servicio]);
             } else {
                 toast.error(message || "Error al crear el servicio");
             }
@@ -135,5 +96,5 @@ export function useGetServicios({ handleClickDesactivarModal }: useGetServiciosP
 
 
 
-    return { servicios, serviciosRef: formRef, refrescarUpdateServicio, refrescarCrearServicio, handleEliminarServicio, handleSubmitCrearServicio };
+    return { servicios, serviciosRef: formRef, handleEliminarServicio, handleSubmitCrearServicio };
 }

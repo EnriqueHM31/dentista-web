@@ -1,7 +1,8 @@
 import { toast } from "sonner";
 import type { ServicioResponse, Servicio } from "@/types";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { modificarServicio } from "@/services/Servicios";
+import { ServicioContext } from "@/context/Servicio";
 
 interface useEditarServicioProps {
     serviciosRef: React.RefObject<ServicioResponse[]>,
@@ -11,13 +12,14 @@ interface useEditarServicioProps {
 
 export function useEditarServicio({ serviciosRef, formValues, handleClickDesactivarModal }: useEditarServicioProps) {
     const [preview, setPreview] = useState<keyof Servicio | null>('titulo');
+    const { setServicios } = useContext(ServicioContext);
 
     const handlePreview = (campo: keyof Servicio) => {
         setPreview(campo);
     };
 
 
-    const handleSubmit = async (e: React.FormEvent, id: string, refresh: (id: string, data: Partial<ServicioResponse>) => void) => {
+    const handleSubmit = async (e: React.FormEvent, id: string) => {
         e.preventDefault();
 
         // Verificar si hubo cambios
@@ -62,7 +64,7 @@ export function useEditarServicio({ serviciosRef, formValues, handleClickDesacti
                         if (success) {
                             toast.success("Cambios guardados correctamente");
                             handleClickDesactivarModal();
-                            refresh(id, formValues);
+                            setServicios(prev => prev.map(s => s.id === id ? { ...s, ...formValues } : s));
                         } else {
                             toast.error(message || "Error al guardar los cambios.");
                         }

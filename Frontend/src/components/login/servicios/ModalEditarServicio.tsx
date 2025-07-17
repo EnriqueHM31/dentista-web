@@ -14,7 +14,7 @@ const opciones = [
     { label: "Duración", value: "duration" },
 ];
 
-export default function ModalEditarServicio({ serviciosRef, handleClickDesactivarModal, formValues, handleChange, refresh }: ModalEditarServicioProps) {
+export default function ModalEditarServicio({ serviciosRef, handleClickDesactivarModal, formValues, handleChange }: ModalEditarServicioProps) {
     const { preview, handlePreview, handleSubmit } = useEditarServicio({ serviciosRef, formValues, handleClickDesactivarModal });
     const [mostrarSelector, setMostrarSelector] = useState(false);
 
@@ -62,7 +62,7 @@ export default function ModalEditarServicio({ serviciosRef, handleClickDesactiva
 
             {/* Derecha: contenido editable */}
             <form
-                onSubmit={(e) => handleSubmit(e, formValues.id, refresh)}
+                onSubmit={(e) => handleSubmit(e, formValues.id)}
                 className="flex-2 p-6 overflow-auto w-full max-w-full flex flex-col justify-between relative"
             >
                 {/* Botón selector móvil */}
