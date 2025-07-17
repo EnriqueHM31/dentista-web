@@ -5,7 +5,6 @@ import type { SlideProps } from "@/types";
 export default function Slide({ slide, index, current, handleSlideClick }: SlideProps) {
     const { nombre, apellido, email, telefono, avatar, linkedin, servicio } = slide;
 
-
     return (
 
         <>

@@ -10,8 +10,6 @@ interface ModalCrearServicioProps {
 
 export default function ModalCrearServicio({ handleClickDesactivarModal, handleSubmitCrearServicio }: ModalCrearServicioProps) {
 
-
-
     return (
         <form className="w-full p-6 flex flex-col  gap-4 bg-primary min-h-[70vh]" onSubmit={(e) => {
             handleSubmitCrearServicio(e)

@@ -49,3 +49,15 @@ export async function updateComentarioVisibilidad({ id, visible }: { id: string,
     return await response.json();
 }
 
+
+export async function deleteComentario(id: `${string}-${string}-${string}-${string}-${string}`) {
+    const response = await fetch(`${VITE_API_URL}/comentarios/${id}`, {
+        method: "DELETE",
+        headers: {
+            "Content-Type": "application/json",
+        },
+    });
+
+    const { success, message } = await response.json();
+    return { success, message };
+}

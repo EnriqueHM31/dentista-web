@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRanking } from "@/hooks/general/useRanking";
 import { FaStar } from "react-icons/fa";
 
 interface StarRatingProps {
@@ -7,18 +7,8 @@ interface StarRatingProps {
 }
 
 export default function StarRating({ name, onChange }: StarRatingProps) {
-    const [hovered, setHovered] = useState<number | null>(null);
-    const [selected, setSelected] = useState<number>(0);
 
-    const handleMouseEnter = (index: number) => setHovered(index);
-    const handleMouseLeave = () => setHovered(null);
-
-    const handleClick = (index: number) => {
-        setSelected(index);
-        onChange?.(index);
-    };
-
-    const rating = hovered ?? selected;
+    const { selected, handleMouseEnter, handleMouseLeave, handleClick, rating } = useRanking(onChange);
 
     return (
         <div className="flex items-center gap-2">
