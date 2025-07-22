@@ -5,17 +5,18 @@ import { toast } from "sonner";
 
 interface PropsHookEspecialistas {
     especialistas: Especialista[];
-    toggle: () => void;
+    toggle: (id: string) => void;
+    handleClickDesactivarModal: () => void;
 }
 
-export function useEspecialistas({ especialistas, toggle }: PropsHookEspecialistas) {
+export function useEspecialistas({ especialistas, toggle, handleClickDesactivarModal }: PropsHookEspecialistas) {
     const { setEspecialistas } = useContext(EspecialistasContext);
     const [especialistaSeleccionado, setEspecialistaSeleccionado] = useState<Especialista | null>(null);
 
 
-    const handleOpen = (especialista: Especialista) => {
-        setEspecialistaSeleccionado(especialista);
-        toggle(); // abre el modal
+    const handleOpen = (especialista?: Especialista, modal?: string) => {
+        setEspecialistaSeleccionado(especialista || null);
+        toggle(modal || ""); // abre el modal
     };
 
 
@@ -29,7 +30,7 @@ export function useEspecialistas({ especialistas, toggle }: PropsHookEspecialist
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
         if (especialistaSeleccionado) {
-            toggle(); // cierra el modal
+            handleClickDesactivarModal();
         }
     };
 

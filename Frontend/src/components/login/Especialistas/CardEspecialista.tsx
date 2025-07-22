@@ -4,7 +4,7 @@ import { FaTrash } from "react-icons/fa6";
 
 
 interface EspecialistasCardProps {
-    handleOpen: (especialista: Especialista) => void;
+    handleOpen: (especialista: Especialista, modal: string) => void;
     handleDelete: (id: string) => void;
     especialista: Especialista;
 }
@@ -14,7 +14,7 @@ export default function EspecialistasCard({ handleOpen, handleDelete, especialis
 
     return (
         <>
-            <li onClick={() => handleOpen(especialista)} key={especialista.id} className="bg-primary rounded-2xl px-4 md:py-8 py-4 text-white dark:bg-gray-950 min-h-[300px] flex flex-col justify-center relative">
+            <li onClick={() => handleOpen(especialista, 'editar_especialista')} key={especialista.id} className="bg-primary rounded-2xl px-4 md:py-8 py-4 text-white dark:bg-gray-950 min-h-[300px] md:min-h-auto flex flex-col justify-center relative">
                 <article className=" flex justify-between  gap-4 flex-col">
                     <div className="flex gap-4 items-center">
                         <img src={especialista.avatar} alt={especialista.nombre} className="w-10 h-10 rounded-full" />

@@ -23,7 +23,7 @@ export default function Dashboard() {
             <AsideMenu handleClickSelected={handleClickSelected} selected={selected} />
 
             {/* Main content */}
-            <main className="flex-1 py-16 max-w-11/12 md:max-w-10/12 mx-auto w-full md:p-6 p-2 min-h-screen md:h-screen overflow-auto">
+            <main className="flex-1 py-16 max-w-11/12 md:max-w-full mx-auto w-full md:p-6 p-2 min-h-screen md:h-screen overflow-auto">
                 <div className="bg-white rounded shadow">
                     {selected === "perfil" && <Perfil />}
                     {selected === "servicios" && <ServicioProvider> <Servicios /> </ServicioProvider>}

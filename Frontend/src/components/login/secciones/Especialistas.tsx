@@ -3,24 +3,38 @@ import { useContext } from "react"
 import EspecialistasCard from "../Especialistas/CardEspecialista"
 import Modal from "@/components/General/Modal"
 import ModalEditarEspecialista from "../Especialistas/ModalEditarEspecialista"
-import { useOpenWithTransition } from "@/hooks/general/useOpenWithTransition"
 import { useEspecialistas } from "@/hooks/admin/Especialistas/useEspecialistas"
+import ModalCrearEspecialista from "../Especialistas/ModalCrearEspecialista"
+import { useModalIndependiente } from "@/hooks/general/useModalIndependiente"
 
 export default function Especialistas() {
 
 
     const { especialistas } = useContext(EspecialistasContext)
 
-    const { isOpen, toggle } = useOpenWithTransition();
 
-    const { handleOpen, handleChange, handleSubmit, handleDelete, especialistaSeleccionado } = useEspecialistas({ especialistas, toggle });
+    const { handleClickActivarModalIndependiente, handleClickDesactivarModal, activeModal } = useModalIndependiente();
+
+    const { handleOpen, handleChange, handleSubmit, handleDelete, especialistaSeleccionado } = useEspecialistas({ especialistas, toggle: handleClickActivarModalIndependiente, handleClickDesactivarModal });
 
     return (
         <>
 
 
-            <Modal activeId={'editar_especialista'} isOpen={isOpen} onClose={toggle} clases="max-w-11/12 md:max-w-3/4" >
-                <ModalEditarEspecialista toggle={toggle} especialistaSeleccionado={especialistaSeleccionado} handleChange={handleChange} handleSubmit={handleSubmit} />
+            <Modal
+                activeId={'editar_especialista'}
+                modalId={activeModal as string}
+                onClose={handleClickDesactivarModal}
+                clases="max-w-11/12 md:max-w-3/4" >
+                <ModalEditarEspecialista toggle={handleClickDesactivarModal} especialistaSeleccionado={especialistaSeleccionado} handleChange={handleChange} handleSubmit={handleSubmit} />
+            </Modal>
+
+            <Modal
+                activeId={'crear_especialista'}
+                modalId={activeModal as string}
+                onClose={handleClickDesactivarModal}
+                clases="max-w-11/12 md:max-w-3/4" >
+                <ModalCrearEspecialista toggle={handleClickDesactivarModal} handleChange={handleChange} handleSubmit={handleSubmit} />
             </Modal>
 
 
@@ -31,6 +45,7 @@ export default function Especialistas() {
                     <div className="flex justify-end">
                         <button
                             className="bg-primary text-white px-6 py-2 rounded-lg hover:bg-primary/90 transition"
+                            onClick={() => handleOpen(undefined, 'crear_especialista')}
                         >
                             Crear nuevo especialista
                         </button>
