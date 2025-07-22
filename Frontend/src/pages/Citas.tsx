@@ -40,7 +40,7 @@ export default function Citas() {
                         </p>
                     </div>
 
-                    <form className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+                    <form className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         {/* Nombre completo */}
                         <div className="flex flex-col">
                             <label htmlFor="nombre" className="text-sm text-gray-600">Nombre completo</label>
@@ -81,12 +81,6 @@ export default function Citas() {
                             />
                         </div>
 
-                        {/* Servicio odontológico */}
-                        <div className="flex flex-col">
-                            <label htmlFor="servicio" className="text-sm text-gray-600">Servicio odontológico</label>
-                            <AnimatedSelect clases="border-white bg-primary text-white hover:bg-white hover:text-primary" name="servicio" options={servicios.map(({ titulo }) => titulo)} />
-                        </div>
-
                         {/* Fecha */}
                         <div className="flex flex-col">
                             <label htmlFor="fecha" className="text-sm text-gray-600">Fecha de la cita</label>
@@ -99,17 +93,34 @@ export default function Citas() {
                             />
                         </div>
 
-                        {/* Hora */}
-                        <div className="flex flex-col">
-                            <div className="flex flex-col">
-                                <label htmlFor="hora" className="text-sm text-gray-600">Hora de la cita</label>
-                                <AnimatedSelect name="hora" options={horas} />
-                            </div>
+                        {/* Servicio odontológico */}
 
+                        <div className="flex flex-col">
+                            <label htmlFor="servicio" className="text-sm text-gray-600">Servicio odontológico</label>
+                            <AnimatedSelect
+                                name="servicio"
+                                select="Selecciona un servicio"
+                                selectClass="bg-white border border-primary mt-1 text-primary"
+                                itemClass="bg-white text-primary"
+                                itemHoverClass="hover:bg-primary hover:text-white"
+                                options={servicios.map(({ titulo }) => titulo)}
+                            />
                         </div>
 
-                        {/* Comentarios (ocupa las tres columnas) */}
-                        <div className="md:col-span-2 xl:col-span-3 flex flex-col">
+                        {/* Hora de la cita */}
+                        <div className="flex flex-col">
+                            <label htmlFor="hora" className="text-sm text-gray-600">Hora de la cita</label>
+                            <AnimatedSelect
+                                name="hora"
+                                selectClass="bg-white border border-primary mt-1 text-primary"
+                                itemClass="bg-white text-primary"
+                                itemHoverClass="hover:bg-primary hover:text-white"
+                                select={horas[0]}
+                                options={horas} />
+                        </div>
+
+                        {/* Comentarios (ocupa las 2 columnas) */}
+                        <div className="md:col-span-2 flex flex-col">
                             <label htmlFor="comentarios" className="text-sm text-gray-600">Comentarios adicionales</label>
                             <textarea
                                 id="comentarios"
@@ -119,17 +130,17 @@ export default function Citas() {
                             ></textarea>
                         </div>
 
-                        {/* Botón (ocupa las tres columnas y se alinea a la derecha) */}
-                        <div className="md:col-span-2 xl:col-span-3 flex justify-end">
+                        {/* Botón (ocupa 2 columnas) */}
+                        <div className="md:col-span-2 flex justify-end">
                             <button
                                 type="submit"
-
                                 className="bg-blue-600 cursor-pointer hover:bg-blue-800 text-white px-6 py-2 rounded-md transition-all"
                             >
                                 Agendar cita
                             </button>
                         </div>
                     </form>
+
 
 
 

@@ -22,7 +22,7 @@ export default function StarRating({ name, onChange }: StarRatingProps) {
                     className="text-3xl text-yellow-400"
                 >
                     <FaStar
-                        className={`transition-all duration-200 ${index <= rating
+                        className={`transition-all cursor-pointer duration-200 ${index <= rating
                             ? "fill-yellow-400"
                             : "fill-white/50"
                             }`}

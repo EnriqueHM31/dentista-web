@@ -55,11 +55,11 @@ export default function Contacto() {
             <section className=" w-full gap-12 mt-20 py-10 md:py-15 xl:py-10 min-h-screen flex flex-col lg:flex-row justify-start md:justify-center max-w-11/12 md:max-w-10/12 mx-auto px-2 md:px-6 items-center md:items-stretch " id="contacto">
                 <div className="flex-1 flex flex-col gap-8 order-2 md:order-1">
                     <div className="flex flex-col gap-4">
-                        <TituloSeccion titulo="Hablemos de algo interesante juntos" clases="text-start max-w-3/4" />
+                        <TituloSeccion titulo="Hablemos de algo interesante juntos" clases="text-start max-w-3/4 px-3" />
                         <ul>
                             {
                                 formData.map(({ id, nombre, referencia }) => (
-                                    <li key={id} className="flex gap-4 items-center px-0 py-3 rounded-2xl hover:bg-primary/90 transition duration-300 ease-in-out w-fit cursor-pointer max-w-full text-primary hover:text-white" onClick={() => handleClickCopy(referencia, `Se ha copiado ${referencia}`)}>
+                                    <li key={id} className="flex gap-4 items-center px-3 py-3 rounded-2xl hover:bg-primary/90  transition duration-300 ease-in-out w-fit cursor-pointer max-w-full text-primary hover:text-white" onClick={() => handleClickCopy(referencia, `Se ha copiado ${referencia}`)}>
                                         {MAS_CONTACTOS.find(s => s.label === nombre)?.icono}
                                         <p>{referencia}</p>
                                     </li>
@@ -85,7 +85,10 @@ export default function Contacto() {
 
                         <AnimatedSelect
                             name="categoria"
-                            clases="border-white bg-primary text-white hover:bg-white hover:text-primary"
+                            select="Selecciona un servicio"
+                            selectClass="bg-primary border border-white mt-1 text-white"
+                            itemClass="bg-primary text-white"
+                            itemHoverClass="hover:bg-white hover:text-primary"
                             options={servicios.map(({ titulo }) => titulo)}
                         />
 

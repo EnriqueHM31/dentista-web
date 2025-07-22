@@ -39,10 +39,10 @@ export default function Footer() {
                     </div>
                 </section>
 
-                <section className="flex flex-col md:flex-row items-center justify-center md:justify-between gap-2">
-                    <p className="order-2 md:order-1"> &copy; {new Date().getFullYear()} Odontologia LEHM</p>
+                <section className="flex flex-col md:flex-row items-center justify-center md:justify-between gap-2 w-full ">
+                    <p className="order-2 md:order-1"> &copy; {new Date().getFullYear()} Odontología LEHM</p>
 
-                    <ul className="order-1 md:order-2 flex w-full justify-center items-center gap-2">
+                    <ul className="order-1 md:order-2 flex w-full md:w-auto justify-center items-center gap-2">
                         {
                             DataSocialesFooter.map(({ nombre, referencia }, index) => (
                                 <li key={index} >
