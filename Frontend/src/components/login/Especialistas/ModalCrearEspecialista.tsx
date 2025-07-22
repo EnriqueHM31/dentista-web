@@ -61,7 +61,10 @@ export default function ModalCrearEspecialista({ toggle, handleChange, handleSub
                         </span>
                         <AnimatedSelect
                             name="servicio"
-                            clases="bg-primary text-white hover:bg-white hover:text-primary border border-white"
+                            select="Selecciona un servicio"
+                            selectClass="bg-primary border border-white mt-1 text-white"
+                            itemClass="bg-primary text-white"
+                            itemHoverClass="hover:bg-white hover:text-primary"
                             options={servicios.map((servicio) => servicio.titulo)}
                             funcion={handleChange}
                         />

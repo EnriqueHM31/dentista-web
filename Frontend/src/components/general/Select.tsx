@@ -73,9 +73,10 @@ export default function AnimatedSelect({
                 onClick={() => setIsOpen(!isOpen)}
                 className={`w-full px-4 py-3 cursor-pointer border border-primary rounded-lg flex justify-between items-center ${selectClass} focus:outline-2 focus:outline-primary`}
             >
-                <span className={`text-md md:text-base ${textClass}`}>
-                    {selected.length > 30 ? selected.slice(0, 27) + "..." : selected}
+                <span className={`text-md md:text-base truncate whitespace-nowrap overflow-hidden text-ellipsis ${textClass}`}>
+                    {selected}
                 </span>
+
                 <FaChevronDown className={`transition-transform duration-200 ${isOpen ? "rotate-180" : ""}`} />
             </button>
 

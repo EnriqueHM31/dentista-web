@@ -22,7 +22,7 @@ export default function ModalEditarEspecialista({ toggle, especialistaSelecciona
 
             <div className="flex flex-col md:flex-row gap-6">
                 {/* Imagen */}
-                <div className="md:flex-1 flexitems-center justify-center">
+                <div className="md:flex-1 flex items-center justify-center">
                     {especialistaSeleccionado?.avatar && (
                         <img
                             src={especialistaSeleccionado.avatar}
@@ -71,7 +71,9 @@ export default function ModalEditarEspecialista({ toggle, especialistaSelecciona
                         </span>
                         <AnimatedSelect
                             name="servicio"
-                            clases="bg-primary text-white hover:bg-white hover:text-primary border border-white"
+                            selectClass="bg-primary border border-white mt-1 text-white"
+                            itemClass="bg-primary text-white"
+                            itemHoverClass="hover:bg-white hover:text-primary"
                             options={servicios.map((servicio) => servicio.titulo)}
                             select={especialistaSeleccionado?.servicio || ""}
                             funcion={handleChange}
@@ -111,7 +113,7 @@ export default function ModalEditarEspecialista({ toggle, especialistaSelecciona
 
                     <label htmlFor="direccion" className="flex flex-col gap-3">
                         <span className="flex items-center gap-2 font-medium text-white/50">
-                            <AiOutlineHome /> Direccion
+                            <AiOutlineHome /> Dirección
                         </span>
                         <input
                             id="direccion"
