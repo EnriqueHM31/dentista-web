@@ -1,54 +1,25 @@
 import AnimatedSelect from "@/components/General/Select";
-import { EspecialistasContext } from "@/context/Especialistas";
 import { ServicioContext } from "@/context/Servicio";
-import type { Especialista } from "@/types";
-import { useActionState, useContext, useEffect } from "react";
+import { useContext, useEffect } from "react";
+
 import {
     AiOutlineUser, AiOutlineMail, AiOutlinePhone, AiOutlineLink, AiOutlinePicture, AiOutlineTool, AiOutlineHome,
 } from "react-icons/ai";
-import { toast } from "sonner";
 
 interface PropsModalEditarEspecialista {
     handleClickDesactivarModal: () => void;
-    handleCrearEspecialista: (state: CrearEspecialistaState, formData: FormData) => CrearEspecialistaState | Promise<CrearEspecialistaState>;
+    handleCrearEspecialista: (e: React.FormEvent) => void;
+    handleChangeCrearEspecialista: (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => void;
 }
 
-interface CrearEspecialistaState {
-    success: boolean;
-    message: string;
-    especialistaCreado: Especialista | null;
-}
+export default function ModalCrearEspecialista({ handleClickDesactivarModal, handleCrearEspecialista, handleChangeCrearEspecialista }: PropsModalEditarEspecialista) {
 
-export default function ModalCrearEspecialista({ handleClickDesactivarModal, handleCrearEspecialista }: PropsModalEditarEspecialista) {
 
     const { servicios } = useContext(ServicioContext);
-    const { setEspecialistas, ordenarEspecialistas } = useContext(EspecialistasContext);
-
-    const [stateCrearEspecialista, formActionCrearEspecialista, isPendingCrearEspecialista] = useActionState<CrearEspecialistaState, FormData>(
-        handleCrearEspecialista,
-        { success: false, message: "", especialistaCreado: null }
-    );
-
-    const { success, message, especialistaCreado } = stateCrearEspecialista;
 
     useEffect(() => {
-        if (message) {
-            if (success && especialistaCreado) {
-                setEspecialistas(prev => {
-                    const newArray = [...prev, especialistaCreado as Especialista];
-
-                    return ordenarEspecialistas(newArray);
-                }
-                );
-                toast.success(message);
-                handleClickDesactivarModal();
-            } else {
-                toast.error(message);
-            }
-        }
-    }, [message]);
-
-
+        handleChangeCrearEspecialista({ target: { name: "servicio", value: servicios[0].titulo } } as React.ChangeEvent<HTMLInputElement | HTMLSelectElement>);
+    }, []);
 
     return (
         <div className=" w-full  mx-auto p-5 bg-primary text-white ">
@@ -61,7 +32,7 @@ export default function ModalCrearEspecialista({ handleClickDesactivarModal, han
                 </div>
 
                 {/* Formulario */}
-                <form action={formActionCrearEspecialista} className="md:flex-2 flex-3 md:grid flex flex-col  md:grid-cols-2 gap-8 w-full">
+                <form onSubmit={(e) => handleCrearEspecialista(e)} className="md:flex-2 flex-3 md:grid flex flex-col  md:grid-cols-2 gap-8 w-full">
                     {/* Nombre */}
                     <label htmlFor="nombre" className="flex flex-col gap-3">
                         <span className="flex items-center gap-2 font-medium text-white/50">
@@ -71,6 +42,7 @@ export default function ModalCrearEspecialista({ handleClickDesactivarModal, han
                             id="nombre"
                             type="text"
                             name="nombre"
+                            onChange={(e) => handleChangeCrearEspecialista(e)}
                             className="border px-3 py-2 rounded-md text-white"
                         />
                     </label>
@@ -84,6 +56,7 @@ export default function ModalCrearEspecialista({ handleClickDesactivarModal, han
                             id="apellido"
                             type="text"
                             name="apellido"
+                            onChange={(e) => handleChangeCrearEspecialista(e)}
                             className="border px-3 py-2 rounded-md text-white"
                         />
                     </label>
@@ -95,6 +68,7 @@ export default function ModalCrearEspecialista({ handleClickDesactivarModal, han
                         </span>
                         <AnimatedSelect
                             name="servicio"
+                            onChange={(e) => handleChangeCrearEspecialista(e)}
                             selectClass="bg-primary border border-white mt-1 text-white"
                             itemClass="bg-primary text-white"
                             itemHoverClass="hover:bg-white hover:text-primary"
@@ -112,6 +86,7 @@ export default function ModalCrearEspecialista({ handleClickDesactivarModal, han
                             id="email"
                             type="email"
                             name="email"
+                            onChange={(e) => handleChangeCrearEspecialista(e)}
                             className="border px-3 py-2 rounded-md text-white"
                         />
                     </label>
@@ -125,6 +100,7 @@ export default function ModalCrearEspecialista({ handleClickDesactivarModal, han
                             id="telefono"
                             type="text"
                             name="telefono"
+                            onChange={(e) => handleChangeCrearEspecialista(e)}
                             className="border px-3 py-2 rounded-md text-white"
                         />
                     </label>
@@ -137,6 +113,7 @@ export default function ModalCrearEspecialista({ handleClickDesactivarModal, han
                             id="direccion"
                             type="text"
                             name="direccion"
+                            onChange={(e) => handleChangeCrearEspecialista(e)}
                             className="border px-3 py-2 rounded-md text-white"
                         />
                     </label>
@@ -150,6 +127,7 @@ export default function ModalCrearEspecialista({ handleClickDesactivarModal, han
                             id="linkedin"
                             type="text"
                             name="linkedin"
+                            onChange={(e) => handleChangeCrearEspecialista(e)}
                             className="border px-3 py-2 rounded-md text-white"
                         />
                     </label>
@@ -163,6 +141,7 @@ export default function ModalCrearEspecialista({ handleClickDesactivarModal, han
                             id="avatar"
                             type="text"
                             name="avatar"
+                            onChange={(e) => handleChangeCrearEspecialista(e)}
                             className="border px-3 py-2 rounded-md text-white"
                         />
                     </label>
@@ -179,9 +158,8 @@ export default function ModalCrearEspecialista({ handleClickDesactivarModal, han
                         <button
                             type="submit"
                             className="px-4 py-2 bg-blue-600 hover:bg-blue-800 text-white font-semibold rounded-md"
-                            disabled={isPendingCrearEspecialista}
                         >
-                            {isPendingCrearEspecialista ? "Creando..." : "Crear"}
+                            Crear
                         </button>
                     </div>
                 </form>

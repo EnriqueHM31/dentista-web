@@ -43,12 +43,12 @@ export class ControllerEspecialistas {
 
         const data = { nombre, apellido, email, telefono, direccion, avatar, servicio, linkedin };
 
-        const { success, message } = await ModeloEspecialista.updateEspecialista(result.data.id, data);
+        const { success, message, cambios } = await ModeloEspecialista.updateEspecialista(result.data.id, data);
 
         if (success) {
-            res.status(200).json({ success, message });
+            res.status(200).json({ success, message, cambios });
         } else {
-            res.status(500).json({ success, message });
+            res.status(500).json({ success, message, cambios });
         }
     }
 

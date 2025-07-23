@@ -10,10 +10,10 @@ interface PropsModalEditarEspecialista {
     toggle: () => void;
     especialistaSeleccionado: Especialista | null;
     handleChange: (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => void;
-    handleSubmit: (e: React.FormEvent) => void;
+    handleEditarEspecialista: (e: React.FormEvent, id: `${string}-${string}-${string}-${string}-${string}`) => void;
 }
 
-export default function ModalEditarEspecialista({ toggle, especialistaSeleccionado, handleChange, handleSubmit, }: PropsModalEditarEspecialista) {
+export default function ModalEditarEspecialista({ toggle, especialistaSeleccionado, handleChange, handleEditarEspecialista, }: PropsModalEditarEspecialista) {
 
     const { servicios } = useContext(ServicioContext);
     return (
@@ -33,7 +33,7 @@ export default function ModalEditarEspecialista({ toggle, especialistaSelecciona
                 </div>
 
                 {/* Formulario */}
-                <form onSubmit={handleSubmit} className="md:flex-2 flex-3 md:grid flex flex-col  md:grid-cols-2 gap-8 w-full">
+                <form onSubmit={(e) => handleEditarEspecialista(e, especialistaSeleccionado?.id as `${string}-${string}-${string}-${string}-${string}`)} className="md:flex-2 flex-3 md:grid flex flex-col  md:grid-cols-2 gap-8 w-full">
                     {/* Nombre */}
                     <label htmlFor="nombre" className="flex flex-col gap-3">
                         <span className="flex items-center gap-2 font-medium text-white/50">

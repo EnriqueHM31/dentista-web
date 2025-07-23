@@ -11,8 +11,6 @@ import { UsuarioRouter } from './routes/datausuario.routes';
 import { ServiciosRoutes } from './routes/servicios.routes';
 import { EspecialistasRouter } from './routes/especialistas.routes';
 
-
-
 const PORT = 3000
 
 const app = express();
@@ -20,6 +18,7 @@ app.use(express.json());
 
 const allowedOrigins = ['http://localhost:3000', 'http://localhost:3001', 'http://localhost:5173',
     'http://192.168.1.104:5173'];
+
 
 app.use(cors({
     origin: function (origin, callback) {

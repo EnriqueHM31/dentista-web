@@ -1,6 +1,5 @@
 import { randomUUID } from 'crypto';
 import db from '@/database/db';
-import { console } from 'inspector';
 
 interface Especialista {
     id: string;
@@ -68,7 +67,6 @@ export class ModeloEspecialista {
     static async updateEspecialista(id: string, data: Partial<Especialista>) {
         try {
 
-            console.log(data);
             const allowedFields: (keyof Omit<Especialista, 'id'>)[] = [
                 'nombre', 'apellido', 'email', 'telefono', 'direccion', 'avatar', 'linkedin', 'servicio',
             ];
@@ -83,8 +81,6 @@ export class ModeloEspecialista {
                 }
             }
 
-            console.log(fields);
-
             if (fields.length === 0) {
                 return { success: false, message: 'No se proporcionaron campos válidos para actualizar' + JSON.stringify(data) };
             }
@@ -96,12 +92,12 @@ export class ModeloEspecialista {
             const [result] = await db.query(query, values);
 
             if (result) {
-                return { success: true, message: 'Especialista actualizado correctamente' };
+                return { success: true, message: 'Especialista actualizado correctamente', cambios: data };
             } else {
-                return { success: false, message: 'No se encontró el especialista o no se realizaron cambios' };
+                return { success: false, message: 'No se encontró el especialista o no se realizaron cambios', cambios: {} };
             }
         } catch (error) {
-            return { success: false, message: 'Error al actualizar el especialista' + error };
+            return { success: false, message: 'Error al actualizar el especialista' + error, cambios: {} };
         }
     }
 

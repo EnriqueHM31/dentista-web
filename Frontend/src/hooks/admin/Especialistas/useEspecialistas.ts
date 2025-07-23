@@ -3,14 +3,9 @@
 import { EspecialistasContext } from "@/context/Especialistas";
 import type { Especialista } from "@/types";
 import { esURLValida } from "@/utils/constantes";
-import { useContext, useState } from "react";
+import { useContext, useRef, useState } from "react";
 import { toast } from "sonner";
 
-interface CrearEspecialistaState {
-    success: boolean;
-    message: string;
-    especialistaCreado: Especialista | null;
-}
 
 interface PropsHookEspecialistas {
     especialistas: Especialista[];
@@ -18,13 +13,28 @@ interface PropsHookEspecialistas {
     handleClickDesactivarModal: () => void;
 }
 
+const INITIAL_ESPECIALISTA: Omit<Especialista, "id"> = {
+    nombre: "",
+    apellido: "",
+    email: "",
+    telefono: "",
+    direccion: "",
+    linkedin: "",
+    avatar: "",
+    servicio: "",
+}
+
 export function useEspecialistas({ especialistas, toggle, handleClickDesactivarModal }: PropsHookEspecialistas) {
-    const { setEspecialistas } = useContext(EspecialistasContext);
+    const { setEspecialistas, ordenarEspecialistas } = useContext(EspecialistasContext);
     const [especialistaSeleccionado, setEspecialistaSeleccionado] = useState<Especialista | null>(null);
+    const [especialistaCrear, setEspecialistaCrear] = useState<Omit<Especialista, "id">>(INITIAL_ESPECIALISTA);
+    const especialistaRef = useRef<Omit<Especialista, "id">>(INITIAL_ESPECIALISTA);
+
 
 
     const handleOpen = (especialista?: Especialista, modal?: string) => {
         setEspecialistaSeleccionado(especialista || null);
+        especialistaRef.current = especialista || INITIAL_ESPECIALISTA;
         toggle(modal || ""); // abre el modal
     };
 
@@ -36,11 +46,44 @@ export function useEspecialistas({ especialistas, toggle, handleClickDesactivarM
         );
     };
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleEditarEspecialista = async (e: React.FormEvent, id: `${string}-${string}-${string}-${string}-${string}`) => {
         e.preventDefault();
-        if (especialistaSeleccionado) {
-            handleClickDesactivarModal();
+
+        const camposCambiados: Partial<Omit<Especialista, "id">> = {};
+
+        // Detectar qué campos cambiaron
+        (Object.keys(especialistaRef.current) as (keyof Omit<Especialista, "id">)[]).forEach((key) => {
+            if (especialistaRef.current[key] !== especialistaSeleccionado?.[key]) {
+                camposCambiados[key] = especialistaSeleccionado?.[key];
+            }
+        });
+
+        if (Object.keys(camposCambiados).length === 0) {
+            toast.info("No hay cambios para guardar.");
+            return;
         }
+
+        try {
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/especialistas/${id}`, {
+                method: "PATCH",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(camposCambiados),
+            });
+
+            const { success, message, cambios } = await response.json();
+
+            if (success) {
+                toast.success(message);
+                setEspecialistas(prev => ordenarEspecialistas(prev.map(esp => esp.id === id ? { ...esp, ...cambios } : esp)));
+                handleClickDesactivarModal();
+            } else {
+                toast.error(message);
+            }
+        } catch {
+            toast.error("Error al actualizar el especialista.");
+        }
+
+
     };
 
     const handleDelete = async (id: string) => {
@@ -80,32 +123,16 @@ export function useEspecialistas({ especialistas, toggle, handleClickDesactivarM
         })
     };
 
-    const handleCrearEspecialista = async (
-        _prevState: CrearEspecialistaState,
-        formData: FormData
-    ): Promise<CrearEspecialistaState> => {
-        // Simula retardo (opcional)
-        await new Promise((resolve) => setTimeout(resolve, 1000));
 
-        const nombre = formData.get("nombre") as string;
-        const apellido = formData.get("apellido") as string;
-        const email = formData.get("email") as string;
-        const telefono = formData.get("telefono") as string;
-        const direccion = formData.get("direccion") as string;
-        const servicio = formData.get("servicio") as string;
-        const avatar = formData.get("avatar") as string;
-        const linkedin = formData.get("linkedin") as string;
+    const handleChangeCrearEspecialista = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+        const { name, value } = e.target;
+        setEspecialistaCrear((prev) => ({ ...prev, [name]: value }));
+    };
 
-        const especialista: Record<string, string> = {
-            nombre,
-            apellido,
-            email,
-            telefono,
-            direccion,
-            servicio,
-            avatar,
-            linkedin,
-        };
+    const handleCrearEspecialista = async (e: React.FormEvent) => {
+        e.preventDefault();
+        console.log(especialistaCrear);
+        const { avatar, linkedin } = especialistaCrear;
 
         if (!esURLValida(avatar)) {
             return { success: false, message: "La URL de la imagen no es válida", especialistaCreado: null };
@@ -121,24 +148,57 @@ export function useEspecialistas({ especialistas, toggle, handleClickDesactivarM
                 headers: {
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify(especialista),
+                body: JSON.stringify(especialistaCrear),
             });
 
             const { success, message, especialista: especialistaCreado } = await response.json();
 
-            return { success, message, especialistaCreado };
+            if (success) {
+                toast.success(message);
+                setEspecialistas(prev => ordenarEspecialistas([...prev, especialistaCreado as Especialista]));
+                handleClickDesactivarModal();
+            } else {
+                toast.error(message);
+            }
 
         } catch {
-            return { success: false, message: "Error de red", especialistaCreado: null };
+            toast.error("Error al crear el especialista.");
         }
     };
+
+    const handleDescartarCambiosEditarEspecialista = () => {
+
+        const sonIguales = Object.keys(especialistaRef.current).every(key => especialistaRef.current[key as keyof Omit<Especialista, "id">] === especialistaSeleccionado?.[key as keyof Omit<Especialista, "id">]);
+
+        if (sonIguales) {
+            handleClickDesactivarModal();
+        } else {
+            toast("¿Estas seguro de descartar los cambios?", {
+                action: {
+                    label: "Descartar",
+                    onClick: () => {
+                        handleClickDesactivarModal();
+                    },
+                },
+                cancel: {
+                    label: "Cancelar",
+                    onClick: () => {
+                        toast.dismiss();
+                    },
+                },
+            });
+        }
+    }
 
     return {
         handleOpen,
         handleChange,
-        handleSubmit,
+        handleChangeCrearEspecialista,
+        handleEditarEspecialista,
         handleDelete,
         handleCrearEspecialista,
         especialistaSeleccionado,
+        handleDescartarCambiosEditarEspecialista,
+
     }
 }
