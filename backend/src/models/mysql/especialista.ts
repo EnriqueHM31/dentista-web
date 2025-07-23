@@ -1,5 +1,6 @@
 import { randomUUID } from 'crypto';
 import db from '@/database/db';
+import { RowDataPacket } from 'mysql2';
 
 interface Especialista {
     id: string;
@@ -11,6 +12,10 @@ interface Especialista {
     avatar: string;
     linkedin: string;
     servicio: string;
+}
+
+interface TituloServicioObtenido extends RowDataPacket {
+    titulo: string;
 }
 
 export class ModeloEspecialista {
@@ -48,6 +53,8 @@ ORDER BY e.nombre, e.apellido ASC;
             );
 
             if (result.affectedRows === 1) {
+
+                const [rows] = await db.query<TituloServicioObtenido[]>(`SELECT titulo FROM ServiciosDentales WHERE id = ?`, [servicio]);
                 return {
                     success: true,
                     message: 'Especialista creado correctamente',
@@ -60,7 +67,7 @@ ORDER BY e.nombre, e.apellido ASC;
                         direccion: direccion,
                         avatar: avatar,
                         linkedin: linkedin,
-                        servicio: servicio
+                        servicio: rows[0].titulo
                     }
                 };
             } else {

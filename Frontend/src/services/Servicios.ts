@@ -7,6 +7,12 @@ export const getServicios = async () => {
     return { success, message };
 }
 
+export const getServiciosDisponibles = async () => {
+    const response = await fetch(`${VITE_API_URL}/servicios/disponibles`);
+    const { success, message } = await response.json();
+    return { success, message };
+}
+
 export const crearServicio = async ({ titulo, descripcion, img, duration }: { titulo: string, descripcion: string, img: string, duration: number }) => {
 
     const response = await fetch(`${VITE_API_URL}/servicios`, {

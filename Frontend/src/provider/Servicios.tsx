@@ -1,4 +1,4 @@
-import { getServicios } from "@/services/Servicios";
+import { getServicios, getServiciosDisponibles } from "@/services/Servicios";
 import { toast } from "sonner";
 import { useState, useEffect } from "react";
 import { ServicioContext } from "@/context/Servicio";
@@ -6,9 +6,11 @@ import type { ServicioResponse } from "@/types";
 
 export const ServicioProvider = ({ children }: { children: React.ReactNode }) => {
     const [servicios, setServicios] = useState<ServicioResponse[]>([]);
+    const [serviciosDisponibles, setServiciosDisponibles] = useState<ServicioResponse[]>([]);
 
     useEffect(() => {
         obtenerServicios();
+        obtenerServiciosDisponibles();
     }, []);
 
     const obtenerServicios = async () => {
@@ -20,8 +22,17 @@ export const ServicioProvider = ({ children }: { children: React.ReactNode }) =>
         setServicios(message);
     };
 
+    const obtenerServiciosDisponibles = async () => {
+        const { success, message } = await getServiciosDisponibles();
+        if (!success) {
+            toast.error("Error al cargar servicios disponibles");
+            return;
+        }
+        setServiciosDisponibles(message);
+    };
+
     return (
-        <ServicioContext.Provider value={{ servicios, setServicios }}>
+        <ServicioContext.Provider value={{ servicios, setServicios, serviciosDisponibles, setServiciosDisponibles }}>
             {children}
         </ServicioContext.Provider>
     );

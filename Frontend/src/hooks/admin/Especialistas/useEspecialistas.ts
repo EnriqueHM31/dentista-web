@@ -1,6 +1,7 @@
 "use server"
 
 import { EspecialistasContext } from "@/context/Especialistas";
+import { ServicioContext } from "@/context/Servicio";
 import type { Especialista } from "@/types";
 import { esURLValida } from "@/utils/constantes";
 import { useContext, useRef, useState } from "react";
@@ -26,6 +27,7 @@ const INITIAL_ESPECIALISTA: Omit<Especialista, "id"> = {
 
 export function useEspecialistas({ especialistas, toggle, handleClickDesactivarModal }: PropsHookEspecialistas) {
     const { setEspecialistas, ordenarEspecialistas } = useContext(EspecialistasContext);
+    const { serviciosDisponibles } = useContext(ServicioContext);
     const [especialistaSeleccionado, setEspecialistaSeleccionado] = useState<Especialista | null>(null);
     const [especialistaCrear, setEspecialistaCrear] = useState<Omit<Especialista, "id">>(INITIAL_ESPECIALISTA);
     const especialistaRef = useRef<Omit<Especialista, "id">>(INITIAL_ESPECIALISTA);
@@ -134,7 +136,13 @@ export function useEspecialistas({ especialistas, toggle, handleClickDesactivarM
     const handleCrearEspecialista = async (e: React.FormEvent) => {
         e.preventDefault();
         console.log(especialistaCrear);
-        const { avatar, linkedin } = especialistaCrear;
+        const { avatar, linkedin, servicio } = especialistaCrear;
+
+        const servicioDisponible = serviciosDisponibles.find((servicioObtener) => servicioObtener.titulo === servicio);
+
+        if (!servicioDisponible) {
+            return { success: false, message: "El servicio no está disponible", especialistaCreado: null };
+        }
 
         if (!esURLValida(avatar)) {
             return { success: false, message: "La URL de la imagen no es válida", especialistaCreado: null };
@@ -144,13 +152,15 @@ export function useEspecialistas({ especialistas, toggle, handleClickDesactivarM
             return { success: false, message: "La URL de linkedIn no es válida", especialistaCreado: null };
         }
 
+        const newEspecialista = { ...especialistaCrear, servicio: servicioDisponible.id };
+
         try {
             const response = await fetch(`${import.meta.env.VITE_API_URL}/especialistas`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify(especialistaCrear),
+                body: JSON.stringify(newEspecialista),
                 credentials: "include",
             });
 
@@ -158,7 +168,9 @@ export function useEspecialistas({ especialistas, toggle, handleClickDesactivarM
 
             if (success) {
                 toast.success(message);
-                setEspecialistas(prev => ordenarEspecialistas([...prev, especialistaCreado as Especialista]));
+                setEspecialistas(prev =>
+                    ordenarEspecialistas([...prev, especialistaCreado])
+                );
                 handleClickDesactivarModal();
             } else {
                 toast.error(message);

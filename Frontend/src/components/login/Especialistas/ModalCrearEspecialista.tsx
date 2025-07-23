@@ -15,10 +15,10 @@ interface PropsModalEditarEspecialista {
 export default function ModalCrearEspecialista({ handleClickDesactivarModal, handleCrearEspecialista, handleChangeCrearEspecialista }: PropsModalEditarEspecialista) {
 
 
-    const { servicios } = useContext(ServicioContext);
+    const { serviciosDisponibles } = useContext(ServicioContext);
 
     useEffect(() => {
-        handleChangeCrearEspecialista({ target: { name: "servicio", value: servicios[0].titulo } } as React.ChangeEvent<HTMLInputElement | HTMLSelectElement>);
+        handleChangeCrearEspecialista({ target: { name: "servicio", value: serviciosDisponibles[0].titulo } } as React.ChangeEvent<HTMLInputElement | HTMLSelectElement>);
     }, []);
 
     return (
@@ -72,7 +72,7 @@ export default function ModalCrearEspecialista({ handleClickDesactivarModal, han
                             selectClass="bg-primary border border-white mt-1 text-white"
                             itemClass="bg-primary text-white"
                             itemHoverClass="hover:bg-white hover:text-primary"
-                            options={servicios.map((servicio) => servicio.titulo)}
+                            options={serviciosDisponibles.map((serviciosDisponibles) => serviciosDisponibles.titulo)}
                         />
                     </label>
 
