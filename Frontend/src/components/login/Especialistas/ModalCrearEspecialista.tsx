@@ -25,13 +25,10 @@ export default function ModalCrearEspecialista({ handleClickDesactivarModal, han
 
     return (
         <div className=" w-full  mx-auto p-5 bg-primary text-white ">
-            <h2 className=" text-md md:text-xl font-bold mb-6 text-center">Editar Especialista</h2>
+            <h2 className=" text-md md:text-xl font-bold mb-6 text-center">Crear Especialista</h2>
 
-            <div className="flex flex-col md:flex-row gap-6">
+            <div className="flex flex-col md:flex-row gap-6 ">
                 {/* Imagen */}
-                <div className="md:flex-1 flex items-center justify-center">
-
-                </div>
 
                 {/* Formulario */}
                 <form onSubmit={(e) => handleCrearEspecialista(e)} className="md:flex-2 flex-3 md:grid flex flex-col  md:grid-cols-2 gap-8 w-full">

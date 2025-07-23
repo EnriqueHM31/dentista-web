@@ -1,5 +1,3 @@
-"use server"
-
 import { EspecialistasContext } from "@/context/Especialistas";
 import { ServicioContext } from "@/context/Servicio";
 import type { Especialista } from "@/types";
@@ -23,6 +21,16 @@ const INITIAL_ESPECIALISTA: Omit<Especialista, "id"> = {
     linkedin: "",
     avatar: "",
     servicio: "",
+}
+
+const INITIAL_ESPECIALISTA_CREAR: Omit<Especialista, "id" | "servicio"> = {
+    nombre: "",
+    apellido: "",
+    email: "",
+    telefono: "",
+    direccion: "",
+    linkedin: "",
+    avatar: "",
 }
 
 export function useEspecialistas({ toggle, handleClickDesactivarModal }: PropsHookEspecialistas) {
@@ -88,6 +96,30 @@ export function useEspecialistas({ toggle, handleClickDesactivarModal }: PropsHo
 
 
     };
+
+    const handleDescartarCambiosEditarEspecialista = () => {
+
+        const sonIguales = Object.keys(especialistaRef.current).every(key => especialistaRef.current[key as keyof Omit<Especialista, "id">] === especialistaSeleccionado?.[key as keyof Omit<Especialista, "id">]);
+
+        if (sonIguales) {
+            handleClickDesactivarModal();
+        } else {
+            toast("¿Estas seguro de descartar los cambios?", {
+                action: {
+                    label: "Descartar",
+                    onClick: () => {
+                        handleClickDesactivarModal();
+                    },
+                },
+                cancel: {
+                    label: "Cancelar",
+                    onClick: () => {
+                        toast.dismiss();
+                    },
+                },
+            });
+        }
+    }
 
     const handleDelete = async (especialista: Especialista) => {
         toast("Estas seguro de eliminar este especialista", {
@@ -187,18 +219,27 @@ export function useEspecialistas({ toggle, handleClickDesactivarModal }: PropsHo
         }
     };
 
-    const handleDescartarCambiosEditarEspecialista = () => {
+    const handleDescartarCambiosCrearEspecialista = () => {
+        console.log(especialistaCrear);
+        console.log(INITIAL_ESPECIALISTA);
 
-        const sonIguales = Object.keys(especialistaRef.current).every(key => especialistaRef.current[key as keyof Omit<Especialista, "id">] === especialistaSeleccionado?.[key as keyof Omit<Especialista, "id">]);
+        const clavesAComparar = Object.keys(especialistaCrear).filter(
+            key => key !== "id" && key !== "servicio"
+        ) as (keyof Omit<Especialista, "id" | "servicio">)[];
 
-        if (sonIguales) {
+        const sonIguales = clavesAComparar.every(
+            key => especialistaCrear[key] === INITIAL_ESPECIALISTA_CREAR[key]
+        );
+
+        if (sonIguales)
             handleClickDesactivarModal();
-        } else {
+        else {
             toast("¿Estas seguro de descartar los cambios?", {
                 action: {
                     label: "Descartar",
                     onClick: () => {
                         handleClickDesactivarModal();
+                        setEspecialistaCrear(INITIAL_ESPECIALISTA);
                     },
                 },
                 cancel: {
@@ -220,6 +261,7 @@ export function useEspecialistas({ toggle, handleClickDesactivarModal }: PropsHo
         handleCrearEspecialista,
         especialistaSeleccionado,
         handleDescartarCambiosEditarEspecialista,
+        handleDescartarCambiosCrearEspecialista,
 
     }
 }
