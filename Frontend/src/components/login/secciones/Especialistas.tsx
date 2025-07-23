@@ -6,6 +6,8 @@ import ModalEditarEspecialista from "../Especialistas/ModalEditarEspecialista"
 import { useEspecialistas } from "@/hooks/admin/Especialistas/useEspecialistas"
 import ModalCrearEspecialista from "../Especialistas/ModalCrearEspecialista"
 import { useModalIndependiente } from "@/hooks/general/useModalIndependiente"
+import { ServicioContext } from "@/context/Servicio"
+import { toast } from "sonner"
 
 export default function Especialistas() {
 
@@ -16,6 +18,8 @@ export default function Especialistas() {
     const { handleClickActivarModalIndependiente, handleClickDesactivarModal, activeModal } = useModalIndependiente();
 
     const { handleOpen, handleChange, handleEditarEspecialista, handleDelete, especialistaSeleccionado, handleCrearEspecialista, handleDescartarCambiosEditarEspecialista, handleChangeCrearEspecialista } = useEspecialistas({ especialistas, toggle: handleClickActivarModalIndependiente, handleClickDesactivarModal });
+
+    const { serviciosDisponibles } = useContext(ServicioContext);
 
 
 
@@ -54,7 +58,13 @@ export default function Especialistas() {
                     <div className="flex justify-end">
                         <button
                             className="bg-primary text-white px-6 py-2 rounded-lg hover:bg-primary/90 transition"
-                            onClick={() => handleOpen(undefined, 'crear_especialista')}
+                            onClick={() => {
+                                if (serviciosDisponibles.length === 0) {
+                                    toast.error("No puedes crear un especialista sin servicios disponibles");
+                                    return;
+                                }
+                                handleOpen(undefined, 'crear_especialista');
+                            }}
                         >
                             Crear nuevo especialista
                         </button>

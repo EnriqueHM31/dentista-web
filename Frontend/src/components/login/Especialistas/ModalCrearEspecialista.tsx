@@ -18,8 +18,10 @@ export default function ModalCrearEspecialista({ handleClickDesactivarModal, han
     const { serviciosDisponibles } = useContext(ServicioContext);
 
     useEffect(() => {
+
         handleChangeCrearEspecialista({ target: { name: "servicio", value: serviciosDisponibles[0].titulo } } as React.ChangeEvent<HTMLInputElement | HTMLSelectElement>);
     }, []);
+
 
     return (
         <div className=" w-full  mx-auto p-5 bg-primary text-white ">

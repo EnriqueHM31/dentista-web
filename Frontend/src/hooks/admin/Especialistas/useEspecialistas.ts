@@ -25,9 +25,9 @@ const INITIAL_ESPECIALISTA: Omit<Especialista, "id"> = {
     servicio: "",
 }
 
-export function useEspecialistas({ especialistas, toggle, handleClickDesactivarModal }: PropsHookEspecialistas) {
+export function useEspecialistas({ toggle, handleClickDesactivarModal }: PropsHookEspecialistas) {
     const { setEspecialistas, ordenarEspecialistas } = useContext(EspecialistasContext);
-    const { serviciosDisponibles } = useContext(ServicioContext);
+    const { serviciosDisponibles, setServiciosDisponibles, servicios } = useContext(ServicioContext);
     const [especialistaSeleccionado, setEspecialistaSeleccionado] = useState<Especialista | null>(null);
     const [especialistaCrear, setEspecialistaCrear] = useState<Omit<Especialista, "id">>(INITIAL_ESPECIALISTA);
     const especialistaRef = useRef<Omit<Especialista, "id">>(INITIAL_ESPECIALISTA);
@@ -89,13 +89,13 @@ export function useEspecialistas({ especialistas, toggle, handleClickDesactivarM
 
     };
 
-    const handleDelete = async (id: string) => {
+    const handleDelete = async (especialista: Especialista) => {
         toast("Estas seguro de eliminar este especialista", {
             action: {
                 label: "Eliminar",
                 onClick: async () => {
 
-                    const response = await fetch(`${import.meta.env.VITE_API_URL}/especialistas/${id}`, {
+                    const response = await fetch(`${import.meta.env.VITE_API_URL}/especialistas/${especialista.id}`, {
                         method: "DELETE",
                         headers: {
                             "Content-Type": "application/json",
@@ -109,9 +109,14 @@ export function useEspecialistas({ especialistas, toggle, handleClickDesactivarM
 
                     const { success, message } = await response.json();
 
+
                     if (success) {
                         toast.success(message);
-                        setEspecialistas(especialistas.filter((esp) => esp.id !== id));
+                        setEspecialistas(prev => prev.filter((esp) => esp.id !== especialista.id));
+                        const servicioEliminado = servicios.find(servicio => servicio.titulo === especialista.servicio);
+                        if (servicioEliminado) {
+                            setServiciosDisponibles(prev => [...prev, servicioEliminado]);
+                        }
                     } else {
                         toast.error(message);
                     }
@@ -171,6 +176,7 @@ export function useEspecialistas({ especialistas, toggle, handleClickDesactivarM
                 setEspecialistas(prev =>
                     ordenarEspecialistas([...prev, especialistaCreado])
                 );
+                setServiciosDisponibles(serviciosDisponibles.filter(servicio => servicio.id !== servicioDisponible.id));
                 handleClickDesactivarModal();
             } else {
                 toast.error(message);

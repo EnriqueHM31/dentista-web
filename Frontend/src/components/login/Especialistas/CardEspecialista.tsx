@@ -5,7 +5,7 @@ import { FaTrash } from "react-icons/fa6";
 
 interface EspecialistasCardProps {
     handleOpen: (especialista: Especialista, modal: string) => void;
-    handleDelete: (id: string) => void;
+    handleDelete: (especialista: Especialista) => void;
     especialista: Especialista;
 }
 
@@ -38,7 +38,7 @@ export default function EspecialistasCard({ handleOpen, handleDelete, especialis
 
                     <button onClick={(e) => {
                         e.stopPropagation()
-                        handleDelete(especialista.id)
+                        handleDelete(especialista)
                     }
                     } className="absolute top-4 text-lg p-2 rounded-full right-5 bg-red-500 hover:bg-red-800 transition-all duration-300">
                         <FaTrash />
