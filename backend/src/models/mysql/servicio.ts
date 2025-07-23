@@ -60,6 +60,27 @@ export class ModeloServicio {
         }
     }
 
+    static async getDisponibles() {
+        try {
+            const [rows] = await db.query(`SELECT 
+    s.id,
+    s.titulo,
+    s.descripcion,
+    s.img,
+    s.duration
+FROM ServiciosDentales s
+LEFT JOIN Especialistas e ON s.id = e.servicio
+WHERE e.servicio IS NULL;
+`);
+            return {
+                success: true,
+                message: rows,
+            };
+        } catch (error) {
+            return { success: false, message: 'Error en la base de datos' + error };
+        }
+    }
+
     static async updateServicio(id: string, data: Partial<Servicio>) {
         try {
 

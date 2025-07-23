@@ -16,12 +16,27 @@ interface Especialista {
 export class ModeloEspecialista {
     static async getAll() {
         try {
-            const [rows] = await db.query('SELECT id, nombre, apellido, email, telefono, direccion, avatar, linkedin, servicio FROM Especialistas ORDER BY nombre, apellido ASC');
+            const [rows] = await db.query(`SELECT 
+    e.id,
+    e.nombre,
+    e.apellido,
+    e.email,
+    e.telefono,
+    e.direccion,
+    e.avatar,
+    e.linkedin,
+    e.servicio,
+    s.titulo AS servicio
+FROM Especialistas e
+JOIN ServiciosDentales s ON e.servicio = s.id
+ORDER BY e.nombre, e.apellido ASC;
+`);
             return { success: true, message: rows };
         } catch (error) {
             return { success: false, message: 'Error en la base de datos + error: ' + error };
         }
     }
+
 
     static async createEspecialista({ nombre, apellido, email, telefono, direccion, avatar, linkedin, servicio }: Record<string, string>) {
         try {

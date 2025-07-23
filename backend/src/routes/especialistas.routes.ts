@@ -4,7 +4,8 @@ import { verificarTokenDesdeCookie } from '@/middleware/verificarToken';
 
 export const EspecialistasRouter = Router();
 
-EspecialistasRouter.get('/', verificarTokenDesdeCookie, ControllerEspecialistas.getAll);
-EspecialistasRouter.post('/', ControllerEspecialistas.createEspecialista);
-EspecialistasRouter.patch('/:id', ControllerEspecialistas.updateEspecialista);
-EspecialistasRouter.delete('/:id', ControllerEspecialistas.deleteEspecialista);
+EspecialistasRouter.get('/', ControllerEspecialistas.getAll);
+EspecialistasRouter.post('/', verificarTokenDesdeCookie, ControllerEspecialistas.createEspecialista);
+EspecialistasRouter.patch('/:id', verificarTokenDesdeCookie, ControllerEspecialistas.updateEspecialista);
+EspecialistasRouter.delete('/:id', verificarTokenDesdeCookie, ControllerEspecialistas.deleteEspecialista);
+

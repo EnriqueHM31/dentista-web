@@ -68,6 +68,7 @@ export function useEspecialistas({ especialistas, toggle, handleClickDesactivarM
                 method: "PATCH",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(camposCambiados),
+                credentials: "include",
             });
 
             const { success, message, cambios } = await response.json();
@@ -97,6 +98,7 @@ export function useEspecialistas({ especialistas, toggle, handleClickDesactivarM
                         headers: {
                             "Content-Type": "application/json",
                         },
+                        credentials: "include",
                     });
 
                     if (!response.ok) {
@@ -149,6 +151,7 @@ export function useEspecialistas({ especialistas, toggle, handleClickDesactivarM
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify(especialistaCrear),
+                credentials: "include",
             });
 
             const { success, message, especialista: especialistaCreado } = await response.json();

@@ -17,6 +17,8 @@ export class ControllerEspecialistas {
         }
     }
 
+
+
     static async createEspecialista(req: Request, res: Response) {
         const { nombre, apellido, email, telefono, direccion, avatar, nivel, servicio, linkedin } = req.body;
 

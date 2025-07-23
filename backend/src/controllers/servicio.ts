@@ -36,7 +36,22 @@ export class ServiciosController {
         } catch (error) {
             res.status(500).json({ success: false, message: 'Error al obtener los servicios' });
         }
+    }
 
+    static async getDisponibles(_req: Request, res: Response) {
+        try {
+            const { success, message } = await ModeloServicio.getDisponibles();
+
+            if (success) {
+                res.status(200).json({ success, message });
+            }
+            else {
+                res.status(500).json({ success, message });
+            }
+        }
+        catch (error) {
+            res.status(500).json({ success: false, message: 'Error al obtener los servicios' });
+        }
     }
 
     static async updateServicio(req: Request, res: Response) {
