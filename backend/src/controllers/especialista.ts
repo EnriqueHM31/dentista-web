@@ -32,16 +32,18 @@ export class ControllerEspecialistas {
 
 
     static async updateEspecialista(req: Request, res: Response) {
-        const { nombre, apellido, email, telefono, direccion, foto, nivel, especialidad, usuario } = req.body;
-        const { id } = req.params as { id: `${string}-${string}-${string}-${string}-${string}` };
+        const { nombre, apellido, email, telefono, direccion, avatar, servicio, linkedin } = req.body;
 
+        const { id } = req.params as { id: `${string}-${string}-${string}-${string}-${string}` };
         const result = validarId({ id });
         if (result.error) {
             res.status(400).json({ success: false, message: result.error.message });
             return;
         }
 
-        const { success, message } = await ModeloEspecialista.updateEspecialista(result.data.id, { nombre, apellido, email, telefono, direccion, foto, nivel, especialidad, usuario });
+        const data = { nombre, apellido, email, telefono, direccion, avatar, servicio, linkedin };
+
+        const { success, message } = await ModeloEspecialista.updateEspecialista(result.data.id, data);
 
         if (success) {
             res.status(200).json({ success, message });

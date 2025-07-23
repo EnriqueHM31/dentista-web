@@ -1,5 +1,18 @@
 import { randomUUID } from 'crypto';
 import db from '@/database/db';
+import { console } from 'inspector';
+
+interface Especialista {
+    id: string;
+    nombre: string;
+    apellido: string;
+    email: string;
+    telefono: string;
+    direccion: string;
+    avatar: string;
+    linkedin: string;
+    servicio: string;
+}
 
 export class ModeloEspecialista {
     static async getAll() {
@@ -52,23 +65,28 @@ export class ModeloEspecialista {
 
 
 
-    static async updateEspecialista(id: string, data: Record<string, string>) {
+    static async updateEspecialista(id: string, data: Partial<Especialista>) {
         try {
 
-            const allowedFields = ['nombre', 'apellido', 'email', 'telefono', 'direccion', 'avatar', 'linkedin', 'servicio']; // puedes agregar más en el futuro
+            console.log(data);
+            const allowedFields: (keyof Omit<Especialista, 'id'>)[] = [
+                'nombre', 'apellido', 'email', 'telefono', 'direccion', 'avatar', 'linkedin', 'servicio',
+            ];
 
             const fields: string[] = [];
-            const values: string[] = [];
+            const values: Especialista[keyof Especialista][] = [];
 
-            for (const key of Object.keys(data)) {
-                if (allowedFields.includes(key) && data[key] !== undefined) {
+            for (const key of Object.keys(data) as (keyof Especialista)[]) {
+                if (allowedFields.includes(key as keyof Omit<Especialista, 'id'>) && data[key] !== undefined) {
                     fields.push(`${key} = ?`);
-                    values.push(data[key]);
+                    values.push(data[key] as Especialista[keyof Especialista]);
                 }
             }
 
+            console.log(fields);
+
             if (fields.length === 0) {
-                return { success: false, message: 'No se proporcionaron campos válidos para actualizar' };
+                return { success: false, message: 'No se proporcionaron campos válidos para actualizar' + JSON.stringify(data) };
             }
 
             values.push(id); // ID al final para el WHERE

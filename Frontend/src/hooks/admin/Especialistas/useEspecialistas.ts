@@ -2,6 +2,7 @@
 
 import { EspecialistasContext } from "@/context/Especialistas";
 import type { Especialista } from "@/types";
+import { esURLValida } from "@/utils/constantes";
 import { useContext, useState } from "react";
 import { toast } from "sonner";
 
@@ -43,8 +44,6 @@ export function useEspecialistas({ especialistas, toggle, handleClickDesactivarM
     };
 
     const handleDelete = async (id: string) => {
-
-
         toast("Estas seguro de eliminar este especialista", {
             action: {
                 label: "Eliminar",
@@ -107,6 +106,14 @@ export function useEspecialistas({ especialistas, toggle, handleClickDesactivarM
             avatar,
             linkedin,
         };
+
+        if (!esURLValida(avatar)) {
+            return { success: false, message: "La URL de la imagen no es válida", especialistaCreado: null };
+        }
+
+        if (!esURLValida(linkedin)) {
+            return { success: false, message: "La URL de linkedIn no es válida", especialistaCreado: null };
+        }
 
         try {
             const response = await fetch(`${import.meta.env.VITE_API_URL}/especialistas`, {
