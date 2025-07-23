@@ -26,7 +26,11 @@ export default function Especialistas() {
                 modalId={activeModal as string}
                 onClose={handleClickDesactivarModal}
                 clases="max-w-11/12 md:max-w-3/4" >
-                <ModalEditarEspecialista toggle={handleClickDesactivarModal} especialistaSeleccionado={especialistaSeleccionado} handleChange={handleChange} handleSubmit={handleSubmit} />
+                <ModalEditarEspecialista
+                    toggle={handleClickDesactivarModal}
+                    especialistaSeleccionado={especialistaSeleccionado}
+                    handleChange={handleChange}
+                    handleSubmit={handleSubmit} />
             </Modal>
 
             <Modal
@@ -34,7 +38,9 @@ export default function Especialistas() {
                 modalId={activeModal as string}
                 onClose={handleClickDesactivarModal}
                 clases="max-w-11/12 md:max-w-3/4" >
-                <ModalCrearEspecialista handleClickDesactivarModal={handleClickDesactivarModal} handleCrearEspecialista={handleCrearEspecialista} />
+                <ModalCrearEspecialista
+                    handleClickDesactivarModal={handleClickDesactivarModal}
+                    handleCrearEspecialista={handleCrearEspecialista} />
             </Modal>
 
 

@@ -22,7 +22,7 @@ interface CrearEspecialistaState {
 export default function ModalCrearEspecialista({ handleClickDesactivarModal, handleCrearEspecialista }: PropsModalEditarEspecialista) {
 
     const { servicios } = useContext(ServicioContext);
-    const { setEspecialistas } = useContext(EspecialistasContext);
+    const { setEspecialistas, ordenarEspecialistas } = useContext(EspecialistasContext);
 
     const [stateCrearEspecialista, formActionCrearEspecialista, isPendingCrearEspecialista] = useActionState<CrearEspecialistaState, FormData>(
         handleCrearEspecialista,
@@ -32,16 +32,22 @@ export default function ModalCrearEspecialista({ handleClickDesactivarModal, han
     const { success, message, especialistaCreado } = stateCrearEspecialista;
 
     useEffect(() => {
-        if (message) { // Solo cuando haya un mensaje
-            if (success) {
-                setEspecialistas(prev => [...prev, especialistaCreado as Especialista]);
+        if (message) {
+            if (success && especialistaCreado) {
+                setEspecialistas(prev => {
+                    const newArray = [...prev, especialistaCreado as Especialista];
+
+                    return ordenarEspecialistas(newArray);
+                }
+                );
                 toast.success(message);
                 handleClickDesactivarModal();
             } else {
                 toast.error(message);
             }
         }
-    }, [success, message, especialistaCreado, setEspecialistas, handleClickDesactivarModal]);
+    }, [message]);
+
 
 
     return (

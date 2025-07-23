@@ -16,20 +16,22 @@ export function EspecialistasProvider({ children }: { children: React.ReactNode 
                 return;
             }
 
-            const especialistasOrdenados = message.sort((a: Especialista, b: Especialista) => {
-                const nombreA = `${a.nombre} ${a.apellido}`.toLowerCase();
-                const nombreB = `${b.nombre} ${b.apellido}`.toLowerCase();
-                return nombreA.localeCompare(nombreB);
-            });
-
-            setEspecialistas(especialistasOrdenados);
+            setEspecialistas(message);
         };
         obtenerEspecialistas();
     }, []);
 
+    const ordenarEspecialistas = (especialistas: Especialista[]) => {
+        return [...especialistas].sort((a, b) => {
+            const nombreA = `${a.nombre} ${a.apellido}`.toLowerCase();
+            const nombreB = `${b.nombre} ${b.apellido}`.toLowerCase();
+            return nombreA.localeCompare(nombreB);
+        });
+    };
+
+
     return (
-        <EspecialistasContext.Provider value={{ especialistas, setEspecialistas }
-        }>
+        <EspecialistasContext.Provider value={{ especialistas, setEspecialistas, ordenarEspecialistas }}>
             {children}
         </EspecialistasContext.Provider>
     )
