@@ -17,7 +17,9 @@ export default function Especialistas() {
 
     const { handleClickActivarModalIndependiente, handleClickDesactivarModal, activeModal } = useModalIndependiente();
 
-    const { handleOpen, handleChange, handleEditarEspecialista, handleDelete, especialistaSeleccionado, handleCrearEspecialista, handleDescartarCambiosEditarEspecialista, handleChangeCrearEspecialista, handleDescartarCambiosCrearEspecialista } = useEspecialistas({ especialistas, toggle: handleClickActivarModalIndependiente, handleClickDesactivarModal });
+    const {
+        handleOpen, handleChange, handleEditarEspecialista, handleDelete, especialistaSeleccionado, handleCrearEspecialista, handleDescartarCambiosEditarEspecialista, handleChangeCrearEspecialista, handleDescartarCambiosCrearEspecialista }
+        = useEspecialistas({ especialistas, toggle: handleClickActivarModalIndependiente, handleClickDesactivarModal });
 
     const { serviciosDisponibles } = useContext(ServicioContext);
 
@@ -25,8 +27,6 @@ export default function Especialistas() {
 
     return (
         <>
-
-
             <Modal
                 activeId={'editar_especialista'}
                 modalId={activeModal as string}

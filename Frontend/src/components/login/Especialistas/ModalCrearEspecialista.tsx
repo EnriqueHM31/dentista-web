@@ -14,11 +14,9 @@ interface PropsModalEditarEspecialista {
 
 export default function ModalCrearEspecialista({ handleClickDesactivarModal, handleCrearEspecialista, handleChangeCrearEspecialista }: PropsModalEditarEspecialista) {
 
-
     const { serviciosDisponibles } = useContext(ServicioContext);
 
     useEffect(() => {
-
         handleChangeCrearEspecialista({ target: { name: "servicio", value: serviciosDisponibles[0].titulo } } as React.ChangeEvent<HTMLInputElement | HTMLSelectElement>);
     }, []);
 

@@ -13,13 +13,8 @@ export default function ListaPreguntas() {
 
     const { preguntas, expandedIds, toggleExpand, handleClickEliminarPregunta } = usePreguntas();
 
-    const { preguntaSeleccionada, handleEditarPregunta, handleClickModalEditarPregunta, handleClickModalEditarRespuesta, handleClickEditar, handledescartarCambios } = useEditarPregunta();
+    const { preguntaSeleccionada, handleEditarPregunta, handleClickModalEditarPregunta, handleClickModalEditarRespuesta, handleClickEditar, handledescartarCambios } = useEditarPregunta(handleClickDesactivarModal);
 
-
-    const handleSubmitEditarPregunta = (e: React.FormEvent<HTMLFormElement>) => {
-        handleEditarPregunta(e);
-        handleClickDesactivarModal();
-    }
     const { handleCrearPregunta, preguntaForm, handleCambiarCampoPregunta, handledescartarCambiosCrearPregunta } = useCrearPregunta({ handleClickDesactivarModal });
 
 
@@ -29,15 +24,15 @@ export default function ListaPreguntas() {
             <Modal
                 modalId="editar"
                 activeId={activeModal as string}
-                onClose={() => handledescartarCambios(handleClickDesactivarModal)}
+                onClose={() => handledescartarCambios()}
                 clases="md:max-w-2/3 max-w-11/12 flex items-center justify-center scrollbar-invisible"
             >
                 <ModalEditar
                     handleEditarPregunta={handleClickModalEditarPregunta}
                     handleEditarRespuesta={handleClickModalEditarRespuesta}
                     preguntaSeleccionada={preguntaSeleccionada}
-                    toggle={() => handledescartarCambios(handleClickDesactivarModal)}
-                    handleGuardar={(e) => handleSubmitEditarPregunta(e)}
+                    toggle={() => handledescartarCambios()}
+                    handleGuardar={handleEditarPregunta}
                 />
             </Modal>
 

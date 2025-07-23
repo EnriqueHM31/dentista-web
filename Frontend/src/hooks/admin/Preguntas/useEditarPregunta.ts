@@ -10,7 +10,7 @@ function sonPreguntasIguales(a: Pregunta | null, b: Pregunta | null): boolean {
     return a.id === b.id && a.pregunta === b.pregunta && a.respuesta === b.respuesta;
 }
 
-export function useEditarPregunta() {
+export function useEditarPregunta(handleClickDesactivarModal: () => void) {
     const { setPreguntas } = useContext(PreguntasContext);
 
     const preguntaRef = useRef<Pregunta | null>(null);
@@ -19,7 +19,7 @@ export function useEditarPregunta() {
     // Actualiza la copia original cuando se selecciona una pregunta nueva
 
 
-    const handledescartarCambios = (handleClickDesactivarModal: () => void) => {
+    const handledescartarCambios = () => {
 
         if (sonPreguntasIguales(preguntaSeleccionada, preguntaRef.current)) {
             handleClickDesactivarModal();
@@ -92,6 +92,7 @@ export function useEditarPregunta() {
             preguntaRef.current = { ...preguntaSeleccionada };
 
             toast.success("Cambios guardados exitosamente", { id: toastId });
+            handleClickDesactivarModal();
         } catch (err) {
             toast.error("Error al guardar los cambios: " + err, { id: toastId });
         }
