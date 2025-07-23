@@ -21,11 +21,15 @@ export const PreguntasProvider = ({ children }: { children: React.ReactNode }) =
         obtenerPreguntas();
     }, []);
 
+    const ordenarPreguntas = (preguntas: Pregunta[]) => {
+        return preguntas.sort((a: Pregunta, b: Pregunta) => a.pregunta.localeCompare(b.pregunta));
+    }
+
 
 
 
     return (
-        <PreguntasContext.Provider value={{ preguntas, setPreguntas, obtenerPreguntas }}>
+        <PreguntasContext.Provider value={{ preguntas, setPreguntas, obtenerPreguntas, ordenarPreguntas }}>
             {children}
         </PreguntasContext.Provider>
     );

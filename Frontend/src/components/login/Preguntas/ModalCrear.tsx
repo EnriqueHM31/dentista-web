@@ -1,13 +1,12 @@
 import type { ModalCrearProps } from "@/types";
 
-export default function ModalCrear({ toggle, handleClickDesactivarModal, handleCrearPregunta, preguntaForm, handleCambiarCampoPregunta }: ModalCrearProps) {
+export default function ModalCrear({ toggle, handleCrearPregunta, preguntaForm, handleCambiarCampoPregunta }: ModalCrearProps) {
 
 
 
     return (
         <form onSubmit={async (e) => {
             await handleCrearPregunta(e);
-            handleClickDesactivarModal();
         }} className="w-full p-6 flex flex-col gap-4 bg-primary">
             <h3 className="text-lg md:text-2xl font-bold text-white mb-4">Agregar una nueva pregunta</h3>
 

@@ -20,7 +20,7 @@ export default function ListaPreguntas() {
         handleEditarPregunta(e);
         handleClickDesactivarModal();
     }
-    const { handleCrearPregunta, preguntaForm, handleCambiarCampoPregunta, handledescartarCambiosCrearPregunta } = useCrearPregunta();
+    const { handleCrearPregunta, preguntaForm, handleCambiarCampoPregunta, handledescartarCambiosCrearPregunta } = useCrearPregunta({ handleClickDesactivarModal });
 
 
     return (
@@ -50,7 +50,6 @@ export default function ListaPreguntas() {
             >
                 <ModalCrear
                     toggle={() => handledescartarCambiosCrearPregunta(handleClickDesactivarModal)}
-                    handleClickDesactivarModal={() => handledescartarCambiosCrearPregunta(handleClickDesactivarModal)}
                     handleCrearPregunta={handleCrearPregunta}
                     preguntaForm={preguntaForm}
                     handleCambiarCampoPregunta={handleCambiarCampoPregunta}

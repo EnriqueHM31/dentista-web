@@ -4,8 +4,8 @@ import { useContext, useState } from "react";
 import { toast } from "sonner";
 
 
-export function useCrearPregunta() {
-    const { setPreguntas } = useContext(PreguntasContext);
+export function useCrearPregunta({ handleClickDesactivarModal }: { handleClickDesactivarModal: () => void }) {
+    const { setPreguntas, ordenarPreguntas } = useContext(PreguntasContext);
     const [preguntaForm, setPreguntaForm] = useState<{ pregunta: string; respuesta: string }>({
         pregunta: "",
         respuesta: "",
@@ -23,7 +23,8 @@ export function useCrearPregunta() {
             }
             toast.success("Pregunta creada exitosamente", { id: toastId });
             setPreguntaForm({ pregunta: "", respuesta: "" });
-            setPreguntas(prev => [...prev, preguntaCreada]);
+            setPreguntas(prev => [...ordenarPreguntas([...prev, preguntaCreada])]);
+            handleClickDesactivarModal();
 
         } catch {
             toast.error("Error al crear la pregunta", { id: toastId });

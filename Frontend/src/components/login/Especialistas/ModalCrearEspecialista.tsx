@@ -34,15 +34,7 @@ export default function ModalCrearEspecialista({ handleClickDesactivarModal, han
     useEffect(() => {
         if (message) { // Solo cuando haya un mensaje
             if (success) {
-                setEspecialistas((prev: Especialista[]) => {
-                    const nuevos = [...prev, especialistaCreado as Especialista];
-
-                    return nuevos.sort((a, b) => {
-                        const nombreA = `${a.nombre} ${a.apellido}`.toLowerCase();
-                        const nombreB = `${b.nombre} ${b.apellido}`.toLowerCase();
-                        return nombreA.localeCompare(nombreB);
-                    });
-                });
+                setEspecialistas(prev => [...prev, especialistaCreado as Especialista]);
                 toast.success(message);
                 handleClickDesactivarModal();
             } else {

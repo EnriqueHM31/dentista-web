@@ -5,11 +5,13 @@ interface PreguntasContextType {
     preguntas: Pregunta[];
     setPreguntas: Dispatch<SetStateAction<Pregunta[]>>;
     obtenerPreguntas: () => Promise<void>;
+    ordenarPreguntas: (preguntas: Pregunta[]) => Pregunta[];
 }
 
 export const PreguntasContext = createContext<PreguntasContextType>({
     preguntas: [],
     setPreguntas: () => { },
-    obtenerPreguntas: () => Promise.resolve()
+    obtenerPreguntas: () => Promise.resolve(),
+    ordenarPreguntas: () => []
 });
 

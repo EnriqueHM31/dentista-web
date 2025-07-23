@@ -16,7 +16,13 @@ export function EspecialistasProvider({ children }: { children: React.ReactNode 
                 return;
             }
 
-            setEspecialistas(message);
+            const especialistasOrdenados = message.sort((a: Especialista, b: Especialista) => {
+                const nombreA = `${a.nombre} ${a.apellido}`.toLowerCase();
+                const nombreB = `${b.nombre} ${b.apellido}`.toLowerCase();
+                return nombreA.localeCompare(nombreB);
+            });
+
+            setEspecialistas(especialistasOrdenados);
         };
         obtenerEspecialistas();
     }, []);
