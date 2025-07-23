@@ -124,7 +124,7 @@ interface AnimatedSelectProps {
     select?: string;
     name: string;
     options: string[];
-    onChange?: (value: string) => void;
+    onChange?: (e: React.ChangeEvent<HTMLSelectElement>) => void;
     clases?: string;
 }
 

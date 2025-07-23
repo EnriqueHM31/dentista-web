@@ -36,7 +36,6 @@ export default function AnimatedSelect({
     const handleSelect = (value: string) => {
         setSelected(value);
         setIsOpen(false);
-        onChange?.(value);
 
         const fakeEvent = {
             target: {
@@ -45,6 +44,7 @@ export default function AnimatedSelect({
             },
         } as React.ChangeEvent<HTMLSelectElement>;
 
+        onChange?.(fakeEvent);
         funcion?.(fakeEvent);
     };
 
@@ -58,7 +58,6 @@ export default function AnimatedSelect({
                 onChange={(e) => handleSelect(e.target.value)}
                 className="hidden"
                 required
-
             >
                 {options.map((opt, i) => (
                     <option key={i} value={opt}>
@@ -76,7 +75,6 @@ export default function AnimatedSelect({
                 <span className={`text-md md:text-base truncate whitespace-nowrap overflow-hidden text-ellipsis ${textClass}`}>
                     {selected}
                 </span>
-
                 <FaChevronDown className={`transition-transform duration-200 ${isOpen ? "rotate-180" : ""}`} />
             </button>
 
@@ -88,7 +86,7 @@ export default function AnimatedSelect({
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: -5 }}
                         transition={{ duration: 0.2 }}
-                        className={`absolute z-10 mt-2 max-h-60 overflow-y-auto border border-primary rounded-lg shadow-lg ${menuClass}`}
+                        className={`absolute z-10 mt-2 max-h-60 min-w-full overflow-y-auto border border-primary rounded-lg shadow-lg ${menuClass}`}
                     >
                         {options.map((opt, i) => (
                             <li

@@ -141,7 +141,10 @@ export default function ModalEditarServicio({ serviciosRef, handleClickDesactiva
                                 select={formatearDuracion(formValues.duration)}
                                 name="duration"
                                 options={formatoHoraMinuto(MINUTOS_ARRAY)}
-                                clases="bg-primary text-white border-white hover:bg-white/80 hover:text-primary"
+                                itemClass="bg-primary text-white border-white hover:bg-white/80 hover:text-primary"
+                                selectClass="bg-primary text-white border-white hover:bg-white/80 hover:text-primary border border-white"
+                                itemHoverClass="   hover:bg-white/80 hover:text-primary"
+                                menuClass="border border-white"
                             />
                         </div>
                     )}

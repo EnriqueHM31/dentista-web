@@ -26,9 +26,8 @@ export function useTestimonio() {
 
                         toast.success("Comentario eliminado");
                         setComentarios(prev => prev.filter(c => c.id !== id));
-                    } catch (error) {
+                    } catch {
                         toast.error("Error al eliminar el comentario");
-                        console.error(error);
                     }
                 },
             },

@@ -11,17 +11,27 @@ import ServicioCard from "../Servicios/ServicioCard";
 export default function Servicios() {
 
     const { handleClickActivarModalIndependiente, activeModal, handleClickDesactivarModal } = useModalIndependiente();
-    const { servicios, serviciosRef, handleSubmitCrearServicio, handleEliminarServicio } = useGetServicios({ handleClickDesactivarModal });
+    const { servicios, serviciosRef, handleSubmitCrearServicio, handleEliminarServicio, handledescartarCambiosCrearServicio, handleCambiarCampoServicio, servicioCrear } = useGetServicios({ handleClickDesactivarModal });
     const { formValues, handleEdit, handleChange, handledescartarCambios } = useModalEditarServicio();
 
     return (
         <>
             <Modal onClose={() => handledescartarCambios(handleClickDesactivarModal)} modalId="editar_servicio" activeId={activeModal as string} clases="md:max-w-2/3 max-w-11/12 w-full">
-                <ModalEditarServicio serviciosRef={serviciosRef} handleClickDesactivarModal={handleClickDesactivarModal} formValues={formValues} handleChange={handleChange} />
+                <ModalEditarServicio
+                    serviciosRef={serviciosRef}
+                    handleClickDesactivarModal={handleClickDesactivarModal}
+                    formValues={formValues}
+                    handleChange={handleChange} />
             </Modal>
 
-            <Modal onClose={() => handledescartarCambios(handleClickDesactivarModal)} modalId="crear_servicio" activeId={activeModal as string} clases="md:max-w-2/3 max-w-11/12 w-full">
-                <ModalCrearServicio handleClickDesactivarModal={handleClickDesactivarModal} handleSubmitCrearServicio={handleSubmitCrearServicio} />
+            <Modal onClose={() => handledescartarCambiosCrearServicio(handleClickDesactivarModal)} modalId="crear_servicio" activeId={activeModal as string} clases="md:max-w-2/3 max-w-11/12 w-full">
+                <ModalCrearServicio
+                    handleClickDesactivarModal={handleClickDesactivarModal}
+                    handleSubmitCrearServicio={handleSubmitCrearServicio}
+                    handledescartarCambiosCrearServicio={handledescartarCambiosCrearServicio}
+                    handleCambiarCampoServicio={handleCambiarCampoServicio}
+                    servicioCrear={servicioCrear}
+                />
             </Modal>
 
 

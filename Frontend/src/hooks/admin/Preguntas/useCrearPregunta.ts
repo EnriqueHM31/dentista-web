@@ -38,7 +38,6 @@ export function useCrearPregunta() {
 
 
     const handledescartarCambiosCrearPregunta = (handleClickDesactivarModal: () => void) => {
-        console.log(preguntaForm);
         if (preguntaForm.pregunta !== "" || preguntaForm.respuesta !== "") {
             toast("¿Estás seguro de querer cancelar los cambios?", {
                 action: {

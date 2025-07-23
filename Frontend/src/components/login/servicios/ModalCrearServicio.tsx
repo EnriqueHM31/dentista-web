@@ -2,13 +2,22 @@ import AnimatedSelect from "@/components/General/Select"
 import { formatoHoraMinuto } from "@/utils/Hora"
 import { MINUTOS_ARRAY } from "@/utils/constantes"
 
+interface ServicioCrearProps {
+    titulo: string,
+    descripcion: string,
+    img: string,
+    duration: string
+}
 
 interface ModalCrearServicioProps {
     handleClickDesactivarModal: () => void,
-    handleSubmitCrearServicio: (e: React.FormEvent) => void
+    handleSubmitCrearServicio: (e: React.FormEvent) => void,
+    handledescartarCambiosCrearServicio: (handleClickDesactivarModal: () => void) => void,
+    handleCambiarCampoServicio: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => void,
+    servicioCrear: ServicioCrearProps
 }
 
-export default function ModalCrearServicio({ handleClickDesactivarModal, handleSubmitCrearServicio }: ModalCrearServicioProps) {
+export default function ModalCrearServicio({ handleClickDesactivarModal, handleSubmitCrearServicio, handledescartarCambiosCrearServicio, handleCambiarCampoServicio, servicioCrear }: ModalCrearServicioProps) {
 
     return (
         <form className="w-full p-6 flex flex-col  gap-4 bg-primary min-h-[70vh]" onSubmit={(e) => {
@@ -28,6 +37,8 @@ export default function ModalCrearServicio({ handleClickDesactivarModal, handleS
                             id="servicio"
                             type="text"
                             name="titulo"
+                            value={servicioCrear.titulo}
+                            onChange={(e) => handleCambiarCampoServicio(e)}
                             className="w-full border rounded px-3 py-2 text-white border-white focus:outline-none focus:ring-2 focus:ring-white"
                             required
                         />
@@ -42,6 +53,8 @@ export default function ModalCrearServicio({ handleClickDesactivarModal, handleS
                             id="img"
                             type="text"
                             name="img"
+                            value={servicioCrear.img}
+                            onChange={(e) => handleCambiarCampoServicio(e)}
                             className="w-full border rounded px-3 py-2 text-white border-white focus:outline-none focus:ring-2 focus:ring-white"
                             required
                         />
@@ -54,6 +67,8 @@ export default function ModalCrearServicio({ handleClickDesactivarModal, handleS
                         <AnimatedSelect
                             name="duration"
                             options={formatoHoraMinuto(MINUTOS_ARRAY)}
+                            select={servicioCrear.duration}
+                            onChange={(e) => handleCambiarCampoServicio(e)}
                             selectClass="bg-primary border border-white text-white"
                             itemClass="bg-primary text-white"
                             itemHoverClass="hover:bg-white hover:text-primary"
@@ -67,6 +82,8 @@ export default function ModalCrearServicio({ handleClickDesactivarModal, handleS
                     <textarea
                         id="descripcion"
                         name="descripcion"
+                        value={servicioCrear.descripcion}
+                        onChange={(e) => handleCambiarCampoServicio(e)}
                         className="w-full  min-h-[200px] h-full border rounded px-3 py-2 text-white border-white focus:outline-none focus:ring-2 focus:ring-white resize-none scrollbar-hide"
                         required
                     />
@@ -77,7 +94,7 @@ export default function ModalCrearServicio({ handleClickDesactivarModal, handleS
             <div className="flex justify-end gap-3">
                 <button
                     type="button"
-                    onClick={handleClickDesactivarModal}
+                    onClick={() => handledescartarCambiosCrearServicio(handleClickDesactivarModal)}
                     className="px-4 py-2  rounded text-white bg-red-600 cursor-pointer hover:bg-red-400"
                 >
                     Cancelar

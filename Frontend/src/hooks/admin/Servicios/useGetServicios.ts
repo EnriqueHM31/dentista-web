@@ -1,11 +1,24 @@
-import { useContext, useEffect, useRef } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
 import type { ServicioResponse } from "@/types";
 import { crearServicio, eliminarServicio } from "@/services/Servicios";
-import { esURLValida } from "@/utils/constantes";
+import { esURLValida, MINUTOS_ARRAY } from "@/utils/constantes";
 import { ServicioContext } from "@/context/Servicio";
-import { convertirADuracionEnMinutos } from "@/utils/Hora";
+import { convertirADuracionEnMinutos, formatoHoraMinuto } from "@/utils/Hora";
 
+interface ServicioCrearProps {
+    titulo: string,
+    descripcion: string,
+    img: string,
+    duration: string
+}
+
+const INITIAL_SERVICIO_PROPS: ServicioCrearProps = {
+    titulo: "",
+    descripcion: "",
+    img: "",
+    duration: "" as string
+}
 
 interface useGetServiciosProps {
     handleClickDesactivarModal: () => void
@@ -13,6 +26,7 @@ interface useGetServiciosProps {
 
 export function useGetServicios({ handleClickDesactivarModal }: useGetServiciosProps) {
     const { servicios, setServicios } = useContext(ServicioContext);
+    const [servicioCrear, setServicioCrear] = useState<ServicioCrearProps>(INITIAL_SERVICIO_PROPS);
     const formRef = useRef<ServicioResponse[]>([]);
 
 
@@ -21,6 +35,17 @@ export function useGetServicios({ handleClickDesactivarModal }: useGetServiciosP
             formRef.current = servicios;
         }
     }, [servicios]);
+
+
+    useEffect(() => {
+        const opciones = formatoHoraMinuto(MINUTOS_ARRAY);
+        if (!servicioCrear.duration && opciones.length > 0) {
+            setServicioCrear((prev) => ({
+                ...prev,
+                duration: opciones[0],
+            }));
+        }
+    }, [servicioCrear.duration]);
 
 
     const handleEliminarServicio = async (id: `${string}-${string}-${string}-${string}-${string}` | "") => {
@@ -60,13 +85,40 @@ export function useGetServicios({ handleClickDesactivarModal }: useGetServiciosP
         );
     };
 
+    const handleCambiarCampoServicio = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+        const { name, value } = e.target;
+        setServicioCrear(prev => ({ ...prev, [name]: value } as ServicioCrearProps));
+    }
+
+    const handledescartarCambiosCrearServicio = (handleClickDesactivarModal: () => void) => {
+        if (Object.values(servicioCrear).every(value => value === "")) {
+            handleClickDesactivarModal();
+        } else {
+            toast("¿Estás seguro de querer cancelar los cambios?", {
+                action: {
+                    label: "Cerrar",
+                    onClick: () => {
+                        handleClickDesactivarModal();
+                        setServicioCrear(INITIAL_SERVICIO_PROPS);
+                    }
+                },
+                cancel: {
+                    label: "Cancelar",
+                    onClick: () => {
+                        toast.dismiss();
+                    }
+                }
+            })
+        }
+
+    }
+
 
     const handleSubmitCrearServicio = async (e: React.FormEvent,) => {
 
         e.preventDefault();
 
-        const data = new FormData(e.target as HTMLFormElement);
-        const { titulo, descripcion, img, duration } = Object.fromEntries(data.entries()) as { titulo: string, descripcion: string, img: string, duration: string };
+        const { titulo, descripcion, img, duration } = servicioCrear;
 
         if (!titulo || !descripcion || !img || !duration) {
             toast.error("Todos los campos son obligatorios");
@@ -79,7 +131,7 @@ export function useGetServicios({ handleClickDesactivarModal }: useGetServiciosP
         }
 
         try {
-            const { success, message, servicio } = await crearServicio({ titulo, descripcion, img, duration: convertirADuracionEnMinutos(duration) });
+            const { success, message, servicio } = await crearServicio({ titulo, descripcion, img, duration: convertirADuracionEnMinutos(duration.toString()) });
 
             if (success) {
                 toast.success("Servicio creado correctamente");
@@ -96,5 +148,13 @@ export function useGetServicios({ handleClickDesactivarModal }: useGetServiciosP
 
 
 
-    return { servicios, serviciosRef: formRef, handleEliminarServicio, handleSubmitCrearServicio };
+    return {
+        servicios,
+        serviciosRef: formRef,
+        servicioCrear,
+        handleCambiarCampoServicio,
+        handledescartarCambiosCrearServicio,
+        handleEliminarServicio,
+        handleSubmitCrearServicio
+    };
 }

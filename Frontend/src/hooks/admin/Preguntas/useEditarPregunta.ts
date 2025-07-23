@@ -21,8 +21,6 @@ export function useEditarPregunta() {
 
     const handledescartarCambios = (handleClickDesactivarModal: () => void) => {
 
-        console.log(preguntaSeleccionada);
-        console.log(preguntaRef.current);
         if (sonPreguntasIguales(preguntaSeleccionada, preguntaRef.current)) {
             handleClickDesactivarModal();
         } else {

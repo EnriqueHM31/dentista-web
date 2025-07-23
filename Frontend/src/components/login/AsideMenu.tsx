@@ -19,7 +19,6 @@ export default function AsideMenu({ selected, handleClickSelected }: AsideMenuPr
             setIsOpen(false);
         }
     }, [setIsOpen]);
-    console.log(isOpen);
 
     return (
         <>
