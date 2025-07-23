@@ -71,7 +71,7 @@ export default function AnimatedSelect({
             <button
                 type="button"
                 onClick={() => setIsOpen(!isOpen)}
-                className={`w-full px-4 py-3 cursor-pointer border border-primary rounded-lg flex justify-between items-center ${selectClass} focus:outline-2 focus:outline-primary`}
+                className={`w-full px-3 py-2 cursor-pointer border border-primary rounded flex justify-between items-center ${selectClass} focus:outline-2 focus:outline-primary`}
             >
                 <span className={`text-md md:text-base truncate whitespace-nowrap overflow-hidden text-ellipsis ${textClass}`}>
                     {selected}

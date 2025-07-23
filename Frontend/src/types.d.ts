@@ -70,6 +70,9 @@ interface SlideProps {
 interface ModalCrearProps {
     toggle: () => void;
     handleClickDesactivarModal: () => void;
+    handleCrearPregunta: (e: React.FormEvent<HTMLFormElement>) => void;
+    preguntaForm: { pregunta: string; respuesta: string };
+    handleCambiarCampoPregunta: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
 }
 
 interface Pregunta {

@@ -19,7 +19,7 @@ export const PreguntasProvider = ({ children }: { children: React.ReactNode }) =
 
     useEffect(() => {
         obtenerPreguntas();
-    }, [preguntas]);
+    }, []);
 
 
 

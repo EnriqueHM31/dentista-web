@@ -3,12 +3,9 @@ import { toast } from "sonner";
 import { useState } from "react";
 import { deletePregunta } from "@/services/Preguntas";
 import { PreguntasContext } from "@/context/Preguntas";
-
 export function usePreguntas() {
     const { preguntas, setPreguntas } = useContext(PreguntasContext);
     const [expandedIds, setExpandedIds] = useState<`${string}-${string}-${string}-${string}-${string}`[]>([]);
-
-
 
     const toggleExpand = (id: `${string}-${string}-${string}-${string}-${string}`) => {
         setExpandedIds(prev =>

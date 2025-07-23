@@ -1,9 +1,8 @@
-import { useCrearPregunta } from "@/hooks/admin/Preguntas/useCrearPregunta";
 import type { ModalCrearProps } from "@/types";
 
-export default function ModalCrear({ toggle, handleClickDesactivarModal }: ModalCrearProps) {
+export default function ModalCrear({ toggle, handleClickDesactivarModal, handleCrearPregunta, preguntaForm, handleCambiarCampoPregunta }: ModalCrearProps) {
 
-    const { handleCrearPregunta, preguntaForm, handleCambiarPregunta, handleCambiarRespuesta } = useCrearPregunta();
+
 
     return (
         <form onSubmit={async (e) => {
@@ -19,8 +18,9 @@ export default function ModalCrear({ toggle, handleClickDesactivarModal }: Modal
                 <input
                     id="pregunta"
                     type="text"
+                    name="pregunta"
                     value={preguntaForm.pregunta}
-                    onChange={(e) => handleCambiarPregunta(e)}
+                    onChange={(e) => handleCambiarCampoPregunta(e)}
                     className="w-full border rounded px-3 py-2 border-white text-white focus:outline-none focus:ring-2 focus:ring-primary"
                     required
                 />
@@ -32,8 +32,9 @@ export default function ModalCrear({ toggle, handleClickDesactivarModal }: Modal
                 </label>
                 <textarea
                     id="respuesta"
+                    name="respuesta"
                     value={preguntaForm.respuesta}
-                    onChange={(e) => handleCambiarRespuesta(e)}
+                    onChange={(e) => handleCambiarCampoPregunta(e)}
                     className="w-full border rounded px-3 py-2 border-white text-white focus:outline-none focus:ring-2 focus:ring-primary resize-none scrollbar-hide"
                     rows={5}
                     required

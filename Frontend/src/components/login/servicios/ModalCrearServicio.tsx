@@ -17,11 +17,11 @@ export default function ModalCrearServicio({ handleClickDesactivarModal, handleS
         }>
 
             <h3 className="text-lg max-w-3/4 md:max-w-full md:text-2xl font-bold text-white mb-4">Agregar un nuevo servicio</h3>
-            <section className="flex flex-col md:flex-row gap-6 flex-2">
-                <div className="flex-1 flex flex-col gap-3">
+            <section className="flex flex-col gap-3 flex-2">
+                <div className="flex-1 flex gap-3">
 
-                    <div className="mb-4 flex flex-col gap-4">
-                        <label htmlFor="servicio" className="block text-sm font-medium px-3 py-1 text-primary bg-white rounded-xl  mb-1 w-fit">
+                    <div className="mb-4 flex flex-col flex-1 gap-4">
+                        <label htmlFor="servicio" className="block text-sm font-medium px-3 py-2 text-primary bg-white rounded-xl  mb-1 w-fit">
                             Servicio
                         </label>
                         <input
@@ -34,7 +34,7 @@ export default function ModalCrearServicio({ handleClickDesactivarModal, handleS
                     </div>
 
 
-                    <div className="mb-4 flex flex-col gap-4">
+                    <div className="mb-4 flex flex-col flex-1 gap-4">
                         <label htmlFor="img" className="block text-sm font-medium px-3 py-2 text-primary rounded-xl bg-white  w-fit mb-1">
                             Imagen (URL)
                         </label>
@@ -42,26 +42,32 @@ export default function ModalCrearServicio({ handleClickDesactivarModal, handleS
                             id="img"
                             type="text"
                             name="img"
-                            className="w-full border rounded px-3 py-1 text-white border-white focus:outline-none focus:ring-2 focus:ring-white"
+                            className="w-full border rounded px-3 py-2 text-white border-white focus:outline-none focus:ring-2 focus:ring-white"
                             required
                         />
                     </div>
 
-                    <div className="mb-4 flex flex-col gap-4">
-                        <label htmlFor="duration" className="block text-sm font-medium px-3 py-1 text-primary rounded-xl bg-white w-fit mb-1">
+                    <div className="mb-4 flex flex-col flex-1 gap-4">
+                        <label htmlFor="duration" className="block text-sm font-medium px-3 py-2 text-primary rounded-xl bg-white w-fit mb-1">
                             Duracion
                         </label>
-                        <AnimatedSelect name="duration" options={formatoHoraMinuto(MINUTOS_ARRAY)} clases="bg-primary text-white border-white hover:bg-white/80 hover:text-primary" />
+                        <AnimatedSelect
+                            name="duration"
+                            options={formatoHoraMinuto(MINUTOS_ARRAY)}
+                            selectClass="bg-primary border border-white text-white"
+                            itemClass="bg-primary text-white"
+                            itemHoverClass="hover:bg-white hover:text-primary"
+                        />
                     </div>
                 </div>
-                <div className="mb-4 flex-3 flex flex-col gap-4">
-                    <label htmlFor="descripcion" className="block text-sm font-medium px-3 py-1 text-primary rounded-xl bg-white w-fit mb-1">
+                <div className="mb-4 flex-3 flex flex-col gap-4 ">
+                    <label htmlFor="descripcion" className="block text-sm font-medium px-3 py-1 text-primary rounded-xl bg-white w-fit mb-1 h-full">
                         Descripción
                     </label>
                     <textarea
                         id="descripcion"
                         name="descripcion"
-                        className="w-full h-full border rounded px-3 py-2 text-white border-white focus:outline-none focus:ring-2 focus:ring-white resize-none scrollbar-hide"
+                        className="w-full  min-h-[200px] h-full border rounded px-3 py-2 text-white border-white focus:outline-none focus:ring-2 focus:ring-white resize-none scrollbar-hide"
                         required
                     />
                 </div>

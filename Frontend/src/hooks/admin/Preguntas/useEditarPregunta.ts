@@ -1,15 +1,47 @@
-
 import { PreguntasContext } from "@/context/Preguntas";
 import { updatePregunta } from "@/services/Preguntas";
 import type { Pregunta } from "@/types";
-import { useContext, useState } from "react";
+import { useContext, useRef, useState } from "react";
 import { toast } from "sonner";
 
+// Función reutilizable para comparar dos preguntas
+function sonPreguntasIguales(a: Pregunta | null, b: Pregunta | null): boolean {
+    if (!a || !b) return false;
+    return a.id === b.id && a.pregunta === b.pregunta && a.respuesta === b.respuesta;
+}
 
 export function useEditarPregunta() {
     const { setPreguntas } = useContext(PreguntasContext);
+
+    const preguntaRef = useRef<Pregunta | null>(null);
     const [preguntaSeleccionada, setPreguntaSeleccionada] = useState<Pregunta | null>(null);
 
+    // Actualiza la copia original cuando se selecciona una pregunta nueva
+
+
+    const handledescartarCambios = (handleClickDesactivarModal: () => void) => {
+
+        console.log(preguntaSeleccionada);
+        console.log(preguntaRef.current);
+        if (sonPreguntasIguales(preguntaSeleccionada, preguntaRef.current)) {
+            handleClickDesactivarModal();
+        } else {
+            toast("¿Estás seguro de deshacer los cambios?", {
+                action: {
+                    label: "Deshacer",
+                    onClick: () => {
+                        // Restaurar los valores originales
+                        setPreguntaSeleccionada(preguntaRef.current);
+                        handleClickDesactivarModal();
+                    },
+                },
+                cancel: {
+                    label: "Cancelar",
+                    onClick: () => toast.dismiss(),
+                },
+            });
+        }
+    };
 
     const handleClickModalEditarPregunta = (e: React.ChangeEvent<HTMLInputElement>) => {
         setPreguntaSeleccionada(prev =>
@@ -23,36 +55,47 @@ export function useEditarPregunta() {
         );
     };
 
-
     const handleClickEditar = ({ id, pregunta, respuesta }: Pregunta) => {
         setPreguntaSeleccionada({ id, pregunta, respuesta });
-    }
-
+        preguntaRef.current = { id, pregunta, respuesta };
+    };
 
     const handleEditarPregunta = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         const toastId = toast.loading("Guardando cambios...");
+
+        if (!preguntaSeleccionada) {
+            toast.error("No hay pregunta seleccionada", { id: toastId });
+            return;
+        }
+
         try {
-            if (!preguntaSeleccionada) {
-                toast.error("No hay pregunta seleccionada", { id: toastId });
-                return;
-            }
-
-            const { success, message } = await updatePregunta(preguntaSeleccionada?.id, preguntaSeleccionada?.pregunta, preguntaSeleccionada?.respuesta);
-
+            const { success, message } = await updatePregunta(
+                preguntaSeleccionada.id,
+                preguntaSeleccionada.pregunta,
+                preguntaSeleccionada.respuesta
+            );
 
             if (!success) {
                 toast.error(message, { id: toastId });
                 return;
             }
+
+            // Actualiza el contexto de preguntas
             setPreguntas(prev =>
                 prev.map(p =>
-                    p.id === preguntaSeleccionada?.id ? { ...p, ...preguntaSeleccionada } : p
+                    p.id === preguntaSeleccionada.id
+                        ? { ...p, ...preguntaSeleccionada }
+                        : p
                 )
             );
+
+            // Actualiza la referencia original
+            preguntaRef.current = { ...preguntaSeleccionada };
+
             toast.success("Cambios guardados exitosamente", { id: toastId });
         } catch (err) {
-            toast.error("Error al guardar los cambios " + err, { id: toastId });
+            toast.error("Error al guardar los cambios: " + err, { id: toastId });
         }
     };
 
@@ -61,7 +104,7 @@ export function useEditarPregunta() {
         handleClickModalEditarPregunta,
         handleClickModalEditarRespuesta,
         handleEditarPregunta,
-        preguntaSeleccionada
-    }
-
+        preguntaSeleccionada,
+        handledescartarCambios,
+    };
 }

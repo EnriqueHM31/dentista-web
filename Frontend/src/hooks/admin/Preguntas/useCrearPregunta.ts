@@ -11,7 +11,6 @@ export function useCrearPregunta() {
         respuesta: "",
     });
 
-
     const handleCrearPregunta = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         const { pregunta: preguntaACrear, respuesta: respuestaACrear } = preguntaForm;
@@ -31,19 +30,43 @@ export function useCrearPregunta() {
         }
     };
 
-    const handleCambiarPregunta = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setPreguntaForm(prev => ({ ...prev, pregunta: e.target.value }));
+    const handleCambiarCampoPregunta = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+        const { name, value } = e.target;
+        setPreguntaForm(prev => ({ ...prev, [name]: value }));
+    };
+
+
+
+    const handledescartarCambiosCrearPregunta = (handleClickDesactivarModal: () => void) => {
+        console.log(preguntaForm);
+        if (preguntaForm.pregunta !== "" || preguntaForm.respuesta !== "") {
+            toast("¿Estás seguro de querer cancelar los cambios?", {
+                action: {
+                    label: "Cerrar",
+                    onClick: () => {
+                        handleClickDesactivarModal();
+                        setPreguntaForm({ pregunta: "", respuesta: "" });
+                    }
+                },
+                cancel: {
+                    label: "Cancelar",
+                    onClick: () => {
+                        toast.dismiss();
+                    }
+                }
+            })
+        } else {
+            handleClickDesactivarModal();
+            setPreguntaForm({ pregunta: "", respuesta: "" });
+        }
     }
 
-    const handleCambiarRespuesta = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-        setPreguntaForm(prev => ({ ...prev, respuesta: e.target.value }));
-    }
 
     return {
         preguntaForm,
         handleCrearPregunta,
-        handleCambiarPregunta,
-        handleCambiarRespuesta
+        handleCambiarCampoPregunta,
+        handledescartarCambiosCrearPregunta
     }
 
 }
