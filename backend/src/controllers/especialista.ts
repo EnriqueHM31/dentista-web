@@ -18,9 +18,9 @@ export class ControllerEspecialistas {
     }
 
     static async createEspecialista(req: Request, res: Response) {
-        const { nombre, apellido, email, telefono, direccion, foto, nivel, especialidad, usuario } = req.body;
+        const { nombre, apellido, email, telefono, direccion, avatar, nivel, servicio, linkedin } = req.body;
 
-        const { success, message, especialista } = await ModeloEspecialista.createEspecialista({ nombre, apellido, email, telefono, direccion, foto, nivel, especialidad, usuario });
+        const { success, message, especialista } = await ModeloEspecialista.createEspecialista({ nombre, apellido, email, telefono, direccion, avatar, nivel, servicio, linkedin });
 
         if (success) {
             res.status(200).json({ success, message, especialista });

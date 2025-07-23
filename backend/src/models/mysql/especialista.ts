@@ -4,7 +4,7 @@ import db from '@/database/db';
 export class ModeloEspecialista {
     static async getAll() {
         try {
-            const [rows] = await db.query('SELECT id, nombre, apellido, email, telefono, direccion, avatar, linkedin, servicio FROM Especialistas');
+            const [rows] = await db.query('SELECT id, nombre, apellido, email, telefono, direccion, avatar, linkedin, servicio FROM Especialistas ORDER BY nombre, apellido ASC');
             return { success: true, message: rows };
         } catch (error) {
             return { success: false, message: 'Error en la base de datos + error: ' + error };
@@ -25,7 +25,7 @@ export class ModeloEspecialista {
                     success: true,
                     message: 'Especialista creado correctamente',
                     especialista: {
-                        id: result.insertId,
+                        id: id,
                         nombre: nombre,
                         apellido: apellido,
                         email: email,
