@@ -2,6 +2,7 @@ import { useContext } from "react";
 import { ComentariosContext } from "@/context/Comentarios";
 import useVisibleComentarios from "@/hooks/admin/Comentarios/VisibleComentarios";
 import ComentariosCard from "../Comentarios/ComentariosCard";
+import Filtros from "../Comentarios/Filtros";
 
 export default function Comentarios() {
     const { comentarios } = useContext(ComentariosContext);
@@ -19,8 +20,10 @@ export default function Comentarios() {
                     >
                         Guardar selección
                     </button>
+
                 </div>
             </div>
+            <Filtros />
             <div>
                 <ComentariosCard comentarios={comentarios} toggleCheck={toggleCheck} seleccionados={seleccionados} />
             </div>
