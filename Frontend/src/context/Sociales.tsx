@@ -1,5 +1,5 @@
 import type { SocialProps } from "@/types";
-import { createContext } from "react";
+import { createContext, useContext } from "react";
 
 // 1. Define el tipo del contexto
 interface SocialesContextType {
@@ -13,5 +13,9 @@ export const SocialesContext = createContext<SocialesContextType>({
     setSociales: () => { }
 });
 
+export function useSocialesContext() {
+    const { sociales, setSociales } = useContext(SocialesContext);
+    return { sociales, setSociales };
+}
 
 

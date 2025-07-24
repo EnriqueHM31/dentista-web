@@ -1,7 +1,6 @@
 import AnimatedSelect from "@/components/General/Select";
-import { ServicioContext } from "@/context/Servicio";
+import { useServicioContext } from "@/context/Servicio";
 import type { Especialista } from "@/types";
-import { useContext } from "react";
 import {
     AiOutlineUser, AiOutlineMail, AiOutlinePhone, AiOutlineLink, AiOutlinePicture, AiOutlineTool, AiOutlineHome,
 } from "react-icons/ai";
@@ -15,7 +14,7 @@ interface PropsModalEditarEspecialista {
 
 export default function ModalEditarEspecialista({ toggle, especialistaSeleccionado, handleChange, handleEditarEspecialista, }: PropsModalEditarEspecialista) {
 
-    const { servicios } = useContext(ServicioContext);
+    const { servicios } = useServicioContext();
     return (
         <div className=" w-full  mx-auto p-5 bg-primary text-white ">
             <h2 className=" text-md md:text-xl font-bold mb-6 text-center">Editar Especialista</h2>

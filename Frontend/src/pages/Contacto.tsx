@@ -7,11 +7,10 @@ import { FaUser } from "react-icons/fa";
 import { FaMessage } from "react-icons/fa6";
 import IMAGENCONTACTO from "@/assets/img/contacto.png";
 import { useUtils } from "@/hooks/general/useUtils";
-import { useContext } from "react";
 import { toast } from "sonner";
-import { SocialesContext } from "@/context/Sociales";
+import { useSocialesContext } from "@/context/Sociales";
 import StarRating from "@/components/Inicio/Comentarios/Ranking";
-import { ServicioContext } from "@/context/Servicio";
+import { useServicioContext } from "@/context/Servicio";
 import { createComentario } from "@/services/Comentarios";
 
 const MAS_CONTACTOS = [
@@ -24,8 +23,8 @@ const MAS_CONTACTOS = [
 export default function Contacto() {
 
     const { handleClickCopy } = useUtils();
-    const { sociales } = useContext(SocialesContext);
-    const { servicios } = useContext(ServicioContext);
+    const { sociales } = useSocialesContext();
+    const { servicios } = useServicioContext();
 
     const formData = sociales.filter(({ nombre }) => MAS_CONTACTOS.some(({ label }) => label === nombre));
 

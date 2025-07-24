@@ -1,9 +1,9 @@
-import { useContext, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
 import type { ServicioResponse } from "@/types";
 import { crearServicio, eliminarServicio } from "@/services/Servicios";
 import { esURLValida, MINUTOS_ARRAY } from "@/utils/constantes";
-import { ServicioContext } from "@/context/Servicio";
+import { useServicioContext } from "@/context/Servicio";
 import { convertirADuracionEnMinutos, formatoHoraMinuto } from "@/utils/Hora";
 
 interface ServicioCrearProps {
@@ -25,7 +25,7 @@ interface useGetServiciosProps {
 }
 
 export function useGetServicios({ handleClickDesactivarModal }: useGetServiciosProps) {
-    const { servicios, setServicios } = useContext(ServicioContext);
+    const { servicios, setServicios } = useServicioContext();
     const [servicioCrear, setServicioCrear] = useState<ServicioCrearProps>(INITIAL_SERVICIO_PROPS);
     const formRef = useRef<ServicioResponse[]>([]);
 

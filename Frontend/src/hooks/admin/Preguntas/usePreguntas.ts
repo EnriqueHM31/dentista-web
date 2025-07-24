@@ -1,10 +1,9 @@
-import { useContext } from "react";
 import { toast } from "sonner";
 import { useState } from "react";
 import { deletePregunta } from "@/services/Preguntas";
-import { PreguntasContext } from "@/context/Preguntas";
+import { usePreguntasContext } from "@/context/Preguntas";
 export function usePreguntas() {
-    const { preguntas, setPreguntas } = useContext(PreguntasContext);
+    const { preguntas, setPreguntas } = usePreguntasContext();
     const [expandedIds, setExpandedIds] = useState<`${string}-${string}-${string}-${string}-${string}`[]>([]);
 
     const toggleExpand = (id: `${string}-${string}-${string}-${string}-${string}`) => {
@@ -12,7 +11,6 @@ export function usePreguntas() {
             prev.includes(id) ? prev.filter(x => x !== id) : [...prev, id]
         );
     };
-
 
     const handleClickEliminarPregunta = async (id: `${string}-${string}-${string}-${string}-${string}`) => {
 

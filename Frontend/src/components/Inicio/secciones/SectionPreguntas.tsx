@@ -1,13 +1,13 @@
-import { useContext, useState } from "react";
+import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import TituloSeccion from "@/components/Inicio/ui/TituloSeccion";
-import { PreguntasContext } from "@/context/Preguntas";
+import { usePreguntasContext } from "@/context/Preguntas";
 
 
 export default function SectionPreguntas() {
     // Inicializamos en 0 para que la primera pregunta esté activa al cargar
     const [preguntaActiva, setPreguntaActiva] = useState<number>(0);
-    const { preguntas } = useContext(PreguntasContext);
+    const { preguntas } = usePreguntasContext();
 
     const handleClick = (index: number) => {
         setPreguntaActiva(prev => (prev === index ? -1 : index));

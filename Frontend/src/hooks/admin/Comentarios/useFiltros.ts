@@ -1,11 +1,11 @@
-import { useState, useContext } from "react";
-import { ComentariosContext } from "@/context/Comentarios";
+import { useState } from "react";
+import { useComentariosContext } from "@/context/Comentarios";
 import { MENU_FILTROS, FILTROS_ORDEN, FILTROS_CHECKEADOS } from "@/constants/filtrosComentarios";
 
 type MenuFiltro = keyof typeof MENU_FILTROS;
 
 export const useFiltrosComentarios = () => {
-    const { filtros, setFiltros } = useContext(ComentariosContext);
+    const { filtros, setFiltros } = useComentariosContext();
 
     const [menusAbiertos, setMenusAbiertos] = useState({
         ordenar: false,

@@ -1,12 +1,11 @@
 import { motion } from "framer-motion";
 import TituloSeccion from "@/components/Inicio/ui/TituloSeccion";
 import Carousel from "@/components/Inicio/ui/carousel";
-import { EspecialistasContext } from "@/context/Especialistas";
-import { useContext } from "react";
+import { useEspecialistasContext } from "@/context/Especialistas";
 
 export default function SectionEspecialistas() {
 
-    const { especialistas } = useContext(EspecialistasContext);
+    const { especialistas } = useEspecialistasContext();
 
     return (
         <motion.section className="min-h-screen flex flex-col items-center justify-center max-w-11/12 xl:max-w-10/12 w-full mx-auto py-5 xl:py-10 px-1 md:px-10 lg:px-20 xl:px-0 gap-4"

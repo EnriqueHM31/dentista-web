@@ -1,14 +1,14 @@
-import { ComentariosContext } from "@/context/Comentarios";
-import { useContext } from "react";
+import { useComentariosContext } from "@/context/Comentarios";
 import { toast } from "sonner";
 import { deleteComentario } from "@/services/Comentarios";
 
 export function useTestimonio() {
+    const { setComentarios } = useComentariosContext();
+
     function getRandomPortraitUrl(index: number) {
         const gender = Math.random() < 0.5 ? "men" : "women";
         return `https://randomuser.me/api/portraits/${gender}/${index % 100}.jpg`;
     }
-    const { setComentarios } = useContext(ComentariosContext);
 
     const handleEliminarComentario = (id: `${string}-${string}-${string}-${string}-${string}`) => {
         toast("¿Estás seguro de que quieres eliminar el comentario?", {

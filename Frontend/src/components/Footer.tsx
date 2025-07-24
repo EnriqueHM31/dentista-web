@@ -1,8 +1,7 @@
 import { AiOutlineDingtalk } from "react-icons/ai";
 import { FaFacebookF, FaInstagram, FaTwitter, FaLinkedin } from "react-icons/fa6";
 import { LINKS_NAVEGACION } from "@/utils/constantes";
-import { useContext } from "react";
-import { SocialesContext } from "@/context/Sociales";
+import { useSocialesContext } from "@/context/Sociales";
 
 const SOCIALS = [
     { label: 'Facebook', icono: <FaFacebookF className="w-5 h-5" /> },
@@ -12,7 +11,7 @@ const SOCIALS = [
 ];
 
 export default function Footer() {
-    const { sociales } = useContext(SocialesContext);
+    const { sociales } = useSocialesContext();
 
     const DataSocialesFooter = sociales.filter(s => SOCIALS.some(s2 => s2.label === s.nombre));
 

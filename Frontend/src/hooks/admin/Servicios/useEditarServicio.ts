@@ -1,8 +1,8 @@
 import { toast } from "sonner";
 import type { ServicioResponse, Servicio } from "@/types";
-import { useContext, useState } from "react";
+import { useState } from "react";
 import { modificarServicio } from "@/services/Servicios";
-import { ServicioContext } from "@/context/Servicio";
+import { useServicioContext } from "@/context/Servicio";
 
 interface useEditarServicioProps {
     serviciosRef: React.RefObject<ServicioResponse[]>,
@@ -12,7 +12,7 @@ interface useEditarServicioProps {
 
 export function useEditarServicio({ serviciosRef, formValues, handleClickDesactivarModal }: useEditarServicioProps) {
     const [preview, setPreview] = useState<keyof Servicio | null>('titulo');
-    const { setServicios } = useContext(ServicioContext);
+    const { setServicios } = useServicioContext();
 
     const handlePreview = (campo: keyof Servicio) => {
         setPreview(campo);

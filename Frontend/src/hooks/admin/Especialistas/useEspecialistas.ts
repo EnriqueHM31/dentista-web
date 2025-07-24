@@ -1,8 +1,8 @@
-import { EspecialistasContext } from "@/context/Especialistas";
-import { ServicioContext } from "@/context/Servicio";
+import { useEspecialistasContext } from "@/context/Especialistas";
+import { useServicioContext } from "@/context/Servicio";
 import type { Especialista } from "@/types";
 import { esURLValida } from "@/utils/constantes";
-import { useContext, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { toast } from "sonner";
 
 
@@ -34,8 +34,8 @@ const INITIAL_ESPECIALISTA_CREAR: Omit<Especialista, "id" | "servicio"> = {
 }
 
 export function useEspecialistas({ toggle, handleClickDesactivarModal }: PropsHookEspecialistas) {
-    const { setEspecialistas, ordenarEspecialistas } = useContext(EspecialistasContext);
-    const { serviciosDisponibles, setServiciosDisponibles, servicios } = useContext(ServicioContext);
+    const { setEspecialistas, ordenarEspecialistas } = useEspecialistasContext();
+    const { serviciosDisponibles, setServiciosDisponibles, servicios } = useServicioContext();
     const [especialistaSeleccionado, setEspecialistaSeleccionado] = useState<Especialista | null>(null);
     const [especialistaCrear, setEspecialistaCrear] = useState<Omit<Especialista, "id">>(INITIAL_ESPECIALISTA);
     const especialistaRef = useRef<Omit<Especialista, "id">>(INITIAL_ESPECIALISTA);

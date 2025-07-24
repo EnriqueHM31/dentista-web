@@ -1,4 +1,4 @@
-import { createContext, type Dispatch, type SetStateAction } from "react";
+import { createContext, useContext, type Dispatch, type SetStateAction } from "react";
 import { } from "sonner";
 import type { Comentario } from "@/types";
 
@@ -29,5 +29,10 @@ export const ComentariosContext = createContext<ComentariosContextType>({
     },
     setFiltros: () => { },
 });
+
+export function useComentariosContext() {
+    const { comentarios, setComentarios, comentariosVisibles, setFiltros, filtros } = useContext(ComentariosContext);
+    return { comentarios, setComentarios, comentariosVisibles, setFiltros, filtros };
+}
 
 

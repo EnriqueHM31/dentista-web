@@ -1,7 +1,7 @@
-import { PreguntasContext } from "@/context/Preguntas";
+import { usePreguntasContext } from "@/context/Preguntas";
 import { updatePregunta } from "@/services/Preguntas";
 import type { Pregunta } from "@/types";
-import { useContext, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { toast } from "sonner";
 
 // Función reutilizable para comparar dos preguntas
@@ -11,13 +11,10 @@ function sonPreguntasIguales(a: Pregunta | null, b: Pregunta | null): boolean {
 }
 
 export function useEditarPregunta(handleClickDesactivarModal: () => void) {
-    const { setPreguntas } = useContext(PreguntasContext);
+    const { setPreguntas } = usePreguntasContext();
 
     const preguntaRef = useRef<Pregunta | null>(null);
     const [preguntaSeleccionada, setPreguntaSeleccionada] = useState<Pregunta | null>(null);
-
-    // Actualiza la copia original cuando se selecciona una pregunta nueva
-
 
     const handledescartarCambios = () => {
 

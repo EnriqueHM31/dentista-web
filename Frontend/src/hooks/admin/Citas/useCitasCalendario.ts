@@ -1,5 +1,5 @@
-import { CitasContext } from "@/context/Citas";
-import { useContext, useEffect, useState } from "react";
+import { useCitasContext } from "@/context/Citas";
+import { useEffect, useState } from "react";
 import type { EventClickArg } from '@fullcalendar/core';
 import { toast } from "sonner";
 import { completarCita, eliminarCita } from "@/services/Citas";
@@ -26,7 +26,7 @@ export function useCitasCalendario() {
 
     const [modalOpen, setModalOpen] = useState(false);
     const [eventoSeleccionado, setEventoSeleccionado] = useState<Evento | null>(null);
-    const { citas, setCitas } = useContext(CitasContext); // Asegúrate que `setCitas` esté en tu contexto
+    const { citas, setCitas } = useCitasContext(); // Asegúrate que `setCitas` esté en tu contexto
 
     const citasFormateadas: Evento[] = citas.map((cita) => ({
         id: cita.id,

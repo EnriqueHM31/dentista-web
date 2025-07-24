@@ -1,6 +1,6 @@
-import { useContext, useState } from "react";
-import { ServicioContext } from "@/context/Servicio";
-import { CitasContext } from "@/context/Citas";
+import { useState } from "react";
+import { useServicioContext } from "@/context/Servicio";
+import { useCitasContext } from "@/context/Citas";
 import { toast } from "sonner";
 import { crearCita } from "@/services/Citas";
 
@@ -16,8 +16,8 @@ const INITIAL_FORM_CITA = {
 
 export function useCitas() {
 
-    const { servicios } = useContext(ServicioContext);
-    const { setCitas } = useContext(CitasContext);
+    const { servicios } = useServicioContext();
+    const { setCitas } = useCitasContext();
 
     function generarHoras(inicio: string, fin: string, intervaloMin: number): string[] {
         const [hInicio, mInicio] = inicio.split(":").map(Number);

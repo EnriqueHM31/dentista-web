@@ -1,4 +1,4 @@
-import { createContext, type Dispatch, type SetStateAction } from "react";
+import { createContext, useContext, type Dispatch, type SetStateAction } from "react";
 import type { Pregunta } from "@/types";
 
 interface PreguntasContextType {
@@ -14,4 +14,11 @@ export const PreguntasContext = createContext<PreguntasContextType>({
     obtenerPreguntas: () => Promise.resolve(),
     ordenarPreguntas: () => []
 });
+
+export function usePreguntasContext() {
+    const { preguntas, setPreguntas, obtenerPreguntas, ordenarPreguntas } = useContext(PreguntasContext);
+    return { preguntas, setPreguntas, obtenerPreguntas, ordenarPreguntas };
+}
+
+
 

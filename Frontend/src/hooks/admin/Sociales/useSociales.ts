@@ -1,12 +1,12 @@
-import { SocialesContext } from "@/context/Sociales";
+import { useSocialesContext } from "@/context/Sociales";
 import { updateSocial } from "@/services/Sociales";
 import type { SocialProps } from "@/types";
-import { useContext, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
 
 export function useSociales() {
     const [editMode, setEditMode] = useState<Record<string, boolean>>({});
-    const { sociales, setSociales } = useContext(SocialesContext);
+    const { sociales, setSociales } = useSocialesContext();
     const originalSocialRef = useRef<SocialProps[]>([]);
 
     useEffect(() => {

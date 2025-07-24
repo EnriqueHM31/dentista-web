@@ -1,4 +1,4 @@
-import { createContext, type Dispatch, type SetStateAction } from "react";
+import { createContext, useContext, type Dispatch, type SetStateAction } from "react";
 import type { ServicioResponse } from "@/types";
 
 
@@ -15,5 +15,10 @@ export const ServicioContext = createContext<ServicioContextType>({
     serviciosDisponibles: [],
     setServiciosDisponibles: () => { }
 });
+
+export function useServicioContext() {
+    const { servicios, setServicios, serviciosDisponibles, setServiciosDisponibles } = useContext(ServicioContext);
+    return { servicios, setServicios, serviciosDisponibles, setServiciosDisponibles };
+}
 
 

@@ -1,18 +1,17 @@
-import { EspecialistasContext } from "@/context/Especialistas"
-import { useContext } from "react"
+import { useEspecialistasContext } from "@/context/Especialistas"
 import EspecialistasCard from "../Especialistas/CardEspecialista"
 import Modal from "@/components/General/Modal"
 import ModalEditarEspecialista from "../Especialistas/ModalEditarEspecialista"
 import { useEspecialistas } from "@/hooks/admin/Especialistas/useEspecialistas"
 import ModalCrearEspecialista from "../Especialistas/ModalCrearEspecialista"
 import { useModalIndependiente } from "@/hooks/general/useModalIndependiente"
-import { ServicioContext } from "@/context/Servicio"
+import { useServicioContext } from "@/context/Servicio"
 import { toast } from "sonner"
 
 export default function Especialistas() {
 
 
-    const { especialistas } = useContext(EspecialistasContext)
+    const { especialistas } = useEspecialistasContext();
 
 
     const { handleClickActivarModalIndependiente, handleClickDesactivarModal, activeModal } = useModalIndependiente();
@@ -21,7 +20,7 @@ export default function Especialistas() {
         handleOpen, handleChange, handleEditarEspecialista, handleDelete, especialistaSeleccionado, handleCrearEspecialista, handleDescartarCambiosEditarEspecialista, handleChangeCrearEspecialista, handleDescartarCambiosCrearEspecialista }
         = useEspecialistas({ especialistas, toggle: handleClickActivarModalIndependiente, handleClickDesactivarModal });
 
-    const { serviciosDisponibles } = useContext(ServicioContext);
+    const { serviciosDisponibles } = useServicioContext();
 
 
 

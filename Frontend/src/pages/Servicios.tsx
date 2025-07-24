@@ -1,14 +1,12 @@
 
 import CardServicio from "@/components/Inicio/Servicios/CardServicio";
-import { ServicioContext } from "@/context/Servicio";
+import { useServicioContext } from "@/context/Servicio";
 import { motion } from "framer-motion";
-import { useContext } from "react";
-
-
 
 export default function Servicios() {
 
-    const { servicios } = useContext(ServicioContext);
+    const { servicios } = useServicioContext();
+
     return (
         <>
 

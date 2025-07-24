@@ -1,11 +1,11 @@
-import { PreguntasContext } from "@/context/Preguntas";
+import { usePreguntasContext } from "@/context/Preguntas";
 import { createPregunta } from "@/services/Preguntas";
-import { useContext, useState } from "react";
+import { useState } from "react";
 import { toast } from "sonner";
 
 
 export function useCrearPregunta({ handleClickDesactivarModal }: { handleClickDesactivarModal: () => void }) {
-    const { setPreguntas, ordenarPreguntas } = useContext(PreguntasContext);
+    const { setPreguntas, ordenarPreguntas } = usePreguntasContext();
     const [preguntaForm, setPreguntaForm] = useState<{ pregunta: string; respuesta: string }>({
         pregunta: "",
         respuesta: "",

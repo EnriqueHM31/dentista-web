@@ -4,14 +4,11 @@ import { useComentarios } from "@/hooks/inicio/useComentarios";
 import Testimonio from "@/components/Inicio/Comentarios/Testimonio";
 import TituloSeccion from "@/components/Inicio/ui/TituloSeccion";
 import Tooltip from "@/components/General/Tooltip";
-import { ComentariosContext } from "@/context/Comentarios";
-import { useContext } from "react";
+import { useComentariosContext } from "@/context/Comentarios";
 
 export default function SectionComentarios() {
 
-    const { comentariosVisibles } = useContext(ComentariosContext);
-
-
+    const { comentariosVisibles } = useComentariosContext();
 
     const { page, totalPages, startIndex, visibleTestimonials, handleNext, handlePrevious } = useComentarios(comentariosVisibles);
 

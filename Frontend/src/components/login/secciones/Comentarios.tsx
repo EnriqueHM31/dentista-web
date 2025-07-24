@@ -1,11 +1,10 @@
-import { useContext } from "react";
-import { ComentariosContext } from "@/context/Comentarios";
+import { useComentariosContext } from "@/context/Comentarios";
 import useVisibleComentarios from "@/hooks/admin/Comentarios/VisibleComentarios";
 import ComentariosCard from "../Comentarios/ComentariosCard";
 import Filtros from "../Comentarios/Filtros";
 
 export default function Comentarios() {
-    const { comentarios } = useContext(ComentariosContext);
+    const { comentarios } = useComentariosContext();
 
     const { seleccionados, toggleCheck, guardarSeleccion } = useVisibleComentarios({ comentarios });
 

@@ -1,6 +1,6 @@
 import AnimatedSelect from "@/components/General/Select";
-import { ServicioContext } from "@/context/Servicio";
-import { useContext, useEffect } from "react";
+import { useServicioContext } from "@/context/Servicio";
+import { useEffect } from "react";
 
 import {
     AiOutlineUser, AiOutlineMail, AiOutlinePhone, AiOutlineLink, AiOutlinePicture, AiOutlineTool, AiOutlineHome,
@@ -14,7 +14,7 @@ interface PropsModalEditarEspecialista {
 
 export default function ModalCrearEspecialista({ handleClickDesactivarModal, handleCrearEspecialista, handleChangeCrearEspecialista }: PropsModalEditarEspecialista) {
 
-    const { serviciosDisponibles } = useContext(ServicioContext);
+    const { serviciosDisponibles } = useServicioContext();
 
     useEffect(() => {
         handleChangeCrearEspecialista({ target: { name: "servicio", value: serviciosDisponibles[0].titulo } } as React.ChangeEvent<HTMLInputElement | HTMLSelectElement>);
