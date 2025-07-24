@@ -1,10 +1,11 @@
 import { getUsuario } from "@/services/Usuario";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
+import type { UsuarioProps } from "@/types/Usuario/types";
+
 
 export function useGetUsuario() {
-    const [datosUsuario, setDatosUsuario] = useState<{ username: string, password: string }>({ username: "", password: "" });
-
+    const [datosUsuario, setDatosUsuario] = useState<UsuarioProps>({ username: "", password: "" });
 
     useEffect(() => {
 

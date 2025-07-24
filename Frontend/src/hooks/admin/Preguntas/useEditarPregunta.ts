@@ -1,11 +1,12 @@
+import { mostrarToastConfirmacion } from "@/components/General/ToastConfirmacion";
 import { usePreguntasContext } from "@/context/Preguntas";
 import { updatePregunta } from "@/services/Preguntas";
-import type { Pregunta } from "@/types";
+import type { PreguntaProps } from "@/types/Preguntas/types";
 import { useRef, useState } from "react";
 import { toast } from "sonner";
 
 // Función reutilizable para comparar dos preguntas
-function sonPreguntasIguales(a: Pregunta | null, b: Pregunta | null): boolean {
+function sonPreguntasIguales(a: PreguntaProps | null, b: PreguntaProps | null): boolean {
     if (!a || !b) return false;
     return a.id === b.id && a.pregunta === b.pregunta && a.respuesta === b.respuesta;
 }
@@ -13,44 +14,36 @@ function sonPreguntasIguales(a: Pregunta | null, b: Pregunta | null): boolean {
 export function useEditarPregunta(handleClickDesactivarModal: () => void) {
     const { setPreguntas } = usePreguntasContext();
 
-    const preguntaRef = useRef<Pregunta | null>(null);
-    const [preguntaSeleccionada, setPreguntaSeleccionada] = useState<Pregunta | null>(null);
+    const preguntaRef = useRef<PreguntaProps | null>(null);
+    const [preguntaSeleccionada, setPreguntaSeleccionada] = useState<PreguntaProps | null>(null);
 
     const handledescartarCambios = () => {
 
         if (sonPreguntasIguales(preguntaSeleccionada, preguntaRef.current)) {
             handleClickDesactivarModal();
         } else {
-            toast("¿Estás seguro de deshacer los cambios?", {
-                action: {
-                    label: "Deshacer",
-                    onClick: () => {
-                        // Restaurar los valores originales
-                        setPreguntaSeleccionada(preguntaRef.current);
-                        handleClickDesactivarModal();
-                    },
-                },
-                cancel: {
-                    label: "Cancelar",
-                    onClick: () => toast.dismiss(),
+            mostrarToastConfirmacion({
+                mensaje: "¿Estás seguro de deshacer los cambios?",
+                textoAccion: "Deshacer",
+                onConfirmar: () => {
+                    // Restaurar los valores originales
+                    setPreguntaSeleccionada(preguntaRef.current);
+                    handleClickDesactivarModal();
                 },
             });
         }
     };
 
-    const handleClickModalEditarPregunta = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleEditarCampoPregunta = (
+        e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    ) => {
+        const { name, value } = e.target;
         setPreguntaSeleccionada(prev =>
-            prev ? { ...prev, pregunta: e.target.value } : prev
+            prev ? { ...prev, [name]: value } : prev
         );
     };
 
-    const handleClickModalEditarRespuesta = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-        setPreguntaSeleccionada(prev =>
-            prev ? { ...prev, respuesta: e.target.value } : prev
-        );
-    };
-
-    const handleClickEditar = ({ id, pregunta, respuesta }: Pregunta) => {
+    const handleClickEditar = ({ id, pregunta, respuesta }: PreguntaProps) => {
         setPreguntaSeleccionada({ id, pregunta, respuesta });
         preguntaRef.current = { id, pregunta, respuesta };
     };
@@ -63,13 +56,10 @@ export function useEditarPregunta(handleClickDesactivarModal: () => void) {
             toast.error("No hay pregunta seleccionada", { id: toastId });
             return;
         }
+        const { id, pregunta, respuesta } = preguntaSeleccionada;
 
         try {
-            const { success, message } = await updatePregunta(
-                preguntaSeleccionada.id,
-                preguntaSeleccionada.pregunta,
-                preguntaSeleccionada.respuesta
-            );
+            const { success, message } = await updatePregunta(id, pregunta, respuesta);
 
             if (!success) {
                 toast.error(message, { id: toastId });
@@ -78,10 +68,10 @@ export function useEditarPregunta(handleClickDesactivarModal: () => void) {
 
             // Actualiza el contexto de preguntas
             setPreguntas(prev =>
-                prev.map(p =>
-                    p.id === preguntaSeleccionada.id
-                        ? { ...p, ...preguntaSeleccionada }
-                        : p
+                prev.map(pregunta =>
+                    pregunta.id === id
+                        ? { ...pregunta, ...preguntaSeleccionada }
+                        : pregunta
                 )
             );
 
@@ -90,15 +80,14 @@ export function useEditarPregunta(handleClickDesactivarModal: () => void) {
 
             toast.success("Cambios guardados exitosamente", { id: toastId });
             handleClickDesactivarModal();
-        } catch (err) {
-            toast.error("Error al guardar los cambios: " + err, { id: toastId });
+        } catch {
+            toast.error("Error al guardar los cambios ", { id: toastId });
         }
     };
 
     return {
         handleClickEditar,
-        handleClickModalEditarPregunta,
-        handleClickModalEditarRespuesta,
+        handleEditarCampoPregunta,
         handleEditarPregunta,
         preguntaSeleccionada,
         handledescartarCambios,

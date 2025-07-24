@@ -4,3 +4,7 @@ export interface SocialProps {
     nombre: string;
     referencia: string;
 }
+
+export type SocialEditarProps = {
+    [key in `${string}-${string}-${string}-${string}-${string}`]: boolean;
+};

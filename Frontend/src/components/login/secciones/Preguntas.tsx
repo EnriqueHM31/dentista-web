@@ -13,7 +13,7 @@ export default function ListaPreguntas() {
 
     const { preguntas, expandedIds, toggleExpand, handleClickEliminarPregunta } = usePreguntas();
 
-    const { preguntaSeleccionada, handleEditarPregunta, handleClickModalEditarPregunta, handleClickModalEditarRespuesta, handleClickEditar, handledescartarCambios } = useEditarPregunta(handleClickDesactivarModal);
+    const { preguntaSeleccionada, handleEditarPregunta, handleEditarCampoPregunta, handleClickEditar, handledescartarCambios } = useEditarPregunta(handleClickDesactivarModal);
 
     const { handleCrearPregunta, preguntaForm, handleCambiarCampoPregunta, handledescartarCambiosCrearPregunta } = useCrearPregunta({ handleClickDesactivarModal });
 
@@ -28,8 +28,8 @@ export default function ListaPreguntas() {
                 clases="md:max-w-2/3 max-w-11/12 flex items-center justify-center scrollbar-invisible"
             >
                 <ModalEditar
-                    handleEditarPregunta={handleClickModalEditarPregunta}
-                    handleEditarRespuesta={handleClickModalEditarRespuesta}
+                    handleEditarPregunta={handleEditarCampoPregunta}
+                    handleEditarRespuesta={handleEditarCampoPregunta}
                     preguntaSeleccionada={preguntaSeleccionada}
                     toggle={() => handledescartarCambios()}
                     handleGuardar={handleEditarPregunta}
@@ -40,11 +40,11 @@ export default function ListaPreguntas() {
             <Modal
                 modalId="crear"
                 activeId={activeModal as string}
-                onClose={() => handledescartarCambiosCrearPregunta(handleClickDesactivarModal)}
+                onClose={() => handledescartarCambiosCrearPregunta()}
                 clases="md:max-w-2/3 max-w-11/12 flex items-center justify-center"
             >
                 <ModalCrear
-                    toggle={() => handledescartarCambiosCrearPregunta(handleClickDesactivarModal)}
+                    toggle={() => handledescartarCambiosCrearPregunta()}
                     handleCrearPregunta={handleCrearPregunta}
                     preguntaForm={preguntaForm}
                     handleCambiarCampoPregunta={handleCambiarCampoPregunta}

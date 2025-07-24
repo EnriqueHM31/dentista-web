@@ -4,6 +4,8 @@ export interface PreguntaProps {
     respuesta: string;
 }
 
+export type PreguntaFormProps = Omit<PreguntaProps, "id">
+
 
 export interface ModalEditarPreguntaProps {
     preguntaSeleccionada: Pregunta | null;
@@ -21,3 +23,7 @@ export interface ModalCrearPreguntaProps {
     handleCambiarCampoPregunta: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
 }
 
+// Hooks
+export interface CrearPreguntaProps {
+    handleClickDesactivarModal: () => void;
+}

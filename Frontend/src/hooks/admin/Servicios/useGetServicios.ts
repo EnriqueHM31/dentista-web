@@ -1,24 +1,12 @@
 import { useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
-import type { ServicioResponse } from "@/types";
 import { crearServicio, eliminarServicio } from "@/services/Servicios";
 import { esURLValida, MINUTOS_ARRAY } from "@/utils/constantes";
 import { useServicioContext } from "@/context/Servicio";
 import { convertirADuracionEnMinutos, formatoHoraMinuto } from "@/utils/Hora";
-
-interface ServicioCrearProps {
-    titulo: string,
-    descripcion: string,
-    img: string,
-    duration: string
-}
-
-const INITIAL_SERVICIO_PROPS: ServicioCrearProps = {
-    titulo: "",
-    descripcion: "",
-    img: "",
-    duration: "" as string
-}
+import type { ServicioCrearProps, ServicioProps } from "@/types/Servicios/types";
+import { INITIAL_SERVICIO_PROPS } from "@/constants/Servicios";
+import { mostrarToastConfirmacion } from "@/components/General/ToastConfirmacion";
 
 interface useGetServiciosProps {
     handleClickDesactivarModal: () => void
@@ -27,7 +15,7 @@ interface useGetServiciosProps {
 export function useGetServicios({ handleClickDesactivarModal }: useGetServiciosProps) {
     const { servicios, setServicios } = useServicioContext();
     const [servicioCrear, setServicioCrear] = useState<ServicioCrearProps>(INITIAL_SERVICIO_PROPS);
-    const formRef = useRef<ServicioResponse[]>([]);
+    const formRef = useRef<ServicioProps[]>([]);
 
 
     useEffect(() => {
@@ -42,7 +30,7 @@ export function useGetServicios({ handleClickDesactivarModal }: useGetServiciosP
         if (!servicioCrear.duration && opciones.length > 0) {
             setServicioCrear((prev) => ({
                 ...prev,
-                duration: opciones[0],
+                duration: convertirADuracionEnMinutos(opciones[0].toString()),
             }));
         }
     }, [servicioCrear.duration]);
@@ -54,35 +42,30 @@ export function useGetServicios({ handleClickDesactivarModal }: useGetServiciosP
             toast.error("Servicio no encontrado");
             return;
         }
-        toast("¿Estas seguro que quieres eliminar este servicio?", {
-            action: {
-                label: "Eliminar",
-                onClick: async () => {
-                    const index = servicios.findIndex((s) => s.id === id);
-                    if (index === -1) {
-                        toast.error("Servicio no encontrado");
-                        return;
-                    }
+        mostrarToastConfirmacion({
+            mensaje: "¿Estás seguro que quieres eliminar este servicio?",
+            textoAccion: "Eliminar",
+            onConfirmar: async () => {
+                const index = servicios.findIndex((s) => s.id === id);
+                if (index === -1) {
+                    toast.error("Servicio no encontrado");
+                    return;
+                }
 
-                    const { success, message } = await eliminarServicio(id);
-                    if (success) {
-                        toast.success("Servicio eliminado correctamente");
-                        formRef.current.splice(index, 1);
-                        setServicios([...formRef.current]);
-                    } else {
-                        toast.error(message || "Error al eliminar el servicio");
-                    }
+                const { success, message } = await eliminarServicio(id);
+
+                if (success) {
+                    toast.success("Servicio eliminado correctamente");
+                    formRef.current.splice(index, 1);
+                    setServicios([...formRef.current]);
+                } else {
+                    toast.error(message || "Error al eliminar el servicio");
                 }
             },
-            cancel: {
-                label: "Cancelar",
-                onClick: () => {
-                    toast.dismiss();
-                }
-            }
+            textoCancelar: "Cancelar",
+            onCancelar: () => toast.dismiss("Cancelando eliminación"),
+        });
 
-        }
-        );
     };
 
     const handleCambiarCampoServicio = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
@@ -97,21 +80,18 @@ export function useGetServicios({ handleClickDesactivarModal }: useGetServiciosP
         ) {
             handleClickDesactivarModal();
         } else {
-            toast("¿Estás seguro de querer cancelar los cambios?", {
-                action: {
-                    label: "Cerrar",
-                    onClick: () => {
-                        handleClickDesactivarModal();
-                        setServicioCrear(INITIAL_SERVICIO_PROPS);
-                    }
+            mostrarToastConfirmacion({
+                mensaje: "¿Estás seguro de querer cancelar los cambios?",
+                textoAccion: "Cerrar",
+                onConfirmar: () => {
+                    handleClickDesactivarModal();
+                    setServicioCrear(INITIAL_SERVICIO_PROPS);
                 },
-                cancel: {
-                    label: "Cancelar",
-                    onClick: () => {
-                        toast.dismiss();
-                    }
-                }
-            })
+                textoCancelar: "Cancelar",
+                onCancelar: () => {
+                    toast.dismiss("Cancelando cambios");
+                },
+            });
         }
     }
 
@@ -132,8 +112,15 @@ export function useGetServicios({ handleClickDesactivarModal }: useGetServiciosP
             return;
         }
 
+        const NewServicio: ServicioCrearProps = {
+            titulo,
+            descripcion,
+            img,
+            duration: convertirADuracionEnMinutos(duration.toString())
+        }
+
         try {
-            const { success, message, servicio } = await crearServicio({ titulo, descripcion, img, duration: convertirADuracionEnMinutos(duration.toString()) });
+            const { success, message, servicio } = await crearServicio(NewServicio);
 
             if (success) {
                 toast.success("Servicio creado correctamente");

@@ -8,8 +8,6 @@ export function useLogin() {
     const navigate = useNavigate();
     useCheckearAutenticacion();
 
-
-
     async function handleLogin(e: React.FormEvent<HTMLFormElement>) {
 
         e.preventDefault();

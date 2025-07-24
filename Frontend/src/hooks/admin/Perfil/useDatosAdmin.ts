@@ -1,3 +1,4 @@
+import { mostrarToastConfirmacion } from "@/components/General/ToastConfirmacion";
 import { updateUsuario } from "@/services/Usuario";
 import { toast } from "sonner";
 
@@ -12,37 +13,23 @@ export function useUpdateUsuario(cerrarMenu: () => void) {
             return;
         }
 
-        toast("¿Estás seguro de querer actualizar los datos?", {
-            id: "confirmacion",
-            action: {
-                label: "Aceptar",
-                onClick: async () => {
-                    const toastId = toast.loading("Cargando...");
-                    const { success, message } = await updateinfoUsuario(username, password);
+        mostrarToastConfirmacion({
+            mensaje: "¿Estás seguro de querer actualizar los datos?",
+            textoAccion: "Aceptar",
+            onConfirmar: async () => {
+                const toastId = toast.loading("Cargando...");
+                const { success, message } = await updateUsuario(username, password);;
 
-                    if (!success) {
-                        toast.error(message, { id: toastId });
-                        return;
-                    }
-                    toast.success("Acción confirmada", { id: toastId });
-                    cerrarMenu();
-                },
-            },
-            cancel: {
-                label: "Cancelar",
-                onClick: () => {
-                    toast.dismiss("confirmacion");
-                },
+                if (!success) {
+                    toast.error(message, { id: toastId });
+                    return;
+                }
+                toast.success("Datos actualizados correctamente", { id: toastId });
+                cerrarMenu();
             },
         });
+
     };
-
-
-    const updateinfoUsuario = async (username: string, password: string) => {
-        const { success, message } = await updateUsuario(username, password);
-
-        return { success, message };
-    }
 
     return {
         handleMostrarConfirmacion

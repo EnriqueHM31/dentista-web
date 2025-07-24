@@ -2,14 +2,14 @@ import { usePreguntasContext } from "@/context/Preguntas";
 import { createPregunta } from "@/services/Preguntas";
 import { useState } from "react";
 import { toast } from "sonner";
+import type { CrearPreguntaProps, PreguntaFormProps } from "@/types/Preguntas/types";
+import { INITIAL_PREGUNTA_FORM } from "@/constants/Preguntas";
+import { mostrarToastConfirmacion } from "@/components/General/ToastConfirmacion";
 
 
-export function useCrearPregunta({ handleClickDesactivarModal }: { handleClickDesactivarModal: () => void }) {
+export function useCrearPregunta({ handleClickDesactivarModal }: CrearPreguntaProps) {
     const { setPreguntas, ordenarPreguntas } = usePreguntasContext();
-    const [preguntaForm, setPreguntaForm] = useState<{ pregunta: string; respuesta: string }>({
-        pregunta: "",
-        respuesta: "",
-    });
+    const [preguntaForm, setPreguntaForm] = useState<PreguntaFormProps>(INITIAL_PREGUNTA_FORM);
 
     const handleCrearPregunta = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -36,28 +36,19 @@ export function useCrearPregunta({ handleClickDesactivarModal }: { handleClickDe
         setPreguntaForm(prev => ({ ...prev, [name]: value }));
     };
 
-
-
-    const handledescartarCambiosCrearPregunta = (handleClickDesactivarModal: () => void) => {
+    const handledescartarCambiosCrearPregunta = () => {
         if (preguntaForm.pregunta !== "" || preguntaForm.respuesta !== "") {
-            toast("¿Estás seguro de querer cancelar los cambios?", {
-                action: {
-                    label: "Cerrar",
-                    onClick: () => {
-                        handleClickDesactivarModal();
-                        setPreguntaForm({ pregunta: "", respuesta: "" });
-                    }
+            mostrarToastConfirmacion({
+                mensaje: "¿Estás seguro de querer cancelar los cambios?",
+                textoAccion: "Cerrar",
+                onConfirmar: () => {
+                    handleClickDesactivarModal();
+                    setPreguntaForm(INITIAL_PREGUNTA_FORM);
                 },
-                cancel: {
-                    label: "Cancelar",
-                    onClick: () => {
-                        toast.dismiss();
-                    }
-                }
-            })
+            });
         } else {
             handleClickDesactivarModal();
-            setPreguntaForm({ pregunta: "", respuesta: "" });
+            setPreguntaForm(INITIAL_PREGUNTA_FORM);
         }
     }
 

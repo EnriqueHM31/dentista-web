@@ -2,6 +2,9 @@ import { toast } from "sonner";
 import { useState } from "react";
 import { deletePregunta } from "@/services/Preguntas";
 import { usePreguntasContext } from "@/context/Preguntas";
+import { mostrarToastConfirmacion } from "@/components/General/ToastConfirmacion";
+
+
 export function usePreguntas() {
     const { preguntas, setPreguntas } = usePreguntasContext();
     const [expandedIds, setExpandedIds] = useState<`${string}-${string}-${string}-${string}-${string}`[]>([]);
@@ -14,30 +17,22 @@ export function usePreguntas() {
 
     const handleClickEliminarPregunta = async (id: `${string}-${string}-${string}-${string}-${string}`) => {
 
-        toast("¿Estás seguro de querer eliminar esta pregunta?", {
-            action: {
-                label: "Eliminar",
-                onClick: async () => {
-                    try {
-                        const { success, message } = await deletePregunta(id);
-
-                        if (!success) {
-                            toast.error(message);
-                            return;
-                        }
-                        setPreguntas(prev => prev.filter(p => p.id !== id));
-                        toast.success("Pregunta eliminada");
-                    } catch (err) {
-                        toast.error("Error al eliminar pregunta" + err);
+        mostrarToastConfirmacion({
+            mensaje: "¿Estás seguro de querer eliminar esta pregunta?",
+            textoAccion: "Eliminar",
+            onConfirmar: async () => {
+                try {
+                    const { success, message } = await deletePregunta(id);
+                    if (!success) {
+                        toast.error(message);
+                        return;
                     }
+                    setPreguntas(prev => prev.filter(p => p.id !== id));
+                    toast.success("Pregunta eliminada");
+                } catch (err) {
+                    toast.error("Error al eliminar pregunta: " + err);
                 }
             },
-            cancel: {
-                label: "Cancelar",
-                onClick: () => {
-                    toast.dismiss();
-                }
-            }
         });
 
 

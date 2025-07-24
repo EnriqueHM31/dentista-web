@@ -1,20 +1,21 @@
 import { toast } from "sonner";
-import type { ServicioResponse, Servicio } from "@/types";
+import type { ServicioProps, ServicioCrearProps } from "@/types/Servicios/types";
 import { useState } from "react";
 import { modificarServicio } from "@/services/Servicios";
 import { useServicioContext } from "@/context/Servicio";
+import { mostrarToastConfirmacion } from "@/components/General/ToastConfirmacion";
 
 interface useEditarServicioProps {
-    serviciosRef: React.RefObject<ServicioResponse[]>,
-    formValues: ServicioResponse,
+    serviciosRef: React.RefObject<ServicioProps[]>,
+    formValues: ServicioProps,
     handleClickDesactivarModal: () => void
 }
 
 export function useEditarServicio({ serviciosRef, formValues, handleClickDesactivarModal }: useEditarServicioProps) {
-    const [preview, setPreview] = useState<keyof Servicio | null>('titulo');
+    const [preview, setPreview] = useState<keyof ServicioProps | null>('titulo');
     const { setServicios } = useServicioContext();
 
-    const handlePreview = (campo: keyof Servicio) => {
+    const handlePreview = (campo: keyof ServicioProps) => {
         setPreview(campo);
     };
 
@@ -24,7 +25,7 @@ export function useEditarServicio({ serviciosRef, formValues, handleClickDesacti
 
         // Verificar si hubo cambios
 
-        const cambios = (Object.keys(formValues) as (keyof Servicio)[]).filter((key) => {
+        const cambios = (Object.keys(formValues) as (keyof ServicioProps)[]).filter((key) => {
             if (key === "id") return false;
 
             const nuevoValor = formValues[key];
@@ -41,45 +42,40 @@ export function useEditarServicio({ serviciosRef, formValues, handleClickDesacti
         }
 
         // Si hay cambios, confirmar
-        toast("¿Estás seguro que quieres guardar los cambios?", {
-            action: {
-                label: "Guardar",
-                onClick: async () => {
-                    try {
+        mostrarToastConfirmacion({
+            mensaje: "¿Estás seguro que quieres guardar los cambios?",
+            textoAccion: "Guardar",
+            onConfirmar: async () => {
+                try {
+                    const data = Object.fromEntries(
+                        (cambios as (keyof ServicioCrearProps)[])
+                            .map((key) => [key, formValues[key]])
+                            .filter(([, value]) => value !== undefined)
+                    ) as Partial<ServicioCrearProps>;
 
-                        const data = Object.fromEntries(
-                            (cambios as (keyof ServicioResponse)[])
-                                .map((key) => [key, formValues[key]])
-                                .filter(([, value]) => value !== undefined)
-                        ) as Partial<ServicioResponse>;
+                    const { titulo, descripcion, img, duration } = data;
 
-                        const { titulo, descripcion, img, duration } = data;
+                    const { success, message } = await modificarServicio(
+                        id as `${string}-${string}-${string}-${string}-${string}`,
+                        { titulo, descripcion, img, duration }
+                    );
 
-                        const { success, message } = await modificarServicio(
-                            id,
-                            { titulo, descripcion, img, duration }
+                    if (success) {
+                        toast.success("Cambios guardados correctamente");
+                        handleClickDesactivarModal();
+                        setServicios(prev =>
+                            prev.map(s => s.id === id ? { ...s, ...formValues } : s)
                         );
-
-
-                        if (success) {
-                            toast.success("Cambios guardados correctamente");
-                            handleClickDesactivarModal();
-                            setServicios(prev => prev.map(s => s.id === id ? { ...s, ...formValues } : s));
-                        } else {
-                            toast.error(message || "Error al guardar los cambios.");
-                        }
-                    } catch {
-                        toast.error("Error de red al guardar los cambios.");
+                    } else {
+                        toast.error(message || "Error al guardar los cambios.");
                     }
-                },
-            },
-            cancel: {
-                label: "Cancelar",
-                onClick: () => {
-                    toast.dismiss();
-                },
+
+                } catch {
+                    toast.error("Error de red al guardar los cambios.");
+                }
             },
         });
+
     };
 
     return {

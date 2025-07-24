@@ -1,11 +1,12 @@
 import { useSocialesContext } from "@/context/Sociales";
 import { updateSocial } from "@/services/Sociales";
-import type { SocialProps } from "@/types";
+import type { SocialProps } from "@/types/Sociales/types";
 import { useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
+import type { SocialEditarProps } from "@/types/Sociales/types";
 
 export function useSociales() {
-    const [editMode, setEditMode] = useState<Record<string, boolean>>({});
+    const [editMode, setEditMode] = useState<SocialEditarProps>({});
     const { sociales, setSociales } = useSocialesContext();
     const originalSocialRef = useRef<SocialProps[]>([]);
 
@@ -15,7 +16,7 @@ export function useSociales() {
         }
     }, [sociales]);
 
-    const handleEditClick = (id: string) => {
+    const handleEditClick = (id: `${string}-${string}-${string}-${string}-${string}`) => {
         setEditMode((prev) => ({ ...prev, [id]: !prev[id] }));
     };
 
