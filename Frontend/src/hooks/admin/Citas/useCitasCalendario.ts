@@ -1,8 +1,8 @@
 import { CitasContext } from "@/context/Citas";
 import { useContext, useEffect, useState } from "react";
 import type { EventClickArg } from '@fullcalendar/core';
-
 import { toast } from "sonner";
+import { completarCita, eliminarCita } from "@/services/Citas";
 
 interface Evento {
     id: string;
@@ -47,27 +47,23 @@ export function useCitasCalendario() {
 
     useEffect(() => {
         const ahora = new Date();
-        citas.forEach((cita) => {
+        citas.forEach(async (cita) => {
             if (cita.completada) return;
 
             const fechaCita = new Date(`${cita.fecha}T${cita.hora}`);
 
             if (fechaCita < ahora) {
                 // Marcar como completada
-                fetch(`${import.meta.env.VITE_API_URL}/citas/${cita.id}`, {
-                    method: "PATCH",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ completada: true }),
-                    credentials: "include",
-                })
-                    .then((res) => {
-                        if (!res.ok) throw new Error("Error al actualizar cita");
-                        const nuevasCitas = citas.map((cita) =>
-                            cita.id === cita.id ? { ...cita, completada: true } : cita
-                        );
-                        setCitas(nuevasCitas);
-                    })
-                    .catch((err) => console.error(err));
+                const { success, message } = await completarCita(cita.id as `${string}-${string}-${string}-${string}-${string}`);
+                if (success) {
+                    const nuevasCitas = citas.map((cita) =>
+                        cita.id === cita.id ? { ...cita, completada: true } : cita
+                    );
+                    setCitas(nuevasCitas);
+                    toast.success(message);
+                } else {
+                    toast.error("Error al completar la cita");
+                }
             }
         });
     }, [citas]);
@@ -102,20 +98,14 @@ export function useCitasCalendario() {
 
     const onCitaCompletada = async (id: string) => {
 
-        const response = await fetch(`${import.meta.env.VITE_API_URL}/citas/${id}`, {
-            method: "PATCH",
-            credentials: "include",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ completada: true }),
-        });
-        if (response.ok) {
+        const { success, message } = await completarCita(id as `${string}-${string}-${string}-${string}-${string}`);
+        if (success) {
             const nuevasCitas = citas.map((cita) =>
                 cita.id === id ? { ...cita, completada: true } : cita
             );
             setCitas(nuevasCitas);
             setModalOpen(false);
+            toast.success(message);
             setEventoSeleccionado(null);
         } else {
             toast.error("Error al completar la cita");
@@ -126,13 +116,11 @@ export function useCitasCalendario() {
 
     const onCitaEliminada = async (id: string) => {
 
-        const response = await fetch(`${import.meta.env.VITE_API_URL}/citas/${id}`, {
-            method: "DELETE",
-            credentials: "include",
-        });
-        if (response.ok) {
+        const { success, message } = await eliminarCita(id as `${string}-${string}-${string}-${string}-${string}`);
+        if (success) {
             const nuevasCitas = citas.filter((cita) => cita.id !== id);
             setCitas(nuevasCitas);
+            toast.success(message);
             setModalOpen(false);
         } else {
             toast.error("Error al eliminar la cita");

@@ -2,6 +2,7 @@ import { useContext, useState } from "react";
 import { ServicioContext } from "@/context/Servicio";
 import { CitasContext } from "@/context/Citas";
 import { toast } from "sonner";
+import { crearCita } from "@/services/Citas";
 
 const INITIAL_FORM_CITA = {
     nombre: "",
@@ -17,6 +18,7 @@ export function useCitas() {
 
     const { servicios } = useContext(ServicioContext);
     const { setCitas } = useContext(CitasContext);
+
     function generarHoras(inicio: string, fin: string, intervaloMin: number): string[] {
         const [hInicio, mInicio] = inicio.split(":").map(Number);
         const [hFin, mFin] = fin.split(":").map(Number);
@@ -49,36 +51,15 @@ export function useCitas() {
         e.preventDefault();
         const idServicio = servicios.find(({ titulo }) => titulo === FormCrearCita.servicio)?.id;
 
-        const response = await fetch(`${import.meta.env.VITE_API_URL}/citas`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            credentials: "include",
-            body: JSON.stringify({
-                nombre: FormCrearCita.nombre,
-                email: FormCrearCita.correo,
-                telefono: FormCrearCita.telefono,
-                fecha: FormCrearCita.fecha,
-                servicio: idServicio,
-                hora: FormCrearCita.hora,
-                comentarios: FormCrearCita.comentarios,
-            }),
-        });
+        const { success, message, cita } = await crearCita(FormCrearCita, idServicio as `${string}-${string}-${string}-${string}-${string}`);
 
-        if (response.ok) {
-            const { success, message, cita } = await response.json();
-            if (success) {
-                setCitas(citas => [...citas, cita]);
-                toast.success(message);
-                setFormCrearCita(INITIAL_FORM_CITA);
-            } else {
-                toast.error(message);
-            }
+        if (success) {
+            setCitas(citas => [...citas, cita]);
+            toast.success(message);
+            setFormCrearCita(INITIAL_FORM_CITA);
         } else {
-            toast.error("Error al crear la cita");
+            toast.error(message);
         }
-
     }
 
     return {
