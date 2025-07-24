@@ -7,31 +7,35 @@ interface Cita extends RowDataPacket {
     nombre: string;
     email: string;
     mensaje: string;
-    avatar: string;
+    telefono: string;
     servicio: string;
-    comentario: string;
+    comentarios: string;
     fecha: string;
     hora: string;
+}
+
+interface CitaCrear extends Omit<Cita, 'id'> {
+    id: string; // o id?: string; si quieres que sea opcional
 }
 
 
 export class ModeloCita {
     static async getAll() {
         try {
-            const [rows] = await db.query<Cita[]>(`SELECT * FROM Citas ORDER BY id ASC`);
+            const [rows] = await db.query<Cita[]>(`SELECT id, nombre, email, telefono, servicio, comentarios, fecha, hora FROM Citas ORDER BY fecha ASC`);
             return { success: true, message: rows };
         } catch (error) {
             return { success: false, message: 'Error en la base de datos + error: ' + error };
         }
     }
 
-    static async createCita({ nombre, email, mensaje, avatar, servicio, comentario, fecha, hora }: Record<string, string>) {
+    static async createCita({ nombre, email, mensaje, telefono, servicio, comentarios, fecha, hora }: CitaCrear) {
         try {
             const id = randomUUID();
 
             const [result]: any = await db.query(
-                `INSERT INTO Citas (id, nombre, email, mensaje, avatar, servicio, comentario, fecha, hora) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`,   // puedes agregar más en el futuro
-                [id, nombre, email, mensaje, avatar, servicio, comentario, fecha, hora]
+                `INSERT INTO Citas (id, nombre, email, telefono, comentarios, servicio, fecha, hora) VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,   // puedes agregar más en el futuro
+                [id, nombre, email, mensaje, telefono, servicio, comentarios, fecha, hora]
             );
 
             if (result.affectedRows === 1) {
@@ -43,9 +47,9 @@ export class ModeloCita {
                         nombre: nombre,
                         email: email,
                         mensaje: mensaje,
-                        avatar: avatar,
+                        telefono: telefono,
                         servicio: servicio,
-                        comentario: comentario,
+                        comentarios: comentarios,
                         fecha: fecha,
                         hora: hora
                     }

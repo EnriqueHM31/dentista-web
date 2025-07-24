@@ -2,6 +2,7 @@
 import { Request, Response } from 'express';
 import { ModeloCita } from '@/models/mysql/citas';
 import { validarId } from '@/utils/Validacion';
+import { CitaCrear } from '@/types/citas';
 
 export class CitasController {
 
@@ -20,9 +21,9 @@ export class CitasController {
     }
 
     static async createCita(req: Request, res: Response) {
-        const { nombre, email, mensaje, avatar, servicio, comentario, fecha, hora } = req.body;
+        const { nombre, email, mensaje, telefono, servicio, comentarios, fecha, hora } = req.body;
 
-        const { success, message, cita } = await ModeloCita.createCita({ nombre, email, mensaje, avatar, servicio, comentario, fecha, hora });
+        const { success, message, cita } = await ModeloCita.createCita({ nombre, email, mensaje, telefono, servicio, comentarios, fecha, hora } as CitaCrear);
 
         if (success) {
             res.status(200).json({ success, message, cita });
