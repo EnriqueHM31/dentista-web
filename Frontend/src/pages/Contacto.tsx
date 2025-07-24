@@ -36,7 +36,7 @@ export default function Contacto() {
         const { username, email, categoria, message: comentario, experiencia } = form;
 
         try {
-            const { success, message } = await createComentario({ username, email, categoria, comentario, ranking: parseInt(experiencia) })
+            const { success, message } = await createComentario({ nombre: username, email, mensaje: comentario, ranking: parseInt(experiencia), servicio: categoria })
 
             if (!success) {
                 toast.error(message);

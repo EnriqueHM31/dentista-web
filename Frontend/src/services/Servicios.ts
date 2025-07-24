@@ -1,16 +1,24 @@
-import type { ServicioResponse } from "@/types";
+import type { ServicioProps } from "@/types/Servicios/types";
 import { VITE_API_URL } from "@/config";
 
 export const getServicios = async () => {
     const response = await fetch(`${VITE_API_URL}/servicios`);
-    const { success, message } = await response.json();
-    return { success, message };
+
+    if (response.ok) {
+        return await response.json();
+    } else {
+        return { success: false, message: "Error al obtener los servicios" };
+    }
 }
 
 export const getServiciosDisponibles = async () => {
     const response = await fetch(`${VITE_API_URL}/servicios/disponibles`);
-    const { success, message } = await response.json();
-    return { success, message };
+
+    if (response.ok) {
+        return await response.json();
+    } else {
+        return { success: false, message: "Error al obtener los servicios disponibles" };
+    }
 }
 
 export const crearServicio = async ({ titulo, descripcion, img, duration }: { titulo: string, descripcion: string, img: string, duration: number }) => {
@@ -23,12 +31,14 @@ export const crearServicio = async ({ titulo, descripcion, img, duration }: { ti
         }
     });
 
-    const { success, message, servicio } = await response.json();
-
-    return { success, message, servicio };
+    if (response.ok) {
+        return await response.json();
+    } else {
+        return { success: false, message: "Error al crear el servicio" };
+    }
 }
 
-export const modificarServicio = async (id: string, data: Partial<ServicioResponse>) => {
+export const modificarServicio = async (id: `${string}-${string}-${string}-${string}-${string}`, data: Partial<ServicioProps>) => {
     const response = await fetch(`${VITE_API_URL}/servicios/${id}`, {
         method: "PUT",
         body: JSON.stringify(data),
@@ -38,9 +48,11 @@ export const modificarServicio = async (id: string, data: Partial<ServicioRespon
     }
     );
 
-    const { success, message } = await response.json();
-
-    return { success, message };
+    if (response.ok) {
+        return await response.json();
+    } else {
+        return { success: false, message: "Error al modificar el servicio" };
+    }
 }
 
 export const eliminarServicio = async (id: string) => {
@@ -51,7 +63,9 @@ export const eliminarServicio = async (id: string) => {
         }
     });
 
-    const { success, message } = await response.json();
-
-    return { success, message };
+    if (response.ok) {
+        return await response.json();
+    } else {
+        return { success: false, message: "Error al eliminar el servicio" };
+    }
 }

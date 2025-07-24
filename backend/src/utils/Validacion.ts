@@ -7,14 +7,14 @@ export class Validacion {
 
 
     static comentario = z.object({
-        username: z.string()
+        nombre: z.string()
             .min(1, { message: "El nombre es requerido" }),
         ranking: z.number()
             .min(1, { message: "El ranking es requerido" })
             .max(5, { message: "El ranking debe ser entre 1 y 5" }),
         email: z.string(),
-        categoria: z.string(),
-        comentario: z.string().min(1, { message: "El comentario es requerido" }),
+        servicio: z.string(),
+        mensaje: z.string().min(1, { message: "El comentario es requerido" }),
     })
 
 

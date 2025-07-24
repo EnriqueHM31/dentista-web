@@ -2,10 +2,10 @@ import { getEspecialistas } from "@/services/Especialistas";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import { EspecialistasContext } from "@/context/Especialistas";
-import type { Especialista } from "@/types";
+import type { EspecialistaProps } from "@/types/Especialistas/types";
 
 export function EspecialistasProvider({ children }: { children: React.ReactNode }) {
-    const [especialistas, setEspecialistas] = useState<Especialista[]>([]);
+    const [especialistas, setEspecialistas] = useState<EspecialistaProps[]>([]);
 
     useEffect(() => {
         const obtenerEspecialistas = async () => {
@@ -21,7 +21,7 @@ export function EspecialistasProvider({ children }: { children: React.ReactNode 
         obtenerEspecialistas();
     }, []);
 
-    const ordenarEspecialistas = (especialistas: Especialista[]) => {
+    const ordenarEspecialistas = (especialistas: EspecialistaProps[]) => {
         return [...especialistas].sort((a, b) => {
             const nombreA = `${a.nombre} ${a.apellido}`.toLowerCase();
             const nombreB = `${b.nombre} ${b.apellido}`.toLowerCase();

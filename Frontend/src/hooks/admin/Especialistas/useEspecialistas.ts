@@ -1,18 +1,19 @@
 import { useEspecialistasContext } from "@/context/Especialistas";
 import { useServicioContext } from "@/context/Servicio";
-import type { Especialista } from "@/types";
+import { createEspecialista, deleteEspecialista, updateEspecialista } from "@/services/Especialistas";
+import type { EspecialistaProps } from "@/types/Especialistas/types";
 import { esURLValida } from "@/utils/constantes";
 import { useRef, useState } from "react";
 import { toast } from "sonner";
 
 
 interface PropsHookEspecialistas {
-    especialistas: Especialista[];
+    especialistas: EspecialistaProps[];
     toggle: (id: string) => void;
     handleClickDesactivarModal: () => void;
 }
 
-const INITIAL_ESPECIALISTA: Omit<Especialista, "id"> = {
+const INITIAL_ESPECIALISTA: Omit<EspecialistaProps, "id"> = {
     nombre: "",
     apellido: "",
     email: "",
@@ -23,7 +24,7 @@ const INITIAL_ESPECIALISTA: Omit<Especialista, "id"> = {
     servicio: "",
 }
 
-const INITIAL_ESPECIALISTA_CREAR: Omit<Especialista, "id" | "servicio"> = {
+const INITIAL_ESPECIALISTA_CREAR: Omit<EspecialistaProps, "id" | "servicio"> = {
     nombre: "",
     apellido: "",
     email: "",
@@ -36,13 +37,13 @@ const INITIAL_ESPECIALISTA_CREAR: Omit<Especialista, "id" | "servicio"> = {
 export function useEspecialistas({ toggle, handleClickDesactivarModal }: PropsHookEspecialistas) {
     const { setEspecialistas, ordenarEspecialistas } = useEspecialistasContext();
     const { serviciosDisponibles, setServiciosDisponibles, servicios } = useServicioContext();
-    const [especialistaSeleccionado, setEspecialistaSeleccionado] = useState<Especialista | null>(null);
-    const [especialistaCrear, setEspecialistaCrear] = useState<Omit<Especialista, "id">>(INITIAL_ESPECIALISTA);
-    const especialistaRef = useRef<Omit<Especialista, "id">>(INITIAL_ESPECIALISTA);
+    const [especialistaSeleccionado, setEspecialistaSeleccionado] = useState<EspecialistaProps | null>(null);
+    const [especialistaCrear, setEspecialistaCrear] = useState<Omit<EspecialistaProps, "id">>(INITIAL_ESPECIALISTA);
+    const especialistaRef = useRef<Omit<EspecialistaProps, "id">>(INITIAL_ESPECIALISTA);
 
 
 
-    const handleOpen = (especialista?: Especialista, modal?: string) => {
+    const handleOpen = (especialista?: EspecialistaProps, modal?: string) => {
         setEspecialistaSeleccionado(especialista || null);
         especialistaRef.current = especialista || INITIAL_ESPECIALISTA;
         toggle(modal || ""); // abre el modal
@@ -59,10 +60,10 @@ export function useEspecialistas({ toggle, handleClickDesactivarModal }: PropsHo
     const handleEditarEspecialista = async (e: React.FormEvent, id: `${string}-${string}-${string}-${string}-${string}`) => {
         e.preventDefault();
 
-        const camposCambiados: Partial<Omit<Especialista, "id">> = {};
+        const camposCambiados: Partial<Omit<EspecialistaProps, "id">> = {};
 
         // Detectar qué campos cambiaron
-        (Object.keys(especialistaRef.current) as (keyof Omit<Especialista, "id">)[]).forEach((key) => {
+        (Object.keys(especialistaRef.current) as (keyof Omit<EspecialistaProps, "id">)[]).forEach((key) => {
             if (especialistaRef.current[key] !== especialistaSeleccionado?.[key]) {
                 camposCambiados[key] = especialistaSeleccionado?.[key];
             }
@@ -74,14 +75,7 @@ export function useEspecialistas({ toggle, handleClickDesactivarModal }: PropsHo
         }
 
         try {
-            const response = await fetch(`${import.meta.env.VITE_API_URL}/especialistas/${id}`, {
-                method: "PATCH",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(camposCambiados),
-                credentials: "include",
-            });
-
-            const { success, message, cambios } = await response.json();
+            const { success, message, cambios } = await updateEspecialista(id, camposCambiados);
 
             if (success) {
                 toast.success(message);
@@ -99,7 +93,7 @@ export function useEspecialistas({ toggle, handleClickDesactivarModal }: PropsHo
 
     const handleDescartarCambiosEditarEspecialista = () => {
 
-        const sonIguales = Object.keys(especialistaRef.current).every(key => especialistaRef.current[key as keyof Omit<Especialista, "id">] === especialistaSeleccionado?.[key as keyof Omit<Especialista, "id">]);
+        const sonIguales = Object.keys(especialistaRef.current).every(key => especialistaRef.current[key as keyof Omit<EspecialistaProps, "id">] === especialistaSeleccionado?.[key as keyof Omit<EspecialistaProps, "id">]);
 
         if (sonIguales) {
             handleClickDesactivarModal();
@@ -121,25 +115,13 @@ export function useEspecialistas({ toggle, handleClickDesactivarModal }: PropsHo
         }
     }
 
-    const handleDelete = async (especialista: Especialista) => {
+    const handleDelete = async (especialista: EspecialistaProps) => {
         toast("Estas seguro de eliminar este especialista", {
             action: {
                 label: "Eliminar",
                 onClick: async () => {
 
-                    const response = await fetch(`${import.meta.env.VITE_API_URL}/especialistas/${especialista.id}`, {
-                        method: "DELETE",
-                        headers: {
-                            "Content-Type": "application/json",
-                        },
-                        credentials: "include",
-                    });
-
-                    if (!response.ok) {
-                        throw new Error("Error al eliminar el especialista");
-                    }
-
-                    const { success, message } = await response.json();
+                    const { success, message } = await deleteEspecialista(especialista.id as `${string}-${string}-${string}-${string}-${string}`);
 
 
                     if (success) {
@@ -191,16 +173,9 @@ export function useEspecialistas({ toggle, handleClickDesactivarModal }: PropsHo
         const newEspecialista = { ...especialistaCrear, servicio: servicioDisponible.id };
 
         try {
-            const response = await fetch(`${import.meta.env.VITE_API_URL}/especialistas`, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(newEspecialista),
-                credentials: "include",
-            });
 
-            const { success, message, especialista: especialistaCreado } = await response.json();
+
+            const { success, message, especialista: especialistaCreado } = await createEspecialista(newEspecialista);
 
             if (success) {
                 toast.success(message);
@@ -222,7 +197,7 @@ export function useEspecialistas({ toggle, handleClickDesactivarModal }: PropsHo
 
         const clavesAComparar = Object.keys(especialistaCrear).filter(
             key => key !== "id" && key !== "servicio"
-        ) as (keyof Omit<Especialista, "id" | "servicio">)[];
+        ) as (keyof Omit<EspecialistaProps, "id" | "servicio">)[];
 
         const sonIguales = clavesAComparar.every(
             key => especialistaCrear[key] === INITIAL_ESPECIALISTA_CREAR[key]

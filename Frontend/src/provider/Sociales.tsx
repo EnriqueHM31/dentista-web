@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { SocialesContext } from "@/context/Sociales";
 import { getDataSociales } from "@/services/Sociales";
-import type { SocialProps } from "@/types";
+import type { SocialProps } from "@/types/Sociales/types";
 
 // 3. Proveedor del contexto
 export const SocialesProvider = ({ children }: { children: React.ReactNode }) => {

@@ -1,8 +1,6 @@
 import { toast } from "sonner";
 import { VITE_API_URL } from "@/config";
 
-
-
 export async function Login(username: string, password: string) {
     const response = await fetch(`${VITE_API_URL}/login`, {
         method: "POST",

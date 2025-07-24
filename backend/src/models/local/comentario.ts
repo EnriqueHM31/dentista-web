@@ -1,7 +1,16 @@
 import { transporter } from '@/utils/contacto';
 import db from '@/database/db';
-export class ModeloContacto {
 
+interface Comentario {
+    nombre: string;
+    ranking: number;
+    email: string;
+    servicio: string;
+    mensaje: string;
+    comentario: string;
+}
+
+export class ModeloContacto {
 
     static async getComentarios() {
         try {
@@ -21,19 +30,19 @@ export class ModeloContacto {
         }
     }
 
-    static async EnviarMensaje({ username, ranking, email, categoria, comentario }: { username: string, ranking: number, email: string, categoria: string, comentario: string }) {
+    static async EnviarMensaje({ nombre, ranking, email, servicio, mensaje }: Comentario) {
 
         const mailOptions = {
             from: process.env.REMITENTE,
             to: process.env.DESTINATARIO,
             subject: 'Nuevo mensaje desde Odontología LEHM',
-            text: comentario,
+            text: mensaje,
             html: `
             <div style="background-color: rgb(2, 19, 49); color: #ffffff; font-family: Arial, sans-serif; padding: 24px; border-radius: 10px; max-width: 600px; margin: auto;">
             <h1 style="font-size: 24px; margin: 0; text-align: center;">Nuevo mensaje desde Odontología LEHM</h1>
             
             <p style="font-size: 16px; margin: 10px 0;">
-            <strong>Nombre:</strong> ${username}
+            <strong>Nombre:</strong> ${nombre}
             </p>
             
             <p style="font-size: 16px; margin: 10px 0;">
@@ -41,7 +50,7 @@ export class ModeloContacto {
             </p>
             
             <p style="font-size: 16px; margin: 10px 0;">
-            <strong>Comentario sobre:</strong> ${categoria}
+            <strong>Comentario sobre:</strong> ${servicio}
             </p>
             
             <p style="font-size: 16px; margin: 10px 0;">
@@ -50,7 +59,7 @@ export class ModeloContacto {
 
             <div style="background-color: rgb(0, 12, 37); padding: 16px; border-left: 4px solid #ffffff88; border-radius: 8px; margin-top: 20px;">
             <p style="font-size: 16px; margin: 0;"><strong>Mensaje:</strong></p>
-            <p style="margin-top: 8px;">${comentario}</p>
+            <p style="margin-top: 8px;">${mensaje}</p>
             </div>
         </div>
         `
@@ -61,10 +70,10 @@ export class ModeloContacto {
 
             if (info.accepted.length > 0) {
 
-                const [result] = await db.query('INSERT INTO Comentarios (nombre, ranking, email, servicio, mensaje) VALUES (?, ?, ?, ?, ?)', [username, ranking, email, categoria, comentario]);
+                const [result] = await db.query('INSERT INTO Comentarios (nombre, ranking, email, servicio, mensaje) VALUES (?, ?, ?, ?, ?)', [nombre, ranking, email, servicio, mensaje]);
 
                 if (result) {
-                    return { success: true, message: 'Comentario enviado correctamente' };
+                    return { success: true, message: 'Comentario enviado correctamente' }
                 }
                 else {
                     return { success: false, message: 'Error al guardar el mensaje' };

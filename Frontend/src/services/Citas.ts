@@ -1,17 +1,7 @@
 import { toast } from "sonner";
+import type { FormCrearCitaProps } from "@/types/Citas/types";
 
-interface FormCrearCita {
-
-    nombre: string;
-    correo: string;
-    telefono: string;
-    fecha: string;
-    servicio: string;
-    hora: string;
-    comentarios: string;
-}
-
-export async function crearCita(FormCrearCita: FormCrearCita, idServicio: `${string}-${string}-${string}-${string}-${string}`) {
+export async function crearCita(FormCrearCita: FormCrearCitaProps, idServicio: `${string}-${string}-${string}-${string}-${string}`) {
     const response = await fetch(`${import.meta.env.VITE_API_URL}/citas`, {
         method: "POST",
         headers: {
@@ -20,7 +10,7 @@ export async function crearCita(FormCrearCita: FormCrearCita, idServicio: `${str
         credentials: "include",
         body: JSON.stringify({
             nombre: FormCrearCita.nombre,
-            email: FormCrearCita.correo,
+            email: FormCrearCita.email,
             telefono: FormCrearCita.telefono,
             fecha: FormCrearCita.fecha,
             servicio: idServicio,

@@ -1,4 +1,5 @@
 import { VITE_API_URL } from "@/config";
+import type { EspecialistaProps, FormCrearEspecialistaProps } from "@/types/Especialistas/types";
 
 
 export async function getEspecialistas() {
@@ -16,5 +17,53 @@ export async function getEspecialistas() {
 
     return { success, message };
 }
+
+export async function createEspecialista(newEspecialista: FormCrearEspecialistaProps) {
+    const response = await fetch(`${VITE_API_URL}/especialistas`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(newEspecialista),
+        credentials: "include",
+    });
+    if (!response.ok) {
+        return await response.json();
+    } else {
+        return { success: false, message: "Error al crear el especialista" };
+    }
+}
+
+export async function updateEspecialista(id: `${string}-${string}-${string}-${string}-${string}`, camposCambiados: Partial<EspecialistaProps>) {
+    const response = await fetch(`${VITE_API_URL}/especialistas/${id}`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(camposCambiados),
+        credentials: "include",
+    });
+
+    if (!response.ok) {
+        return await response.json();
+    } else {
+        return { success: false, message: "Error al actualizar el especialista" };
+    }
+}
+
+export async function deleteEspecialista(id: `${string}-${string}-${string}-${string}-${string}`) {
+    const response = await fetch(`${VITE_API_URL}/especialistas/${id}`, {
+        method: "DELETE",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        credentials: "include",
+    });
+
+    if (response.ok) {
+        return await response.json();
+    } else {
+        return { success: false, message: "Error al eliminar el especialista" };
+    }
+}
+
 
 

@@ -1,5 +1,5 @@
 export interface CitaProps {
-    id: string;
+    id: `${string}-${string}-${string}-${string}-${string}`;
     nombre: string;
     email: string;
     servicio: string;
@@ -9,3 +9,4 @@ export interface CitaProps {
     hora: string
     completada: boolean
 }
+export type FormCrearCitaProps = Omit<CitaProps, "id" | "servicio" | "completada">;

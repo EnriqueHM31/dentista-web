@@ -1,4 +1,5 @@
 import { VITE_API_URL } from "@/config";
+import type { FormActualizarComentarioProps, FormCrearComentarioProps } from "@/types/Comentarios/types";
 
 export async function getComentarios() {
     const response = await fetch(`${VITE_API_URL}/comentarios`, {
@@ -13,12 +14,12 @@ export async function getComentarios() {
     return { success, message };
 }
 
-export async function createComentario({ categoria, username, email, comentario, ranking }: { categoria: string, username: string, email: string, comentario: string, ranking: number }) {
+export async function createComentario({ nombre, email, mensaje, ranking, servicio }: FormCrearComentarioProps) {
 
     const response = await fetch(`${VITE_API_URL}/comentarios`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ categoria, username, email, comentario, ranking }),
+        body: JSON.stringify({ nombre, email, mensaje, ranking, servicio }),
         credentials: "include",
     });
 
@@ -31,7 +32,7 @@ export async function createComentario({ categoria, username, email, comentario,
 }
 
 
-export async function updateComentarioVisibilidad({ id, visible }: { id: string, visible: boolean }) {
+export async function updateComentarioVisibilidad({ id, visible }: FormActualizarComentarioProps) {
     const response = await fetch(`${VITE_API_URL}/comentarios/${id}`, {
         method: "PUT",
         headers: {

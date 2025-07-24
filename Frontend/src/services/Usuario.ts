@@ -7,13 +7,11 @@ export async function getUsuario() {
         method: "GET",
     })
 
-    if (!response.ok) {
-        const error = await response.json().catch(() => ({}));
-        throw new Error(error.message || "Error al obtener el usuario");
+    if (response.ok) {
+        return await response.json();
+    } else {
+        return { success: false, message: "Error al obtener el usuario" };
     }
-
-    const { success, message } = await response.json();
-    return { success, message };
 }
 
 export async function updateUsuario(username: string, password: string) {
@@ -26,7 +24,9 @@ export async function updateUsuario(username: string, password: string) {
         credentials: "include",
     });
 
-    const { success, message } = await response.json();
-
-    return { success, message };
+    if (response.ok) {
+        return await response.json();
+    } else {
+        return { success: false, message: "Error al actualizar el usuario" };
+    }
 }

@@ -2,11 +2,11 @@ import { getServicios, getServiciosDisponibles } from "@/services/Servicios";
 import { toast } from "sonner";
 import { useState, useEffect } from "react";
 import { ServicioContext } from "@/context/Servicio";
-import type { ServicioResponse } from "@/types";
+import type { ServicioProps } from "@/types/Servicios/types";
 
 export const ServicioProvider = ({ children }: { children: React.ReactNode }) => {
-    const [servicios, setServicios] = useState<ServicioResponse[]>([]);
-    const [serviciosDisponibles, setServiciosDisponibles] = useState<ServicioResponse[]>([]);
+    const [servicios, setServicios] = useState<ServicioProps[]>([]);
+    const [serviciosDisponibles, setServiciosDisponibles] = useState<ServicioProps[]>([]);
 
     useEffect(() => {
         obtenerServicios();

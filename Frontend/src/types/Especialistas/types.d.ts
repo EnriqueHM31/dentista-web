@@ -10,3 +10,5 @@ export interface EspecialistaProps {
     linkedin: string;
     servicio: string;
 }
+
+export type FormCrearEspecialistaProps = Omit<EspecialistaProps, "id">

@@ -2,27 +2,12 @@ import { useState, useEffect } from "react";
 import { toast } from "sonner";
 import { getComentarios } from "@/services/Comentarios";
 import { ComentariosContext } from "@/context/Comentarios";
-
-interface Comentario {
-    id: string;
-    nombre: string;
-    email: string;
-    mensaje: string;
-    ranking: number;
-    visible: boolean | number;
-}
-
-interface Filtros {
-    ordenar: "asc" | "desc" | null;
-    ranking: number | null;
-    seleccion: "checkeados" | "no_checkeados" | null;
-}
-
+import type { ComentarioProps, Filtros } from "@/types/Comentarios/types";
 
 
 export function ComentariosProvider({ children }: { children: React.ReactNode }) {
-    const [comentariosOriginales, setComentariosOriginales] = useState<Comentario[]>([]);
-    const [comentariosFiltrados, setComentariosFiltrados] = useState<Comentario[]>([]);
+    const [comentariosOriginales, setComentariosOriginales] = useState<ComentarioProps[]>([]);
+    const [comentariosFiltrados, setComentariosFiltrados] = useState<ComentarioProps[]>([]);
     const [filtros, setFiltrosState] = useState<Filtros>({
         ordenar: null,
         ranking: null,

@@ -5,7 +5,11 @@ export const getDataPreguntas = async () => {
 
     const response = await fetch(`${VITE_API_URL}/preguntas`);
     const { success, message } = await response.json();
-    return { success, message };
+    if (response.ok) {
+        return { success, message };
+    } else {
+        return { success: false, message: "Error al obtener las preguntas" };
+    }
 }
 
 export const createPregunta = async (pregunta: string, respuesta: string) => {
@@ -15,8 +19,11 @@ export const createPregunta = async (pregunta: string, respuesta: string) => {
         body: JSON.stringify({ pregunta, respuesta }),
     });
 
-    const { success, message, pregunta: preguntaCreada } = await response.json();
-    return { success, message, preguntaCreada };
+    if (response.ok) {
+        return await response.json();
+    } else {
+        return { success: false, message: "Error al crear la pregunta" };
+    }
 
 }
 
@@ -25,9 +32,11 @@ export const deletePregunta = async (id: `${string}-${string}-${string}-${string
         method: "DELETE",
     });
 
-    const { success, message } = await response.json();
-
-    return { success, message };
+    if (response.ok) {
+        return await response.json();
+    } else {
+        return { success: false, message: "Error al eliminar la pregunta" };
+    }
 }
 
 
@@ -41,6 +50,9 @@ export const updatePregunta = async (id: `${string}-${string}-${string}-${string
         }),
     });
 
-    const { success, message } = await response.json();
-    return { success, message };
+    if (response.ok) {
+        return await response.json();
+    } else {
+        return { success: false, message: "Error al actualizar la pregunta" };
+    }
 }

@@ -2,6 +2,15 @@ import type { Request, Response } from 'express';
 import { ModeloContacto } from '@/models/local/comentario';
 import { validarComentario, validarId } from '@/utils/Validacion';
 
+interface Comentario {
+    nombre: string;
+    ranking: number;
+    email: string;
+    servicio: string;
+    mensaje: string;
+    comentario: string;
+}
+
 export class ContrallerContacto {
     static async EnviarMensaje(req: Request, res: Response) {
 
@@ -12,7 +21,9 @@ export class ContrallerContacto {
             return;
         }
 
-        const { success, message } = await ModeloContacto.EnviarMensaje({ ...result.data });
+        const { nombre, ranking, email, servicio, mensaje } = result.data
+
+        const { success, message } = await ModeloContacto.EnviarMensaje({ nombre, ranking, email, servicio, mensaje } as Comentario);
 
         if (success) {
             res.status(200).json({ success, message });
