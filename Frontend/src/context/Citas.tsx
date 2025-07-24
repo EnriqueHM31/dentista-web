@@ -1,21 +1,9 @@
 import { createContext, useContext, type Dispatch, type SetStateAction } from "react";
-import { } from "sonner";
-
-interface Cita {
-    id: string;
-    nombre: string;
-    email: string;
-    servicio: string;
-    telefono: string;
-    comentarios: string
-    fecha: string;
-    hora: string
-    completada: boolean
-}
+import type { CitaProps } from "@/types/Citas/types";
 
 interface CitasContextType {
-    citas: Cita[];
-    setCitas: Dispatch<SetStateAction<Cita[]>>;
+    citas: CitaProps[];
+    setCitas: Dispatch<SetStateAction<CitaProps[]>>;
 }
 
 export const CitasContext = createContext<CitasContextType>({

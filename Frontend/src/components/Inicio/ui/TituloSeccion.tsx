@@ -1,8 +1,4 @@
-interface TituloSeccionProps {
-    titulo: string;
-    clases?: string;
-}
-
+import type { TituloSeccionProps } from "@/types/Components/types";
 
 export default function TituloSeccion({ titulo, clases }: TituloSeccionProps) {
     return (

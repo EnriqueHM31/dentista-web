@@ -1,4 +1,4 @@
-import type { SocialProps } from "@/types";
+import type { SocialProps } from "@/types/Sociales/types";
 import { createContext, useContext } from "react";
 
 // 1. Define el tipo del contexto

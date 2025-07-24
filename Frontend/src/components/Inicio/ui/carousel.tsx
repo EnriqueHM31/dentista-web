@@ -1,12 +1,12 @@
 import { useEffect, useRef } from "react";
 import { useId } from "react";
-import type { Especialista } from "@/types";
+import type { EspecialistaProps } from "@/types/Especialistas/types";
 import Slide from "@/components/Inicio/Carusel/Slide";
 import CarouselControl from "@/components/Inicio/Carusel/CaruselControl";
 import { useCarrusel } from "@/hooks/general/useCarrusel";
 
 interface CarouselProps {
-  slides: Especialista[];
+  slides: EspecialistaProps[];
 }
 
 export default function Carousel({ slides }: CarouselProps) {

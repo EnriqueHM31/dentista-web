@@ -1,12 +1,12 @@
 import { createContext, useContext, type Dispatch, type SetStateAction } from "react";
-import type { ServicioResponse } from "@/types";
+import type { ServicioProps } from "@/types/Servicios/types";
 
 
 interface ServicioContextType {
-    servicios: ServicioResponse[];
-    setServicios: Dispatch<SetStateAction<ServicioResponse[]>>;
-    serviciosDisponibles: ServicioResponse[];
-    setServiciosDisponibles: Dispatch<SetStateAction<ServicioResponse[]>>;
+    servicios: ServicioProps[];
+    setServicios: Dispatch<SetStateAction<ServicioProps[]>>;
+    serviciosDisponibles: ServicioProps[];
+    setServiciosDisponibles: Dispatch<SetStateAction<ServicioProps[]>>;
 }
 
 export const ServicioContext = createContext<ServicioContextType>({

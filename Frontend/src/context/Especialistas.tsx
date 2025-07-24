@@ -1,10 +1,10 @@
 import { createContext, useContext, type Dispatch, type SetStateAction } from "react";
-import type { Especialista } from "@/types";
+import type { EspecialistaProps } from "@/types/Especialistas/types";
 
 interface EspecialistasContextProps {
-    especialistas: Especialista[];
-    setEspecialistas: Dispatch<SetStateAction<Especialista[]>>;
-    ordenarEspecialistas: (especialistas: Especialista[]) => Especialista[];
+    especialistas: EspecialistaProps[];
+    setEspecialistas: Dispatch<SetStateAction<EspecialistaProps[]>>;
+    ordenarEspecialistas: (especialistas: EspecialistaProps[]) => EspecialistaProps[];
 }
 
 export const EspecialistasContext = createContext<EspecialistasContextProps>({

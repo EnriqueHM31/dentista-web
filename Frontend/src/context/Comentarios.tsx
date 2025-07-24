@@ -1,6 +1,6 @@
 import { createContext, useContext, type Dispatch, type SetStateAction } from "react";
 import { } from "sonner";
-import type { Comentario } from "@/types";
+import type { ComentarioProps } from "@/types/Comentarios/types";
 
 
 export interface Filtros {
@@ -10,9 +10,9 @@ export interface Filtros {
 }
 
 interface ComentariosContextType {
-    comentarios: Comentario[];
-    setComentarios: Dispatch<SetStateAction<Comentario[]>>;
-    comentariosVisibles: Comentario[];
+    comentarios: ComentarioProps[];
+    setComentarios: Dispatch<SetStateAction<ComentarioProps[]>>;
+    comentariosVisibles: ComentarioProps[];
     setFiltros: (filtros: Partial<Filtros>) => void;
     filtros: Filtros;
 }

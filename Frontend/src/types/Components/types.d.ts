@@ -1,5 +1,9 @@
 const POSITIONS = ["top", "bottom", "left", "right"] as const;
 
+export interface TituloSeccionProps {
+    titulo: string;
+    clases?: string;
+}
 
 interface SlideDataProps {
     title: string;
