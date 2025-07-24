@@ -11,7 +11,9 @@ import ServicioCard from "../Servicios/ServicioCard";
 export default function Servicios() {
 
     const { handleClickActivarModalIndependiente, activeModal, handleClickDesactivarModal } = useModalIndependiente();
+
     const { servicios, serviciosRef, handleSubmitCrearServicio, handleEliminarServicio, handledescartarCambiosCrearServicio, handleCambiarCampoServicio, servicioCrear } = useGetServicios({ handleClickDesactivarModal });
+
     const { formValues, handleEdit, handleChange, handledescartarCambios } = useModalEditarServicio();
 
     return (

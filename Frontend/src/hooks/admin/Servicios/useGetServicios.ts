@@ -91,7 +91,10 @@ export function useGetServicios({ handleClickDesactivarModal }: useGetServiciosP
     }
 
     const handledescartarCambiosCrearServicio = (handleClickDesactivarModal: () => void) => {
-        if (Object.values(servicioCrear).every(value => value === "")) {
+        if (Object.entries(servicioCrear)
+            .filter(([key]) => key !== "duration") // 👈 Filtra la clave que no quieres evaluar
+            .every(([, value]) => value === "")
+        ) {
             handleClickDesactivarModal();
         } else {
             toast("¿Estás seguro de querer cancelar los cambios?", {
@@ -110,7 +113,6 @@ export function useGetServicios({ handleClickDesactivarModal }: useGetServiciosP
                 }
             })
         }
-
     }
 
 

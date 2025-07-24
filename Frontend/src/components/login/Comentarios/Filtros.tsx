@@ -5,6 +5,9 @@ import {
     FILTROS_ORDEN,
     FILTROS_CHECKEADOS,
     DATA_FILTRO_INICIAL,
+    NOMBRES_FILTROS,
+    NOMBRES_FILTROS_ORDEN,
+    NOMBRES_FILTROS_SELECCION,
 } from "@/constants/filtrosComentarios";
 import {
     textoOrden,
@@ -176,7 +179,7 @@ export default function Filtros() {
                             className={`${btnBase} w-full flex justify-between items-center truncate whitespace-nowrap overflow-hidden text-ellipsis gap-1`}
                             onClick={() => seleccionarFiltro(MENU_FILTROS.todos)}
                         >
-                            Todos
+                            {NOMBRES_FILTROS.todos}
                         </button>
                     )}
 
@@ -196,7 +199,7 @@ export default function Filtros() {
                                         }
                                         className={`${menuItemClass(filtros.ordenar === FILTROS_ORDEN.asc)} truncate whitespace-nowrap overflow-hidden text-ellipsis`}
                                     >
-                                        Nombre A-Z
+                                        {NOMBRES_FILTROS_ORDEN.asc}
                                     </button>
                                     <button
                                         onClick={() =>
@@ -204,7 +207,7 @@ export default function Filtros() {
                                         }
                                         className={`${menuItemClass(filtros.ordenar === FILTROS_ORDEN.desc)} truncate whitespace-nowrap overflow-hidden text-ellipsis`}
                                     >
-                                        Nombre Z-A
+                                        {NOMBRES_FILTROS_ORDEN.desc}
                                     </button>
                                 </div>
                             )}
@@ -259,7 +262,7 @@ export default function Filtros() {
                                             filtros.seleccion === FILTROS_CHECKEADOS.checkeados
                                         )} truncate whitespace-nowrap overflow-hidden text-ellipsis`}
                                     >
-                                        Seleccionados
+                                        {NOMBRES_FILTROS_SELECCION.checkeados}
                                     </button>
                                     <button
                                         onClick={() =>
@@ -272,7 +275,7 @@ export default function Filtros() {
                                             filtros.seleccion === FILTROS_CHECKEADOS.no_checkeados
                                         )}
                                     >
-                                        No seleccionados
+                                        {NOMBRES_FILTROS_SELECCION.no_checkeados}
                                     </button>
                                 </div>
                             )}
@@ -297,25 +300,25 @@ export default function Filtros() {
                             className={menuItemClass(filtroActivo === MENU_FILTROS.todos)}
                             onClick={() => seleccionarFiltroActivo(MENU_FILTROS.todos)}
                         >
-                            Todos
+                            {NOMBRES_FILTROS.todos}
                         </button>
                         <button
                             className={menuItemClass(filtroActivo === MENU_FILTROS.ordenar)}
                             onClick={() => seleccionarFiltroActivo(MENU_FILTROS.ordenar, DATA_FILTRO_INICIAL.ordenar as typeof FILTROS_ORDEN[keyof typeof FILTROS_ORDEN])}
                         >
-                            Ordenar
+                            {NOMBRES_FILTROS.ordenar}
                         </button>
                         <button
                             className={menuItemClass(filtroActivo === MENU_FILTROS.ranking)}
                             onClick={() => seleccionarFiltroActivo(MENU_FILTROS.ranking, DATA_FILTRO_INICIAL.ranking as number)}
                         >
-                            Ranking
+                            {NOMBRES_FILTROS.ranking}
                         </button>
                         <button
                             className={menuItemClass(filtroActivo === MENU_FILTROS.seleccion)}
                             onClick={() => seleccionarFiltroActivo(MENU_FILTROS.seleccion, DATA_FILTRO_INICIAL.seleccion as typeof FILTROS_CHECKEADOS[keyof typeof FILTROS_CHECKEADOS])}
                         >
-                            Selección
+                            {NOMBRES_FILTROS.seleccion}
                         </button>
                     </div>
                 )}

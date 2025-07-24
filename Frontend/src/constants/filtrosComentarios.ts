@@ -20,3 +20,21 @@ export const DATA_FILTRO_INICIAL = {
     ranking: 5,
     seleccion: FILTROS_CHECKEADOS.checkeados,
 }
+
+export const NOMBRES_FILTROS = {
+    todos: "Todos",
+    ordenar: "Ordenar",
+    ranking: "Ranking",
+    seleccion: "Seleccion",
+} as const;
+
+export const NOMBRES_FILTROS_ORDEN = {
+    asc: "Nombre A-Z",
+    desc: "Nombre Z-A",
+} as const;
+
+
+export const NOMBRES_FILTROS_SELECCION = {
+    "checkeados": "Seleccionados",
+    "no_checkeados": "No seleccionados",
+}
