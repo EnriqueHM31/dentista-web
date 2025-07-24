@@ -12,10 +12,7 @@ export const verificarTokenDesdeCookie = (req: Request, res: Response, next: Nex
     }
 
     try {
-        console.log(token);
-        console.log(JWT_SECRET);
         const decoded = jwt.verify(token, JWT_SECRET) as { role: string };
-        console.log(token);
         console.log(decoded);
         next();
     } catch (err) {

@@ -10,6 +10,7 @@ import { PreguntasRoutes } from './routes/preguntas.routes';
 import { UsuarioRouter } from './routes/datausuario.routes';
 import { ServiciosRoutes } from './routes/servicios.routes';
 import { EspecialistasRouter } from './routes/especialistas.routes';
+import { CitasRouter } from './routes/citas.routes';
 
 const PORT = 3000
 
@@ -43,6 +44,7 @@ app.use('/api/preguntas', PreguntasRoutes);
 app.use('/api/usuario', UsuarioRouter);
 app.use('/api/servicios', ServiciosRoutes);
 app.use('/api/especialistas', EspecialistasRouter);
+app.use('/api/citas', CitasRouter);
 
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`)
