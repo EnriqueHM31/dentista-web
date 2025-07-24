@@ -1,14 +1,9 @@
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa6";
-import Tooltip from "../../General/Tooltip";
+import Tooltip from "@/components/General/Tooltip";
+import type { CarouselControlProps } from "@/types/Components/types";
 
-interface CarouselControlProps {
-    type: string;
-    title: string;
-    handleClick: () => void;
-}
 
 export default function CarouselControl({ type, title, handleClick }: CarouselControlProps) {
-
 
     return (
         <Tooltip text={title} position="top">

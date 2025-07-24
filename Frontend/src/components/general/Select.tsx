@@ -1,15 +1,8 @@
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { FaChevronDown } from "react-icons/fa";
-import type { AnimatedSelectProps } from "@/types";
+import type { SelectProps } from "@/types/Components/types";
 
-interface ExtendedAnimatedSelectProps extends AnimatedSelectProps {
-    selectClass?: string;
-    menuClass?: string;
-    itemClass?: string;
-    itemHoverClass?: string;
-    textClass?: string;
-}
 
 export default function AnimatedSelect({
     funcion,
@@ -22,7 +15,7 @@ export default function AnimatedSelect({
     itemClass = "",
     itemHoverClass = "",
     textClass = "",
-}: ExtendedAnimatedSelectProps) {
+}: SelectProps) {
     const [isOpen, setIsOpen] = useState(false);
     const [selected, setSelected] = useState<string>(select || "");
     const containerRef = useRef<HTMLDivElement>(null);

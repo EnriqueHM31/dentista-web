@@ -1,10 +1,7 @@
 import { useRanking } from "@/hooks/general/useRanking";
 import { FaStar } from "react-icons/fa";
+import type { StarRatingProps } from "@/types/Comentarios/types";
 
-interface StarRatingProps {
-    name: string;
-    onChange?: (value: number) => void;
-}
 
 export default function StarRating({ name, onChange }: StarRatingProps) {
 

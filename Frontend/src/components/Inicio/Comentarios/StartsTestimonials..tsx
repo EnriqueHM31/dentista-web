@@ -1,5 +1,6 @@
+import type { StartsTestimonialsProps } from "@/types/Comentarios/types";
 
-export default function StartsTestimonials({ numero }: { numero: number }) {
+export default function StartsTestimonials({ numero }: StartsTestimonialsProps) {
 
     return (
         <div className="flex gap-2 items-start">

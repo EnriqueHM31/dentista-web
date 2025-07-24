@@ -2,18 +2,8 @@ import StartsTestimonials from "@/components/Inicio/Comentarios/StartsTestimonia
 import { FaTrash } from "react-icons/fa";
 import { FaCheck } from "react-icons/fa6";
 import { useTestimonio } from "@/hooks/general/useTestimonio";
+import type { TestimonioProps } from "@/types/Comentarios/types";
 
-interface TestimonioProps {
-    id?: string
-    client_name: string;
-    rating: number;
-    comment: string;
-    index: number;
-    visible?: number | boolean;
-    checked?: boolean;
-    onCheckToggle?: (index: number) => void;
-    movil?: boolean;
-}
 
 export default function Testimonio({ id, client_name, rating, comment, index, visible = false, checked = visible === true || visible === 1, onCheckToggle, movil = false }: TestimonioProps) {
 

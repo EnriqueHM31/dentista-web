@@ -1,5 +1,5 @@
 import { motion, AnimatePresence } from "framer-motion"
-import type { TooltipProps } from "@/types"
+import type { TooltipProps } from "@/types/Components/types"
 import { useTooltip } from "@/hooks/general/useTooltip"
 
 export default function Tooltip({ text, children, position = "top" }: TooltipProps) {

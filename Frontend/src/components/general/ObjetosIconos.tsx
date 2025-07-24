@@ -22,12 +22,10 @@ export function getIconosAside() {
     ];
 }
 
-
 export function getIconoLogout() {
     return { label: "Cerrar sesión", icon: RiLogoutCircleLine, id: "logout" };
 
 }
-
 
 export function getIconosSociales() {
 

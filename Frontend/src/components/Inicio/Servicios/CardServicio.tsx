@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import Modal from "@/components/General/Modal";
 import ModalServicio from "./ModalServicio";
-import type { CardServicioProps } from "@/types";
+import type { CardServicioProps } from "@/types/Servicios/types";
 import { useOpenWithTransition } from "@/hooks/general/useOpenWithTransition";
 
 export default function CardServicio({ servicio, index }: CardServicioProps) {
