@@ -1,5 +1,5 @@
 import Modal from "@/components/General/Modal";
-import { useOpenWithTransition } from "@/hooks/general/useOpenWithTransition";
+import { useOpenWithTransition } from "@/hooks/general/useOpen";
 import ModalDatos from "../Usuario/ModalDatos";
 import CalendarioCitas from "../Usuario/Calendario";
 

@@ -6,32 +6,21 @@ import SectionVideo from "@/components/Inicio/Secciones/SectionVideo";
 import SectionEspecialistas from "@/components/Inicio/Secciones/SectionEspecialistas";
 import SectionComentarios from "@/components/Inicio/Secciones/SectionComentarios";
 import SectionPreguntas from "@/components/Inicio/Secciones/SectionPreguntas";
-import { PreguntasProvider } from "@/provider/Preguntas";
-import { ComentariosProvider } from "@/provider/Comentarios";
-import { EspecialistasProvider } from "@/provider/Especialistas";
+import WrapperContextSite from "@/components/General/WrapperContextSite";
 
 export default function Inicio() {
     return (
         <>
-            <PreguntasProvider>
-                <ComentariosProvider>
-                    <EspecialistasProvider>
-
-                        <FondoHero />
-                        <Hero />
-                        <SectionTelefono />
-                        <SectionVentajas />
-                        <SectionVideo />
-                        <SectionEspecialistas />
-                        <SectionComentarios />
-                        <SectionPreguntas />
-                    </EspecialistasProvider>
-
-
-                </ComentariosProvider>
-
-
-            </PreguntasProvider>
+            <WrapperContextSite>
+                <FondoHero />
+                <Hero />
+                <SectionTelefono />
+                <SectionVentajas />
+                <SectionVideo />
+                <SectionEspecialistas />
+                <SectionComentarios />
+                <SectionPreguntas />
+            </WrapperContextSite>
         </>
     );
 }

@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import Modal from "@/components/General/Modal";
 import ModalServicio from "./ModalServicio";
 import type { CardServicioProps } from "@/types/Servicios/types";
-import { useOpenWithTransition } from "@/hooks/general/useOpenWithTransition";
+import { useOpenWithTransition } from "@/hooks/general/useOpen";
 
 export default function CardServicio({ servicio, index }: CardServicioProps) {
     const { isOpen, toggle } = useOpenWithTransition();

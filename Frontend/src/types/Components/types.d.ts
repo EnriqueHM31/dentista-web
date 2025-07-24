@@ -54,3 +54,12 @@ export interface ToastConfirmacionOptions {
     textoCancelar?: string;
     onCancelar?: () => void;
 };
+
+export interface RankingProps {
+    onChange?: (value: number) => void;
+}
+
+export interface useCopyTextProps {
+    text: string;
+    mensaje: string;
+}

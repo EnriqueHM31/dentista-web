@@ -1,14 +1,7 @@
 import { useState, useEffect } from "react";
+import type { ComentarioProps } from "@/types/Comentarios/types";
 
-interface Comentario {
-    id: string;
-    nombre: string;
-    mensaje: string;
-    ranking: number;
-    visible: boolean | number;
-}
-
-export function useComentarios(comentariosVisibles: Comentario[]) {
+export function useComentarios(comentariosVisibles: ComentarioProps[]) {
     const [page, setPage] = useState(0);
     function getItemsPerPage() {
         const width = window.innerWidth;

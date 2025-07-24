@@ -49,7 +49,7 @@ export default function Testimonio({ id, client_name, rating, comment, index, vi
 
             <div className="flex-1 flex items-center gap-4 ">
                 <img
-                    src={getRandomPortraitUrl(index)}
+                    src={getRandomPortraitUrl()}
                     alt="cliente"
                     className="size-10 rounded-full object-cover"
                 />

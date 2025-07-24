@@ -9,6 +9,9 @@ export interface CitaProps {
     hora: string
     completada: boolean
 }
+
+export type CitaFormProps = Omit<CitaProps, "id" | "completada">;
+
 export type FormCrearCitaProps = Omit<CitaProps, "id" | "servicio" | "completada">;
 
 

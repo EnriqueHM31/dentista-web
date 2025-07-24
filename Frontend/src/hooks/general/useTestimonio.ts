@@ -1,43 +1,40 @@
 import { useComentariosContext } from "@/context/Comentarios";
 import { toast } from "sonner";
 import { deleteComentario } from "@/services/Comentarios";
+import { mostrarToastConfirmacion } from "@/components/General/ToastConfirmacion";
 
 export function useTestimonio() {
     const { setComentarios } = useComentariosContext();
 
-    function getRandomPortraitUrl(index: number) {
-        const gender = Math.random() < 0.5 ? "men" : "women";
-        return `https://randomuser.me/api/portraits/${gender}/${index % 100}.jpg`;
+    function getRandomPortraitUrl() {
+        return `https://us.123rf.com/450wm/valentint/valentint1602/valentint160203120/52348140-user-profile-icon-internet-button-on-blue-background.webp`;
     }
 
     const handleEliminarComentario = (id: `${string}-${string}-${string}-${string}-${string}`) => {
-        toast("¿Estás seguro de que quieres eliminar el comentario?", {
-            action: {
-                label: "Eliminar",
-                onClick: async () => {
-                    try {
+        mostrarToastConfirmacion({
+            mensaje: "¿Estás seguro de que quieres eliminar el comentario?",
+            textoAccion: "Eliminar",
+            onConfirmar: async () => {
+                try {
+                    const { success, message } = await deleteComentario(id);
 
-                        const { success, message } = await deleteComentario(id);
-
-                        if (!success) {
-                            toast.error(message || "No se pudo eliminar el comentario");
-                            return;
-                        }
-
-                        toast.success("Comentario eliminado");
-                        setComentarios(prev => prev.filter(c => c.id !== id));
-                    } catch {
-                        toast.error("Error al eliminar el comentario");
+                    if (!success) {
+                        toast.error(message || "No se pudo eliminar el comentario");
+                        return;
                     }
-                },
+
+                    toast.success("Comentario eliminado");
+                    setComentarios(prev => prev.filter(c => c.id !== id));
+                } catch {
+                    toast.error("Error al eliminar el comentario");
+                }
             },
-            cancel: {
-                label: "Cancelar",
-                onClick: () => {
-                    toast.dismiss();
-                },
+            textoCancelar: "Cancelar",
+            onCancelar: () => {
+                toast.dismiss();
             },
         });
+
     };
 
     return { getRandomPortraitUrl, handleEliminarComentario };

@@ -1,7 +1,7 @@
-import type { Especialista } from "@/types";
+import type { EspecialistaProps } from "@/types/Especialistas/types";
 import { useState } from "react";
 
-export function useCarrusel({ slides }: { slides: Especialista[] }) {
+export function useCarrusel({ slides }: { slides: EspecialistaProps[] }) {
     const [current, setCurrent] = useState(0);
 
     const handlePreviousClick = () => {

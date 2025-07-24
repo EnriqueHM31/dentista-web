@@ -39,7 +39,7 @@ export default function Citas() {
                                 id="correo"
                                 type="email"
                                 name="correo"
-                                value={FormCrearCita.correo}
+                                value={FormCrearCita.email}
                                 onChange={handleChangeCrearCita}
                                 required
                                 placeholder="juan@example.com"

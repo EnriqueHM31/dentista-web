@@ -3,16 +3,7 @@ import { useServicioContext } from "@/context/Servicio";
 import { useCitasContext } from "@/context/Citas";
 import { toast } from "sonner";
 import { crearCita } from "@/services/Citas";
-
-const INITIAL_FORM_CITA = {
-    nombre: "",
-    correo: "",
-    telefono: "",
-    fecha: "",
-    servicio: "",
-    hora: "",
-    comentarios: "",
-}
+import { INITIAL_FORM_CITA } from "@/constants/Citas";
 
 export function useCitas() {
 
@@ -39,6 +30,8 @@ export function useCitas() {
 
         return resultado;
     }
+
+
     const horas = generarHoras("08:00", "18:00", 30);
 
     const [FormCrearCita, setFormCrearCita] = useState(INITIAL_FORM_CITA);

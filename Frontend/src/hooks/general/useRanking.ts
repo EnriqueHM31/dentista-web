@@ -1,6 +1,7 @@
 import { useState } from "react";
+import type { RankingProps } from "@/types/Components/types";
 
-export function useRanking(onChange?: (value: number) => void) {
+export function useRanking({ onChange }: RankingProps) {
 
     const [hovered, setHovered] = useState<number | null>(null);
     const [selected, setSelected] = useState<number>(0);
