@@ -172,7 +172,6 @@ export function useEspecialistas({ toggle, handleClickDesactivarModal }: PropsHo
 
     const handleCrearEspecialista = async (e: React.FormEvent) => {
         e.preventDefault();
-        console.log(especialistaCrear);
         const { avatar, linkedin, servicio } = especialistaCrear;
 
         const servicioDisponible = serviciosDisponibles.find((servicioObtener) => servicioObtener.titulo === servicio);
@@ -220,8 +219,6 @@ export function useEspecialistas({ toggle, handleClickDesactivarModal }: PropsHo
     };
 
     const handleDescartarCambiosCrearEspecialista = () => {
-        console.log(especialistaCrear);
-        console.log(INITIAL_ESPECIALISTA);
 
         const clavesAComparar = Object.keys(especialistaCrear).filter(
             key => key !== "id" && key !== "servicio"

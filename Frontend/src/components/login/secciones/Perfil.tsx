@@ -2,7 +2,6 @@ import Modal from "@/components/General/Modal";
 import { useOpenWithTransition } from "@/hooks/general/useOpenWithTransition";
 import ModalDatos from "../Usuario/ModalDatos";
 import CalendarioCitas from "../Usuario/Calendario";
-import 'rsuite/Calendar/styles/index.css';
 
 
 
