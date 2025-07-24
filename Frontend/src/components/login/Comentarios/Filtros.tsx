@@ -4,6 +4,7 @@ import {
     MENU_FILTROS,
     FILTROS_ORDEN,
     FILTROS_CHECKEADOS,
+    DATA_FILTRO_INICIAL,
 } from "@/constants/filtrosComentarios";
 import {
     textoOrden,
@@ -15,12 +16,6 @@ import {
 } from "@/utils/filtrosComentarios";
 import { useFiltrosComentarios } from "@/hooks/admin/Comentarios/useFiltros";
 
-
-const DATA_FILTRO_INICIAL = {
-    ordenar: FILTROS_ORDEN.asc,
-    ranking: 5,
-    seleccion: FILTROS_CHECKEADOS.checkeados,
-}
 
 export default function Filtros() {
     const { filtros, menusAbiertos, toggleMenu, seleccionarFiltro } =

@@ -14,3 +14,9 @@ export const FILTROS_CHECKEADOS = {
     checkeados: "checkeados",
     no_checkeados: "no_checkeados",
 } as const;
+
+export const DATA_FILTRO_INICIAL = {
+    ordenar: FILTROS_ORDEN.asc,
+    ranking: 5,
+    seleccion: FILTROS_CHECKEADOS.checkeados,
+}
