@@ -37,7 +37,7 @@ export default function AsideMenu({ selected, handleClickSelected }: AsideMenuPr
             {
 
                 <aside
-                    className={`fixed top-0 left-0 w-64 h-screen bg-primary text-white p-4 z-50 md:hidden transition-transform duration-300 transform ${!isOpen ? "-translate-x-full" : "translate-x-0"
+                    className={`fixed top-0 left-0 w-64 h-screen bg-primary text-white p-4 z-200 md:hidden transition-transform duration-300 transform ${!isOpen ? "-translate-x-full" : "translate-x-0"
                         }`
                     }
                 >
