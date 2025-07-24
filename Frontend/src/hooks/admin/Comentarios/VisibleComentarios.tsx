@@ -1,13 +1,9 @@
 import { updateComentarioVisibilidad } from "@/services/Comentarios";
-import type { Comentario } from "@/types";
+import type { ComentarioProps } from "@/types/Comentarios/types";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 
-interface useVisibleComentariosProps {
-    comentarios: Comentario[];
-}
-
-export default function useVisibleComentarios({ comentarios }: useVisibleComentariosProps) {
+export default function useVisibleComentarios(comentarios: ComentarioProps[]) {
     const [seleccionados, setSeleccionados] = useState<Record<string, boolean>>({});
 
     useEffect(() => {

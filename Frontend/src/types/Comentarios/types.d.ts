@@ -18,6 +18,8 @@ export interface Filtros {
     seleccion: "checkeados" | "no_checkeados" | null;
 }
 
+export type MenuFiltro = keyof typeof MENU_FILTROS;
+
 export interface StarRatingProps {
     name: string;
     onChange?: (value: number) => void;

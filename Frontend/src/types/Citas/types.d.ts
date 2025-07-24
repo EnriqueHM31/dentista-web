@@ -10,3 +10,21 @@ export interface CitaProps {
     completada: boolean
 }
 export type FormCrearCitaProps = Omit<CitaProps, "id" | "servicio" | "completada">;
+
+
+export interface CitasCalendarioProps {
+    id: string;
+    title: string;
+    start: string;
+    backgroundColor: string;
+    extendedProps: {
+        nombre: string;
+        telefono: string;
+        email: string;
+        comentarios: string;
+        servicio: string;
+        fecha: string;
+        hora: string;
+        completada: boolean;
+    };
+}

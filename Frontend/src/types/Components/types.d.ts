@@ -45,3 +45,12 @@ export interface SlideProps {
     current: number;
     handleSlideClick: (index: number) => void;
 }
+
+
+export interface ToastConfirmacionOptions {
+    mensaje: string;
+    textoAccion: string;
+    onConfirmar: () => void | Promise<void>;
+    textoCancelar?: string;
+    onCancelar?: () => void;
+};

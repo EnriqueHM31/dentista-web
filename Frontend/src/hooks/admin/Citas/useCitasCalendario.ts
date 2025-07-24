@@ -3,32 +3,15 @@ import { useEffect, useState } from "react";
 import type { EventClickArg } from '@fullcalendar/core';
 import { toast } from "sonner";
 import { completarCita, eliminarCita } from "@/services/Citas";
-
-interface Evento {
-    id: string;
-    title: string;
-    start: string;
-    backgroundColor: string;
-    extendedProps: {
-        nombre: string;
-        telefono: string;
-        email: string;
-        comentarios: string;
-        servicio: string;
-        fecha: string;
-        hora: string;
-        completada: boolean;
-    };
-}
-
+import type { CitasCalendarioProps } from "@/types/Citas/types";
 
 export function useCitasCalendario() {
 
     const [modalOpen, setModalOpen] = useState(false);
-    const [eventoSeleccionado, setEventoSeleccionado] = useState<Evento | null>(null);
+    const [eventoSeleccionado, setEventoSeleccionado] = useState<CitasCalendarioProps | null>(null);
     const { citas, setCitas } = useCitasContext(); // Asegúrate que `setCitas` esté en tu contexto
 
-    const citasFormateadas: Evento[] = citas.map((cita) => ({
+    const citasFormateadas: CitasCalendarioProps[] = citas.map((cita) => ({
         id: cita.id,
         title: `${cita.nombre} - ${cita.servicio}`,
         start: `${cita.fecha.substring(0, 10)}T${cita.hora}`,
@@ -50,7 +33,7 @@ export function useCitasCalendario() {
         citas.forEach(async (cita) => {
             if (cita.completada) return;
 
-            const fechaCita = new Date(`${cita.fecha}T${cita.hora}`);
+            const fechaCita = new Date(cita.fecha);
 
             if (fechaCita < ahora) {
                 // Marcar como completada

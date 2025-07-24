@@ -12,3 +12,12 @@ export interface EspecialistaProps {
 }
 
 export type FormCrearEspecialistaProps = Omit<EspecialistaProps, "id">
+
+export type InitialEspecialistaProps = Omit<FormCrearEspecialistaProps, "servicio">
+
+
+export interface PropsHookEspecialistas {
+    especialistas: EspecialistaProps[];
+    toggle: (id: string) => void;
+    handleClickDesactivarModal: () => void;
+}

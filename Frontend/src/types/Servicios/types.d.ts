@@ -1,12 +1,12 @@
 
-export interface ServicioProps {
+export interface ServicioCrearProps {
     titulo: string;
     descripcion: string;
     img: string;
     duration: number;
 }
 
-export interface ServicioCrearProps extends ServicioProps {
+export interface ServicioProps extends ServicioCrearProps {
     id: `${string}-${string}-${string}-${string}-${string}`;
 }
 
