@@ -8,12 +8,12 @@ export class CitasController {
 
     static async getAll(_req: Request, res: Response) {
         try {
-            const { success, message } = await ModeloCita.getAll();
+            const { success, message, citas } = await ModeloCita.getAll();
 
             if (success) {
-                res.status(200).json({ success, message });
+                res.status(200).json({ success, message, citas });
             } else {
-                res.status(500).json({ success, message });
+                res.status(500).json({ success, message, citas: [] });
             }
         } catch (error) {
             res.status(500).json({ success: false, message: 'Error al obtener las citas' });
@@ -22,6 +22,7 @@ export class CitasController {
 
     static async createCita(req: Request, res: Response) {
         const { nombre, email, mensaje, telefono, servicio, comentarios, fecha, hora } = req.body;
+        console.log(req.body)
 
         const { success, message, cita } = await ModeloCita.createCita({ nombre, email, mensaje, telefono, servicio, comentarios, fecha, hora } as CitaCrear);
 
@@ -49,4 +50,26 @@ export class CitasController {
             res.status(500).json({ success, message });
         }
     }
-}   
+
+    static async updateCita(req: Request, res: Response) {
+        const { completada } = req.body;
+        console.log(req.body)
+
+        const id = req.params.id as `${string}-${string}-${string}-${string}-${string}`;
+
+        const resultID = validarId({ id });
+        if (resultID.error) {
+            res.status(400).json({ success: false, message: resultID.error.message });
+            return;
+        }
+
+        console.log(resultID.data.id)
+        console.log(completada)
+
+        const { success, message } = await ModeloCita.updateCita(resultID.data.id, { completado: completada });
+
+        if (success) {
+            res.status(200).json({ success, message });
+        }
+    }
+}

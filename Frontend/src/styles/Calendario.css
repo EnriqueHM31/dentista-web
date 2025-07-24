@@ -39,3 +39,34 @@
 .fc-daygrid-day-events {
   min-height: 70px !important;
 }
+
+.fc-day-today {
+  background-color: var(--color-primary) !important;
+  /* azul claro */
+  color: white !important;
+  /* color primary */
+}
+
+
+
+
+
+
+
+.fc-timegrid-slot-minor {
+  background-color: white !important;
+}
+
+.fc-timegrid-slot-minor {
+  background-color: white !important;
+}
+
+.fc-timegrid-slot-minor {
+  background-color: white !important;
+  color: white !important;
+}
+
+.fc-timegrid-slot-lane {
+  background-color: white !important;
+  border: 1px solid rgba(2, 0, 33, 0.40) !important;
+}

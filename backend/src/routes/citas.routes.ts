@@ -6,5 +6,6 @@ export const CitasRouter = Router();
 
 CitasRouter.get('/', CitasController.getAll);
 CitasRouter.post('/', verificarTokenDesdeCookie, CitasController.createCita);
+CitasRouter.patch('/:id', verificarTokenDesdeCookie, CitasController.updateCita);
 CitasRouter.delete('/:id', verificarTokenDesdeCookie, CitasController.deleteCita);
 

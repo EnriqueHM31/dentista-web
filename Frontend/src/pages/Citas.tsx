@@ -1,10 +1,23 @@
 import AnimatedSelect from "@/components/General/Select";
+import { CitasContext } from "@/context/Citas";
 import { ServicioContext } from "@/context/Servicio";
-import { useContext } from "react";
+import { useContext, useState } from "react";
+import { toast } from "sonner";
+
+const INITIAL_FORM_CITA = {
+    nombre: "",
+    correo: "",
+    telefono: "",
+    fecha: "",
+    servicio: "",
+    hora: "",
+    comentarios: "",
+}
 
 export default function Citas() {
 
     const { servicios } = useContext(ServicioContext);
+    const { setCitas } = useContext(CitasContext);
     function generarHoras(inicio: string, fin: string, intervaloMin: number): string[] {
         const [hInicio, mInicio] = inicio.split(":").map(Number);
         const [hFin, mFin] = fin.split(":").map(Number);
@@ -25,22 +38,63 @@ export default function Citas() {
 
         return resultado;
     }
-
     const horas = generarHoras("08:00", "18:00", 30);
 
+    const [FormCrearCita, setFormCrearCita] = useState(INITIAL_FORM_CITA);
+
+    const handleChangeCrearCita = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
+        setFormCrearCita({ ...FormCrearCita, [e.target.name]: e.target.value });
+    }
+
+    const handleSubmitCrearCita = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        const idServicio = servicios.find(({ titulo }) => titulo === FormCrearCita.servicio)?.id;
+
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/citas`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            credentials: "include",
+            body: JSON.stringify({
+                nombre: FormCrearCita.nombre,
+                email: FormCrearCita.correo,
+                telefono: FormCrearCita.telefono,
+                fecha: FormCrearCita.fecha,
+                servicio: idServicio,
+                hora: FormCrearCita.hora,
+                comentarios: FormCrearCita.comentarios,
+            }),
+        });
+
+        if (response.ok) {
+            const { success, message, cita } = await response.json();
+            if (success) {
+                setCitas(citas => [...citas, cita]);
+                toast.success(message);
+                setFormCrearCita(INITIAL_FORM_CITA);
+            } else {
+                toast.error(message);
+            }
+        } else {
+            toast.error("Error al crear la cita");
+        }
+
+    }
+
     return (
-        <div className="min-h-screen bg-white flex flex-col lg:flex-row items-center justify-center px-0 md:px-4 py-12 mt-10 max-w-11/12 md:max-w-10/12 mx-auto w-full">
+        <section className="min-h-screen bg-white flex flex-col lg:flex-row items-center justify-center px-0 md:px-4 py-12 mt-10 max-w-11/12 md:max-w-10/12 mx-auto w-full">
             <div className="flex flex-col lg:flex-row max-w-full md:max-w-11/12 w-full bg-white border border-gray-500 rounded-xl shadow-2xl ">
                 {/* Panel Izquierdo - Login */}
                 <div className="w-full px-6 py-8 md:p-12 flex flex-col justify-center gap-6 flex-4">
-                    <div>
+                    <header>
                         <h1 className="text-xl md:text-3xl font-bold text-primary">Bienvenido agenda tu cita ahora...</h1>
                         <p className="text-gray-500 mt-2 text-sm md:text-base">
                             Completa el formulario para agendar tu cita
                         </p>
-                    </div>
+                    </header>
 
-                    <form className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <form onSubmit={handleSubmitCrearCita} className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         {/* Nombre completo */}
                         <div className="flex flex-col">
                             <label htmlFor="nombre" className="text-sm text-gray-600">Nombre completo</label>
@@ -49,6 +103,8 @@ export default function Citas() {
                                 id="nombre"
                                 name="nombre"
                                 required
+                                value={FormCrearCita.nombre}
+                                onChange={handleChangeCrearCita}
                                 placeholder="Juan Pérez"
                                 className="mt-1 px-4 py-2 border border-primary rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
                             />
@@ -61,6 +117,8 @@ export default function Citas() {
                                 id="correo"
                                 type="email"
                                 name="correo"
+                                value={FormCrearCita.correo}
+                                onChange={handleChangeCrearCita}
                                 required
                                 placeholder="juan@example.com"
                                 className="mt-1 px-4 py-2 border border-primary rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
@@ -76,6 +134,8 @@ export default function Citas() {
                                 name="telefono"
                                 required
                                 placeholder="55 1234 5678"
+                                value={FormCrearCita.telefono}
+                                onChange={handleChangeCrearCita}
                                 pattern="[0-9]{10}"
                                 className="mt-1 px-4 py-2 border border-primary rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
                             />
@@ -88,6 +148,8 @@ export default function Citas() {
                                 id="fecha"
                                 type="date"
                                 name="fecha"
+                                value={FormCrearCita.fecha}
+                                onChange={handleChangeCrearCita}
                                 required
                                 className="mt-1 px-4 py-2 border border-primary rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
                             />
@@ -100,6 +162,7 @@ export default function Citas() {
                             <AnimatedSelect
                                 name="servicio"
                                 select="Selecciona un servicio"
+                                onChange={handleChangeCrearCita}
                                 selectClass="bg-white border border-primary mt-1 text-primary"
                                 itemClass="bg-white text-primary"
                                 itemHoverClass="hover:bg-primary hover:text-white"
@@ -116,6 +179,7 @@ export default function Citas() {
                                 itemClass="bg-white text-primary"
                                 itemHoverClass="hover:bg-primary hover:text-white"
                                 select={horas[0]}
+                                onChange={handleChangeCrearCita}
                                 options={horas} />
                         </div>
 
@@ -125,6 +189,8 @@ export default function Citas() {
                             <textarea
                                 id="comentarios"
                                 name="comentarios"
+                                value={FormCrearCita.comentarios}
+                                onChange={handleChangeCrearCita}
                                 placeholder="Ej. Tengo molestias en una muela..."
                                 className="mt-1 px-4 py-2 border border-primary rounded-md resize-none h-24 focus:outline-none focus:ring-2 focus:ring-primary"
                             ></textarea>
@@ -155,6 +221,6 @@ export default function Citas() {
                     />
                 </div>
             </div>
-        </div>
+        </section>
     );
 }
