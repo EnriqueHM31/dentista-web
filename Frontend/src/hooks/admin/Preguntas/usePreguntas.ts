@@ -6,7 +6,7 @@ import { mostrarToastConfirmacion } from "@/components/General/ToastConfirmacion
 
 
 export function usePreguntas() {
-    const { preguntas, setPreguntas } = usePreguntasContext();
+    const { setPreguntas } = usePreguntasContext();
     const [expandedIds, setExpandedIds] = useState<`${string}-${string}-${string}-${string}-${string}`[]>([]);
 
     const toggleExpand = (id: `${string}-${string}-${string}-${string}-${string}`) => {
@@ -39,7 +39,6 @@ export function usePreguntas() {
     }
 
     return {
-        preguntas,
         toggleExpand,
         handleClickEliminarPregunta,
         expandedIds,

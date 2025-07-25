@@ -16,7 +16,7 @@ export function useCrearPregunta({ handleClickDesactivarModal }: CrearPreguntaPr
         const { pregunta: preguntaACrear, respuesta: respuestaACrear } = preguntaForm;
         const toastId = toast.loading("Creando pregunta...");
         try {
-            const { success, message, preguntaCreada } = await createPregunta(preguntaACrear, respuestaACrear)
+            const { success, message, pregunta: preguntaCreada } = await createPregunta(preguntaACrear, respuestaACrear)
             if (!success) {
                 toast.error(message, { id: toastId });
                 return;

@@ -6,18 +6,20 @@ import { usePreguntas } from "@/hooks/admin/Preguntas/usePreguntas";
 import { useModalIndependiente } from "@/hooks/general/useModalIndependiente";
 import { useEditarPregunta } from "@/hooks/admin/Preguntas/useEditarPregunta";
 import { useCrearPregunta } from "@/hooks/admin/Preguntas/useCrearPregunta";
+import { usePreguntasContext } from "@/context/Preguntas";
 
 export default function ListaPreguntas() {
 
+    const { preguntas } = usePreguntasContext();
     const { handleClickActivarModalIndependiente, handleClickDesactivarModal, activeModal } = useModalIndependiente();
 
-    const { preguntas, expandedIds, toggleExpand, handleClickEliminarPregunta } = usePreguntas();
+    const { expandedIds, toggleExpand, handleClickEliminarPregunta } = usePreguntas();
 
     const { preguntaSeleccionada, handleEditarPregunta, handleEditarCampoPregunta, handleClickEditar, handledescartarCambios } = useEditarPregunta(handleClickDesactivarModal);
 
     const { handleCrearPregunta, preguntaForm, handleCambiarCampoPregunta, handledescartarCambiosCrearPregunta } = useCrearPregunta({ handleClickDesactivarModal });
 
-
+    console.log(preguntas);
     return (
         <>
             {/* MODAL EDITAR */}
