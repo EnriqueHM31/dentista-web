@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { FaChevronDown, FaStar, FaFilter } from "react-icons/fa";
 import {
     MENU_FILTROS,
@@ -21,50 +20,10 @@ import { useFiltrosComentarios } from "@/hooks/admin/Comentarios/useFiltros";
 
 
 export default function Filtros() {
-    const { filtros, menusAbiertos, toggleMenu, seleccionarFiltro } =
+    const { filtros, menusAbiertos, toggleMenu, seleccionarFiltro, textoFiltroActivo, filtroActivo, menuFiltroActivoAbierto, handleClickMenuFiltroActivo } =
         useFiltrosComentarios();
 
-    // Estado local para menú extra en móvil (selector de filtro activo)
-    const [menuFiltroActivoAbierto, setMenuFiltroActivoAbierto] = useState(false);
 
-    // Detectar cuál filtro está activo (o todos)
-    const filtroActivo =
-        filtros.ordenar !== null
-            ? MENU_FILTROS.ordenar
-            : filtros.ranking !== null
-                ? MENU_FILTROS.ranking
-                : filtros.seleccion !== null
-                    ? MENU_FILTROS.seleccion
-                    : MENU_FILTROS.todos;
-
-    // Texto para mostrar filtro activo (en móvil)
-    const textoFiltroActivo = () => {
-        switch (filtroActivo) {
-            case MENU_FILTROS.ordenar:
-                return textoOrden(filtros);
-            case MENU_FILTROS.ranking:
-                return textoRanking(filtros);
-            case MENU_FILTROS.seleccion:
-                return textoSeleccion(filtros);
-            default:
-                return "Todos";
-        }
-    };
-
-    // Función para cambiar filtro activo en menú móvil
-    const seleccionarFiltroActivo = (filtro: keyof typeof MENU_FILTROS, valor?: typeof FILTROS_ORDEN[keyof typeof FILTROS_ORDEN] | number | typeof FILTROS_CHECKEADOS[keyof typeof FILTROS_CHECKEADOS]) => {
-        setMenuFiltroActivoAbierto(false);
-
-        if (filtro === MENU_FILTROS.todos) {
-            seleccionarFiltro(MENU_FILTROS.todos);
-        } else if (filtro === MENU_FILTROS.ordenar) {
-            seleccionarFiltro(MENU_FILTROS.ordenar, valor);
-        } else if (filtro === MENU_FILTROS.ranking) {
-            seleccionarFiltro(MENU_FILTROS.ranking, valor);
-        } else if (filtro === MENU_FILTROS.seleccion) {
-            seleccionarFiltro(MENU_FILTROS.seleccion, valor);
-        }
-    };
 
     return (
         <section className="relative py-4">
@@ -285,7 +244,7 @@ export default function Filtros() {
 
                 {/* Botón para abrir selector de filtro activo */}
                 <button
-                    onClick={() => setMenuFiltroActivoAbierto((v) => !v)}
+                    onClick={handleClickMenuFiltroActivo}
                     className="ml-2 p-2 rounded border border-gray-300 bg-white hover:bg-primary hover:text-white transition"
                     aria-label="Seleccionar filtro"
                     title="Seleccionar filtro"
@@ -298,25 +257,25 @@ export default function Filtros() {
                     <div className="absolute top-full w-full left-0 bg-white shadow-lg rounded-lg border border-primary p-2 z-40 flex flex-col gap-3">
                         <button
                             className={menuItemClass(filtroActivo === MENU_FILTROS.todos)}
-                            onClick={() => seleccionarFiltroActivo(MENU_FILTROS.todos)}
+                            onClick={() => seleccionarFiltro(MENU_FILTROS.todos)}
                         >
                             {NOMBRES_FILTROS.todos}
                         </button>
                         <button
                             className={menuItemClass(filtroActivo === MENU_FILTROS.ordenar)}
-                            onClick={() => seleccionarFiltroActivo(MENU_FILTROS.ordenar, DATA_FILTRO_INICIAL.ordenar as typeof FILTROS_ORDEN[keyof typeof FILTROS_ORDEN])}
+                            onClick={() => seleccionarFiltro(MENU_FILTROS.ordenar, DATA_FILTRO_INICIAL.ordenar as typeof FILTROS_ORDEN[keyof typeof FILTROS_ORDEN])}
                         >
                             {NOMBRES_FILTROS.ordenar}
                         </button>
                         <button
                             className={menuItemClass(filtroActivo === MENU_FILTROS.ranking)}
-                            onClick={() => seleccionarFiltroActivo(MENU_FILTROS.ranking, DATA_FILTRO_INICIAL.ranking as number)}
+                            onClick={() => seleccionarFiltro(MENU_FILTROS.ranking, DATA_FILTRO_INICIAL.ranking as number)}
                         >
                             {NOMBRES_FILTROS.ranking}
                         </button>
                         <button
                             className={menuItemClass(filtroActivo === MENU_FILTROS.seleccion)}
-                            onClick={() => seleccionarFiltroActivo(MENU_FILTROS.seleccion, DATA_FILTRO_INICIAL.seleccion as typeof FILTROS_CHECKEADOS[keyof typeof FILTROS_CHECKEADOS])}
+                            onClick={() => seleccionarFiltro(MENU_FILTROS.seleccion, DATA_FILTRO_INICIAL.seleccion as typeof FILTROS_CHECKEADOS[keyof typeof FILTROS_CHECKEADOS])}
                         >
                             {NOMBRES_FILTROS.seleccion}
                         </button>

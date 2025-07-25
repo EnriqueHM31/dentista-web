@@ -1,8 +1,6 @@
-import type { ModalCrearProps } from "@/types";
+import type { ModalCrearPreguntaProps } from "@/types/Preguntas/types";
 
-export default function ModalCrear({ toggle, handleCrearPregunta, preguntaForm, handleCambiarCampoPregunta }: ModalCrearProps) {
-
-
+export default function ModalCrearPregunta({ toggle, handleCrearPregunta, preguntaForm, handleCambiarCampoPregunta }: ModalCrearPreguntaProps) {
 
     return (
         <form onSubmit={async (e) => {

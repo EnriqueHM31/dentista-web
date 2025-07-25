@@ -1,14 +1,8 @@
-import { type Servicio } from "@/types";
+import { type ServicioCardProps } from "@/types/Servicios/types";
 import { formatoHoraMinuto } from "@/utils/Hora";
 import { FiEdit, FiTrash } from "react-icons/fi";
 
 
-interface ServicioCardProps {
-    servicio: Servicio;
-    handleEdit: (servicio: Servicio) => void;
-    handleEliminarServicio: (id: `${string}-${string}-${string}-${string}-${string}`) => void;
-    handleClickActivarModalIndependiente: (modal: string) => void;
-}
 
 export default function ServicioCard({ servicio, handleEdit, handleEliminarServicio, handleClickActivarModalIndependiente }: ServicioCardProps) {
     return (

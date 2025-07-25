@@ -8,6 +8,10 @@ export interface ComentarioProps {
     visible: boolean | number;
 }
 
+export interface ArrayComentariosProps {
+    comentarios: ComentarioProps[];
+}
+
 export type FormCrearComentarioProps = Omit<ComentarioProps, "id" | "visible">
 
 export type FormActualizarComentarioProps = Omit<ComentarioProps, | "nombre" | "email" | "mensaje" | "ranking" | "servicio">
@@ -39,4 +43,12 @@ export interface TestimonioProps {
     checked?: boolean;
     onCheckToggle?: (index: number) => void;
     movil?: boolean;
+}
+
+
+// LOGIN ----------------------------------------------
+interface ComentariosCardProps {
+    comentarios: ComentarioProps[];
+    toggleCheck: (id: number) => void;
+    seleccionados: { [key: string]: boolean };
 }

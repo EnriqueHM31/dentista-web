@@ -1,11 +1,4 @@
-interface BotonItemAsideProps {
-    id: string;
-    label: string;
-    Icon: React.ReactNode;
-    isOpen: boolean;
-    selected: string;
-    handleClickSelected: (id: string) => void;
-}
+import type { BotonItemAsideProps } from "@/types/Menu/types";
 
 export default function BotonLOgoutAside({ id, label, Icon, isOpen, selected, handleClickSelected }: BotonItemAsideProps) {
     return (

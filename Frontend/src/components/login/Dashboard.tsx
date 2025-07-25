@@ -15,7 +15,6 @@ import Especialistas from "./Secciones/Especialistas";
 import CitasProvider from "@/provider/Citas";
 
 
-
 export default function Dashboard() {
     const { selected, handleClickSelected } = useNavAsideLocal();
     useCheckearAutenticacion();
@@ -37,7 +36,6 @@ export default function Dashboard() {
                                 <Especialistas />
                             </ServicioProvider>
                         </EspecialistasProvider>}
-                    {selected === "logout" && <p>¿Seguro que quieres cerrar sesión?</p>}
                 </div>
             </main>
         </div>

@@ -1,13 +1,9 @@
 import { FaLinkedin } from "react-icons/fa";
-import type { Especialista } from "@/types";
+import type { EspecialistasCardProps } from "@/types/Especialistas/types";
 import { FaTrash } from "react-icons/fa6";
 
 
-interface EspecialistasCardProps {
-    handleOpen: (especialista: Especialista, modal: string) => void;
-    handleDelete: (especialista: Especialista) => void;
-    especialista: Especialista;
-}
+
 
 export default function EspecialistasCard({ handleOpen, handleDelete, especialista }: EspecialistasCardProps) {
 

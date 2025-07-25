@@ -5,7 +5,7 @@ import type { StarRatingProps } from "@/types/Comentarios/types";
 
 export default function StarRating({ name, onChange }: StarRatingProps) {
 
-    const { selected, handleMouseEnter, handleMouseLeave, handleClick, rating } = useRanking(onChange);
+    const { selected, handleMouseEnter, handleMouseLeave, handleClick, rating } = useRanking({ onChange });
 
     return (
         <div className="flex items-center gap-2">

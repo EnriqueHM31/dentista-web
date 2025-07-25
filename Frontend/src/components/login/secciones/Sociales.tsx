@@ -19,20 +19,20 @@ export default function Sociales() {
                     </div>
                     <input
                         type="text"
-                        disabled={!editMode[id]}
+                        disabled={!editMode[id as keyof typeof editMode]}
                         value={referencia}
                         id={id}
                         onChange={(e) => handleChange(id, e.target.value)}
-                        className={`flex-2 border rounded-lg px-3 py-2 w-full focus:outline-none transition  ${editMode[id]
+                        className={`flex-2 border rounded-lg px-3 py-2 w-full focus:outline-none transition  ${editMode[id as keyof typeof editMode]
                             ? 'border-primary text-primary bg-white'
                             : 'border-gray-300 bg-gray-100 text-gray-500'
                             }`}
                     />
                     <button
-                        onClick={() => handleEditClick(id)}
+                        onClick={() => handleEditClick(id as `${string}-${string}-${string}-${string}-${string}`)}
                         className="text-primary hover:text-blue-700 cursor-pointer absolute right-0 top-1 md:relative"
-                        title={editMode[id] ? 'Bloquear' : 'Editar'}
-                        aria-label={editMode[id] ? 'Bloquear' : 'Editar'}
+                        title={editMode[id as keyof typeof editMode] ? 'Bloquear' : 'Editar'}
+                        aria-label={editMode[id as keyof typeof editMode] ? 'Bloquear' : 'Editar'}
                     >
                         <FaEdit />
                     </button>

@@ -19,6 +19,18 @@ interface MenuNavegacionProps {
 }
 
 interface AsideMenuProps {
-    selected: string
-    handleClickSelected: (id: string) => void
+    selected: DATA_STATUS_SELECTED[keyof typeof DATA_STATUS_SELECTED]
+    handleClickSelected: (id: DATA_STATUS_SELECTED[keyof typeof DATA_STATUS_SELECTED]) => void
+}
+
+
+// LOGIN ----------------------------------------------
+
+interface BotonItemAsideProps {
+    id: string;
+    label: string;
+    Icon: React.ReactNode;
+    isOpen: boolean;
+    selected: string;
+    handleClickSelected: (id: string) => void;
 }

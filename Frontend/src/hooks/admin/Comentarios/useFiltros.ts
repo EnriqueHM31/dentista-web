@@ -2,9 +2,15 @@ import { useState } from "react";
 import { useComentariosContext } from "@/context/Comentarios";
 import { MENU_FILTROS, FILTROS_ORDEN, FILTROS_CHECKEADOS } from "@/constants/filtrosComentarios";
 import type { MenuFiltro } from "@/types/Comentarios/types";
+import { textoOrden, textoRanking, textoSeleccion } from "@/utils/filtrosComentarios";
 
 export const useFiltrosComentarios = () => {
     const { filtros, setFiltros } = useComentariosContext();
+    const [menuFiltroActivoAbierto, setMenuFiltroActivoAbierto] = useState(false);
+
+    const handleClickMenuFiltroActivo = () => {
+        setMenuFiltroActivoAbierto(prev => !prev);
+    };
 
     const [menusAbiertos, setMenusAbiertos] = useState({
         ordenar: false,
@@ -33,11 +39,38 @@ export const useFiltrosComentarios = () => {
         }
         setMenusAbiertos({ ordenar: false, ranking: false, seleccion: false });
     };
+    // Detectar cuál filtro está activo (o todos)
+    const filtroActivo =
+        filtros.ordenar !== null
+            ? MENU_FILTROS.ordenar
+            : filtros.ranking !== null
+                ? MENU_FILTROS.ranking
+                : filtros.seleccion !== null
+                    ? MENU_FILTROS.seleccion
+                    : MENU_FILTROS.todos;
+
+    // Texto para mostrar filtro activo (en móvil)
+    const textoFiltroActivo = () => {
+        switch (filtroActivo) {
+            case MENU_FILTROS.ordenar:
+                return textoOrden(filtros);
+            case MENU_FILTROS.ranking:
+                return textoRanking(filtros);
+            case MENU_FILTROS.seleccion:
+                return textoSeleccion(filtros);
+            default:
+                return "Todos";
+        }
+    };
 
     return {
         filtros,
         menusAbiertos,
+        menuFiltroActivoAbierto,
+        textoFiltroActivo,
         toggleMenu,
         seleccionarFiltro,
+        handleClickMenuFiltroActivo,
+        filtroActivo,
     };
 };

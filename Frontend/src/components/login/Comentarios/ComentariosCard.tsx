@@ -1,11 +1,7 @@
 import Testimonio from "@/components/Inicio/Comentarios/Testimonio";
-import type { Comentario } from "@/types";
+import type { ComentariosCardProps } from "@/types/Comentarios/types";
 
-interface ComentariosCardProps {
-    comentarios: Comentario[];
-    toggleCheck: (id: number) => void;
-    seleccionados: { [key: string]: boolean };
-}
+
 
 export default function ComentariosCard({ comentarios, toggleCheck, seleccionados }: ComentariosCardProps) {
     return (

@@ -1,26 +1,7 @@
 import { FaCalendarAlt, FaClock, FaEnvelope, FaPhoneAlt, FaUser, FaTooth, FaCheckCircle } from "react-icons/fa";
 import { MdClose } from "react-icons/md";
+import type { ModalCitaProps } from "@/types/Modales/types";
 
-interface ModalCitaProps {
-    evento: {
-        id: string;
-        title: string;
-        start: string | Date;
-        extendedProps: {
-            nombre: string;
-            email: string;
-            telefono: string;
-            comentarios: string;
-            servicio: string;
-            fecha: string;
-            hora: string;
-            completada: boolean;
-        };
-    } | null;
-    onClose: () => void;
-    onCitaCompletada: (id: string) => void;
-    onCitaEliminada: (id: string) => void;
-}
 
 export default function ModalCita({ evento, onClose, onCitaCompletada, onCitaEliminada }: ModalCitaProps) {
     if (!evento) return null;

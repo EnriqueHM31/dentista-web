@@ -1,13 +1,7 @@
 import AnimatedSelect from "@/components/General/Select"
 import { formatoHoraMinuto } from "@/utils/Hora"
 import { MINUTOS_ARRAY } from "@/utils/constantes"
-
-interface ServicioCrearProps {
-    titulo: string,
-    descripcion: string,
-    img: string,
-    duration: string
-}
+import type { ServicioCrearProps } from "@/types/Servicios/types"
 
 interface ModalCrearServicioProps {
     handleClickDesactivarModal: () => void,
@@ -67,7 +61,7 @@ export default function ModalCrearServicio({ handleClickDesactivarModal, handleS
                         <AnimatedSelect
                             name="duration"
                             options={formatoHoraMinuto(MINUTOS_ARRAY)}
-                            select={servicioCrear.duration}
+                            select={servicioCrear.duration.toString()}
                             onChange={(e) => handleCambiarCampoServicio(e)}
                             selectClass="bg-primary border border-white text-white"
                             itemClass="bg-primary text-white"

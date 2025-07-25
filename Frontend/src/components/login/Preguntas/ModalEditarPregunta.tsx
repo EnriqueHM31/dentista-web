@@ -1,8 +1,8 @@
-import type { ModalEditarProps } from "@/types";
+import type { ModalEditarPreguntaProps } from "@/types/Preguntas/types";
 
 
 
-export default function ModalEditar({ handleEditarPregunta, handleEditarRespuesta, preguntaSeleccionada, toggle, handleGuardar }: ModalEditarProps) {
+export default function ModalEditarPregunta({ handleEditarPregunta, handleEditarRespuesta, preguntaSeleccionada, toggle, handleGuardar }: ModalEditarPreguntaProps) {
 
 
     return (

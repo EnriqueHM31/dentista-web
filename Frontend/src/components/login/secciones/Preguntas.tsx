@@ -1,7 +1,7 @@
 import { FiPlus, FiEdit, FiTrash2, FiChevronDown, FiChevronUp, } from "react-icons/fi";
 import Modal from "@/components/General/Modal";
-import ModalEditar from "../Preguntas/ModalEditar";
-import ModalCrear from "../Preguntas/ModalCrear";
+import ModalEditarPregunta from "../Preguntas/ModalEditarPregunta";
+import ModalCrearPregunta from "../Preguntas/ModalCrearPregunta";
 import { usePreguntas } from "@/hooks/admin/Preguntas/usePreguntas";
 import { useModalIndependiente } from "@/hooks/general/useModalIndependiente";
 import { useEditarPregunta } from "@/hooks/admin/Preguntas/useEditarPregunta";
@@ -27,7 +27,7 @@ export default function ListaPreguntas() {
                 onClose={() => handledescartarCambios()}
                 clases="md:max-w-2/3 max-w-11/12 flex items-center justify-center scrollbar-invisible"
             >
-                <ModalEditar
+                <ModalEditarPregunta
                     handleEditarPregunta={handleEditarCampoPregunta}
                     handleEditarRespuesta={handleEditarCampoPregunta}
                     preguntaSeleccionada={preguntaSeleccionada}
@@ -43,7 +43,7 @@ export default function ListaPreguntas() {
                 onClose={() => handledescartarCambiosCrearPregunta()}
                 clases="md:max-w-2/3 max-w-11/12 flex items-center justify-center"
             >
-                <ModalCrear
+                <ModalCrearPregunta
                     toggle={() => handledescartarCambiosCrearPregunta()}
                     handleCrearPregunta={handleCrearPregunta}
                     preguntaForm={preguntaForm}

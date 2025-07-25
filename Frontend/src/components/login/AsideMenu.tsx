@@ -1,6 +1,6 @@
 import { AiOutlineMenuFold, AiOutlineMenuUnfold } from "react-icons/ai";
 import Tooltip from "@/components/General/Tooltip";
-import type { AsideMenuProps } from "@/types";
+import type { AsideMenuProps } from "@/types/Menu/types";
 import { getIconosAside, getIconoLogout } from "@/components/General/ObjetosIconos";
 import { useOpenWithTransition } from "@/hooks/general/useOpen";
 import BotonItemAside from "./AsideMenu/BotonItemAside";
@@ -35,7 +35,6 @@ export default function AsideMenu({ selected, handleClickSelected }: AsideMenuPr
 
             {/* Menú móvil */}
             {
-
                 <aside
                     className={`fixed top-0 left-0 w-64 h-screen bg-primary text-white p-4 z-200 md:hidden transition-transform duration-300 transform ${!isOpen ? "-translate-x-full" : "translate-x-0"
                         }`

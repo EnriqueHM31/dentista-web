@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { IoIosArrowDown } from "react-icons/io";
 import { useEditarServicio } from "@/hooks/admin/Servicios/useEditarServicio";
-import type { ModalEditarServicioProps, Servicio } from "@/types";
+import type { ModalEditarServicioProps, ServicioProps } from "@/types/Servicios/types";
 import AnimatedSelect from "@/components/General/Select";
 import { formatoHoraMinuto, formatearDuracion } from "@/utils/Hora";
 import { MINUTOS_ARRAY } from "@/utils/constantes";
@@ -28,7 +28,7 @@ export default function ModalEditarServicio({ serviciosRef, handleClickDesactiva
                         <button
                             key={op.value}
                             type="button"
-                            onClick={() => handlePreview(op.value as keyof Servicio)}
+                            onClick={() => handlePreview(op.value as keyof ServicioProps)}
                             className={`${preview === op.value ? "bg-blue-700" : "bg-primary"} w-full text-white px-4 py-2 rounded-lg hover:bg-blue-700 flex items-center gap-2`}
                         >
                             <FaPencil size={16} /> Editar {op.label}
@@ -47,7 +47,7 @@ export default function ModalEditarServicio({ serviciosRef, handleClickDesactiva
                                 <button
                                     key={op.value}
                                     onClick={() => {
-                                        handlePreview(op.value as keyof Servicio);
+                                        handlePreview(op.value as keyof ServicioProps);
                                         setMostrarSelector(false);
                                     }}
                                     className="text-white rounded-2xl bg-primary  border border-primary  px-4 py-2 hover:bg-primary hover:text-white"
@@ -62,7 +62,7 @@ export default function ModalEditarServicio({ serviciosRef, handleClickDesactiva
 
             {/* Derecha: contenido editable */}
             <form
-                onSubmit={(e) => handleSubmit(e, formValues.id)}
+                onSubmit={(e) => handleSubmit(e, formValues.id as `${string}-${string}-${string}-${string}-${string}`)}
                 className="flex-2 p-6 overflow-auto w-full max-w-full flex flex-col justify-between relative"
             >
                 {/* Botón selector móvil */}

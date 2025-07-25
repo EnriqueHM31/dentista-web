@@ -4,8 +4,8 @@ import ComentariosCard from "../Comentarios/ComentariosCard";
 import Filtros from "../Comentarios/Filtros";
 
 export default function Comentarios() {
-    const { comentarios } = useComentariosContext();
 
+    const { comentarios } = useComentariosContext();
     const { seleccionados, toggleCheck, guardarSeleccion } = useVisibleComentarios({ comentarios });
 
     return (
