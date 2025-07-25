@@ -4,10 +4,13 @@ export interface EspecialistasContextProps {
     especialistas: EspecialistaProps[];
     setEspecialistas: Dispatch<SetStateAction<EspecialistaProps[]>>;
     ordenarEspecialistas: (especialistas: EspecialistaProps[]) => EspecialistaProps[];
+    refrescarEspecialistasEditar: (id: `${string}-${string}-${string}-${string}-${string}`, cambios: Partial<EspecialistaProps>) => void;
+    refrescarEspecialistasEliminar: (id: `${string}-${string}-${string}-${string}-${string}`) => void;
+    refrescarEspecialistasCrear: (especialistaCreado: EspecialistaProps) => void;
 }
 
 export interface EspecialistaProps {
-    id: string;
+    id: `${string}-${string}-${string}-${string}-${string}`;
     nombre: string;
     apellido: string;
     email: string;

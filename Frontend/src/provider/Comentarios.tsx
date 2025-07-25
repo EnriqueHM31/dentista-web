@@ -41,9 +41,9 @@ export function ComentariosProvider({ children }: { children: React.ReactNode })
 
         // Filtrar visibilidad
         if (filtros.seleccion === "checkeados") {
-            resultado = resultado.filter(c => c.visible === true || c.visible === 1);
+            resultado = resultado.filter(c => c.visible === Boolean(1));
         } else if (filtros.seleccion === "no_checkeados") {
-            resultado = resultado.filter(c => !(c.visible === true || c.visible === 1));
+            resultado = resultado.filter(c => !(c.visible === Boolean(1)));
         }
 
         // Ordenar

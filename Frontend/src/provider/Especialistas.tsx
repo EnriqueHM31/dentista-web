@@ -29,9 +29,26 @@ export function EspecialistasProvider({ children }: { children: React.ReactNode 
         });
     };
 
+    const refrescarEspecialistasCrear = (especialistaCreado: EspecialistaProps) => {
+        setEspecialistas(prev => ordenarEspecialistas([...prev, especialistaCreado]));
+    }
+
+    const refrescarEspecialistasEditar = (id: `${string}-${string}-${string}-${string}-${string}`, cambios: Partial<EspecialistaProps>) => {
+        setEspecialistas(prev =>
+            ordenarEspecialistas(
+                prev.map(esp =>
+                    esp.id === id ? { ...esp, ...cambios } : esp
+                )
+            )
+        );
+    }
+
+    const refrescarEspecialistasEliminar = (id: `${string}-${string}-${string}-${string}-${string}`) => {
+        setEspecialistas(prev => prev.filter((esp) => esp.id !== id));
+    }
 
     return (
-        <EspecialistasContext.Provider value={{ especialistas, setEspecialistas, ordenarEspecialistas }}>
+        <EspecialistasContext.Provider value={{ especialistas, setEspecialistas, ordenarEspecialistas, refrescarEspecialistasEditar, refrescarEspecialistasEliminar, refrescarEspecialistasCrear }}>
             {children}
         </EspecialistasContext.Provider>
     )

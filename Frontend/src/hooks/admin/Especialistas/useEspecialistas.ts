@@ -10,7 +10,7 @@ import type { PropsHookEspecialistas } from "@/types/Especialistas/types";
 import { mostrarToastConfirmacion } from "@/components/General/ToastConfirmacion";
 
 export function useEspecialistas({ toggle, handleClickDesactivarModal }: PropsHookEspecialistas) {
-    const { setEspecialistas, ordenarEspecialistas } = useEspecialistasContext();
+    const { refrescarEspecialistasEditar, refrescarEspecialistasEliminar, refrescarEspecialistasCrear } = useEspecialistasContext();
     const { serviciosDisponibles, setServiciosDisponibles, servicios } = useServicioContext();
 
     const [especialistaSeleccionado, setEspecialistaSeleccionado] = useState<EspecialistaProps | null>(null);
@@ -104,13 +104,7 @@ export function useEspecialistas({ toggle, handleClickDesactivarModal }: PropsHo
                         }
 
                         // 3. Actualizar al especialista con los nuevos datos
-                        setEspecialistas(prev =>
-                            ordenarEspecialistas(
-                                prev.map(esp =>
-                                    esp.id === id ? { ...esp, ...cambios } : esp
-                                )
-                            )
-                        );
+                        refrescarEspecialistasEditar(id, cambios);
 
                         handleClickDesactivarModal();
                     } else {
@@ -147,7 +141,7 @@ export function useEspecialistas({ toggle, handleClickDesactivarModal }: PropsHo
                 const { success, message } = await deleteEspecialista(especialista.id as `${string}-${string}-${string}-${string}-${string}`);
                 if (success) {
                     toast.success(message);
-                    setEspecialistas(prev => prev.filter((esp) => esp.id !== especialista.id));
+                    refrescarEspecialistasEliminar(especialista.id);
                     const servicioEliminado = servicios.find(servicio => servicio.titulo === especialista.servicio);
                     if (servicioEliminado) {
                         setServiciosDisponibles(prev => [...prev, servicioEliminado]);
@@ -192,7 +186,7 @@ export function useEspecialistas({ toggle, handleClickDesactivarModal }: PropsHo
 
             if (success) {
                 toast.success(message);
-                setEspecialistas(prev => ordenarEspecialistas([...prev, especialistaCreado]));
+                refrescarEspecialistasCrear(especialistaCreado);
                 setServiciosDisponibles(serviciosDisponibles.filter(servicio => servicio.id !== servicioDisponible.id));
                 handleClickDesactivarModal();
             } else {
