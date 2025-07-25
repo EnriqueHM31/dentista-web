@@ -16,7 +16,7 @@ export const FILTROS_ORDEN = {
     desc: "desc",
 } as const;
 
-type MenuFiltro = keyof typeof MENU_FILTROS;
-type FiltrosCheckeados = keyof typeof FILTROS_CHECKEADOS;
-type FiltrosOrden = keyof typeof FILTROS_ORDEN;
+export type MenuFiltro = keyof typeof MENU_FILTROS;
+export type FiltrosCheckeados = keyof typeof FILTROS_CHECKEADOS;
+export type FiltrosOrden = keyof typeof FILTROS_ORDEN;
 
