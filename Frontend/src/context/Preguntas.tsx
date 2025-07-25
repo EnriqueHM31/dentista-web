@@ -7,12 +7,15 @@ export const PreguntasContext = createContext<PreguntasContextType>({
     preguntas: [],
     setPreguntas: () => { },
     obtenerPreguntas: () => Promise.resolve(),
-    ordenarPreguntas: () => []
+    ordenarPreguntas: () => [],
+    refrescarPreguntasCrear: () => { },
+    refrescarPreguntasEditar: () => { },
+    refrescarPreguntasEliminar: () => { },
 });
 
 export function usePreguntasContext() {
-    const { preguntas, setPreguntas, obtenerPreguntas, ordenarPreguntas } = useContext(PreguntasContext);
-    return { preguntas, setPreguntas, obtenerPreguntas, ordenarPreguntas };
+    const { preguntas, setPreguntas, obtenerPreguntas, ordenarPreguntas, refrescarPreguntasCrear, refrescarPreguntasEditar, refrescarPreguntasEliminar } = useContext(PreguntasContext);
+    return { preguntas, setPreguntas, obtenerPreguntas, ordenarPreguntas, refrescarPreguntasCrear, refrescarPreguntasEditar, refrescarPreguntasEliminar };
 }
 
 

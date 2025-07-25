@@ -12,8 +12,7 @@ function sonPreguntasIguales(a: PreguntaProps | null, b: PreguntaProps | null): 
 }
 
 export function useEditarPregunta(handleClickDesactivarModal: () => void) {
-    const { setPreguntas } = usePreguntasContext();
-
+    const { refrescarPreguntasEditar } = usePreguntasContext();
     const preguntaRef = useRef<PreguntaProps | null>(null);
     const [preguntaSeleccionada, setPreguntaSeleccionada] = useState<PreguntaProps | null>(null);
 
@@ -73,15 +72,7 @@ export function useEditarPregunta(handleClickDesactivarModal: () => void) {
             }
 
             // Actualiza el contexto de preguntas
-            setPreguntas(prev =>
-                prev.map(pregunta =>
-                    pregunta.id === id
-                        ? { ...pregunta, ...preguntaSeleccionada }
-                        : pregunta
-                )
-            );
-
-            // Actualiza la referencia original
+            refrescarPreguntasEditar(preguntaSeleccionada, id);
             preguntaRef.current = { ...preguntaSeleccionada };
 
             toast.success("Cambios guardados exitosamente", { id: toastId });

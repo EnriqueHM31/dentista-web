@@ -5,6 +5,9 @@ export interface PreguntasContextType {
     setPreguntas: Dispatch<SetStateAction<PreguntaProps[]>>;
     obtenerPreguntas: () => Promise<void>;
     ordenarPreguntas: (preguntas: PreguntaProps[]) => PreguntaProps[];
+    refrescarPreguntasCrear: (preguntaCreada: PreguntaProps) => void;
+    refrescarPreguntasEditar: (preguntaSeleccionada: PreguntaProps, id: `${string}-${string}-${string}-${string}-${string}`) => void;
+    refrescarPreguntasEliminar: (id: `${string}-${string}-${string}-${string}-${string}`) => void;
 }
 
 export interface PreguntaProps {

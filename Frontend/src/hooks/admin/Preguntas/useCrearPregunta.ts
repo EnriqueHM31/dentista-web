@@ -8,7 +8,7 @@ import { mostrarToastConfirmacion } from "@/components/General/ToastConfirmacion
 
 
 export function useCrearPregunta({ handleClickDesactivarModal }: CrearPreguntaProps) {
-    const { setPreguntas, ordenarPreguntas } = usePreguntasContext();
+    const { refrescarPreguntasCrear } = usePreguntasContext();
     const [preguntaForm, setPreguntaForm] = useState<PreguntaFormProps>(INITIAL_PREGUNTA_FORM);
 
     const handleCrearPregunta = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -23,7 +23,7 @@ export function useCrearPregunta({ handleClickDesactivarModal }: CrearPreguntaPr
             }
             toast.success("Pregunta creada exitosamente", { id: toastId });
             setPreguntaForm({ pregunta: "", respuesta: "" });
-            setPreguntas(prev => [...ordenarPreguntas([...prev, preguntaCreada])]);
+            refrescarPreguntasCrear(preguntaCreada);
             handleClickDesactivarModal();
 
         } catch {

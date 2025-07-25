@@ -6,7 +6,7 @@ import { mostrarToastConfirmacion } from "@/components/General/ToastConfirmacion
 
 
 export function usePreguntas() {
-    const { setPreguntas } = usePreguntasContext();
+    const { refrescarPreguntasEliminar } = usePreguntasContext();
     const [expandedIds, setExpandedIds] = useState<`${string}-${string}-${string}-${string}-${string}`[]>([]);
 
     const toggleExpand = (id: `${string}-${string}-${string}-${string}-${string}`) => {
@@ -27,7 +27,7 @@ export function usePreguntas() {
                         toast.error(message);
                         return;
                     }
-                    setPreguntas(prev => prev.filter(p => p.id !== id));
+                    refrescarPreguntasEliminar(id);
                     toast.success("Pregunta eliminada");
                 } catch (err) {
                     toast.error("Error al eliminar pregunta: " + err);

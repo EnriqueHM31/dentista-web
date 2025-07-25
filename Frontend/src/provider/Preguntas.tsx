@@ -25,11 +25,26 @@ export const PreguntasProvider = ({ children }: { children: React.ReactNode }) =
         return preguntas.sort((a: PreguntaProps, b: PreguntaProps) => a.pregunta.localeCompare(b.pregunta));
     }
 
+    const refrescarPreguntasCrear = (preguntaCreada: PreguntaProps) => {
+        setPreguntas(prev => [...ordenarPreguntas([...prev, preguntaCreada])]);
+    }
 
+    const refrescarPreguntasEditar = (preguntaSeleccionada: PreguntaProps, id: `${string}-${string}-${string}-${string}-${string}`) => {
+        setPreguntas(prev =>
+            prev.map(pregunta =>
+                pregunta.id === id
+                    ? { ...pregunta, ...preguntaSeleccionada }
+                    : pregunta
+            )
+        );
+    }
 
+    const refrescarPreguntasEliminar = (id: `${string}-${string}-${string}-${string}-${string}`) => {
+        setPreguntas(prev => prev.filter(p => p.id !== id));
+    }
 
     return (
-        <PreguntasContext.Provider value={{ preguntas, setPreguntas, obtenerPreguntas, ordenarPreguntas }}>
+        <PreguntasContext.Provider value={{ preguntas, setPreguntas, obtenerPreguntas, ordenarPreguntas, refrescarPreguntasCrear, refrescarPreguntasEditar, refrescarPreguntasEliminar }}>
             {children}
         </PreguntasContext.Provider>
     );
