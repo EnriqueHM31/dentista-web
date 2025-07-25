@@ -1,5 +1,5 @@
 
-interface SocialesContextType {
+export interface SocialesContextType {
     sociales: SocialProps[];
     setSociales: React.Dispatch<React.SetStateAction<SocialProps[]>>;
 }

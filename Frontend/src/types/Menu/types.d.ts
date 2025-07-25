@@ -5,7 +5,7 @@ export interface LinksNavegacionProps {
     active: boolean;
 }
 
-interface MenuNavegacionProps {
+export interface MenuNavegacionProps {
     isOpen: boolean;
     toggleMenu: () => void;
     clases: {
@@ -18,7 +18,7 @@ interface MenuNavegacionProps {
     };
 }
 
-interface AsideMenuProps {
+export interface AsideMenuProps {
     selected: DATA_STATUS_SELECTED[keyof typeof DATA_STATUS_SELECTED]
     handleClickSelected: (id: DATA_STATUS_SELECTED[keyof typeof DATA_STATUS_SELECTED]) => void
 }
@@ -26,7 +26,7 @@ interface AsideMenuProps {
 
 // LOGIN ----------------------------------------------
 
-interface BotonItemAsideProps {
+export interface BotonItemAsideProps {
     id: string;
     label: string;
     Icon: React.ReactNode;

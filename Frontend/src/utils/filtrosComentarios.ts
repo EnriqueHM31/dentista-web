@@ -1,10 +1,6 @@
-interface Filtros {
-    ordenar: "asc" | "desc" | null;
-    ranking: number | null;
-    seleccion: "checkeados" | "no_checkeados" | null;
-}
-
 import { FILTROS_ORDEN, FILTROS_CHECKEADOS } from "@/constants/filtrosComentarios";
+import type { Filtros } from "@/types/Comentarios/types";
+
 
 export const textoOrden = (filtros: Filtros) =>
     filtros.ordenar === FILTROS_ORDEN.asc

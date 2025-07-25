@@ -55,7 +55,7 @@ export interface TestimonioProps {
 
 
 // LOGIN ----------------------------------------------
-interface ComentariosCardProps {
+export interface ComentariosCardProps {
     comentarios: ComentarioProps[];
     toggleCheck: (id: number) => void;
     seleccionados: { [key: string]: boolean };

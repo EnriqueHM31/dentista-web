@@ -5,7 +5,7 @@ export interface TituloSeccionProps {
     clases?: string;
 }
 
-interface SlideDataProps {
+export interface SlideDataProps {
     title: string;
     descripcion: string;
     src: string;
@@ -25,7 +25,6 @@ export interface SelectProps {
     itemHoverClass?: string;
     textClass?: string;
 }
-
 
 export interface TooltipProps {
     text: string

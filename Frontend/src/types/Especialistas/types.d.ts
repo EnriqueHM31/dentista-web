@@ -36,13 +36,13 @@ export interface EspecialistasCardProps {
     especialista: Especialista;
 }
 
-interface PropsModalCrearEspecialista {
+export interface PropsModalCrearEspecialista {
     handleClickDesactivarModal: () => void;
     handleCrearEspecialista: (e: React.FormEvent) => void;
     handleChangeCrearEspecialista: (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => void;
 }
 
-interface PropsModalEditarEspecialista {
+export interface PropsModalEditarEspecialista {
     toggle: () => void;
     especialistaSeleccionado: Especialista | null;
     handleChange: (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => void;

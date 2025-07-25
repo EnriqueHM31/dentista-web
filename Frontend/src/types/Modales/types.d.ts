@@ -7,7 +7,7 @@ export interface ModalProps {
     activeId?: string | null; // ID de la modal activa global
 }
 
-interface ModalCitaProps {
+export interface ModalCitaProps {
     evento: {
         id: string;
         title: string;

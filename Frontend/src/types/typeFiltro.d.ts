@@ -20,16 +20,3 @@ type MenuFiltro = keyof typeof MENU_FILTROS;
 type FiltrosCheckeados = keyof typeof FILTROS_CHECKEADOS;
 type FiltrosOrden = keyof typeof FILTROS_ORDEN;
 
-interface EstadoFiltros {
-    selected: {
-        todos: boolean;
-        ordenar: FiltrosOrden | null;
-        ranking: number | null;
-        seleccion: FiltrosCheckeados | null;
-    };
-    menus: {
-        ordenar: boolean;
-        ranking: boolean;
-        seleccion: boolean;
-    };
-}

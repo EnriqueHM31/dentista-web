@@ -37,24 +37,24 @@ export interface ModalServicioProps {
 
 // LOGIN ----------------------------------------------
 
-interface ServicioCardProps {
+export interface ServicioCardProps {
     servicio: Servicio;
     handleEdit: (servicio: Servicio) => void;
     handleEliminarServicio: (id: `${string}-${string}-${string}-${string}-${string}`) => void;
     handleClickActivarModalIndependiente: (modal: string) => void;
 }
-interface useEditarServicioProps {
+export interface useEditarServicioProps {
     serviciosRef: React.RefObject<ServicioProps[]>,
     formValues: ServicioCrearProps,
     handleClickDesactivarModal: () => void
 }
 
 
-interface useGetServiciosProps {
+export interface useGetServiciosProps {
     handleClickDesactivarModal: () => void
 }
 
-interface ModalCrearServicioProps {
+export interface ModalCrearServicioProps {
     handleClickDesactivarModal: () => void,
     handleSubmitCrearServicio: (e: React.FormEvent) => void,
     handledescartarCambiosCrearServicio: (handleClickDesactivarModal: () => void) => void,
