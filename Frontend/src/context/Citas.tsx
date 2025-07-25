@@ -5,12 +5,15 @@ import type { CitasContextType } from "@/types/Citas/types";
 export const CitasContext = createContext<CitasContextType>({
     citas: [],
     setCitas: () => { },
+    refrescarCitasCrear: () => { },
+    refrescarCitasEliminar: () => { },
+    refrescarCitasCompletar: () => { },
 });
 
 
 export function useCitasContext() {
-    const { citas, setCitas } = useContext(CitasContext);
-    return { citas, setCitas };
+    const { citas, setCitas, refrescarCitasCrear, refrescarCitasEliminar, refrescarCitasCompletar } = useContext(CitasContext);
+    return { citas, setCitas, refrescarCitasCrear, refrescarCitasEliminar, refrescarCitasCompletar };
 }
 
 

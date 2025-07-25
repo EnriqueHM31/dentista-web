@@ -1,6 +1,14 @@
 import { toast } from "sonner";
 import type { FormCrearCitaProps } from "@/types/Citas/types";
 
+export async function getCitas() {
+    const response = await fetch(`${import.meta.env.VITE_API_URL}/citas`, {
+        credentials: "include",
+    });
+    const { citas } = await response.json();
+    return citas;
+}
+
 export async function crearCita(FormCrearCita: FormCrearCitaProps, idServicio: `${string}-${string}-${string}-${string}-${string}`) {
     const response = await fetch(`${import.meta.env.VITE_API_URL}/citas`, {
         method: "POST",

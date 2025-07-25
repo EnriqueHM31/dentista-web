@@ -3,6 +3,9 @@ import { Dispatch, SetStateAction } from "react";
 export interface CitasContextType {
     citas: CitaProps[];
     setCitas: Dispatch<SetStateAction<CitaProps[]>>;
+    refrescarCitasCrear: (newCitas: CitaProps[]) => void;
+    refrescarCitasEliminar: (id: `${string}-${string}-${string}-${string}-${string}`) => void;
+    refrescarCitasCompletar: (citas: CitaProps[], id: `${string}-${string}-${string}-${string}-${string}`) => void;
 }
 
 

@@ -9,7 +9,7 @@ export function useCitasCalendario() {
 
     const [modalOpen, setModalOpen] = useState(false);
     const [eventoSeleccionado, setEventoSeleccionado] = useState<CitasCalendarioProps | null>(null);
-    const { citas, setCitas } = useCitasContext(); // Asegúrate que `setCitas` esté en tu contexto
+    const { citas, refrescarCitasCompletar, refrescarCitasEliminar, refrescarCitasCrear } = useCitasContext(); // Asegúrate que `setCitas` esté en tu contexto
 
     const citasFormateadas: CitasCalendarioProps[] = citas.map((cita) => ({
         id: cita.id,
@@ -39,10 +39,7 @@ export function useCitasCalendario() {
                 // Marcar como completada
                 const { success, message } = await completarCita(cita.id as `${string}-${string}-${string}-${string}-${string}`);
                 if (success) {
-                    const nuevasCitas = citas.map((cita) =>
-                        cita.id === cita.id ? { ...cita, completada: true } : cita
-                    );
-                    setCitas(nuevasCitas);
+                    refrescarCitasCrear(citas);
                     toast.success(message);
                 } else {
                     toast.error("Error al completar la cita");
@@ -79,14 +76,11 @@ export function useCitasCalendario() {
         setEventoSeleccionado(null);
     };
 
-    const onCitaCompletada = async (id: string) => {
+    const onCitaCompletada = async (id: `${string}-${string}-${string}-${string}-${string}`) => {
 
         const { success, message } = await completarCita(id as `${string}-${string}-${string}-${string}-${string}`);
         if (success) {
-            const nuevasCitas = citas.map((cita) =>
-                cita.id === id ? { ...cita, completada: true } : cita
-            );
-            setCitas(nuevasCitas);
+            refrescarCitasCompletar(citas, id);
             setModalOpen(false);
             toast.success(message);
             setEventoSeleccionado(null);
@@ -97,12 +91,11 @@ export function useCitasCalendario() {
 
     };
 
-    const onCitaEliminada = async (id: string) => {
+    const onCitaEliminada = async (id: `${string}-${string}-${string}-${string}-${string}`) => {
 
         const { success, message } = await eliminarCita(id as `${string}-${string}-${string}-${string}-${string}`);
         if (success) {
-            const nuevasCitas = citas.filter((cita) => cita.id !== id);
-            setCitas(nuevasCitas);
+            refrescarCitasEliminar(id);
             toast.success(message);
             setModalOpen(false);
         } else {
