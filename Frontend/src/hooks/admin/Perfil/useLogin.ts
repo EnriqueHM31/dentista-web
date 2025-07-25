@@ -1,12 +1,13 @@
 import { Login, Logout } from "@/services/Login";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
-import { useCheckearAutenticacion } from "./useVerificar";
+import { useRedirigirSiAutenticado } from "./useRedirigirSiAutenticado";
 
 
 export function useLogin() {
     const navigate = useNavigate();
-    useCheckearAutenticacion();
+
+    useRedirigirSiAutenticado();
 
     async function handleLogin(e: React.FormEvent<HTMLFormElement>) {
 

@@ -1,17 +1,16 @@
-import { CheckLogin } from "@/services/Login";
+// hooks/useRedirigirSiAutenticado.ts
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { CheckLogin } from "@/services/Login";
 
-export function useCheckearAutenticacion() {
+export function useRedirigirSiAutenticado() {
     const navigate = useNavigate();
 
     useEffect(() => {
         const verificar = async () => {
             const { success } = await CheckLogin();
-
-            // Manejo defensivo en caso de undefined
-            if (!success) {
-                navigate("/admin");
+            if (success) {
+                navigate("/admin/dashboard");
             }
         };
 

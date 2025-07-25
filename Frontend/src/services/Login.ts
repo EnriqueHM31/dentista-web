@@ -37,7 +37,6 @@ export async function CheckLogin() {
         credentials: "include",
     });
 
-    const { success, message } = await response.json() as { success: boolean, message: string };
-    return { success, message };
+    return await response.json();
 
 }

@@ -10,14 +10,15 @@ import { PreguntasProvider } from "@/provider/Preguntas";
 import { ComentariosProvider } from "@/provider/Comentarios";
 import { EspecialistasProvider } from "@/provider/Especialistas";
 import Comentarios from "./Secciones/Comentarios";
-import { useCheckearAutenticacion } from "@/hooks/admin/Perfil/useVerificar";
+import { useProtegerRutaPrivada } from "@/hooks/admin/Perfil/useProtegerRutaPrivada";
 import Especialistas from "./Secciones/Especialistas";
 import CitasProvider from "@/provider/Citas";
 
 
 export default function Dashboard() {
     const { selected, handleClickSelected } = useNavAsideLocal();
-    useCheckearAutenticacion();
+    useProtegerRutaPrivada();
+
     return (
         <div className="flex min-h-screen bg-white">
             <AsideMenu handleClickSelected={handleClickSelected} selected={selected} />
