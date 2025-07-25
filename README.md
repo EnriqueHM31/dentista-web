@@ -71,16 +71,18 @@ Ruta protegida: `/admin/dashboard`
 
 ## 📦 Estructura de Carpetas
 
+```
 src/
-├── assets/ # Imágenes y constantes
-├── components/ # Componentes reutilizables (Navbar, Footer, Cards, Modales)
-├── constants/ # Rutas, íconos, configuraciones estáticas
-├── hooks/ # Hooks personalizados (ej. useUtils)
-├── pages/ # Vistas principales: Inicio, Contacto, Servicios, Admin
-├── provider/ # Context Providers (Servicios, Sociales)
-├── types/ # Tipado global (interfaces y tipos)
-├── utils/ # Funciones de utilidad (copiar al portapapeles, etc.)
-└── App.tsx # Enrutador principal y layout
+├── assets/              # Imágenes y constantes
+├── components/          # Componentes reutilizables (Navbar, Footer, Cards, Modales)
+├── constants/           # Rutas, íconos, configuraciones estáticas
+├── hooks/               # Hooks personalizados (ej. useUtils)
+├── pages/               # Vistas principales: Inicio, Contacto, Servicios, Admin
+├── provider/            # Context Providers (Servicios, Sociales)
+├── types/               # Tipado global (interfaces y tipos)
+├── utils/               # Funciones de utilidad (copiar al portapapeles, etc.)
+└── App.tsx              # Enrutador principal y layout
+```
 
 # Instalar dependencias
 
