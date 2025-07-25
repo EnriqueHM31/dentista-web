@@ -48,7 +48,7 @@ export interface TestimonioProps {
     onCheckToggle?: (index: `${string}-${string}-${string}-${string}-${string}`) => void;
     movil?: boolean;
     checked?: boolean;
-    startIndex?: number;
+    index?: number;
 }
 
 

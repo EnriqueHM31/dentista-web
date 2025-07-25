@@ -12,6 +12,7 @@ export default function SectionComentarios() {
 
     const { page, totalPages, startIndex, visibleTestimonials, handleNext, handlePrevious } = useComentarios(comentariosVisibles);
 
+
     return (
         <motion.section
             className="min-h-auto md:min-h-screen flex flex-col items-center justify-center max-w-11/12 md:max-w-10/12 w-full mx-auto px-4 py-10 gap-6"
@@ -31,7 +32,8 @@ export default function SectionComentarios() {
                         key={comentario.id}
                         movil={true}
                         comentario={comentario}
-                        startIndex={startIndex + index}
+                        index={startIndex + index}
+
 
                     />
                 ))}

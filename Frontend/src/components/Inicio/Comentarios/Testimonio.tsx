@@ -5,7 +5,7 @@ import { useTestimonio } from "@/hooks/general/useTestimonio";
 import type { TestimonioProps } from "@/types/Comentarios/types";
 
 
-export default function Testimonio({ comentario, onCheckToggle, movil = false, checked = false, startIndex }: TestimonioProps) {
+export default function Testimonio({ comentario, onCheckToggle, movil = false, checked = false, index }: TestimonioProps) {
 
     const { getRandomPortraitUrl, handleEliminarComentario } = useTestimonio();
 
@@ -17,7 +17,7 @@ export default function Testimonio({ comentario, onCheckToggle, movil = false, c
                     <label className="text-gray-500 w-full h-full relative">
                         <input
                             type="checkbox"
-                            id={`visible-${comentario.id}`}
+                            id={`visible-${index}`}
                             checked={checked}
                             onChange={() => onCheckToggle(comentario.id as `${string}-${string}-${string}-${string}-${string}`)}
                             className="h-[1px] opacity-0 overflow-hidden absolute whitespace-nowrap w-[1px] peer"

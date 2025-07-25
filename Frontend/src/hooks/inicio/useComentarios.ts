@@ -24,7 +24,7 @@ export function useComentarios(comentariosVisibles: ComentarioProps[]) {
     }, []);
 
     const comentariosParaEnseñar = comentariosVisibles.filter(
-        (comentario) => comentario.visible === true
+        (comentario) => Boolean(comentario.visible)
     );
 
     const totalPages = Math.ceil(comentariosParaEnseñar.length / itemsPerPage);
@@ -42,6 +42,7 @@ export function useComentarios(comentariosVisibles: ComentarioProps[]) {
             setPage((prev) => prev - 1);
         }
     };
+
 
     return {
         page,
