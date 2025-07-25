@@ -1,3 +1,10 @@
+
+export interface CitasContextType {
+    citas: CitaProps[];
+    setCitas: Dispatch<SetStateAction<CitaProps[]>>;
+}
+
+
 export interface CitaProps {
     id: `${string}-${string}-${string}-${string}-${string}`;
     nombre: string;

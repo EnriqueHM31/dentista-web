@@ -33,6 +33,10 @@ export interface TooltipProps {
     position?: (typeof POSITIONS)[number]
 }
 
+export interface CarouselProps {
+    slides: EspecialistaProps[];
+}
+
 export interface CarouselControlProps {
     type: string;
     title: string;

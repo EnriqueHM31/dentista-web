@@ -1,4 +1,10 @@
 
+export interface EspecialistasContextProps {
+    especialistas: EspecialistaProps[];
+    setEspecialistas: Dispatch<SetStateAction<EspecialistaProps[]>>;
+    ordenarEspecialistas: (especialistas: EspecialistaProps[]) => EspecialistaProps[];
+}
+
 export interface EspecialistaProps {
     id: string;
     nombre: string;

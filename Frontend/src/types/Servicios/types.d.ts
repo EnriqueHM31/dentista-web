@@ -1,4 +1,11 @@
 
+export interface ServicioContextType {
+    servicios: ServicioProps[];
+    setServicios: Dispatch<SetStateAction<ServicioProps[]>>;
+    serviciosDisponibles: ServicioProps[];
+    setServiciosDisponibles: Dispatch<SetStateAction<ServicioProps[]>>;
+}
+
 export interface ServicioCrearProps {
     titulo: string;
     descripcion: string;
@@ -45,4 +52,12 @@ interface useEditarServicioProps {
 
 interface useGetServiciosProps {
     handleClickDesactivarModal: () => void
+}
+
+interface ModalCrearServicioProps {
+    handleClickDesactivarModal: () => void,
+    handleSubmitCrearServicio: (e: React.FormEvent) => void,
+    handledescartarCambiosCrearServicio: (handleClickDesactivarModal: () => void) => void,
+    handleCambiarCampoServicio: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => void,
+    servicioCrear: ServicioCrearProps
 }

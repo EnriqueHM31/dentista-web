@@ -1,10 +1,6 @@
-import { createContext, useContext, type Dispatch, type SetStateAction } from "react";
-import type { CitaProps } from "@/types/Citas/types";
+import { createContext, useContext } from "react";
+import type { CitasContextType } from "@/types/Citas/types";
 
-interface CitasContextType {
-    citas: CitaProps[];
-    setCitas: Dispatch<SetStateAction<CitaProps[]>>;
-}
 
 export const CitasContext = createContext<CitasContextType>({
     citas: [],

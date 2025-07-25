@@ -1,3 +1,11 @@
+export interface ComentariosContextTypeProps {
+    comentarios: ComentarioProps[];
+    setComentarios: Dispatch<SetStateAction<ComentarioProps[]>>;
+    comentariosVisibles: ComentarioProps[];
+    setFiltros: (filtros: Partial<Filtros>) => void;
+    filtros: Filtros;
+}
+
 export interface ComentarioProps {
     id: string;
     nombre: string;

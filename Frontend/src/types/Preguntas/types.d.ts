@@ -1,3 +1,10 @@
+export interface PreguntasContextType {
+    preguntas: PreguntaProps[];
+    setPreguntas: Dispatch<SetStateAction<PreguntaProps[]>>;
+    obtenerPreguntas: () => Promise<void>;
+    ordenarPreguntas: (preguntas: PreguntaProps[]) => PreguntaProps[];
+}
+
 export interface PreguntaProps {
     id: `${string}-${string}-${string}-${string}-${string}`;
     pregunta: string;

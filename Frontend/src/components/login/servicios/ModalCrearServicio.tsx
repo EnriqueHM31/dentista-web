@@ -1,15 +1,7 @@
 import AnimatedSelect from "@/components/General/Select"
 import { formatoHoraMinuto } from "@/utils/Hora"
 import { MINUTOS_ARRAY } from "@/utils/constantes"
-import type { ServicioCrearProps } from "@/types/Servicios/types"
-
-interface ModalCrearServicioProps {
-    handleClickDesactivarModal: () => void,
-    handleSubmitCrearServicio: (e: React.FormEvent) => void,
-    handledescartarCambiosCrearServicio: (handleClickDesactivarModal: () => void) => void,
-    handleCambiarCampoServicio: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => void,
-    servicioCrear: ServicioCrearProps
-}
+import type { ModalCrearServicioProps } from "@/types/Servicios/types"
 
 export default function ModalCrearServicio({ handleClickDesactivarModal, handleSubmitCrearServicio, handledescartarCambiosCrearServicio, handleCambiarCampoServicio, servicioCrear }: ModalCrearServicioProps) {
 

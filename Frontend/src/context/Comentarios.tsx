@@ -1,24 +1,9 @@
-import { createContext, useContext, type Dispatch, type SetStateAction } from "react";
+import { createContext, useContext } from "react";
 import { } from "sonner";
-import type { ComentarioProps } from "@/types/Comentarios/types";
+import type { ComentariosContextTypeProps } from "@/types/Comentarios/types";
 
 
-export interface Filtros {
-    ordenar: "asc" | "desc" | null;
-    ranking: number | null;
-    seleccion: "checkeados" | "no_checkeados" | null;
-}
-
-interface ComentariosContextType {
-    comentarios: ComentarioProps[];
-    setComentarios: Dispatch<SetStateAction<ComentarioProps[]>>;
-    comentariosVisibles: ComentarioProps[];
-    setFiltros: (filtros: Partial<Filtros>) => void;
-    filtros: Filtros;
-}
-
-
-export const ComentariosContext = createContext<ComentariosContextType>({
+export const ComentariosContext = createContext<ComentariosContextTypeProps>({
     comentarios: [],
     setComentarios: () => { },
     comentariosVisibles: [],

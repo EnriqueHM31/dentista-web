@@ -1,12 +1,7 @@
-import { createContext, useContext, type Dispatch, type SetStateAction } from "react";
-import type { PreguntaProps } from "@/types/Preguntas/types";
+import { createContext, useContext } from "react";
+import type { PreguntasContextType } from "@/types/Preguntas/types";
 
-interface PreguntasContextType {
-    preguntas: PreguntaProps[];
-    setPreguntas: Dispatch<SetStateAction<PreguntaProps[]>>;
-    obtenerPreguntas: () => Promise<void>;
-    ordenarPreguntas: (preguntas: PreguntaProps[]) => PreguntaProps[];
-}
+
 
 export const PreguntasContext = createContext<PreguntasContextType>({
     preguntas: [],

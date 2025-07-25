@@ -1,4 +1,9 @@
 
+interface SocialesContextType {
+    sociales: SocialProps[];
+    setSociales: React.Dispatch<React.SetStateAction<SocialProps[]>>;
+}
+
 export interface SocialProps {
     id: string;
     nombre: string;
