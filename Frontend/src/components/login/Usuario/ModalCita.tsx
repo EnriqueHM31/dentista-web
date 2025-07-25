@@ -16,9 +16,9 @@ export default function ModalCita({ evento, onClose, onCitaCompletada, onCitaEli
                 {/* Botón cerrar */}
                 <button
                     onClick={onClose}
-                    className="absolute top-3 right-3 text-gray-400 hover:text-gray-600 transition"
+                    className="absolute top-3 right-3 text-primary hover:text-gray-600 transition"
                 >
-                    <MdClose size={22} />
+                    <MdClose className="text-4xl" />
                 </button>
 
                 {/* Título */}
@@ -63,13 +63,14 @@ export default function ModalCita({ evento, onClose, onCitaCompletada, onCitaEli
                 <div className="mt-6 flex justify-end gap-2">
                     <button
                         onClick={() => onCitaCompletada(evento.id)}
-                        className="px-4 py-2 rounded bg-primary hover:bg-blue-700 text-white text-sm"
+                        disabled={completada}
+                        className={`px-4 py-2 rounded   text-white text-sm ${completada ? 'bg-green-700' : 'bg-primary hover:bg-blue-700'}`}
                     >
-                        Cita completada
+                        {completada ? 'Cita completada' : 'Completar cita'}
                     </button>
                     <button
                         onClick={() => onCitaEliminada(evento.id)}
-                        className="px-4 py-2 rounded bg-red-500 hover:bg-red-600 text-white text-sm"
+                        className="px-4 py-2 rounded bg-red-500 hover:bg-red-800 text-white text-sm"
                     >
                         Eliminar cita
                     </button>

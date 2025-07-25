@@ -5,7 +5,7 @@ import { useTestimonio } from "@/hooks/general/useTestimonio";
 import type { TestimonioProps } from "@/types/Comentarios/types";
 
 
-export default function Testimonio({ id, client_name, rating, comment, index, visible = false, checked = visible === true || visible === 1, onCheckToggle, movil = false }: TestimonioProps) {
+export default function Testimonio({ comentario, onCheckToggle, movil = false, checked = false, startIndex }: TestimonioProps) {
 
     const { getRandomPortraitUrl, handleEliminarComentario } = useTestimonio();
 
@@ -17,9 +17,9 @@ export default function Testimonio({ id, client_name, rating, comment, index, vi
                     <label className="text-gray-500 w-full h-full relative">
                         <input
                             type="checkbox"
-                            id={`visible-${index}`}
+                            id={`visible-${comentario.id}`}
                             checked={checked}
-                            onChange={() => onCheckToggle(index)}
+                            onChange={() => onCheckToggle(comentario.id as `${string}-${string}-${string}-${string}-${string}`)}
                             className="h-[1px] opacity-0 overflow-hidden absolute whitespace-nowrap w-[1px] peer"
                         />
                         <span
@@ -39,7 +39,7 @@ export default function Testimonio({ id, client_name, rating, comment, index, vi
             {
                 !movil && (
                     <button className="flex flex-wrap justify-center items-center size-7 mx-auto select-none gap-2 rounded-xl  absolute top-16 md:top-4 right-4 bg-red-500 text-white hover:bg-red-800 hover:text-white transition duration-300 ease-in-out"
-                        onClick={() => handleEliminarComentario(id as `${string}-${string}-${string}-${string}-${string}`)}
+                        onClick={() => handleEliminarComentario(comentario.id as `${string}-${string}-${string}-${string}-${string}`)}
                     >
                         <FaTrash />
                     </button>
@@ -54,13 +54,13 @@ export default function Testimonio({ id, client_name, rating, comment, index, vi
                     className="size-10 rounded-full object-cover"
                 />
                 <div className="flex flex-col gap-2 ">
-                    <h2 className="text-base md:text-xl xl:text-xl font-bold ">{client_name}</h2>
-                    <StartsTestimonials numero={rating} />
+                    <h2 className="text-base md:text-xl xl:text-xl font-bold ">{comentario.nombre}</h2>
+                    <StartsTestimonials numero={comentario.ranking} />
                 </div>
             </div>
 
             <div className="flex-1 text-start">
-                <p>{comment}</p>
+                <p>{comentario.mensaje}</p>
             </div>
         </li>
     );

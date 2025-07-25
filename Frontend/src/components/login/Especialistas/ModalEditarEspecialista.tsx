@@ -8,7 +8,15 @@ import {
 
 export default function ModalEditarEspecialista({ toggle, especialistaSeleccionado, handleChange, handleEditarEspecialista, }: PropsModalEditarEspecialista) {
 
-    const { servicios } = useServicioContext();
+    const { serviciosDisponibles } = useServicioContext();
+
+    const servicioActual = especialistaSeleccionado?.servicio;
+    const opcionesServicios = serviciosDisponibles.map(s => s.titulo);
+
+    // Agrega el servicio actual si no está ya en la lista
+    if (servicioActual && !opcionesServicios.includes(servicioActual)) {
+        opcionesServicios.push(servicioActual);
+    }
 
     return (
         <div className=" w-full  mx-auto p-5 bg-primary text-white ">
@@ -68,7 +76,7 @@ export default function ModalEditarEspecialista({ toggle, especialistaSelecciona
                             selectClass="bg-primary border border-white mt-1 text-white"
                             itemClass="bg-primary text-white"
                             itemHoverClass="hover:bg-white hover:text-primary"
-                            options={servicios.map((servicio) => servicio.titulo)}
+                            options={opcionesServicios}
                             select={especialistaSeleccionado?.servicio || ""}
                             funcion={handleChange}
                         />

@@ -26,14 +26,13 @@ export default function SectionComentarios() {
             </p>
 
             <ul className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-10 mt-10 w-full">
-                {visibleTestimonials.map(({ id, mensaje, nombre, ranking }, index) => (
+                {visibleTestimonials.map((comentario, index) => (
                     <Testimonio
-                        key={id}
+                        key={comentario.id}
                         movil={true}
-                        client_name={nombre}
-                        rating={ranking}
-                        comment={mensaje}
-                        index={index + startIndex}
+                        comentario={comentario}
+                        startIndex={startIndex + index}
+
                     />
                 ))}
             </ul>

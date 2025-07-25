@@ -42,7 +42,7 @@ export async function updateEspecialista(id: `${string}-${string}-${string}-${st
         credentials: "include",
     });
 
-    if (!response.ok) {
+    if (response.ok) {
         return await response.json();
     } else {
         return { success: false, message: "Error al actualizar el especialista" };

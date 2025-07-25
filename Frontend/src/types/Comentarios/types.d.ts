@@ -9,13 +9,13 @@ export interface ComentariosContextTypeProps {
 }
 
 export interface ComentarioProps {
-    id: string;
+    id: `${string}-${string}-${string}-${string}-${string}`;
     nombre: string;
     email: string;
     mensaje: string;
     ranking: number;
     servicio: string;
-    visible: boolean | number;
+    visible: boolean;
 }
 
 export interface ArrayComentariosProps {
@@ -44,21 +44,17 @@ export interface StartsTestimonialsProps {
 }
 
 export interface TestimonioProps {
-    id?: string
-    client_name: string;
-    rating: number;
-    comment: string;
-    index: number;
-    visible?: number | boolean;
-    checked?: boolean;
-    onCheckToggle?: (index: number) => void;
+    comentario: ComentarioProps;
+    onCheckToggle?: (index: `${string}-${string}-${string}-${string}-${string}`) => void;
     movil?: boolean;
+    checked?: boolean;
+    startIndex?: number;
 }
 
 
 // LOGIN ----------------------------------------------
 export interface ComentariosCardProps {
     comentarios: ComentarioProps[];
-    toggleCheck: (id: number) => void;
-    seleccionados: { [key: string]: boolean };
+    onCheckToggle: (id: `${string}-${string}-${string}-${string}-${string}`) => void;
+    seleccionados: { [key: `${string}-${string}-${string}-${string}-${string}`]: boolean };
 }

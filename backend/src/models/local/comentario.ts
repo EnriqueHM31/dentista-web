@@ -95,7 +95,13 @@ export class ModeloContacto {
             if (!rows) {
                 return { success: false, message: 'No se encontró la pregunta a modificar' };
             }
-            return { success: true, message: rows };
+
+            const [resultVisible] = await db.execute(
+                'SELECT id, visible FROM Comentarios WHERE id = ?',
+                [id]
+            );
+
+            return { success: true, message: "Comentario actualizado correctamente", comentario: resultVisible };
         } catch (error) {
             return { success: false, message: 'Error en la base de datos' };
         }

@@ -41,21 +41,83 @@ export function useEspecialistas({ toggle, handleClickDesactivarModal }: PropsHo
             }
         });
 
+
+
         if (Object.keys(camposCambiados).length === 0) {
             toast.info("No hay cambios para guardar.");
             return;
         }
 
-        try {
-            const { success, message, cambios } = await updateEspecialista(id, camposCambiados);
-
-            if (success) {
-                toast.success(message);
-                setEspecialistas(prev => ordenarEspecialistas(prev.map(esp => esp.id === id ? { ...esp, ...cambios } : esp)));
-                handleClickDesactivarModal();
-            } else {
-                toast.error(message);
+        if (Object.keys(camposCambiados).includes("servicio")) {
+            const servicioDisponible = servicios.find(servicio => servicio.titulo === camposCambiados.servicio);
+            if (!servicioDisponible) {
+                toast.error("El servicio no está disponible");
+                return;
             }
+            camposCambiados.servicio = servicioDisponible.id;
+        }
+
+        if (Object.keys(camposCambiados).includes("avatar")) {
+            if (!esURLValida(camposCambiados.avatar)) {
+                toast.error("La URL de la imagen no es válida");
+                return;
+            }
+        }
+
+        if (Object.keys(camposCambiados).includes("linkedin")) {
+            if (!esURLValida(camposCambiados.linkedin)) {
+                toast.error("La URL de LinkedIn no es válida");
+                return;
+            }
+        }
+
+
+        try {
+            mostrarToastConfirmacion({
+                mensaje: "¿Estás seguro de guardar los cambios?",
+                textoAccion: "Guardar",
+                onConfirmar: async () => {
+                    const { success, message, cambios } = await updateEspecialista(id, camposCambiados);
+                    if (success) {
+                        toast.success(message);
+                        if ("servicio" in cambios) {
+                            // 1. Devolver el servicio anterior a la lista de disponibles
+                            const servicioAnterior = servicios.find(
+                                servicio => servicio.titulo === especialistaSeleccionado?.servicio
+                            );
+
+                            if (servicioAnterior) {
+                                setServiciosDisponibles(prev => {
+                                    const yaExiste = prev.some(s => s.id === servicioAnterior.id);
+                                    return yaExiste ? prev : [...prev, servicioAnterior];
+                                });
+                            }
+
+                            // 2. Obtener el nuevo servicio (por ID) y poner su título en el especialista
+                            const nuevoServicio = servicios.find(
+                                servicio => servicio.id === cambios.servicio
+                            );
+
+                            if (nuevoServicio) {
+                                cambios.servicio = nuevoServicio.titulo;
+                            }
+                        }
+
+                        // 3. Actualizar al especialista con los nuevos datos
+                        setEspecialistas(prev =>
+                            ordenarEspecialistas(
+                                prev.map(esp =>
+                                    esp.id === id ? { ...esp, ...cambios } : esp
+                                )
+                            )
+                        );
+
+                        handleClickDesactivarModal();
+                    } else {
+                        toast.error(message);
+                    }
+                },
+            });
         } catch {
             toast.error("Error al actualizar el especialista.");
         }

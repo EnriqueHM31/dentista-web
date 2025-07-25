@@ -65,12 +65,12 @@ export class ContrallerContacto {
         }
 
 
-        const { success, message } = await ModeloContacto.updateComentario(resultID.data.id, visible);
+        const { success, message, comentario } = await ModeloContacto.updateComentario(resultID.data.id, visible);
 
         if (success) {
-            res.status(200).json({ success, message });
+            res.status(200).json({ success, message, comentario });
         } else {
-            res.status(500).json({ success, message });
+            res.status(500).json({ success, message, comentario: {} });
         }
     }
 
