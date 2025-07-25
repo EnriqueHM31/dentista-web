@@ -1,7 +1,8 @@
+import { Dispatch, SetStateAction } from "react";
 
 export interface SocialesContextType {
     sociales: SocialProps[];
-    setSociales: React.Dispatch<React.SetStateAction<SocialProps[]>>;
+    setSociales: Dispatch<SetStateAction<SocialProps[]>>;
 }
 
 export interface SocialProps {

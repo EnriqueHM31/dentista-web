@@ -1,3 +1,5 @@
+import { Dispatch, SetStateAction } from "react";
+
 export interface PreguntasContextType {
     preguntas: PreguntaProps[];
     setPreguntas: Dispatch<SetStateAction<PreguntaProps[]>>;

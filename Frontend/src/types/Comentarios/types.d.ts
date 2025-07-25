@@ -1,3 +1,5 @@
+import { Dispatch, SetStateAction } from "react";
+
 export interface ComentariosContextTypeProps {
     comentarios: ComentarioProps[];
     setComentarios: Dispatch<SetStateAction<ComentarioProps[]>>;
