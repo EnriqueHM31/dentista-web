@@ -38,9 +38,8 @@ export function useEditarPregunta(handleClickDesactivarModal: () => void) {
         e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
     ) => {
         const { name, value } = e.target;
-        setPreguntaSeleccionada(prev =>
-            prev ? { ...prev, [name]: value } : prev
-        );
+        console.log({ name, value });
+        setPreguntaSeleccionada(prev => ({ ...prev, [name]: value } as PreguntaProps));
     };
 
     const handleClickEditar = ({ id, pregunta, respuesta }: PreguntaProps) => {

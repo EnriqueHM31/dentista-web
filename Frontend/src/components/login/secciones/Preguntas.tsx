@@ -19,7 +19,6 @@ export default function ListaPreguntas() {
 
     const { handleCrearPregunta, preguntaForm, handleCambiarCampoPregunta, handledescartarCambiosCrearPregunta } = useCrearPregunta({ handleClickDesactivarModal });
 
-    console.log(preguntas);
     return (
         <>
             {/* MODAL EDITAR */}
@@ -30,11 +29,10 @@ export default function ListaPreguntas() {
                 clases="md:max-w-2/3 max-w-11/12 flex items-center justify-center scrollbar-invisible"
             >
                 <ModalEditarPregunta
-                    handleEditarPregunta={handleEditarCampoPregunta}
-                    handleEditarRespuesta={handleEditarCampoPregunta}
+                    handleEditarCampoPregunta={handleEditarCampoPregunta}
                     preguntaSeleccionada={preguntaSeleccionada}
                     toggle={() => handledescartarCambios()}
-                    handleGuardar={handleEditarPregunta}
+                    handleEditarPregunta={handleEditarPregunta}
                 />
             </Modal>
 

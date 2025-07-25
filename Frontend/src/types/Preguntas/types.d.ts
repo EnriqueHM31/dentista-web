@@ -19,9 +19,8 @@ export type PreguntaFormProps = Omit<PreguntaProps, "id">
 export interface ModalEditarPreguntaProps {
     preguntaSeleccionada: Pregunta | null;
     toggle: () => void;
-    handleEditarPregunta: (e: React.ChangeEvent<HTMLInputElement>) => void;
-    handleEditarRespuesta: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
-    handleGuardar: (e: React.FormEvent<HTMLFormElement>) => void;
+    handleEditarCampoPregunta: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
+    handleEditarPregunta: (e: React.FormEvent<HTMLFormElement>) => void;
 }
 
 

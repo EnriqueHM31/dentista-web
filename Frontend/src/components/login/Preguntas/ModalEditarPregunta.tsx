@@ -2,20 +2,21 @@ import type { ModalEditarPreguntaProps } from "@/types/Preguntas/types";
 
 
 
-export default function ModalEditarPregunta({ handleEditarPregunta, handleEditarRespuesta, preguntaSeleccionada, toggle, handleGuardar }: ModalEditarPreguntaProps) {
+export default function ModalEditarPregunta({ preguntaSeleccionada, toggle, handleEditarCampoPregunta, handleEditarPregunta }: ModalEditarPreguntaProps) {
 
 
     return (
         <section className="bg-primary text-white rounded-lg shadow p-6 w-full max-w-full scrollbar-invisible">
             <h3 className="text-lg md:text-2xl font-bold text-white mb-4">Editar pregunta</h3>
-            <form className="flex flex-col gap-8" onSubmit={(e) => handleGuardar(e)}>
+            <form className="flex flex-col gap-8" onSubmit={(e) => handleEditarPregunta(e)}>
                 <div className="flex flex-col gap-6">
                     <label htmlFor="preguntaSeleccionada" className="text-sm font-semibold px-4 py-1 md:py-2 bg-white text-primary rounded-xl w-fit">Pregunta</label>
                     <input
                         id="preguntaSeleccionada"
                         type="text"
+                        name="pregunta"
                         value={preguntaSeleccionada?.pregunta || ""}
-                        onChange={(e) => handleEditarPregunta(e)}
+                        onChange={(e) => handleEditarCampoPregunta(e)}
                         className="w-full border text-sm md:text-base border-gray-500 focus:outline-gray-800  px-3 py-2 rounded"
                     />
                 </div>
@@ -24,9 +25,10 @@ export default function ModalEditarPregunta({ handleEditarPregunta, handleEditar
                     <textarea
                         id="respuestaSeleccionada"
                         rows={10}
+                        name="respuesta"
                         value={preguntaSeleccionada?.respuesta || ""}
-                        onChange={(e) => handleEditarRespuesta(e)}
-                        className="w-full border text-sm md:text-base border-gray-500 focus:outline-gray-800  px-3 py-2 rounded resize-none scrollbar-invisible "
+                        onChange={(e) => handleEditarCampoPregunta(e)}
+                        className="w-full border text-sm md:text-base border-gray-500 fo    us:outline-gray-800  px-3 py-2 rounded resize-none scrollbar-invisible "
                     />
                 </div>
 
