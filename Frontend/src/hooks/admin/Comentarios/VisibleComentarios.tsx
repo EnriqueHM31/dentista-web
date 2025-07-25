@@ -1,3 +1,4 @@
+import { mostrarToastConfirmacion } from "@/components/General/ToastConfirmacion";
 import { updateComentarioVisibilidad } from "@/services/Comentarios";
 import type { ArrayComentariosProps, ComentarioProps } from "@/types/Comentarios/types";
 import { useEffect, useRef, useState } from "react";
@@ -26,6 +27,10 @@ export default function useVisibleComentarios({ comentarios }: ArrayComentariosP
         }));
     };
 
+    const comentarioModificado = (id: string): boolean => {
+        return seleccionados[id] !== comentariosOriginalesRef.current[id];
+    };
+
     const guardarSeleccion = async () => {
         try {
             const original = comentariosOriginalesRef.current;
@@ -39,46 +44,47 @@ export default function useVisibleComentarios({ comentarios }: ArrayComentariosP
                 return;
             }
 
-            // Llamamos a updateComentarioVisibilidad y esperamos la respuesta con el comentario actualizado
-            const comentariosActualizados = await Promise.all(
-                actualizaciones.map(({ id, visible }) =>
-                    updateComentarioVisibilidad({
-                        id: id as `${string}-${string}-${string}-${string}-${string}`,
-                        visible
-                    }).then(respuesta => {
-                        // Suponiendo que la respuesta tiene la forma { comentario: { id, visible }, ... }
-                        return respuesta.comentario[0];
-                    })
-                )
-            );
+            mostrarToastConfirmacion({
+                mensaje: "¿Estás seguro de querer guardar los cambios?",
+                textoAccion: "Guardar",
+                onConfirmar: async () => {
+                    const comentariosActualizados = await Promise.all(
+                        actualizaciones.map(({ id, visible }) =>
+                            updateComentarioVisibilidad({
+                                id: id as `${string}-${string}-${string}-${string}-${string}`,
+                                visible
+                            }).then(respuesta => respuesta.comentario[0])
+                        )
+                    );
 
-            // Actualizar el estado y las referencias con los datos del backend
-            const nuevosOriginales: Record<string, boolean> = { ...comentariosOriginalesRef.current };
-            const nuevosRef: ComentarioProps[] = [...comentariosRef.current];
+                    const nuevosOriginales: Record<string, boolean> = { ...comentariosOriginalesRef.current };
+                    const nuevosRef: ComentarioProps[] = [...comentariosRef.current];
 
-            comentariosActualizados.forEach((nuevoComentario) => {
-                // Actualizas el objeto de visibilidad original con el nuevo valor
-                nuevosOriginales[nuevoComentario.id] = nuevoComentario.visible === 1;
+                    comentariosActualizados.forEach((nuevoComentario) => {
+                        nuevosOriginales[nuevoComentario.id] = nuevoComentario.visible === 1;
 
-                // Buscas el índice del comentario en el array local
-                const index = nuevosRef.findIndex((c) => c.id === nuevoComentario.id);
+                        const index = nuevosRef.findIndex((c) => c.id === nuevoComentario.id);
 
-                if (index !== -1) {
-                    // Actualizas sólo la propiedad visible sin perder otros datos
-                    nuevosRef[index] = {
-                        ...nuevosRef[index],
-                        visible: nuevoComentario.visible,
-                    };
+                        if (index !== -1) {
+                            nuevosRef[index] = {
+                                ...nuevosRef[index],
+                                visible: nuevoComentario.visible,
+                            };
+                        }
+                    });
+
+                    comentariosOriginalesRef.current = nuevosOriginales;
+                    comentariosRef.current = nuevosRef;
+                    setSeleccionados(nuevosOriginales);
+
+                    toast.success("Cambios guardados correctamente");
+                },
+                textoCancelar: "Cancelar",
+                onCancelar: () => {
+                    toast.info("No hay cambios para guardar");
                 }
             });
-            comentariosOriginalesRef.current = nuevosOriginales;
-            comentariosRef.current = nuevosRef;
-            setSeleccionados(nuevosOriginales);
 
-            console.log(comentariosOriginalesRef.current);
-            console.log(comentariosRef.current);
-
-            toast.success("Cambios guardados correctamente");
         } catch {
             toast.error("Error al guardar los cambios");
         }
@@ -89,5 +95,6 @@ export default function useVisibleComentarios({ comentarios }: ArrayComentariosP
         toggleCheck,
         guardarSeleccion,
         comentariosRef,
+        comentarioModificado,
     };
 }

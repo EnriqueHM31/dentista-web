@@ -5,12 +5,12 @@ import { useTestimonio } from "@/hooks/general/useTestimonio";
 import type { TestimonioProps } from "@/types/Comentarios/types";
 
 
-export default function Testimonio({ comentario, onCheckToggle, movil = false, checked = false }: TestimonioProps) {
+export default function Testimonio({ comentario, onCheckToggle, movil = false, checked = false, comentarioModificado = false }: TestimonioProps) {
 
     const { getRandomPortraitUrl, handleEliminarComentario } = useTestimonio();
 
     return (
-        <li className="relative flex flex-col gap-3 px-4 md:px-8 py-4 bg-primary text-white rounded-2xl h-auto justify-between ">
+        <li className={`relative flex flex-col gap-3 px-4 md:px-8 py-4 bg-primary border-4 text-white rounded-2xl h-auto justify-between ${comentarioModificado ? "border-green-400" : ""}`}>
             {/* Checkbox de selección para visibilidad */}
             {onCheckToggle && !movil && (
                 <div className="flex flex-wrap justify-center items-center size-7 mx-auto select-none gap-2 rounded-xl bg-amber-200 absolute top-4 right-4 md:right-14">

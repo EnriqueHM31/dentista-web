@@ -5,7 +5,7 @@ import Testimonio from "@/components/Inicio/Comentarios/Testimonio";
 
 export default function Comentarios() {
     const { comentarios } = useComentariosContext();
-    const { seleccionados, toggleCheck, guardarSeleccion } = useVisibleComentarios({ comentarios });
+    const { seleccionados, toggleCheck, guardarSeleccion, comentarioModificado } = useVisibleComentarios({ comentarios });
 
     return (
         <section className="max-w-full mx-auto md:p-4 px-0 flex flex-col gap-4 min-h-screen">
@@ -33,6 +33,7 @@ export default function Comentarios() {
                             checked={seleccionados[comentario.id]}
                             key={comentario.id}
                             onCheckToggle={toggleCheck}
+                            comentarioModificado={comentarioModificado(comentario.id)}
                         />
                     ))}
                 </div>

@@ -55,6 +55,13 @@ export function useEditarPregunta(handleClickDesactivarModal: () => void) {
             toast.error("No hay pregunta seleccionada", { id: toastId });
             return;
         }
+
+
+        if (sonPreguntasIguales(preguntaSeleccionada, preguntaRef.current)) {
+            toast.info("No hay cambios para guardar", { id: toastId });
+            return;
+        }
+
         const { id, pregunta, respuesta } = preguntaSeleccionada;
 
         try {

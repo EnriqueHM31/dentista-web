@@ -49,6 +49,7 @@ export interface TestimonioProps {
     movil?: boolean;
     checked?: boolean;
     index?: number;
+    comentarioModificado?: boolean;
 }
 
 
