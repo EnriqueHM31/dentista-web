@@ -1,4 +1,4 @@
-import { ModeloSocial } from '@/models/mysql/social';
+import { ModeloSocial } from '@/models/MySQL/social';
 import { validarId } from '@/utils/Validacion';
 import { Request, Response } from 'express';
 

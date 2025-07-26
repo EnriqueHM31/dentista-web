@@ -1,14 +1,14 @@
-import type { Request, Response, NextFunction } from 'express';
+import type { Request, Response } from 'express';
 import jwt from 'jsonwebtoken';
-import { ModeloLogin } from '@/models/mysql/login';
-
-export const JWT_SECRET = process.env.SECRET ?? (() => {
-    throw new Error("SECRET no está definido en .env");
-})();
+import { ModeloLogin } from '@/models/MySQL/login';
+import { NODE_ENV, NOMBRE_COOKIE } from '@/config';
+import { SECRET } from '@/config';
 
 export class ControllerLogin {
+
+
     static async InicioSesion(req: Request, res: Response) {
-        const { username, password } = req.body;
+        const { username, password } = req.body as { username: string, password: string };
 
         if (!username || !password) {
             res.status(200).json({ success: false, message: 'Credenciales incompletas.' });
@@ -25,9 +25,9 @@ export class ControllerLogin {
                 res.status(200).json({ success: false, message: message });
             }
 
-            res.cookie('token', token, {
+            res.cookie(NOMBRE_COOKIE, token, {
                 httpOnly: true,
-                secure: process.env.NODE_ENV === 'production',
+                secure: NODE_ENV === 'production',
                 sameSite: 'lax',
                 maxAge: 60 * 60 * 1000,
             });
@@ -38,30 +38,19 @@ export class ControllerLogin {
         }
     }
 
-    static async VerificarSesion(req: Request, res: Response) {
-        const token = req.cookies.token;
-
-        if (!token) {
-            res.status(401).json({ success: false, message: 'No autorizado' });
-        }
-
-        try {
-            const decoded = jwt.verify(token, JWT_SECRET) as { role: string, username: string };
-            res.json({ success: true, message: { role: decoded.role, username: decoded.username } });
-        } catch (error) {
-            res.status(401).json({ success: false, message: 'Token inválido o expirado' });
-        }
-    }
-
     static async Autenticacion(req: Request, res: Response) {
         const token = req.cookies.token;
+
+        if (!SECRET) {
+            throw new Error("SECRET no está definido en .env");
+        }
 
         if (!token) {
             res.status(200).json({ success: false, message: 'No autorizado' });
         }
 
         try {
-            const decoded = jwt.verify(token, JWT_SECRET) as { role: string, username: string };
+            const decoded = jwt.verify(token, SECRET) as { role: string, username: string };
             res.json({ success: true, message: { role: decoded.role, username: decoded.username } });
         } catch (error) {
             res.status(401).json({ success: false, message: 'Token inválido o expirado' });
@@ -70,29 +59,11 @@ export class ControllerLogin {
 
     static async Logout(_req: Request, res: Response) {
         try {
-            res.clearCookie('token');
+            res.clearCookie(NOMBRE_COOKIE);
             res.status(200).json({ success: true, message: 'Sesión cerrada correctamente' });
         } catch (error) {
             res.status(500).json({ success: false, message: 'Error al cerrar sesión' });
         }
-    }
-}
-// Middleware para proteger rutas
-export function requireAuth(req: Request, res: Response, next: NextFunction) {
-    const token = req.cookies.token;
-
-    if (!token) {
-        res.status(403).json({ success: false, message: 'Acceso denegado' });
-    }
-
-    try {
-        const decoded = jwt.verify(token, JWT_SECRET) as { role: string };
-        if (decoded.role !== 'admin') {
-            res.status(403).json({ success: false, message: 'No tienes permisos' });
-        }
-        next();
-    } catch (error) {
-        res.status(401).json({ success: false, message: 'Token inválido o expirado' });
     }
 }
 

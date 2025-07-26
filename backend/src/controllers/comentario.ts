@@ -1,15 +1,9 @@
 import type { Request, Response } from 'express';
-import { ModeloContacto } from '@/models/local/comentario';
+import { ModeloContacto } from '@/models/MySQL/comentario';
 import { validarComentario, validarId } from '@/utils/Validacion';
+import type { Comentario } from '@/types/comentario';
+import { UUID } from 'crypto';
 
-interface Comentario {
-    nombre: string;
-    ranking: number;
-    email: string;
-    servicio: string;
-    mensaje: string;
-    comentario: string;
-}
 
 export class ContrallerContacto {
     static async EnviarMensaje(req: Request, res: Response) {
@@ -55,15 +49,14 @@ export class ContrallerContacto {
 
 
     static async updateComentario(req: Request, res: Response) {
-        const { visible } = req.body;
-        const id = req.params.id as `${string}-${string}-${string}-${string}-${string}`;
+        const { visible } = req.body as { visible: boolean };
+        const { id } = req.params as { id: UUID };
 
         const resultID = validarId({ id });
         if (resultID.error) {
             res.status(400).json({ success: false, message: resultID.error.message });
             return;
         }
-
 
         const { success, message, comentario } = await ModeloContacto.updateComentario(resultID.data.id, visible);
 
@@ -76,7 +69,7 @@ export class ContrallerContacto {
 
 
     static async deleteComentario(req: Request, res: Response) {
-        const id = req.params.id as `${string}-${string}-${string}-${string}-${string}`;
+        const { id } = req.params as { id: UUID };
 
         const resultID = validarId({ id });
         if (resultID.error) {

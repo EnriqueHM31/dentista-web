@@ -1,5 +1,5 @@
 import { transporter } from '@/utils/contacto';
-import db from '@/database/db';
+import { db } from '@/database/db';
 import { REMITENTE, DESTINATARIO } from '@/config';
 
 interface Comentario {

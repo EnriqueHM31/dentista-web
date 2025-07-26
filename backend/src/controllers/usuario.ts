@@ -1,5 +1,5 @@
 import { Request, Response } from 'express'
-import { ModeloUsuario } from '@/models/mysql/usuario';
+import { ModeloUsuario } from '@/models/MySQL/usuario';
 import { validarEditarUsuario } from '@/utils/Validacion';
 
 export class ContrallerUsuario {

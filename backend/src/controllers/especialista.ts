@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { ModeloEspecialista } from '@/models/mysql/especialista';
+import { ModeloEspecialista } from '@/models/MySQL/especialista';
 import { validarId } from '@/utils/Validacion';
 
 export class ControllerEspecialistas {
@@ -21,6 +21,7 @@ export class ControllerEspecialistas {
 
     static async createEspecialista(req: Request, res: Response) {
         const { nombre, apellido, email, telefono, direccion, avatar, nivel, servicio, linkedin } = req.body;
+
 
         const { success, message, especialista } = await ModeloEspecialista.createEspecialista({ nombre, apellido, email, telefono, direccion, avatar, nivel, servicio, linkedin });
 

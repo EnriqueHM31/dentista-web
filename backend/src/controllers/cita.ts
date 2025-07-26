@@ -1,8 +1,9 @@
 
 import { Request, Response } from 'express';
-import { ModeloCita } from '@/models/mysql/citas';
+import { ModeloCita } from '@/models/MySQL/citas';
 import { validarId } from '@/utils/Validacion';
 import { CitaCrear } from '@/types/citas';
+import { UUID } from '@/types/types';
 
 export class CitasController {
 
@@ -34,9 +35,10 @@ export class CitasController {
     }
 
     static async deleteCita(req: Request, res: Response) {
-        const id = req.params.id as `${string}-${string}-${string}-${string}-${string}`;
+        const { id } = req.params as { id: UUID };
 
         const result = validarId({ id });
+
         if (result.error) {
             res.status(400).json({ success: false, message: result.error.message });
             return;
@@ -52,19 +54,14 @@ export class CitasController {
     }
 
     static async updateCita(req: Request, res: Response) {
-        const { completada } = req.body;
-        console.log(req.body)
-
-        const id = req.params.id as `${string}-${string}-${string}-${string}-${string}`;
+        const { completada } = req.body as { completada: boolean };
+        const { id } = req.params as { id: UUID };
 
         const resultID = validarId({ id });
         if (resultID.error) {
             res.status(400).json({ success: false, message: resultID.error.message });
             return;
         }
-
-        console.log(resultID.data.id)
-        console.log(completada)
 
         const { success, message } = await ModeloCita.updateCita(resultID.data.id, { completado: completada });
 

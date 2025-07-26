@@ -1,11 +1,10 @@
 import mysql from 'mysql2/promise';
+import { DB_HOST, DB_USER, DB_PASSWORD, DB_NAME } from '@/config';
 
-const db = mysql.createPool({
-    host: 'localhost',
-    user: 'root',
-    password: '1234',
-    database: 'odontologia',
+export const db = mysql.createPool({
+    host: DB_HOST,  // Host de la base de datos
+    user: DB_USER,  // Nombre de usuario
+    password: DB_PASSWORD,  // Contraseña
+    database: DB_NAME,  // Nombre de la base de datos
 });
 
-
-export default db;

@@ -1,4 +1,4 @@
-import { ModeloPreguntas } from '@/models/mysql/preguntas';
+import { ModeloPreguntas } from '@/models/MySQL/preguntas';
 import { validarEditarPregunta, validarId, validarPregunta } from '@/utils/Validacion';
 import { Request, Response } from 'express';
 
