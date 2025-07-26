@@ -3,19 +3,37 @@ import { toast } from "sonner";
 import { getComentarios } from "@/services/Comentarios";
 import { ComentariosContext } from "@/context/Comentarios";
 import type { ComentarioProps, Filtros } from "@/types/Comentarios/types";
-import { FILTROS_CHECKEADOS, FILTROS_ORDEN } from "@/constants/filtrosComentarios";
-import type { UUID } from "crypto";
+import { FILTROS_CHECKEADOS, FILTROS_ORDEN, LOCAL_STORAGE_FILTROS_KEY } from "@/constants/filtrosComentarios";
+import type { UUID } from "@/types/types";
 
+// Clave para guardar los filtros en localStorage
 
 export function ComentariosProvider({ children }: { children: React.ReactNode }) {
     const [comentariosOriginales, setComentariosOriginales] = useState<ComentarioProps[]>([]);
     const [comentariosFiltrados, setComentariosFiltrados] = useState<ComentarioProps[]>([]);
 
-    const [filtros, setFiltrosState] = useState<Filtros>({
-        ordenar: null,
-        ranking: null,
-        seleccion: null,
+    const [filtros, setFiltrosState] = useState<Filtros>(() => {
+        // Recuperar del localStorage si existe
+        const filtrosGuardados = localStorage.getItem(LOCAL_STORAGE_FILTROS_KEY);
+        if (filtrosGuardados) {
+            try {
+                return JSON.parse(filtrosGuardados) as Filtros;
+            } catch (error) {
+                console.warn("Error al parsear filtros guardados:", error);
+            }
+        }
+        // Si no hay, usar valores por defecto
+        return {
+            ordenar: null,
+            ranking: null,
+            seleccion: null,
+        };
     });
+
+    // Guardar filtros en localStorage cada vez que cambian
+    useEffect(() => {
+        localStorage.setItem(LOCAL_STORAGE_FILTROS_KEY, JSON.stringify(filtros));
+    }, [filtros]);
 
     // Obtener comentarios original
     useEffect(() => {
@@ -64,17 +82,26 @@ export function ComentariosProvider({ children }: { children: React.ReactNode })
         setFiltrosState(prev => ({ ...prev, ...nuevosFiltros }));
     };
 
-
     const refrescarComentariosEliminar = (id: UUID) => {
         setComentariosOriginales(prev => prev.filter(c => c.id !== id));
-    }
+    };
 
     const refrescarComentariosEditar = (newComentarios: ComentarioProps[]) => {
         setComentariosOriginales(newComentarios);
-    }
+    };
 
     return (
-        <ComentariosContext.Provider value={{ comentarios: comentariosFiltrados, comentariosVisibles: comentariosFiltrados, setComentarios: setComentariosFiltrados, filtros, setFiltros, refrescarComentariosEliminar, refrescarComentariosEditar }}>
+        <ComentariosContext.Provider
+            value={{
+                comentarios: comentariosFiltrados,
+                comentariosVisibles: comentariosFiltrados,
+                setComentarios: setComentariosFiltrados,
+                filtros,
+                setFiltros,
+                refrescarComentariosEliminar,
+                refrescarComentariosEditar,
+            }}
+        >
             {children}
         </ComentariosContext.Provider>
     );

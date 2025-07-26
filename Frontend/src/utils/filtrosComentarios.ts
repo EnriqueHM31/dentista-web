@@ -1,4 +1,4 @@
-import { FILTROS_ORDEN, FILTROS_CHECKEADOS } from "@/constants/filtrosComentarios";
+import { FILTROS_ORDEN, FILTROS_CHECKEADOS } from "@/constants/FiltrosComentarios";
 import type { Filtros } from "@/types/Comentarios/types";
 
 

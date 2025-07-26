@@ -10,7 +10,7 @@ export function useCitasCalendario() {
 
     const [modalOpen, setModalOpen] = useState(false);
     const [eventoSeleccionado, setEventoSeleccionado] = useState<CitasCalendarioProps | null>(null);
-    const { citas, refrescarCitasCompletar, refrescarCitasEliminar, refrescarCitasCrear } = useCitasContext(); // Asegúrate que `setCitas` esté en tu contexto
+    const { citas, refrescarCitasCompletar, refrescarCitasEliminar, refrescarCitasCrear } = useCitasContext();
 
     const citasFormateadas: CitasCalendarioProps[] = citas.map((cita) => ({
         id: cita.id,
@@ -41,7 +41,7 @@ export function useCitasCalendario() {
                 const { success, message } = await completarCita(cita.id);
                 if (success) {
                     refrescarCitasCrear(citas);
-                    toast.success(message);
+                    toast.success(message || "La cita se completó correctamente");
                 } else {
                     toast.error("Error al completar la cita");
                 }
@@ -83,7 +83,7 @@ export function useCitasCalendario() {
         if (success) {
             refrescarCitasCompletar(citas, id);
             setModalOpen(false);
-            toast.success(message);
+            toast.success(message || "La cita se completó correctamente");
             setEventoSeleccionado(null);
         } else {
             toast.error("Error al completar la cita");
@@ -97,7 +97,7 @@ export function useCitasCalendario() {
         const { success, message } = await eliminarCita(id);
         if (success) {
             refrescarCitasEliminar(id);
-            toast.success(message);
+            toast.success(message || "La cita se eliminó correctamente");
             setModalOpen(false);
         } else {
             toast.error("Error al eliminar la cita");

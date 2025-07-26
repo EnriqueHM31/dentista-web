@@ -1,3 +1,4 @@
+export const LOCAL_STORAGE_FILTROS_KEY = "filtros_comentarios";
 export const MENU_FILTROS = {
     todos: "todos",
     ordenar: "ordenar",

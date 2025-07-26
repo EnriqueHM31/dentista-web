@@ -59,7 +59,7 @@ export const useFiltrosComentarios = () => {
             case MENU_FILTROS.seleccion:
                 return textoSeleccion(filtros);
             default:
-                return "Todos";
+                return MENU_FILTROS.todos;
         }
     };
 

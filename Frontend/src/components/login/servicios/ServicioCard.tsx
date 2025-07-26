@@ -1,5 +1,5 @@
 import { type ServicioCardProps } from "@/types/Servicios/types";
-import { formatoHoraMinuto } from "@/utils/Hora";
+import { formatoHoraMinutoSingle } from "@/utils/Hora";
 import { FiEdit, FiTrash } from "react-icons/fi";
 
 
@@ -14,7 +14,7 @@ export default function ServicioCard({ servicio, handleEdit, handleEliminarServi
                 <img src={servicio.img} alt={servicio.titulo} className="w-10 h-10 object-cover rounded-full" />
                 <div>
                     <h3 className="font-bold">{servicio.titulo}</h3>
-                    <p className="text-sm text-white/70">Tiempo de duracion por cita aproximado: {formatoHoraMinuto([servicio.duration.toString()])}</p>
+                    <p className="text-sm text-white/70">Tiempo de duracion por cita aproximado: {formatoHoraMinutoSingle(servicio.duration.toString())}</p>
                 </div>
             </div>
             <div className="flex flex-col md:flex-row justify-center md:justify-start gap-7 md:gap-5">

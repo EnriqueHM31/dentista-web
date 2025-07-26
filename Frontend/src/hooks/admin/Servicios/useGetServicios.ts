@@ -3,7 +3,7 @@ import { toast } from "sonner";
 import { crearServicio, eliminarServicio } from "@/services/Servicios";
 import { esURLValida, MINUTOS_ARRAY } from "@/utils/constantes";
 import { useServicioContext } from "@/context/Servicio";
-import { convertirADuracionEnMinutos, formatoHoraMinuto } from "@/utils/Hora";
+import { convertirADuracionEnMinutos, formatoHoraMinutoArray } from "@/utils/Hora";
 import type { ServicioCrearProps, ServicioProps, useGetServiciosProps } from "@/types/Servicios/types";
 import { INITIAL_SERVICIO_PROPS } from "@/constants/Servicios";
 import { mostrarToastConfirmacion } from "@/components/General/ToastConfirmacion";
@@ -24,7 +24,7 @@ export function useGetServicios({ handleClickDesactivarModal }: useGetServiciosP
 
 
     useEffect(() => {
-        const opciones = formatoHoraMinuto(MINUTOS_ARRAY);
+        const opciones = formatoHoraMinutoArray(MINUTOS_ARRAY);
         if (!servicioCrear.duration && opciones.length > 0) {
             setServicioCrear((prev) => ({
                 ...prev,

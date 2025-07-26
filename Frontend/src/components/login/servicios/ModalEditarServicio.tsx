@@ -3,7 +3,7 @@ import { IoIosArrowDown } from "react-icons/io";
 import { useEditarServicio } from "@/hooks/admin/Servicios/useEditarServicio";
 import type { ModalEditarServicioProps, ServicioProps } from "@/types/Servicios/types";
 import AnimatedSelect from "@/components/General/Select";
-import { formatoHoraMinuto, formatearDuracion } from "@/utils/Hora";
+import { formatoHoraMinutoArray, formatoHoraMinutoSingle } from "@/utils/Hora";
 import { MINUTOS_ARRAY } from "@/utils/constantes";
 import { FaPencil } from "react-icons/fa6";
 import type { UUID } from "crypto";
@@ -139,9 +139,12 @@ export default function ModalEditarServicio({ serviciosRef, handleClickDesactiva
                             <label htmlFor="duration" className="text-sm hidden md:flex text-primary bg-white px-5 py-1 rounded w-fit">Duración</label>
                             <AnimatedSelect
                                 funcion={handleChange}
-                                select={formatearDuracion(formValues?.duration || 0)}
+                                select={formatoHoraMinutoSingle(formValues.duration
+                                    ? formValues?.duration.toString()
+                                    : "0"
+                                )}
                                 name="duration"
-                                options={formatoHoraMinuto(MINUTOS_ARRAY)}
+                                options={formatoHoraMinutoArray(MINUTOS_ARRAY)}
                                 itemClass="bg-primary text-white border-white hover:bg-white/80 hover:text-primary"
                                 selectClass="bg-primary text-white border-white hover:bg-white/80 hover:text-primary border border-white"
                                 itemHoverClass="   hover:bg-white/80 hover:text-primary"

@@ -7,7 +7,7 @@ import {
     NOMBRES_FILTROS,
     NOMBRES_FILTROS_ORDEN,
     NOMBRES_FILTROS_SELECCION,
-} from "@/constants/filtrosComentarios";
+} from "@/constants/FiltrosComentarios";
 import {
     textoOrden,
     textoRanking,

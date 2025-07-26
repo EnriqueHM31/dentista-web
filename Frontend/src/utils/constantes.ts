@@ -1,4 +1,4 @@
-import type { LinksNavegacionProps } from "@/types";
+import type { LinksNavegacionProps } from "@/types/Menu/types";
 
 import type { Variants } from "framer-motion";
 
@@ -12,8 +12,6 @@ export const esURLValida = (url: unknown): boolean => {
         return false;
     }
 };
-
-
 
 export const LINKS_NAVEGACION = [
     { name: 'Inicio', path: '/' },
