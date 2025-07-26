@@ -20,7 +20,7 @@ function convertirADuracionEnMinutos(valor: string): number {
 
 export function useModalEditarServicio() {
 
-    const [formValues, setFormValues] = useState<ServicioProps>(INITIAL_SERVICIO_PROPS_WITH_ID);
+    const [formValues, setFormValues] = useState<Partial<ServicioProps>>(INITIAL_SERVICIO_PROPS_WITH_ID);
     const formularioOriginal = useRef<ServicioProps>(INITIAL_SERVICIO_PROPS_WITH_ID);
 
     const handleEdit = (servicio: ServicioProps) => {

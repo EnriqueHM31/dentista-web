@@ -4,14 +4,15 @@ import { useSociales } from '@/hooks/admin/Sociales/useSociales';
 
 
 export default function Sociales() {
-    const { sociales, handleEditClick, handleChange, handleEditarRedSocial, editMode } = useSociales();
+
+    const { SocialEdit, handleEditClick, handleChange, handleEditarRedSocial, editMode } = useSociales();
 
 
     return (
         <div className="max-w-2xl bg-white rounded-xl md:p-8 py-8 px-4 space-y-8 shadow ">
             <h2 className="text-2xl font-semibold text-primary text-center md:text-left">Redes Sociales y Contacto</h2>
 
-            {sociales.map(({ id, nombre, referencia }) => (
+            {SocialEdit.map(({ id, nombre, referencia }) => (
                 <div key={id} className="flex flex-col md:flex-row items-start md:items-center gap-3 relative">
                     <div className="text-xl flex gap-4 items-center flex-1">
                         {getIconosSociales().find((i) => i.label.toLowerCase() === nombre.toLowerCase())?.icon}

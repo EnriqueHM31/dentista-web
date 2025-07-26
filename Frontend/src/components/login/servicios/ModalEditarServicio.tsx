@@ -138,7 +138,7 @@ export default function ModalEditarServicio({ serviciosRef, handleClickDesactiva
                             <label htmlFor="duration" className="text-sm hidden md:flex text-primary bg-white px-5 py-1 rounded w-fit">Duración</label>
                             <AnimatedSelect
                                 funcion={handleChange}
-                                select={formatearDuracion(formValues.duration)}
+                                select={formatearDuracion(formValues?.duration || 0)}
                                 name="duration"
                                 options={formatoHoraMinuto(MINUTOS_ARRAY)}
                                 itemClass="bg-primary text-white border-white hover:bg-white/80 hover:text-primary"

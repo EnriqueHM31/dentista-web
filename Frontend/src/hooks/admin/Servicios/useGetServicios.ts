@@ -10,7 +10,7 @@ import { mostrarToastConfirmacion } from "@/components/General/ToastConfirmacion
 
 
 export function useGetServicios({ handleClickDesactivarModal }: useGetServiciosProps) {
-    const { servicios, setServicios } = useServicioContext();
+    const { servicios, refrescarServiciosEliminar, refrescarServiciosCrear } = useServicioContext();
     const [servicioCrear, setServicioCrear] = useState<ServicioCrearProps>(INITIAL_SERVICIO_PROPS);
     const formRef = useRef<ServicioProps[]>([]);
 
@@ -53,8 +53,7 @@ export function useGetServicios({ handleClickDesactivarModal }: useGetServiciosP
 
                 if (success) {
                     toast.success("Servicio eliminado correctamente");
-                    formRef.current.splice(index, 1);
-                    setServicios([...formRef.current]);
+                    refrescarServiciosEliminar(id);
                 } else {
                     toast.error(message || "Error al eliminar el servicio");
                 }
@@ -120,9 +119,9 @@ export function useGetServicios({ handleClickDesactivarModal }: useGetServiciosP
             const { success, message, servicio } = await crearServicio(NewServicio);
 
             if (success) {
-                toast.success("Servicio creado correctamente");
+                refrescarServiciosCrear(servicio);
+                toast.success(message);
                 handleClickDesactivarModal();
-                setServicios(prev => [...prev, servicio]);
             } else {
                 toast.error(message || "Error al crear el servicio");
             }

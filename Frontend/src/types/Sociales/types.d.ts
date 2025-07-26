@@ -6,7 +6,7 @@ export interface SocialesContextType {
 }
 
 export interface SocialProps {
-    id: string;
+    id: `${string}-${string}-${string}-${string}-${string}`;
     nombre: string;
     referencia: string;
 }
@@ -14,3 +14,5 @@ export interface SocialProps {
 export type SocialEditarProps = {
     [key in `${string}-${string}-${string}-${string}-${string}`]: boolean;
 };
+
+export type FormSocialProps = Omit<SocialProps, "id">;

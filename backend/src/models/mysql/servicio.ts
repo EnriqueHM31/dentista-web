@@ -81,40 +81,61 @@ WHERE e.servicio IS NULL;
         }
     }
 
+
     static async updateServicio(id: string, data: Partial<Servicio>) {
+        const allowedFields = ['titulo', 'descripcion', 'img', 'duration']; // Campos permitidos
+        const fields: string[] = [];
+        const values: string[] = [];
+
+        for (const key of Object.keys(data) as (keyof Servicio)[]) {
+            if (allowedFields.includes(key) && data[key] !== undefined) {
+                fields.push(`${key} = ?`);
+                values.push(data[key] as string);
+            }
+        }
+
+        if (fields.length === 0) {
+            return {
+                success: false,
+                message: 'No se proporcionaron campos válidos para actualizar',
+                cambios: {},
+            };
+        }
+
+        values.push(id); // Agrega el ID al final para el WHERE
+
+        const query = `UPDATE ServiciosDentales SET ${fields.join(', ')} WHERE id = ?`;
+
         try {
+            const [result]: any = await db.query(query, values);
 
-            const allowedFields = ['titulo', 'descripcion', 'img', 'duration']; // puedes agregar más en el futuro
+            if (result.affectedRows > 0) {
+                // Extrae el nombre del campo (sin " = ?") y lo asocia al valor correspondiente
+                const cambios = Object.fromEntries(
+                    fields.map((f, i) => [f.split(' = ')[0], values[i]])
+                );
 
-            const fields: string[] = [];
-            const values: string[] = [];
-
-            for (const key of Object.keys(data) as (keyof Servicio)[]) {
-                if (allowedFields.includes(key) && data[key] !== undefined) {
-                    fields.push(`${key} = ?`);
-                    values.push(data[key] as string);
-                }
-            }
-
-            if (fields.length === 0) {
-                return { success: false, message: 'No se proporcionaron campos válidos para actualizar' };
-            }
-
-            values.push(id); // ID al final para el WHERE
-
-            const query = `UPDATE ServiciosDentales SET ${fields.join(', ')} WHERE id = ?`;
-
-            const [result] = await db.query(query, values);
-
-            if (result) {
-                return { success: true, message: 'Servicio actualizado correctamente' };
+                return {
+                    success: true,
+                    message: 'Servicio actualizado correctamente',
+                    cambios,
+                };
             } else {
-                return { success: false, message: 'No se encontró el servicio o no se realizaron cambios' };
+                return {
+                    success: false,
+                    message: 'No se encontró el servicio o no se realizaron cambios',
+                    cambios: {},
+                };
             }
         } catch (error) {
-            return { success: false, message: 'Error al actualizar el servicio' };
+            return {
+                success: false,
+                message: 'Error al actualizar el servicio',
+                error,
+            };
         }
     }
+
 
 
     static async deleteServicio(id: string) {

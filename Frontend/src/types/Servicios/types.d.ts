@@ -5,6 +5,9 @@ export interface ServicioContextType {
     setServicios: Dispatch<SetStateAction<ServicioProps[]>>;
     serviciosDisponibles: ServicioProps[];
     setServiciosDisponibles: Dispatch<SetStateAction<ServicioProps[]>>;
+    refrescarServiciosCrear: (servicioCreado: ServicioProps) => void;
+    refrescarServiciosEditar: (servicioSeleccionado: Partial<ServicioProps>, id: `${string}-${string}-${string}-${string}-${string}`) => void;
+    refrescarServiciosEliminar: (id: `${string}-${string}-${string}-${string}-${string}`) => void;
 }
 
 export interface ServicioCrearProps {
@@ -27,7 +30,7 @@ export interface CardServicioProps {
 export interface ModalEditarServicioProps {
     serviciosRef: React.MutableRefObject<ServicioProps[]>;
     handleClickDesactivarModal: () => void;
-    formValues: ServicioProps;
+    formValues: Partial<ServicioProps>;
     handleChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => void;
 }
 
@@ -46,7 +49,7 @@ export interface ServicioCardProps {
 }
 export interface useEditarServicioProps {
     serviciosRef: React.RefObject<ServicioProps[]>,
-    formValues: ServicioCrearProps,
+    formValues: Partial<ServicioProps>,
     handleClickDesactivarModal: () => void
 }
 

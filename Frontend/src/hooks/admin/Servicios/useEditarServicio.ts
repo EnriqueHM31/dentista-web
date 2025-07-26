@@ -9,14 +9,14 @@ import { mostrarToastConfirmacion } from "@/components/General/ToastConfirmacion
 
 export function useEditarServicio({ serviciosRef, formValues, handleClickDesactivarModal }: useEditarServicioProps) {
     const [preview, setPreview] = useState<keyof ServicioProps | null>('titulo');
-    const { setServicios } = useServicioContext();
+    const { refrescarServiciosEditar } = useServicioContext();
 
     const handlePreview = (campo: keyof ServicioProps) => {
         setPreview(campo);
     };
 
 
-    const handleSubmit = async (e: React.FormEvent, id: string) => {
+    const handleSubmit = async (e: React.FormEvent, id: `${string}-${string}-${string}-${string}-${string}`) => {
         e.preventDefault();
 
         // Verificar si hubo cambios
@@ -29,8 +29,6 @@ export function useEditarServicio({ serviciosRef, formValues, handleClickDesacti
 
             return nuevoValor !== original;
         });
-
-
 
         if (cambios.length === 0) {
             toast.info("No hay cambios para guardar.");
@@ -59,9 +57,7 @@ export function useEditarServicio({ serviciosRef, formValues, handleClickDesacti
                     if (success) {
                         toast.success("Cambios guardados correctamente");
                         handleClickDesactivarModal();
-                        setServicios(prev =>
-                            prev.map(s => s.id === id ? { ...s, ...formValues } : s)
-                        );
+                        refrescarServiciosEditar(formValues, id);
                     } else {
                         toast.error(message || "Error al guardar los cambios.");
                     }

@@ -9,30 +9,50 @@ export const ServicioProvider = ({ children }: { children: React.ReactNode }) =>
     const [serviciosDisponibles, setServiciosDisponibles] = useState<ServicioProps[]>([]);
 
     useEffect(() => {
-        obtenerServicios();
-        obtenerServiciosDisponibles();
+        cargarServicios();
     }, []);
 
-    const obtenerServicios = async () => {
-        const { success, message } = await getServicios();
-        if (!success) {
-            toast.error("Error al cargar servicios");
-            return;
+    const cargarServicios = async () => {
+        try {
+            const [serviciosRes, disponiblesRes] = await Promise.all([
+                getServicios(),
+                getServiciosDisponibles(),
+            ]);
+
+            if (!serviciosRes.success) {
+                toast.error("Error al cargar servicios");
+            } else {
+                setServicios(ordenarServicios(serviciosRes.message));
+            }
+
+            if (!disponiblesRes.success) {
+                toast.error("Error al cargar servicios disponibles");
+            } else {
+                setServiciosDisponibles(ordenarServicios(disponiblesRes.message));
+            }
+        } catch {
+            toast.error("Error al cargar datos");
         }
-        setServicios(message);
     };
 
-    const obtenerServiciosDisponibles = async () => {
-        const { success, message } = await getServiciosDisponibles();
-        if (!success) {
-            toast.error("Error al cargar servicios disponibles");
-            return;
-        }
-        setServiciosDisponibles(message);
-    };
+    const ordenarServicios = (servicios: ServicioProps[]) => {
+        return servicios.sort((a, b) => a.titulo.localeCompare(b.titulo));
+    }
+
+    const refrescarServiciosCrear = (servicioCreado: ServicioProps) => {
+        setServicios(prev => [...prev, servicioCreado]);
+    }
+
+    const refrescarServiciosEditar = (servicioSeleccionado: Partial<ServicioProps>, id: `${string}-${string}-${string}-${string}-${string}`) => {
+        setServicios(prev => ordenarServicios(prev.map(s => s.id === id ? { ...s, ...servicioSeleccionado } : s)));
+    }
+
+    const refrescarServiciosEliminar = (id: `${string}-${string}-${string}-${string}-${string}`) => {
+        setServicios(prev => prev.filter(s => s.id !== id));
+    }
 
     return (
-        <ServicioContext.Provider value={{ servicios, setServicios, serviciosDisponibles, setServiciosDisponibles }}>
+        <ServicioContext.Provider value={{ servicios, setServicios, serviciosDisponibles, setServiciosDisponibles, refrescarServiciosCrear, refrescarServiciosEditar, refrescarServiciosEliminar }}>
             {children}
         </ServicioContext.Provider>
     );

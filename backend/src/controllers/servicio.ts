@@ -70,12 +70,12 @@ export class ServiciosController {
             return;
         }
 
-        const { success, message } = await ModeloServicio.updateServicio(resultID.data.id, { ...result.data });
+        const { success, message, cambios } = await ModeloServicio.updateServicio(resultID.data.id, { ...result.data });
 
         if (success) {
-            res.status(200).json({ success, message });
+            res.status(200).json({ success, message, cambios });
         } else {
-            res.status(500).json({ success, message });
+            res.status(500).json({ success, message, cambios });
         }
     }
 
