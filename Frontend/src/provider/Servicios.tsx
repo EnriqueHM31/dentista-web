@@ -41,7 +41,7 @@ export const ServicioProvider = ({ children }: { children: React.ReactNode }) =>
     }
 
     const refrescarServiciosCrear = (servicioCreado: ServicioProps) => {
-        setServicios(prev => [...prev, servicioCreado]);
+        setServicios(prev => ordenarServicios([...prev, servicioCreado]));
     }
 
     const refrescarServiciosEditar = (servicioSeleccionado: Partial<ServicioProps>, id: UUID) => {

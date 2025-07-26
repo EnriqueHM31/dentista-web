@@ -5,6 +5,7 @@ import { toast } from "sonner";
 import type { SocialEditarProps } from "@/types/Sociales/types";
 import { useSocialesContext } from "@/context/Sociales";
 import type { UUID } from "@/types/types";
+import { ExistenModificacionesSociales } from "@/constants/Sociales";
 
 
 export function useSociales() {
@@ -29,20 +30,15 @@ export function useSociales() {
     };
 
     const handleEditarRedSocial = async () => {
-        const cambios = SocialEdit.filter((item) => {
-            const original = originalSocialRef.current.find((o) => o.id === item.id);
-            return original && original.referencia !== item.referencia;
-        });
+        const cambiosSociales = ExistenModificacionesSociales({ SocialEdit, originalSocialRef });
 
-        if (cambios.length === 0) {
+        if (cambiosSociales.length === 0) {
             toast.info('No hay cambios para guardar');
             return;
         }
 
-
-
         try {
-            for (const cambio of cambios) {
+            for (const cambio of cambiosSociales) {
                 const { id, referencia } = cambio;
 
                 const { success, message } = await updateSocial(id, referencia);
@@ -52,12 +48,12 @@ export function useSociales() {
                 }
             }
 
-            const nombresModificados = cambios.map(c => c.nombre).join(", ");
+            const nombresModificados = cambiosSociales.map(c => c.nombre).join(", ");
             toast.success(`Cambios guardados exitosamente en: ${nombresModificados}`);
 
             setSocialEdit(prev => {
                 const actualizados = prev.map(s => {
-                    const cambioAplicado = cambios.find(c => c.id === s.id);
+                    const cambioAplicado = cambiosSociales.find(c => c.id === s.id);
                     return cambioAplicado ? { ...s, referencia: cambioAplicado.referencia } : s;
                 });
 

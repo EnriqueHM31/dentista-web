@@ -1,21 +1,9 @@
 import type { ServicioProps } from "@/types/Servicios/types";
 import { useRef, useState } from "react";
 import { toast } from "sonner";
-import { INITIAL_SERVICIO_PROPS_WITH_ID } from "@/constants/Servicios";
+import { INITIAL_SERVICIO_PROPS_WITH_ID, KEY_SERVICIOS } from "@/constants/Servicios";
 import { mostrarToastConfirmacion } from "@/components/General/ToastConfirmacion";
-
-
-function convertirADuracionEnMinutos(valor: string): number {
-    const horasMatch = valor.match(/(\d+)\s*h/);
-    const minutosMatch = valor.match(/(\d+)\s*m/);
-
-    const horas = horasMatch ? parseInt(horasMatch[1], 10) : 0;
-    const minutos = minutosMatch ? parseInt(minutosMatch[1], 10) : 0;
-
-    const totalMinutos = horas * 60 + minutos;
-
-    return totalMinutos; // Retorna número entero: 30, 60, 90, 120...
-}
+import { convertirADuracionEnMinutos } from "@/utils/Hora";
 
 
 export function useModalEditarServicio() {
@@ -31,7 +19,7 @@ export function useModalEditarServicio() {
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
         const { name, value } = e.target;
 
-        if (name === "duration") {
+        if (name === KEY_SERVICIOS.duration) {
             setFormValues((prev) => ({ ...prev, [name]: convertirADuracionEnMinutos(value) }));
         } else {
             setFormValues((prev) => ({ ...prev, [name]: value }));
