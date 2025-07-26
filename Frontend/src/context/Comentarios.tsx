@@ -13,11 +13,13 @@ export const ComentariosContext = createContext<ComentariosContextTypeProps>({
         seleccion: null,
     },
     setFiltros: () => { },
+    refrescarComentariosEliminar: () => { },
+    refrescarComentariosEditar: () => { },
 });
 
 export function useComentariosContext() {
-    const { comentarios, setComentarios, comentariosVisibles, setFiltros, filtros } = useContext(ComentariosContext);
-    return { comentarios, setComentarios, comentariosVisibles, setFiltros, filtros };
+    const { comentarios, setComentarios, comentariosVisibles, setFiltros, filtros, refrescarComentariosEliminar, refrescarComentariosEditar } = useContext(ComentariosContext);
+    return { comentarios, setComentarios, comentariosVisibles, setFiltros, filtros, refrescarComentariosEliminar, refrescarComentariosEditar };
 }
 
 

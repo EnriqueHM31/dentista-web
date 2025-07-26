@@ -1,4 +1,5 @@
 import { mostrarToastConfirmacion } from "@/components/General/ToastConfirmacion";
+import { useComentariosContext } from "@/context/Comentarios";
 import { updateComentarioVisibilidad } from "@/services/Comentarios";
 import type {
     ArrayComentariosProps,
@@ -14,6 +15,7 @@ export default function useVisibleComentarios({ comentarios }: ArrayComentariosP
     const [seleccionados, setSeleccionados] = useState<VisibilidadMap>({});
     const comentariosRef = useRef<ComentarioProps[]>(comentarios);
     const comentariosOriginalesRef = useRef<VisibilidadMap>({});
+    const { refrescarComentariosEditar } = useComentariosContext();
 
     useEffect(() => {
         comentariosRef.current = comentarios;
@@ -80,7 +82,10 @@ export default function useVisibleComentarios({ comentarios }: ArrayComentariosP
 
                     comentariosOriginalesRef.current = nuevosOriginales;
                     comentariosRef.current = nuevosRef;
+
                     setSeleccionados(nuevosOriginales);
+
+                    refrescarComentariosEditar(nuevosRef);
 
                     toast.success("Cambios guardados correctamente");
                 },

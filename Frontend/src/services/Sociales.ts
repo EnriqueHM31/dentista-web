@@ -1,4 +1,5 @@
 import { VITE_API_URL } from "@/config";
+import type { UUID } from "@/types/types";
 
 
 export const getDataSociales = async () => {
@@ -12,7 +13,7 @@ export const getDataSociales = async () => {
     }
 }
 
-export const updateSocial = async (id: string, referencia: string) => {
+export const updateSocial = async (id: UUID, referencia: string) => {
     const response = await fetch(`${VITE_API_URL}/sociales/${id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },

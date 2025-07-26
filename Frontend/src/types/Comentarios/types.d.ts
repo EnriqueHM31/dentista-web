@@ -7,6 +7,8 @@ export interface ComentariosContextTypeProps {
     comentariosVisibles: ComentarioProps[];
     setFiltros: (filtros: Partial<Filtros>) => void;
     filtros: Filtros;
+    refrescarComentariosEliminar: (id: UUID) => void;
+    refrescarComentariosEditar: (newComentarios: ComentarioProps[]) => void;
 }
 
 export interface ComentarioProps {

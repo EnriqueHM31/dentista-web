@@ -5,8 +5,7 @@ import { mostrarToastConfirmacion } from "@/components/General/ToastConfirmacion
 import type { UUID } from "@/types/types";
 
 export function useTestimonio() {
-    const { setComentarios } = useComentariosContext();
-
+    const { refrescarComentariosEliminar } = useComentariosContext();
     function getRandomPortraitUrl() {
         return `https://us.123rf.com/450wm/valentint/valentint1602/valentint160203120/52348140-user-profile-icon-internet-button-on-blue-background.webp`;
     }
@@ -24,8 +23,8 @@ export function useTestimonio() {
                         return;
                     }
 
-                    toast.success("Comentario eliminado");
-                    setComentarios(prev => prev.filter(c => c.id !== id));
+                    refrescarComentariosEliminar(id);
+                    toast.success(message || "Comentario eliminado");
                 } catch {
                     toast.error("Error al eliminar el comentario");
                 }
