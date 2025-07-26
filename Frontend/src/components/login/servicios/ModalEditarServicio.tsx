@@ -6,14 +6,9 @@ import AnimatedSelect from "@/components/General/Select";
 import { formatoHoraMinutoArray, formatoHoraMinutoSingle } from "@/utils/Hora";
 import { MINUTOS_ARRAY } from "@/utils/constantes";
 import { FaPencil } from "react-icons/fa6";
-import type { UUID } from "crypto";
+import type { UUID } from "@/types/types";
+import { OPCIONES_EDITAR_SERVICIO } from "@/constants/Servicios";
 
-const opciones = [
-    { label: "Nombre", value: "titulo" },
-    { label: "Descripción", value: "descripcion" },
-    { label: "Imagen", value: "img" },
-    { label: "Duración", value: "duration" },
-];
 
 export default function ModalEditarServicio({ serviciosRef, handleClickDesactivarModal, formValues, handleChange }: ModalEditarServicioProps) {
     const { preview, handlePreview, handleSubmit } = useEditarServicio({ serviciosRef, formValues, handleClickDesactivarModal });
@@ -25,7 +20,7 @@ export default function ModalEditarServicio({ serviciosRef, handleClickDesactiva
             <aside className="hidden md:flex flex-1 p-6 border-r flex-col justify-between">
                 <div className="flex flex-col gap-4">
                     <h2 className="text-xl font-bold text-white">Editar Servicio</h2>
-                    {opciones.map((op) => (
+                    {OPCIONES_EDITAR_SERVICIO.map((op) => (
                         <button
                             key={op.value}
                             type="button"
@@ -44,7 +39,7 @@ export default function ModalEditarServicio({ serviciosRef, handleClickDesactiva
                     <div className="bg-white rounded-lg p-6 w-5/6 max-w-sm">
                         <h3 className="text-primary text-lg font-semibold mb-4">Seleccionar campo a editar</h3>
                         <div className="flex flex-col gap-2">
-                            {opciones.map((op) => (
+                            {OPCIONES_EDITAR_SERVICIO.map((op) => (
                                 <button
                                     key={op.value}
                                     onClick={() => {

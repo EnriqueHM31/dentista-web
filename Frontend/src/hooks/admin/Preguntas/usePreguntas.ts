@@ -21,22 +21,24 @@ export function usePreguntas() {
         mostrarToastConfirmacion({
             mensaje: "¿Estás seguro de querer eliminar esta pregunta?",
             textoAccion: "Eliminar",
-            onConfirmar: async () => {
-                try {
-                    const { success, message } = await deletePregunta(id);
-                    if (!success) {
-                        toast.error(message);
-                        return;
-                    }
-                    refrescarPreguntasEliminar(id);
-                    toast.success("Pregunta eliminada");
-                } catch (err) {
-                    toast.error("Error al eliminar pregunta: " + err);
-                }
-            },
+            onConfirmar: async () => eliminarPregunta({ id }),
+            textoCancelar: "Cancelar",
+            onCancelar: () => toast.dismiss("Cancelando eliminación"),
         });
+    }
 
-
+    async function eliminarPregunta({ id }: { id: UUID }) {
+        try {
+            const { success, message } = await deletePregunta(id);
+            if (!success) {
+                toast.error(message);
+                return;
+            }
+            refrescarPreguntasEliminar(id);
+            toast.success("Pregunta eliminada");
+        } catch (err) {
+            toast.error("Error al eliminar pregunta: " + err);
+        }
     }
 
     return {

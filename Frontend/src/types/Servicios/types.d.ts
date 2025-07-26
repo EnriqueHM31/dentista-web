@@ -9,6 +9,8 @@ export interface ServicioContextType {
     refrescarServiciosCrear: (servicioCreado: ServicioProps) => void;
     refrescarServiciosEditar: (servicioSeleccionado: Partial<ServicioProps>, id: UUID) => void;
     refrescarServiciosEliminar: (id: UUID) => void;
+    refrescarServiciosDisponiblesAñadir: (servicioEliminado: ServicioProps) => void;
+    refrescarServiciosDisponiblesEliminar: (id: UUID) => void;
 }
 
 export interface ServicioCrearProps {

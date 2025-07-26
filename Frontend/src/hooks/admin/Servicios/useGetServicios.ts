@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
-import { crearServicio, eliminarServicio } from "@/services/Servicios";
+import { crearServicio, deleteServicio } from "@/services/Servicios";
 import { esURLValida, MINUTOS_ARRAY } from "@/utils/constantes";
 import { useServicioContext } from "@/context/Servicio";
 import { convertirADuracionEnMinutos, formatoHoraMinutoArray } from "@/utils/Hora";
@@ -38,22 +38,7 @@ export function useGetServicios({ handleClickDesactivarModal }: useGetServiciosP
         mostrarToastConfirmacion({
             mensaje: "¿Estás seguro que quieres eliminar este servicio?",
             textoAccion: "Eliminar",
-            onConfirmar: async () => {
-                const index = servicios.findIndex((s) => s.id === id);
-                if (index === -1) {
-                    toast.error("Servicio no encontrado");
-                    return;
-                }
-
-                const { success, message } = await eliminarServicio(id);
-
-                if (success) {
-                    toast.success("Servicio eliminado correctamente");
-                    refrescarServiciosEliminar(id);
-                } else {
-                    toast.error(message || "Error al eliminar el servicio");
-                }
-            },
+            onConfirmar: async () => eliminaServicio({ id }),
             textoCancelar: "Cancelar",
             onCancelar: () => toast.dismiss("Cancelando eliminación"),
         });
@@ -116,7 +101,7 @@ export function useGetServicios({ handleClickDesactivarModal }: useGetServiciosP
 
             if (success) {
                 refrescarServiciosCrear(servicio);
-                toast.success(message);
+                toast.success(message || "Servicio creado correctamente");
                 handleClickDesactivarModal();
             } else {
                 toast.error(message || "Error al crear el servicio");
@@ -124,8 +109,29 @@ export function useGetServicios({ handleClickDesactivarModal }: useGetServiciosP
         } catch {
             toast.error("Error de red al crear el servicio");
         }
-
     }
+
+    async function eliminaServicio({ id }: { id: UUID }) {
+        try {
+            const index = servicios.findIndex((s) => s.id === id);
+            if (index === -1) {
+                toast.error("Servicio no encontrado");
+                return;
+            }
+
+            const { success, message } = await deleteServicio(id);
+
+            if (success) {
+                toast.success("Servicio eliminado correctamente");
+                refrescarServiciosEliminar(id);
+            } else {
+                toast.error(message || "Error al eliminar el servicio");
+            }
+        } catch {
+            toast.error("Error de red al eliminar el servicio");
+        }
+    }
+
 
 
 

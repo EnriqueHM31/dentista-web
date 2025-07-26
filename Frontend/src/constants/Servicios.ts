@@ -13,4 +13,30 @@ export const INITIAL_SERVICIO_PROPS_WITH_ID: ServicioProps = {
     descripcion: "",
     img: "",
     duration: 0
-} 
+}
+
+export const KEY_SERVICIOS = {
+    titulo: "titulo",
+    descripcion: "descripcion",
+    img: "img",
+    duration: "duration",
+} as const
+
+export const OPCIONES_EDITAR_SERVICIO = [
+    { label: "Nombre", value: "titulo" },
+    { label: "Descripción", value: "descripcion" },
+    { label: "Imagen", value: "img" },
+    { label: "Duración", value: "duration" },
+];
+
+
+export function verificarCambiosServicio({ serviciosRef, formValues, id }: { serviciosRef: React.MutableRefObject<ServicioProps[]>, formValues: Partial<ServicioProps>, id: UUID }) {
+    return (Object.keys(formValues) as (keyof ServicioProps)[]).filter((key) => {
+        if (key === "id") return false;
+
+        const nuevoValor = formValues[key];
+        const original = serviciosRef.current.find((s) => s.id === id)?.[key];
+
+        return nuevoValor !== original;
+    });
+}

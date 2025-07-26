@@ -56,7 +56,7 @@ export const modificarServicio = async (id: UUID, data: Partial<ServicioProps>) 
     }
 }
 
-export const eliminarServicio = async (id: UUID) => {
+export const deleteServicio = async (id: UUID) => {
     const response = await fetch(`${VITE_API_URL}/servicios/${id}`, {
         method: "DELETE",
         headers: {

@@ -1,23 +1,27 @@
-import { useEspecialistasContext } from "@/context/Especialistas";
-import { useServicioContext } from "@/context/Servicio";
 import { createEspecialista, deleteEspecialista, updateEspecialista } from "@/services/Especialistas";
-import type { EspecialistaProps, FormCrearEspecialistaProps, InitialEspecialistaProps } from "@/types/Especialistas/types";
 import { esURLValida } from "@/utils/constantes";
-import { useRef, useState } from "react";
-import { toast } from "sonner";
+import { ExistenCambiosEspecialista } from "@/constants/Especialista";
 import { INITIAL_ESPECIALISTA, INITIAL_ESPECIALISTA_CREAR } from "@/constants/Especialistas";
-import type { PropsHookEspecialistas } from "@/types/Especialistas/types";
 import { mostrarToastConfirmacion } from "@/components/General/ToastConfirmacion";
+import { toast } from "sonner";
+import { useEspecialistasContext } from "@/context/Especialistas";
+import { useRef, useState } from "react";
+import { useServicioContext } from "@/context/Servicio";
+import type { EspecialistaProps, FormCrearEspecialistaProps, InitialEspecialistaProps } from "@/types/Especialistas/types";
+import type { PropsHookEspecialistas } from "@/types/Especialistas/types";
 import type { UUID } from "@/types/types";
 
 export function useEspecialistas({ toggle, handleClickDesactivarModal }: PropsHookEspecialistas) {
+
     const { refrescarEspecialistasEditar, refrescarEspecialistasEliminar, refrescarEspecialistasCrear } = useEspecialistasContext();
-    const { serviciosDisponibles, setServiciosDisponibles, servicios } = useServicioContext();
+
+    const { serviciosDisponibles, refrescarServiciosDisponiblesAñadir, refrescarServiciosDisponiblesEliminar, servicios } = useServicioContext();
 
     const [especialistaSeleccionado, setEspecialistaSeleccionado] = useState<EspecialistaProps | null>(null);
+
     const [especialistaCrear, setEspecialistaCrear] = useState<FormCrearEspecialistaProps>(INITIAL_ESPECIALISTA);
 
-    const especialistaRef = useRef<Omit<EspecialistaProps, "id">>(INITIAL_ESPECIALISTA);
+    const especialistaRef = useRef<FormCrearEspecialistaProps>(INITIAL_ESPECIALISTA);
 
     const handleOpen = (especialista?: EspecialistaProps, modal?: string) => {
         setEspecialistaSeleccionado(especialista || null);
@@ -35,21 +39,16 @@ export function useEspecialistas({ toggle, handleClickDesactivarModal }: PropsHo
     const handleEditarEspecialista = async (e: React.FormEvent, id: UUID) => {
         e.preventDefault();
 
-        const camposCambiados: Partial<FormCrearEspecialistaProps> = {};
-        (Object.keys(especialistaRef.current) as (keyof FormCrearEspecialistaProps)[]).forEach((key) => {
-            if (especialistaRef.current[key] !== especialistaSeleccionado?.[key]) {
-                camposCambiados[key] = especialistaSeleccionado?.[key];
-            }
-        });
+        const camposCambiados = ExistenCambiosEspecialista({ especialistaSeleccionado, especialistaRef });
 
+        const keysCambios = Object.keys(camposCambiados);
 
-
-        if (Object.keys(camposCambiados).length === 0) {
+        if (keysCambios.length === 0) {
             toast.info("No hay cambios para guardar.");
             return;
         }
 
-        if (Object.keys(camposCambiados).includes("servicio")) {
+        if (keysCambios.includes("servicio")) {
             const servicioDisponible = servicios.find(servicio => servicio.titulo === camposCambiados.servicio);
             if (!servicioDisponible) {
                 toast.error("El servicio no está disponible");
@@ -58,65 +57,28 @@ export function useEspecialistas({ toggle, handleClickDesactivarModal }: PropsHo
             camposCambiados.servicio = servicioDisponible.id;
         }
 
-        if (Object.keys(camposCambiados).includes("avatar")) {
+        if (keysCambios.includes("avatar")) {
             if (!esURLValida(camposCambiados.avatar)) {
                 toast.error("La URL de la imagen no es válida");
                 return;
             }
         }
 
-        if (Object.keys(camposCambiados).includes("linkedin")) {
+        if (keysCambios.includes("linkedin")) {
             if (!esURLValida(camposCambiados.linkedin)) {
                 toast.error("La URL de LinkedIn no es válida");
                 return;
             }
         }
 
-
-        try {
-            mostrarToastConfirmacion({
-                mensaje: "¿Estás seguro de guardar los cambios?",
-                textoAccion: "Guardar",
-                onConfirmar: async () => {
-                    const { success, message, cambios } = await updateEspecialista(id, camposCambiados);
-                    if (success) {
-                        toast.success(message);
-                        if ("servicio" in cambios) {
-                            // 1. Devolver el servicio anterior a la lista de disponibles
-                            const servicioAnterior = servicios.find(
-                                servicio => servicio.titulo === especialistaSeleccionado?.servicio
-                            );
-
-                            if (servicioAnterior) {
-                                setServiciosDisponibles(prev => {
-                                    const yaExiste = prev.some(s => s.id === servicioAnterior.id);
-                                    return yaExiste ? prev : [...prev, servicioAnterior];
-                                });
-                            }
-
-                            // 2. Obtener el nuevo servicio (por ID) y poner su título en el especialista
-                            const nuevoServicio = servicios.find(
-                                servicio => servicio.id === cambios.servicio
-                            );
-
-                            if (nuevoServicio) {
-                                cambios.servicio = nuevoServicio.titulo;
-                            }
-                        }
-
-                        // 3. Actualizar al especialista con los nuevos datos
-                        refrescarEspecialistasEditar(id, cambios);
-
-                        handleClickDesactivarModal();
-                    } else {
-                        toast.error(message);
-                    }
-                },
-            });
-        } catch {
-            toast.error("Error al actualizar el especialista.");
-        }
-    };
+        mostrarToastConfirmacion({
+            mensaje: "¿Estás seguro de guardar los cambios?",
+            textoAccion: "Guardar",
+            onConfirmar: async () => editarEspecialista({ id, camposCambiados }),
+            textoCancelar: "Cancelar",
+            onCancelar: () => toast.dismiss("Cancelando cambios"),
+        });
+    }
 
     const handleDescartarCambiosEditarEspecialista = () => {
         const sonIguales = Object.keys(especialistaRef.current).every(
@@ -138,19 +100,7 @@ export function useEspecialistas({ toggle, handleClickDesactivarModal }: PropsHo
         mostrarToastConfirmacion({
             mensaje: "¿Estás seguro de eliminar este especialista?",
             textoAccion: "Eliminar",
-            onConfirmar: async () => {
-                const { success, message } = await deleteEspecialista(especialista.id);
-                if (success) {
-                    toast.success(message);
-                    refrescarEspecialistasEliminar(especialista.id);
-                    const servicioEliminado = servicios.find(servicio => servicio.titulo === especialista.servicio);
-                    if (servicioEliminado) {
-                        setServiciosDisponibles(prev => [...prev, servicioEliminado]);
-                    }
-                } else {
-                    toast.error(message);
-                }
-            },
+            onConfirmar: async () => eliminarEspecialista(especialista),
         });
     };
 
@@ -188,7 +138,7 @@ export function useEspecialistas({ toggle, handleClickDesactivarModal }: PropsHo
             if (success) {
                 toast.success(message);
                 refrescarEspecialistasCrear(especialistaCreado);
-                setServiciosDisponibles(serviciosDisponibles.filter(servicio => servicio.id !== servicioDisponible.id));
+                refrescarServiciosDisponiblesEliminar(servicioDisponible.id);
                 handleClickDesactivarModal();
             } else {
                 toast.error(message);
@@ -220,6 +170,66 @@ export function useEspecialistas({ toggle, handleClickDesactivarModal }: PropsHo
             });
         }
     };
+
+
+
+    async function editarEspecialista({ id, camposCambiados }: { id: UUID, camposCambiados: Partial<EspecialistaProps> }) {
+        try {
+            const { success, message, cambios } = await updateEspecialista(id, camposCambiados);
+            if (success) {
+                toast.success(message);
+                if ("servicio" in cambios) {
+                    // 1. Devolver el servicio anterior a la lista de disponibles
+                    const servicioAnterior = servicios.find(
+                        servicio => servicio.titulo === especialistaSeleccionado?.servicio
+                    );
+
+                    if (servicioAnterior) {
+                        setServiciosDisponibles(prev => {
+                            const yaExiste = prev.some(s => s.id === servicioAnterior.id);
+                            return yaExiste ? prev : [...prev, servicioAnterior];
+                        });
+                    }
+
+                    // 2. Obtener el nuevo servicio (por ID) y poner su título en el especialista
+                    const nuevoServicio = servicios.find(
+                        servicio => servicio.id === cambios.servicio
+                    );
+
+                    if (nuevoServicio) {
+                        cambios.servicio = nuevoServicio.titulo;
+                    }
+                }
+
+                // 3. Actualizar al especialista con los nuevos datos
+                refrescarEspecialistasEditar(id, cambios);
+
+                handleClickDesactivarModal();
+            } else {
+                toast.error(message);
+            }
+        } catch {
+            toast.error("Error al actualizar el especialista.");
+        }
+    }
+
+    async function eliminarEspecialista(especialista: EspecialistaProps) {
+        try {
+            const { success, message } = await deleteEspecialista(especialista.id);
+            if (success) {
+                toast.success(message);
+                refrescarEspecialistasEliminar(especialista.id);
+                const servicioEliminado = servicios.find(servicio => servicio.titulo === especialista.servicio);
+                if (servicioEliminado) {
+                    refrescarServiciosDisponiblesAñadir(servicioEliminado);
+                }
+            } else {
+                toast.error(message);
+            }
+        } catch {
+            toast.error("Error al eliminar el especialista.");
+        }
+    }
 
     return {
         handleOpen,

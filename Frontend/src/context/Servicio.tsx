@@ -9,11 +9,15 @@ export const ServicioContext = createContext<ServicioContextType>({
     refrescarServiciosCrear: () => { },
     refrescarServiciosEditar: () => { },
     refrescarServiciosEliminar: () => { },
+    refrescarServiciosDisponiblesAñadir: () => { },
+    refrescarServiciosDisponiblesEliminar: () => { },
 });
 
 export function useServicioContext() {
-    const { servicios, setServicios, serviciosDisponibles, setServiciosDisponibles, refrescarServiciosCrear, refrescarServiciosEditar, refrescarServiciosEliminar } = useContext(ServicioContext);
-    return { servicios, setServicios, serviciosDisponibles, setServiciosDisponibles, refrescarServiciosCrear, refrescarServiciosEditar, refrescarServiciosEliminar };
+    const {
+        servicios, setServicios, serviciosDisponibles, setServiciosDisponibles, refrescarServiciosCrear, refrescarServiciosEditar, refrescarServiciosEliminar, refrescarServiciosDisponiblesAñadir, refrescarServiciosDisponiblesEliminar }
+        = useContext(ServicioContext);
+    return { servicios, setServicios, serviciosDisponibles, setServiciosDisponibles, refrescarServiciosCrear, refrescarServiciosEditar, refrescarServiciosEliminar, refrescarServiciosDisponiblesAñadir, refrescarServiciosDisponiblesEliminar };
 }
 
 

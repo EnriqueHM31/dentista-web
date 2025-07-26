@@ -4,12 +4,7 @@ import { updatePregunta } from "@/services/Preguntas";
 import type { PreguntaProps } from "@/types/Preguntas/types";
 import { useRef, useState } from "react";
 import { toast } from "sonner";
-
-// Función reutilizable para comparar dos preguntas
-function sonPreguntasIguales(a: PreguntaProps | null, b: PreguntaProps | null): boolean {
-    if (!a || !b) return false;
-    return a.id === b.id && a.pregunta === b.pregunta && a.respuesta === b.respuesta;
-}
+import { sonPreguntasIguales } from "@/constants/Preguntas";
 
 export function useEditarPregunta(handleClickDesactivarModal: () => void) {
     const { refrescarPreguntasEditar } = usePreguntasContext();
@@ -33,11 +28,8 @@ export function useEditarPregunta(handleClickDesactivarModal: () => void) {
         }
     };
 
-    const handleEditarCampoPregunta = (
-        e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-    ) => {
+    const handleEditarCampoPregunta = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const { name, value } = e.target;
-        console.log({ name, value });
         setPreguntaSeleccionada(prev => ({ ...prev, [name]: value } as PreguntaProps));
     };
 
@@ -62,27 +54,7 @@ export function useEditarPregunta(handleClickDesactivarModal: () => void) {
         mostrarToastConfirmacion({
             mensaje: "¿Estás seguro de guardar los cambios?",
             textoAccion: "Guardar",
-            onConfirmar: async () => {
-                const { id, pregunta, respuesta } = preguntaSeleccionada;
-
-                try {
-                    const { success, message } = await updatePregunta(id, pregunta, respuesta);
-
-                    if (!success) {
-                        toast.error(message);
-                        return;
-                    }
-
-                    // Actualiza el contexto de preguntas
-                    refrescarPreguntasEditar(preguntaSeleccionada, id);
-                    preguntaRef.current = { ...preguntaSeleccionada };
-
-                    toast.success("Cambios guardados exitosamente");
-                    handleClickDesactivarModal();
-                } catch {
-                    toast.error("Error al guardar los cambios ");
-                }
-            },
+            onConfirmar: async () => editarPregunta({ preguntaSeleccionada }),
             textoCancelar: "Cancelar",
             onCancelar: () => {
                 toast.dismiss();
@@ -90,6 +62,28 @@ export function useEditarPregunta(handleClickDesactivarModal: () => void) {
         })
 
     };
+
+    async function editarPregunta({ preguntaSeleccionada }: { preguntaSeleccionada: PreguntaProps }) {
+        try {
+            const { id, pregunta, respuesta } = preguntaSeleccionada;
+
+            const { success, message } = await updatePregunta(id, pregunta, respuesta);
+
+            if (!success) {
+                toast.error(message);
+                return;
+            }
+
+            // Actualiza el contexto de preguntas
+            refrescarPreguntasEditar(preguntaSeleccionada, id);
+            preguntaRef.current = { ...preguntaSeleccionada };
+
+            toast.success("Cambios guardados exitosamente");
+            handleClickDesactivarModal();
+        } catch {
+            toast.error("Error al guardar los cambios ");
+        }
+    }
 
     return {
         handleClickEditar,

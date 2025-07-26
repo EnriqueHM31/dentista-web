@@ -52,8 +52,18 @@ export const ServicioProvider = ({ children }: { children: React.ReactNode }) =>
         setServicios(prev => prev.filter(s => s.id !== id));
     }
 
+    const refrescarServiciosDisponiblesAñadir = (servicioEliminado: ServicioProps) => {
+        setServiciosDisponibles(prev => [...prev, servicioEliminado]);
+    }
+
+    const refrescarServiciosDisponiblesEliminar = (id: UUID) => {
+        setServiciosDisponibles(serviciosDisponibles.filter(servicio => servicio.id !== id));
+    }
+
     return (
-        <ServicioContext.Provider value={{ servicios, setServicios, serviciosDisponibles, setServiciosDisponibles, refrescarServiciosCrear, refrescarServiciosEditar, refrescarServiciosEliminar }}>
+        <ServicioContext.Provider value={{
+            servicios, setServicios, serviciosDisponibles, setServiciosDisponibles, refrescarServiciosCrear, refrescarServiciosEditar, refrescarServiciosEliminar, refrescarServiciosDisponiblesAñadir, refrescarServiciosDisponiblesEliminar
+        }}>
             {children}
         </ServicioContext.Provider>
     );

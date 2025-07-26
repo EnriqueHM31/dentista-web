@@ -28,13 +28,12 @@ export function useLogin() {
         }
     }
 
-
-
     const handleLogout = async () => {
         const { success, message } = await Logout();
 
         if (!success) {
             toast.error(message || "Error al cerrar sesión");
+            return
         }
         toast.success(message || "Sesión cerrada correctamente");
         navigate("/admin");
