@@ -1,7 +1,7 @@
 import { Routes, Route } from "react-router-dom";
 import { Toaster } from "sonner";
 
-import PublicPages from "@/routes/publicPages";
+import PublicPages from "@/routes/PublicPages";
 import ServiciosPages from "@/routes/ServiciosPages";
 
 import Inicio from "@/pages/Inicio";
@@ -11,6 +11,8 @@ import Citas from "@/pages/Citas";
 
 import Admin from "@/pages/Admin";
 import Dashboard from "@/components/login/Dashboard";
+
+import Error404 from "@/404";
 
 function App() {
   return (
@@ -32,7 +34,7 @@ function App() {
         <Route path="/admin/dashboard" element={<Dashboard />} />
 
         {/* Ruta 404 */}
-        <Route path="*" element={<h1>404 - Página no encontrada</h1>} />
+        <Route path="*" element={<Error404 />} />
       </Routes>
 
       <Toaster
@@ -48,7 +50,7 @@ function App() {
         richColors
         gap={3}
         expand={true}
-        duration={5000}
+        duration={2000}
         mobileOffset={10}
         swipeDirections={["left", "right"]}
         theme="light"

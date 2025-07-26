@@ -48,38 +48,47 @@ export function useEditarPregunta(handleClickDesactivarModal: () => void) {
 
     const handleEditarPregunta = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        const toastId = toast.loading("Guardando cambios...");
 
         if (!preguntaSeleccionada) {
-            toast.error("No hay pregunta seleccionada", { id: toastId });
+            toast.error("No hay pregunta seleccionada");
             return;
         }
-
 
         if (sonPreguntasIguales(preguntaSeleccionada, preguntaRef.current)) {
-            toast.info("No hay cambios para guardar", { id: toastId });
+            toast.info("No hay cambios para guardar");
             return;
         }
 
-        const { id, pregunta, respuesta } = preguntaSeleccionada;
+        mostrarToastConfirmacion({
+            mensaje: "¿Estás seguro de guardar los cambios?",
+            textoAccion: "Guardar",
+            onConfirmar: async () => {
+                const { id, pregunta, respuesta } = preguntaSeleccionada;
 
-        try {
-            const { success, message } = await updatePregunta(id, pregunta, respuesta);
+                try {
+                    const { success, message } = await updatePregunta(id, pregunta, respuesta);
 
-            if (!success) {
-                toast.error(message, { id: toastId });
-                return;
-            }
+                    if (!success) {
+                        toast.error(message);
+                        return;
+                    }
 
-            // Actualiza el contexto de preguntas
-            refrescarPreguntasEditar(preguntaSeleccionada, id);
-            preguntaRef.current = { ...preguntaSeleccionada };
+                    // Actualiza el contexto de preguntas
+                    refrescarPreguntasEditar(preguntaSeleccionada, id);
+                    preguntaRef.current = { ...preguntaSeleccionada };
 
-            toast.success("Cambios guardados exitosamente", { id: toastId });
-            handleClickDesactivarModal();
-        } catch {
-            toast.error("Error al guardar los cambios ", { id: toastId });
-        }
+                    toast.success("Cambios guardados exitosamente");
+                    handleClickDesactivarModal();
+                } catch {
+                    toast.error("Error al guardar los cambios ");
+                }
+            },
+            textoCancelar: "Cancelar",
+            onCancelar: () => {
+                toast.dismiss();
+            },
+        })
+
     };
 
     return {
