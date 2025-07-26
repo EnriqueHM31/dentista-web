@@ -7,6 +7,7 @@ import { convertirADuracionEnMinutos, formatoHoraMinuto } from "@/utils/Hora";
 import type { ServicioCrearProps, ServicioProps, useGetServiciosProps } from "@/types/Servicios/types";
 import { INITIAL_SERVICIO_PROPS } from "@/constants/Servicios";
 import { mostrarToastConfirmacion } from "@/components/General/ToastConfirmacion";
+import type { UUID } from "@/types/types";
 
 
 export function useGetServicios({ handleClickDesactivarModal }: useGetServiciosProps) {
@@ -33,12 +34,7 @@ export function useGetServicios({ handleClickDesactivarModal }: useGetServiciosP
     }, [servicioCrear.duration]);
 
 
-    const handleEliminarServicio = async (id: `${string}-${string}-${string}-${string}-${string}` | "") => {
-
-        if (id === "" || id === undefined) {
-            toast.error("Servicio no encontrado");
-            return;
-        }
+    const handleEliminarServicio = async (id: UUID) => {
         mostrarToastConfirmacion({
             mensaje: "¿Estás seguro que quieres eliminar este servicio?",
             textoAccion: "Eliminar",

@@ -1,4 +1,5 @@
 import { VITE_API_URL } from "@/config";
+import type { UUID } from "@/types/types";
 
 
 export const getDataPreguntas = async () => {
@@ -27,7 +28,7 @@ export const createPregunta = async (pregunta: string, respuesta: string) => {
 
 }
 
-export const deletePregunta = async (id: `${string}-${string}-${string}-${string}-${string}`) => {
+export const deletePregunta = async (id: UUID) => {
     const response = await fetch(`${VITE_API_URL}/preguntas/${id}`, {
         method: "DELETE",
     });
@@ -40,7 +41,7 @@ export const deletePregunta = async (id: `${string}-${string}-${string}-${string
 }
 
 
-export const updatePregunta = async (id: `${string}-${string}-${string}-${string}-${string}`, pregunta: string, respuesta: string) => {
+export const updatePregunta = async (id: UUID, pregunta: string, respuesta: string) => {
     const response = await fetch(`${VITE_API_URL}/preguntas/${id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },

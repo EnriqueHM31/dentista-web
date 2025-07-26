@@ -1,16 +1,17 @@
 import { Dispatch, SetStateAction } from "react";
+import type { UUID } from "../types";
 
 export interface CitasContextType {
     citas: CitaProps[];
     setCitas: Dispatch<SetStateAction<CitaProps[]>>;
     refrescarCitasCrear: (newCitas: CitaProps[]) => void;
-    refrescarCitasEliminar: (id: `${string}-${string}-${string}-${string}-${string}`) => void;
-    refrescarCitasCompletar: (citas: CitaProps[], id: `${string}-${string}-${string}-${string}-${string}`) => void;
+    refrescarCitasEliminar: (id: UUID) => void;
+    refrescarCitasCompletar: (citas: CitaProps[], id: UUID) => void;
 }
 
 
 export interface CitaProps {
-    id: `${string}-${string}-${string}-${string}-${string}`;
+    id: UUID;
     nombre: string;
     email: string;
     servicio: string;

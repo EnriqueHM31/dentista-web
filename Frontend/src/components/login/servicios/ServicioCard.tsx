@@ -30,7 +30,7 @@ export default function ServicioCard({ servicio, handleEdit, handleEliminarServi
 
                 <button className="cursor-pointer hover:text-white/80"
                     onClick={() => {
-                        handleEliminarServicio(servicio?.id as `${string}-${string}-${string}-${string}-${string}`)
+                        handleEliminarServicio(servicio?.id)
                     }}
                 >
                     <FiTrash />

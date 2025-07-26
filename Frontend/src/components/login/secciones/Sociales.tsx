@@ -30,7 +30,7 @@ export default function Sociales() {
                             }`}
                     />
                     <button
-                        onClick={() => handleEditClick(id as `${string}-${string}-${string}-${string}-${string}`)}
+                        onClick={() => handleEditClick(id)}
                         className="text-primary hover:text-blue-700 cursor-pointer absolute right-0 top-1 md:relative"
                         title={editMode[id as keyof typeof editMode] ? 'Bloquear' : 'Editar'}
                         aria-label={editMode[id as keyof typeof editMode] ? 'Bloquear' : 'Editar'}

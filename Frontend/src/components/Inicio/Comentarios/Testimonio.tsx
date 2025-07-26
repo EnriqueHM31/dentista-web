@@ -19,7 +19,7 @@ export default function Testimonio({ comentario, onCheckToggle, movil = false, c
                             type="checkbox"
                             id={`visible-${comentario.id}`}
                             checked={checked}
-                            onChange={() => onCheckToggle(comentario.id as `${string}-${string}-${string}-${string}-${string}`)}
+                            onChange={() => onCheckToggle(comentario.id)}
                             className="h-[1px] opacity-0 overflow-hidden absolute whitespace-nowrap w-[1px] peer"
                         />
                         <span
@@ -39,7 +39,7 @@ export default function Testimonio({ comentario, onCheckToggle, movil = false, c
             {
                 !movil && (
                     <button className="flex flex-wrap justify-center items-center size-7 mx-auto select-none gap-2 rounded-xl  absolute top-16 md:top-4 right-4 bg-red-500 text-white hover:bg-red-800 hover:text-white transition duration-300 ease-in-out"
-                        onClick={() => handleEliminarComentario(comentario.id as `${string}-${string}-${string}-${string}-${string}`)}
+                        onClick={() => handleEliminarComentario(comentario.id)}
                     >
                         <FaTrash />
                     </button>

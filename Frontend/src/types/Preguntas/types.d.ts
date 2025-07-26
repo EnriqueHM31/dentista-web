@@ -1,4 +1,5 @@
 import { Dispatch, SetStateAction } from "react";
+import type { UUID } from "../types";
 
 export interface PreguntasContextType {
     preguntas: PreguntaProps[];
@@ -6,12 +7,12 @@ export interface PreguntasContextType {
     obtenerPreguntas: () => Promise<void>;
     ordenarPreguntas: (preguntas: PreguntaProps[]) => PreguntaProps[];
     refrescarPreguntasCrear: (preguntaCreada: PreguntaProps) => void;
-    refrescarPreguntasEditar: (preguntaSeleccionada: PreguntaProps, id: `${string}-${string}-${string}-${string}-${string}`) => void;
-    refrescarPreguntasEliminar: (id: `${string}-${string}-${string}-${string}-${string}`) => void;
+    refrescarPreguntasEditar: (preguntaSeleccionada: PreguntaProps, id: UUID) => void;
+    refrescarPreguntasEliminar: (id: UUID) => void;
 }
 
 export interface PreguntaProps {
-    id: `${string}-${string}-${string}-${string}-${string}`;
+    id: UUID;
     pregunta: string;
     respuesta: string;
 }

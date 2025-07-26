@@ -6,6 +6,7 @@ import AnimatedSelect from "@/components/General/Select";
 import { formatoHoraMinuto, formatearDuracion } from "@/utils/Hora";
 import { MINUTOS_ARRAY } from "@/utils/constantes";
 import { FaPencil } from "react-icons/fa6";
+import type { UUID } from "crypto";
 
 const opciones = [
     { label: "Nombre", value: "titulo" },
@@ -62,7 +63,7 @@ export default function ModalEditarServicio({ serviciosRef, handleClickDesactiva
 
             {/* Derecha: contenido editable */}
             <form
-                onSubmit={(e) => handleSubmit(e, formValues.id as `${string}-${string}-${string}-${string}-${string}`)}
+                onSubmit={(e) => handleSubmit(e, formValues.id as UUID)}
                 className="flex-2 p-6 overflow-auto w-full max-w-full flex flex-col justify-between relative"
             >
                 {/* Botón selector móvil */}

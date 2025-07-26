@@ -1,5 +1,6 @@
 import { toast } from "sonner";
 import type { FormCrearCitaProps } from "@/types/Citas/types";
+import type { UUID } from "@/types/types";
 
 export async function getCitas() {
     const response = await fetch(`${import.meta.env.VITE_API_URL}/citas`, {
@@ -9,7 +10,7 @@ export async function getCitas() {
     return citas;
 }
 
-export async function crearCita(FormCrearCita: FormCrearCitaProps, idServicio: `${string}-${string}-${string}-${string}-${string}`) {
+export async function crearCita(FormCrearCita: FormCrearCitaProps, idServicio: UUID) {
     const response = await fetch(`${import.meta.env.VITE_API_URL}/citas`, {
         method: "POST",
         headers: {
@@ -34,7 +35,7 @@ export async function crearCita(FormCrearCita: FormCrearCitaProps, idServicio: `
     }
 }
 
-export async function completarCita(id: `${string}-${string}-${string}-${string}-${string}`) {
+export async function completarCita(id: UUID) {
     const response = await fetch(`${import.meta.env.VITE_API_URL}/citas/${id}`, {
         method: "PATCH",
         credentials: "include",
@@ -52,7 +53,7 @@ export async function completarCita(id: `${string}-${string}-${string}-${string}
 }
 
 
-export async function eliminarCita(id: `${string}-${string}-${string}-${string}-${string}`) {
+export async function eliminarCita(id: UUID) {
     const response = await fetch(`${import.meta.env.VITE_API_URL}/citas/${id}`, {
         method: "DELETE",
         credentials: "include",

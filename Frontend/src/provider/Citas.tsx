@@ -2,6 +2,7 @@ import { CitasContext } from "@/context/Citas";
 import { useEffect, useState } from "react";
 import type { CitaProps } from "@/types/Citas/types";
 import { getCitas } from "@/services/Citas";
+import type { UUID } from "@/types/types";
 
 export default function CitasProvider({ children }: { children: React.ReactNode }) {
     const [citas, setCitas] = useState<CitaProps[]>([]);
@@ -21,12 +22,12 @@ export default function CitasProvider({ children }: { children: React.ReactNode 
         setCitas(nuevasCitas);
     }
 
-    const refrescarCitasEliminar = (id: `${string}-${string}-${string}-${string}-${string}`) => {
+    const refrescarCitasEliminar = (id: UUID) => {
         const nuevasCitas = citas.filter((cita) => cita.id !== id);
         setCitas(nuevasCitas);
     }
 
-    const refrescarCitasCompletar = (citas: CitaProps[], id: `${string}-${string}-${string}-${string}-${string}`) => {
+    const refrescarCitasCompletar = (citas: CitaProps[], id: UUID) => {
         const nuevasCitas = citas.map((cita) =>
             cita.id === id ? { ...cita, completada: true } : cita
 

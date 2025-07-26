@@ -1,5 +1,6 @@
 import type { ServicioProps } from "@/types/Servicios/types";
 import { VITE_API_URL } from "@/config";
+import type { UUID } from "@/types/types";
 
 export const getServicios = async () => {
     const response = await fetch(`${VITE_API_URL}/servicios`);
@@ -38,7 +39,7 @@ export const crearServicio = async ({ titulo, descripcion, img, duration }: { ti
     }
 }
 
-export const modificarServicio = async (id: `${string}-${string}-${string}-${string}-${string}`, data: Partial<ServicioProps>) => {
+export const modificarServicio = async (id: UUID, data: Partial<ServicioProps>) => {
     const response = await fetch(`${VITE_API_URL}/servicios/${id}`, {
         method: "PUT",
         body: JSON.stringify(data),

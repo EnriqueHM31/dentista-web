@@ -1,4 +1,5 @@
 import { Dispatch, SetStateAction } from "react";
+import type { UUID } from "../types";
 
 export interface SocialesContextType {
     sociales: SocialProps[];
@@ -6,13 +7,13 @@ export interface SocialesContextType {
 }
 
 export interface SocialProps {
-    id: `${string}-${string}-${string}-${string}-${string}`;
+    id: UUID;
     nombre: string;
     referencia: string;
 }
 
 export type SocialEditarProps = {
-    [key in `${string}-${string}-${string}-${string}-${string}`]: boolean;
+    [key in UUID]: boolean;
 };
 
 export type FormSocialProps = Omit<SocialProps, "id">;

@@ -1,5 +1,6 @@
 import { VITE_API_URL } from "@/config";
 import type { EspecialistaProps, FormCrearEspecialistaProps } from "@/types/Especialistas/types";
+import type { UUID } from "@/types/types";
 
 
 export async function getEspecialistas() {
@@ -34,7 +35,7 @@ export async function createEspecialista(newEspecialista: FormCrearEspecialistaP
     }
 }
 
-export async function updateEspecialista(id: `${string}-${string}-${string}-${string}-${string}`, camposCambiados: Partial<EspecialistaProps>) {
+export async function updateEspecialista(id: UUID, camposCambiados: Partial<EspecialistaProps>) {
     const response = await fetch(`${VITE_API_URL}/especialistas/${id}`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
@@ -49,7 +50,7 @@ export async function updateEspecialista(id: `${string}-${string}-${string}-${st
     }
 }
 
-export async function deleteEspecialista(id: `${string}-${string}-${string}-${string}-${string}`) {
+export async function deleteEspecialista(id: UUID) {
     const response = await fetch(`${VITE_API_URL}/especialistas/${id}`, {
         method: "DELETE",
         headers: {

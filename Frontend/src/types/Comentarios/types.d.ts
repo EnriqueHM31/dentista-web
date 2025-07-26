@@ -1,4 +1,5 @@
 import { Dispatch, SetStateAction } from "react";
+import type { UUID } from "../types";
 
 export interface ComentariosContextTypeProps {
     comentarios: ComentarioProps[];
@@ -9,7 +10,7 @@ export interface ComentariosContextTypeProps {
 }
 
 export interface ComentarioProps {
-    id: `${string}-${string}-${string}-${string}-${string}`;
+    id: UUID;
     nombre: string;
     email: string;
     mensaje: string;
@@ -45,7 +46,7 @@ export interface StartsTestimonialsProps {
 
 export interface TestimonioProps {
     comentario: ComentarioProps;
-    onCheckToggle?: (index: `${string}-${string}-${string}-${string}-${string}`) => void;
+    onCheckToggle?: (index: UUID) => void;
     movil?: boolean;
     checked?: boolean;
     index?: number;
@@ -56,6 +57,6 @@ export interface TestimonioProps {
 // LOGIN ----------------------------------------------
 export interface ComentariosCardProps {
     comentarios: ComentarioProps[];
-    onCheckToggle: (id: `${string}-${string}-${string}-${string}-${string}`) => void;
-    seleccionados: { [key: `${string}-${string}-${string}-${string}-${string}`]: boolean };
+    onCheckToggle: (id: UUID) => void;
+    seleccionados: { [key: UUID]: boolean };
 }

@@ -35,7 +35,7 @@ export default function ModalEditarEspecialista({ toggle, especialistaSelecciona
                 </div>
 
                 {/* Formulario */}
-                <form onSubmit={(e) => handleEditarEspecialista(e, especialistaSeleccionado?.id as `${string}-${string}-${string}-${string}-${string}`)} className="md:flex-2 flex-3 md:grid flex flex-col  md:grid-cols-2 gap-8 w-full">
+                <form onSubmit={(e) => handleEditarEspecialista(e, especialistaSeleccionado?.id)} className="md:flex-2 flex-3 md:grid flex flex-col  md:grid-cols-2 gap-8 w-full">
                     {/* Nombre */}
                     <label htmlFor="nombre" className="flex flex-col gap-3">
                         <span className="flex items-center gap-2 font-medium text-white/50">

@@ -1,4 +1,5 @@
 import { Dispatch, SetStateAction } from "react";
+import type { UUID } from "../types";
 
 export interface ServicioContextType {
     servicios: ServicioProps[];
@@ -6,8 +7,8 @@ export interface ServicioContextType {
     serviciosDisponibles: ServicioProps[];
     setServiciosDisponibles: Dispatch<SetStateAction<ServicioProps[]>>;
     refrescarServiciosCrear: (servicioCreado: ServicioProps) => void;
-    refrescarServiciosEditar: (servicioSeleccionado: Partial<ServicioProps>, id: `${string}-${string}-${string}-${string}-${string}`) => void;
-    refrescarServiciosEliminar: (id: `${string}-${string}-${string}-${string}-${string}`) => void;
+    refrescarServiciosEditar: (servicioSeleccionado: Partial<ServicioProps>, id: UUID) => void;
+    refrescarServiciosEliminar: (id: UUID) => void;
 }
 
 export interface ServicioCrearProps {
@@ -18,7 +19,7 @@ export interface ServicioCrearProps {
 }
 
 export interface ServicioProps extends ServicioCrearProps {
-    id: `${string}-${string}-${string}-${string}-${string}`;
+    id: UUID;
 }
 
 
@@ -44,7 +45,7 @@ export interface ModalServicioProps {
 export interface ServicioCardProps {
     servicio: Servicio;
     handleEdit: (servicio: Servicio) => void;
-    handleEliminarServicio: (id: `${string}-${string}-${string}-${string}-${string}`) => void;
+    handleEliminarServicio: (id: UUID) => void;
     handleClickActivarModalIndependiente: (modal: string) => void;
 }
 export interface useEditarServicioProps {

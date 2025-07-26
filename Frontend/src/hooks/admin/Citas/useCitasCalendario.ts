@@ -4,6 +4,7 @@ import type { EventClickArg } from '@fullcalendar/core';
 import { toast } from "sonner";
 import { completarCita, eliminarCita } from "@/services/Citas";
 import type { CitasCalendarioProps } from "@/types/Citas/types";
+import type { UUID } from "@/types/types";
 
 export function useCitasCalendario() {
 
@@ -37,7 +38,7 @@ export function useCitasCalendario() {
 
             if (fechaCita < ahora) {
                 // Marcar como completada
-                const { success, message } = await completarCita(cita.id as `${string}-${string}-${string}-${string}-${string}`);
+                const { success, message } = await completarCita(cita.id);
                 if (success) {
                     refrescarCitasCrear(citas);
                     toast.success(message);
@@ -76,9 +77,9 @@ export function useCitasCalendario() {
         setEventoSeleccionado(null);
     };
 
-    const onCitaCompletada = async (id: `${string}-${string}-${string}-${string}-${string}`) => {
+    const onCitaCompletada = async (id: UUID) => {
 
-        const { success, message } = await completarCita(id as `${string}-${string}-${string}-${string}-${string}`);
+        const { success, message } = await completarCita(id);
         if (success) {
             refrescarCitasCompletar(citas, id);
             setModalOpen(false);
@@ -91,9 +92,9 @@ export function useCitasCalendario() {
 
     };
 
-    const onCitaEliminada = async (id: `${string}-${string}-${string}-${string}-${string}`) => {
+    const onCitaEliminada = async (id: UUID) => {
 
-        const { success, message } = await eliminarCita(id as `${string}-${string}-${string}-${string}-${string}`);
+        const { success, message } = await eliminarCita(id);
         if (success) {
             refrescarCitasEliminar(id);
             toast.success(message);

@@ -1,18 +1,24 @@
 import { mostrarToastConfirmacion } from "@/components/General/ToastConfirmacion";
 import { updateComentarioVisibilidad } from "@/services/Comentarios";
-import type { ArrayComentariosProps, ComentarioProps } from "@/types/Comentarios/types";
+import type {
+    ArrayComentariosProps,
+    ComentarioProps,
+} from "@/types/Comentarios/types";
+import type { UUID } from "@/types/types";
 import { useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
 
+type VisibilidadMap = Record<UUID, boolean>;
+
 export default function useVisibleComentarios({ comentarios }: ArrayComentariosProps) {
-    const [seleccionados, setSeleccionados] = useState<Record<string, boolean>>({});
+    const [seleccionados, setSeleccionados] = useState<VisibilidadMap>({});
     const comentariosRef = useRef<ComentarioProps[]>(comentarios);
-    const comentariosOriginalesRef = useRef<Record<string, boolean>>({});
+    const comentariosOriginalesRef = useRef<VisibilidadMap>({});
 
     useEffect(() => {
         comentariosRef.current = comentarios;
 
-        const visiblesOriginales = Object.fromEntries(
+        const visiblesOriginales: VisibilidadMap = Object.fromEntries(
             comentarios.map((c) => [c.id, !!c.visible])
         );
 
@@ -20,14 +26,14 @@ export default function useVisibleComentarios({ comentarios }: ArrayComentariosP
         setSeleccionados(visiblesOriginales);
     }, [comentarios]);
 
-    const toggleCheck = (id: string) => {
+    const toggleCheck = (id: UUID) => {
         setSeleccionados((prev) => ({
             ...prev,
             [id]: !prev[id],
         }));
     };
 
-    const comentarioModificado = (id: string): boolean => {
+    const comentarioModificado = (id: UUID): boolean => {
         return seleccionados[id] !== comentariosOriginalesRef.current[id];
     };
 
@@ -36,8 +42,8 @@ export default function useVisibleComentarios({ comentarios }: ArrayComentariosP
             const original = comentariosOriginalesRef.current;
 
             const actualizaciones = Object.entries(seleccionados)
-                .filter(([id, nuevoVisible]) => original[id] !== nuevoVisible)
-                .map(([id, visible]) => ({ id, visible }));
+                .filter(([id, nuevoVisible]) => original[id as UUID] !== nuevoVisible)
+                .map(([id, visible]) => ({ id: id as UUID, visible }));
 
             if (actualizaciones.length === 0) {
                 toast.info("No hay cambios para guardar");
@@ -50,14 +56,13 @@ export default function useVisibleComentarios({ comentarios }: ArrayComentariosP
                 onConfirmar: async () => {
                     const comentariosActualizados = await Promise.all(
                         actualizaciones.map(({ id, visible }) =>
-                            updateComentarioVisibilidad({
-                                id: id as `${string}-${string}-${string}-${string}-${string}`,
-                                visible
-                            }).then(respuesta => respuesta.comentario[0])
+                            updateComentarioVisibilidad({ id, visible }).then(
+                                (respuesta) => respuesta.comentario[0]
+                            )
                         )
                     );
 
-                    const nuevosOriginales: Record<string, boolean> = { ...comentariosOriginalesRef.current };
+                    const nuevosOriginales: VisibilidadMap = { ...comentariosOriginalesRef.current };
                     const nuevosRef: ComentarioProps[] = [...comentariosRef.current];
 
                     comentariosActualizados.forEach((nuevoComentario) => {
@@ -82,9 +87,8 @@ export default function useVisibleComentarios({ comentarios }: ArrayComentariosP
                 textoCancelar: "Cancelar",
                 onCancelar: () => {
                     toast.info("No hay cambios para guardar");
-                }
+                },
             });
-
         } catch {
             toast.error("Error al guardar los cambios");
         }

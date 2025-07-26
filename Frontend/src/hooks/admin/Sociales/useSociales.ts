@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
 import type { SocialEditarProps } from "@/types/Sociales/types";
 import { useSocialesContext } from "@/context/Sociales";
+import type { UUID } from "@/types/types";
 
 
 export function useSociales() {
@@ -19,11 +20,11 @@ export function useSociales() {
         }
     }, [sociales]);
 
-    const handleEditClick = (id: `${string}-${string}-${string}-${string}-${string}`) => {
+    const handleEditClick = (id: UUID) => {
         setEditMode((prev) => ({ ...prev, [id]: !prev[id] }));
     };
 
-    const handleChange = (id: `${string}-${string}-${string}-${string}-${string}`, value: string) => {
+    const handleChange = (id: UUID, value: string) => {
         setSocialEdit(prev => prev.map(s => s.id === id ? { ...s, referencia: value } : s));
     };
 
@@ -54,9 +55,6 @@ export function useSociales() {
             const nombresModificados = cambios.map(c => c.nombre).join(", ");
             toast.success(`Cambios guardados exitosamente en: ${nombresModificados}`);
 
-            // ✅ Aplicar los cambios en el estado
-
-
             setSocialEdit(prev => {
                 const actualizados = prev.map(s => {
                     const cambioAplicado = cambios.find(c => c.id === s.id);
@@ -70,7 +68,6 @@ export function useSociales() {
 
             // ✅ Salir del modo edición
             setEditMode({});
-            console.log(originalSocialRef.current);
         } catch {
             toast.error('Error al guardar los cambios');
         }

@@ -3,6 +3,7 @@ import { toast } from "sonner";
 import { useState, useEffect } from "react";
 import { ServicioContext } from "@/context/Servicio";
 import type { ServicioProps } from "@/types/Servicios/types";
+import type { UUID } from "@/types/types";
 
 export const ServicioProvider = ({ children }: { children: React.ReactNode }) => {
     const [servicios, setServicios] = useState<ServicioProps[]>([]);
@@ -43,11 +44,11 @@ export const ServicioProvider = ({ children }: { children: React.ReactNode }) =>
         setServicios(prev => [...prev, servicioCreado]);
     }
 
-    const refrescarServiciosEditar = (servicioSeleccionado: Partial<ServicioProps>, id: `${string}-${string}-${string}-${string}-${string}`) => {
+    const refrescarServiciosEditar = (servicioSeleccionado: Partial<ServicioProps>, id: UUID) => {
         setServicios(prev => ordenarServicios(prev.map(s => s.id === id ? { ...s, ...servicioSeleccionado } : s)));
     }
 
-    const refrescarServiciosEliminar = (id: `${string}-${string}-${string}-${string}-${string}`) => {
+    const refrescarServiciosEliminar = (id: UUID) => {
         setServicios(prev => prev.filter(s => s.id !== id));
     }
 

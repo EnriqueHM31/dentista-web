@@ -1,16 +1,17 @@
 import { Dispatch, SetStateAction } from "react";
+import type { UUID } from "../types";
 
 export interface EspecialistasContextProps {
     especialistas: EspecialistaProps[];
     setEspecialistas: Dispatch<SetStateAction<EspecialistaProps[]>>;
     ordenarEspecialistas: (especialistas: EspecialistaProps[]) => EspecialistaProps[];
-    refrescarEspecialistasEditar: (id: `${string}-${string}-${string}-${string}-${string}`, cambios: Partial<EspecialistaProps>) => void;
-    refrescarEspecialistasEliminar: (id: `${string}-${string}-${string}-${string}-${string}`) => void;
+    refrescarEspecialistasEditar: (id: UUID, cambios: Partial<EspecialistaProps>) => void;
+    refrescarEspecialistasEliminar: (id: UUID) => void;
     refrescarEspecialistasCrear: (especialistaCreado: EspecialistaProps) => void;
 }
 
 export interface EspecialistaProps {
-    id: `${string}-${string}-${string}-${string}-${string}`;
+    id: UUID;
     nombre: string;
     apellido: string;
     email: string;
@@ -50,5 +51,5 @@ export interface PropsModalEditarEspecialista {
     toggle: () => void;
     especialistaSeleccionado: Especialista | null;
     handleChange: (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => void;
-    handleEditarEspecialista: (e: React.FormEvent, id: `${string}-${string}-${string}-${string}-${string}`) => void;
+    handleEditarEspecialista: (e: React.FormEvent, id: UUID) => void;
 }

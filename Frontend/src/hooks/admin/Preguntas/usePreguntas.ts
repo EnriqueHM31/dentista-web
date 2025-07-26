@@ -3,19 +3,20 @@ import { useState } from "react";
 import { deletePregunta } from "@/services/Preguntas";
 import { usePreguntasContext } from "@/context/Preguntas";
 import { mostrarToastConfirmacion } from "@/components/General/ToastConfirmacion";
+import type { UUID } from "@/types/types";
 
 
 export function usePreguntas() {
     const { refrescarPreguntasEliminar } = usePreguntasContext();
-    const [expandedIds, setExpandedIds] = useState<`${string}-${string}-${string}-${string}-${string}`[]>([]);
+    const [expandedIds, setExpandedIds] = useState<UUID[]>([]);
 
-    const toggleExpand = (id: `${string}-${string}-${string}-${string}-${string}`) => {
+    const toggleExpand = (id: UUID) => {
         setExpandedIds(prev =>
             prev.includes(id) ? prev.filter(x => x !== id) : [...prev, id]
         );
     };
 
-    const handleClickEliminarPregunta = async (id: `${string}-${string}-${string}-${string}-${string}`) => {
+    const handleClickEliminarPregunta = async (id: UUID) => {
 
         mostrarToastConfirmacion({
             mensaje: "¿Estás seguro de querer eliminar esta pregunta?",

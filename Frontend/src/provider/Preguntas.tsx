@@ -3,6 +3,7 @@ import { toast } from "sonner";
 import { PreguntasContext } from "@/context/Preguntas";
 import { getDataPreguntas } from "@/services/Preguntas";
 import type { PreguntaProps } from "@/types/Preguntas/types";
+import type { UUID } from "@/types/types";
 
 export const PreguntasProvider = ({ children }: { children: React.ReactNode }) => {
     const [preguntas, setPreguntas] = useState<PreguntaProps[]>([]);
@@ -29,7 +30,7 @@ export const PreguntasProvider = ({ children }: { children: React.ReactNode }) =
         setPreguntas(prev => [...ordenarPreguntas([...prev, preguntaCreada])]);
     }
 
-    const refrescarPreguntasEditar = (preguntaSeleccionada: PreguntaProps, id: `${string}-${string}-${string}-${string}-${string}`) => {
+    const refrescarPreguntasEditar = (preguntaSeleccionada: PreguntaProps, id: UUID) => {
         setPreguntas(prev =>
             prev.map(pregunta =>
                 pregunta.id === id
@@ -39,7 +40,7 @@ export const PreguntasProvider = ({ children }: { children: React.ReactNode }) =
         );
     }
 
-    const refrescarPreguntasEliminar = (id: `${string}-${string}-${string}-${string}-${string}`) => {
+    const refrescarPreguntasEliminar = (id: UUID) => {
         setPreguntas(prev => prev.filter(p => p.id !== id));
     }
 

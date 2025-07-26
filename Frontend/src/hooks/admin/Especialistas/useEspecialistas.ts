@@ -8,6 +8,7 @@ import { toast } from "sonner";
 import { INITIAL_ESPECIALISTA, INITIAL_ESPECIALISTA_CREAR } from "@/constants/Especialistas";
 import type { PropsHookEspecialistas } from "@/types/Especialistas/types";
 import { mostrarToastConfirmacion } from "@/components/General/ToastConfirmacion";
+import type { UUID } from "@/types/types";
 
 export function useEspecialistas({ toggle, handleClickDesactivarModal }: PropsHookEspecialistas) {
     const { refrescarEspecialistasEditar, refrescarEspecialistasEliminar, refrescarEspecialistasCrear } = useEspecialistasContext();
@@ -31,7 +32,7 @@ export function useEspecialistas({ toggle, handleClickDesactivarModal }: PropsHo
         );
     };
 
-    const handleEditarEspecialista = async (e: React.FormEvent, id: `${string}-${string}-${string}-${string}-${string}`) => {
+    const handleEditarEspecialista = async (e: React.FormEvent, id: UUID) => {
         e.preventDefault();
 
         const camposCambiados: Partial<FormCrearEspecialistaProps> = {};
@@ -138,7 +139,7 @@ export function useEspecialistas({ toggle, handleClickDesactivarModal }: PropsHo
             mensaje: "¿Estás seguro de eliminar este especialista?",
             textoAccion: "Eliminar",
             onConfirmar: async () => {
-                const { success, message } = await deleteEspecialista(especialista.id as `${string}-${string}-${string}-${string}-${string}`);
+                const { success, message } = await deleteEspecialista(especialista.id);
                 if (success) {
                     toast.success(message);
                     refrescarEspecialistasEliminar(especialista.id);

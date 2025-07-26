@@ -4,6 +4,7 @@ import { useState } from "react";
 import { modificarServicio } from "@/services/Servicios";
 import { useServicioContext } from "@/context/Servicio";
 import { mostrarToastConfirmacion } from "@/components/General/ToastConfirmacion";
+import type { UUID } from "@/types/types";
 
 
 
@@ -16,7 +17,7 @@ export function useEditarServicio({ serviciosRef, formValues, handleClickDesacti
     };
 
 
-    const handleSubmit = async (e: React.FormEvent, id: `${string}-${string}-${string}-${string}-${string}`) => {
+    const handleSubmit = async (e: React.FormEvent, id: UUID) => {
         e.preventDefault();
 
         // Verificar si hubo cambios
@@ -50,7 +51,7 @@ export function useEditarServicio({ serviciosRef, formValues, handleClickDesacti
                     const { titulo, descripcion, img, duration } = data;
 
                     const { success, message } = await modificarServicio(
-                        id as `${string}-${string}-${string}-${string}-${string}`,
+                        id,
                         { titulo, descripcion, img, duration }
                     );
 

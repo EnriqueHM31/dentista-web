@@ -1,4 +1,5 @@
 import type { ServicioCrearProps, ServicioProps } from "@/types/Servicios/types";
+import type { UUID } from "@/types/types";
 
 export const INITIAL_SERVICIO_PROPS: ServicioCrearProps = {
     titulo: "",
@@ -7,7 +8,7 @@ export const INITIAL_SERVICIO_PROPS: ServicioCrearProps = {
     duration: 0
 }
 export const INITIAL_SERVICIO_PROPS_WITH_ID: ServicioProps = {
-    id: "" as `${string}-${string}-${string}-${string}-${string}`,
+    id: "" as UUID,
     titulo: "",
     descripcion: "",
     img: "",

@@ -1,5 +1,6 @@
 import { VITE_API_URL } from "@/config";
 import type { FormActualizarComentarioProps, FormCrearComentarioProps } from "@/types/Comentarios/types";
+import type { UUID } from "@/types/types";
 
 export async function getComentarios() {
     const response = await fetch(`${VITE_API_URL}/comentarios`, {
@@ -51,7 +52,7 @@ export async function updateComentarioVisibilidad({ id, visible }: FormActualiza
 }
 
 
-export async function deleteComentario(id: `${string}-${string}-${string}-${string}-${string}`) {
+export async function deleteComentario(id: UUID) {
     const response = await fetch(`${VITE_API_URL}/comentarios/${id}`, {
         method: "DELETE",
         headers: {

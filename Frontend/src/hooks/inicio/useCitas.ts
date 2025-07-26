@@ -43,8 +43,9 @@ export function useCitas() {
     const handleSubmitCrearCita = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         const idServicio = servicios.find(({ titulo }) => titulo === FormCrearCita.servicio)?.id;
+        if (!idServicio) return;
 
-        const { success, message, cita } = await crearCita(FormCrearCita, idServicio as `${string}-${string}-${string}-${string}-${string}`);
+        const { success, message, cita } = await crearCita(FormCrearCita, idServicio);
 
         if (success) {
             setCitas(citas => [...citas, cita]);
