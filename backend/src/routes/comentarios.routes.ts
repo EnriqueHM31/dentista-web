@@ -1,14 +1,16 @@
 import { Router } from 'express';
 import { ContrallerContacto } from '@/controllers/comentario';
+import { verificarTokenDesdeCookie } from '@/middleware/verificarToken';
 
 export const ComentariosRouter = Router();
 
-ComentariosRouter.post('/', ContrallerContacto.EnviarMensaje)
 
 ComentariosRouter.get('/', ContrallerContacto.getComentarios)
 
+ComentariosRouter.post('/', ContrallerContacto.EnviarMensaje)
+
 ComentariosRouter.get('/visibles', ContrallerContacto.getComentariosVisibles)
 
-ComentariosRouter.put('/:id', ContrallerContacto.updateComentario)
+ComentariosRouter.put('/:id', verificarTokenDesdeCookie, ContrallerContacto.updateComentario)
 
-ComentariosRouter.delete('/:id', ContrallerContacto.deleteComentario)
+ComentariosRouter.delete('/:id', verificarTokenDesdeCookie, ContrallerContacto.deleteComentario)

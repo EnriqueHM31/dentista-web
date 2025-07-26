@@ -1,5 +1,6 @@
 import { transporter } from '@/utils/contacto';
 import db from '@/database/db';
+import { REMITENTE, DESTINATARIO } from '@/config';
 
 interface Comentario {
     nombre: string;
@@ -33,8 +34,8 @@ export class ModeloContacto {
     static async EnviarMensaje({ nombre, ranking, email, servicio, mensaje }: Comentario) {
 
         const mailOptions = {
-            from: process.env.REMITENTE,
-            to: process.env.DESTINATARIO,
+            from: REMITENTE,
+            to: DESTINATARIO,
             subject: 'Nuevo mensaje desde Odontología LEHM',
             text: mensaje,
             html: `

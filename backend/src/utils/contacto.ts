@@ -1,9 +1,10 @@
 import nodemailer from 'nodemailer';
+import { REMITENTE, PASS_GMAIL, TIPO_SERVICIO_MESSAGE } from '@/config';
 
 export const transporter = nodemailer.createTransport({
-    service: 'gmail',
+    service: TIPO_SERVICIO_MESSAGE,
     auth: {
-        user: process.env.REMITENTE,
-        pass: process.env.PASS_GMAIL,
+        user: REMITENTE,
+        pass: PASS_GMAIL,
     },
 });

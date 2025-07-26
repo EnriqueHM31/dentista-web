@@ -11,8 +11,8 @@ import { UsuarioRouter } from './routes/datausuario.routes';
 import { ServiciosRoutes } from './routes/servicios.routes';
 import { EspecialistasRouter } from './routes/especialistas.routes';
 import { CitasRouter } from './routes/citas.routes';
+import { PORT } from './config';
 
-const PORT = 3000
 
 const app = express();
 app.use(express.json());

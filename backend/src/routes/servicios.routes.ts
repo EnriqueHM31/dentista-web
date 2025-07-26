@@ -1,19 +1,18 @@
 import { Router } from 'express'
 import { ServiciosController } from '@/controllers/servicio'
+import { verificarTokenDesdeCookie } from '@/middleware/verificarToken'
 
 export const ServiciosRoutes = Router()
-
-ServiciosRoutes.post('/', ServiciosController.crearServicio)
-
-
 
 ServiciosRoutes.get('/disponibles', ServiciosController.getDisponibles)
 
 ServiciosRoutes.get('/', ServiciosController.getServicios)
 
-ServiciosRoutes.put('/:id', ServiciosController.updateServicio)
+ServiciosRoutes.post('/', verificarTokenDesdeCookie, ServiciosController.crearServicio)
 
-ServiciosRoutes.delete('/:id', ServiciosController.deleteServicio)
+ServiciosRoutes.put('/:id', verificarTokenDesdeCookie, ServiciosController.updateServicio)
+
+ServiciosRoutes.delete('/:id', verificarTokenDesdeCookie, ServiciosController.deleteServicio)
 
 
 

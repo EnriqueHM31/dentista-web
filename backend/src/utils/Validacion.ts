@@ -2,7 +2,7 @@ import { z } from "zod";
 
 export class Validacion {
     static idsObjetos = z.object({
-        id: z.string().uuid({ message: "El id debe ser un UUID válido" })
+        id: z.string().min(1, { message: "El id es requerido" }),
     })
 
 

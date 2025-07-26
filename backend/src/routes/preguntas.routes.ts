@@ -1,12 +1,13 @@
 
 import { Router } from 'express';
 import { ControllerPreguntas } from '@/controllers/preguntas';
+import { verificarTokenDesdeCookie } from '@/middleware/verificarToken';
 export const PreguntasRoutes = Router();
 
 PreguntasRoutes.get('/', ControllerPreguntas.getAll);
 
-PreguntasRoutes.post('/', ControllerPreguntas.createPregunta);
+PreguntasRoutes.post('/', verificarTokenDesdeCookie, ControllerPreguntas.createPregunta);
 
-PreguntasRoutes.put('/:id', ControllerPreguntas.updatePregunta);
+PreguntasRoutes.put('/:id', verificarTokenDesdeCookie, ControllerPreguntas.updatePregunta);
 
-PreguntasRoutes.delete('/:id', ControllerPreguntas.deletePregunta);
+PreguntasRoutes.delete('/:id', verificarTokenDesdeCookie, ControllerPreguntas.deletePregunta);
