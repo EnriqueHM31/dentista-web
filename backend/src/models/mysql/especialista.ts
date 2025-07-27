@@ -1,139 +1,99 @@
-import { randomUUID } from 'crypto';
 import { db } from '@/database/db';
-import { RowDataPacket } from 'mysql2';
-
-interface Especialista {
-    id: string;
-    nombre: string;
-    apellido: string;
-    email: string;
-    telefono: string;
-    direccion: string;
-    avatar: string;
-    linkedin: string;
-    servicio: string;
-}
-
-interface TituloServicioObtenido extends RowDataPacket {
-    titulo: string;
-}
+import { EspecialistaCrearProps, EspecialistaEditarProps, EspecialistaProps, EspecialistaResponseProps } from '@/types/especialista';
+import { UUID } from '@/types/types';
+import { generarIdUnico } from '@/utils/generador';
 
 export class ModeloEspecialista {
     static async getAll() {
         try {
-            const [rows] = await db.query(`SELECT 
-    e.id,
-    e.nombre,
-    e.apellido,
-    e.email,
-    e.telefono,
-    e.direccion,
-    e.avatar,
-    e.linkedin,
-    e.servicio,
-    s.titulo AS servicio
-FROM Especialistas e
-JOIN ServiciosDentales s ON e.servicio = s.id
-ORDER BY e.nombre, e.apellido ASC;
-`);
-            return { success: true, message: rows };
+            const [resultDataEspecialistas] = await db.query(`SELECT e.id,e.nombre,e.apellido,e.email,e.telefono,e.direccion,e.avatar,e.linkedin,e.servicio,s.titulo AS servicio FROM Especialistas e JOIN ServiciosDentales s ON e.servicio = s.id ORDER BY e.nombre, e.apellido ASC;`);
+
+            if (!resultDataEspecialistas) throw new Error('Error obteniendo especialistas');
+
+            return { success: true, message: "Especialistas obtenidos correctamente", especialistas: resultDataEspecialistas };
         } catch (error) {
-            return { success: false, message: 'Error en la base de datos + error: ' + error };
+            return { success: false, message: error || "Error al obtener los especialistas", especialistas: {} };
         }
     }
 
 
-    static async createEspecialista({ nombre, apellido, email, telefono, direccion, avatar, linkedin, servicio }: Record<string, string>) {
+    static async createEspecialista({ dataEspecialista }: { dataEspecialista: EspecialistaProps }) {
         try {
-            const id = randomUUID();
+            const id = generarIdUnico();
 
-            const [result]: any = await db.query(
+            const { nombre, apellido, email, telefono, direccion, avatar, linkedin, servicio } = dataEspecialista;
+
+            const [resultCrearEspecialista] = await db.query(
                 `INSERT INTO Especialistas (id, nombre, apellido, email, telefono, direccion, avatar, linkedin, servicio) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`,   // puedes agregar más en el futuro
                 [id, nombre, apellido, email, telefono, direccion, avatar, linkedin, servicio]
             );
 
-            if (result.affectedRows === 1) {
+            if (!resultCrearEspecialista) throw new Error('Error al crear el especialista');
 
-                const [rows] = await db.query<TituloServicioObtenido[]>(`SELECT titulo FROM ServiciosDentales WHERE id = ?`, [servicio]);
-                return {
-                    success: true,
-                    message: 'Especialista creado correctamente',
-                    especialista: {
-                        id: id,
-                        nombre: nombre,
-                        apellido: apellido,
-                        email: email,
-                        telefono: telefono,
-                        direccion: direccion,
-                        avatar: avatar,
-                        linkedin: linkedin,
-                        servicio: rows[0].titulo
-                    }
-                };
-            } else {
-                return {
-                    success: false,
-                    message: 'No se insertó el especialista'
-                };
-            }
+            const [resultEspecialistaCreado] = await db.query<EspecialistaResponseProps[]>(`SELECT E.id,E.nombre,E.apellido,E.email,E.telefono,E.direccion,E.avatar,E.linkedin,S.titulo AS servicio FROM Especialistas E JOIN ServiciosDentales S ON E.servicio = S.titulo WHERE E.id = ?`, [id]);
+
+            if (!resultEspecialistaCreado) throw new Error('Error al obtener el especialista creado');
+
+            const especialistaCreado = resultEspecialistaCreado[0];
+
+            return { success: true, message: 'Especialista creado correctamente', especialista: especialistaCreado };
         } catch (error) {
-            return {
-                success: false,
-                message: 'Error al crear el especialista: ' + (error as Error).message
-            };
+            return { success: false, message: error || 'Error al crear el especialista', especialista: {} };
         }
     }
 
 
 
-    static async updateEspecialista(id: string, data: Partial<Especialista>) {
+    static async updateEspecialista({ id, dataEspecialista }: { id: UUID, dataEspecialista: Partial<EspecialistaCrearProps> }) {
         try {
 
-            const allowedFields: (keyof Omit<Especialista, 'id'>)[] = [
-                'nombre', 'apellido', 'email', 'telefono', 'direccion', 'avatar', 'linkedin', 'servicio',
-            ];
+            const allowedFields = ['nombre', 'apellido', 'email', 'telefono', 'direccion', 'avatar', 'linkedin', 'servicio'];
 
             const fields: string[] = [];
-            const values: Especialista[keyof Especialista][] = [];
+            const values: string[] = [];
 
-            for (const key of Object.keys(data) as (keyof Especialista)[]) {
-                if (allowedFields.includes(key as keyof Omit<Especialista, 'id'>) && data[key] !== undefined) {
+            for (const key of Object.keys(dataEspecialista) as (keyof EspecialistaEditarProps)[]) {
+                if (allowedFields.includes(key as keyof EspecialistaEditarProps) && dataEspecialista[key] !== undefined) {
                     fields.push(`${key} = ?`);
-                    values.push(data[key] as Especialista[keyof Especialista]);
+                    values.push(dataEspecialista[key] as EspecialistaEditarProps[keyof EspecialistaEditarProps]);
                 }
             }
 
             if (fields.length === 0) {
-                return { success: false, message: 'No se proporcionaron campos válidos para actualizar' + JSON.stringify(data) };
+                return { success: false, message: 'No se proporcionaron campos para actualiar', especialista: {} };
             }
 
-            values.push(id); // ID al final para el WHERE
+            values.push(id);
 
             const query = `UPDATE Especialistas SET ${fields.join(', ')} WHERE id = ?`;
 
-            const [result] = await db.query(query, values);
+            const [resultEditarEspecialista] = await db.query(query, values);
 
-            if (result) {
-                return { success: true, message: 'Especialista actualizado correctamente', cambios: data };
-            } else {
-                return { success: false, message: 'No se encontró el especialista o no se realizaron cambios', cambios: {} };
-            }
+            if (!resultEditarEspecialista) throw new Error('Error al editar el especialista');
+
+            const [resultEspecialistaEditado] = await db.query<EspecialistaResponseProps[]>(`SELECT E.id,E.nombre,E.apellido,E.email,E.telefono,E.direccion,E.avatar,E.linkedin,S.titulo AS servicio FROM Especialistas E JOIN ServiciosDentales S ON E.servicio = S.titulo WHERE E.id = ?`, [id]);
+
+            if (!resultEspecialistaEditado) throw new Error('Error al obtener el especialista editado');
+
+            const EspecialistaEditado = resultEspecialistaEditado[0];
+
+            return { success: true, message: 'Especialista editado correctamente', especialista: EspecialistaEditado };
+
         } catch (error) {
-            return { success: false, message: 'Error al actualizar el especialista' + error, cambios: {} };
+            return { success: false, message: error || 'Error al editar el especialista', especialista: {} };
         }
     }
 
 
-    static async deleteEspecialista(id: string) {
+    static async deleteEspecialista({ id }: { id: UUID }) {
         try {
-            const [result] = await db.query(`DELETE FROM Especialistas WHERE id = ?`, [id]);
-            if (result) {
-                return { success: true, message: 'Especialista eliminado correctamente' };
-            } else {
-                return { success: false, message: 'No se encontró el especialista o no se realizaron cambios' };
-            }
+            const [resultEliminarEspecialista] = await db.query(`DELETE FROM Especialistas WHERE id = ?`, [id]);
+            if (!resultEliminarEspecialista) throw new Error('Error al eliminar el especialista');
+
+            return { success: true, message: 'Especialista eliminado correctamente', especialista: { id } };
+
         } catch (error) {
-            return { success: false, message: 'Error al eliminar el especialista' + error };
+            return { success: false, message: error || 'Error al eliminar el especialista', especialista: {} };
         }
     }
 

@@ -1,16 +1,19 @@
 import { Request, Response } from 'express';
 import { ModeloEspecialista } from '@/models/MySQL/especialista';
 import { validarId } from '@/utils/Validacion';
+import { validarEspecialista, validarEspecialistaEditar } from '@/utils/Validaciones/Especialista';
+import { EspecialistaCrearProps, EspecialistaProps } from '@/types/especialista';
+import { UUID } from '@/types/types';
 
 export class ControllerEspecialistas {
     static async getAll(_req: Request, res: Response) {
         try {
-            const { success, message } = await ModeloEspecialista.getAll();
+            const { success, message, especialistas } = await ModeloEspecialista.getAll();
 
             if (success) {
-                res.status(200).json({ success, message });
+                res.status(200).json({ success, message, especialistas });
             } else {
-                res.status(500).json({ success, message });
+                res.status(500).json({ success, message, especialistas });
             }
         } catch (error) {
             res.status(500).json({ message: 'Ocurrio un error interno del servidor' });
@@ -20,10 +23,17 @@ export class ControllerEspecialistas {
 
 
     static async createEspecialista(req: Request, res: Response) {
-        const { nombre, apellido, email, telefono, direccion, avatar, nivel, servicio, linkedin } = req.body;
 
+        const resultDataEspecialista = validarEspecialista(req.body);
 
-        const { success, message, especialista } = await ModeloEspecialista.createEspecialista({ nombre, apellido, email, telefono, direccion, avatar, nivel, servicio, linkedin });
+        if (resultDataEspecialista.error) {
+            res.status(400).json({ success: false, message: JSON.parse(resultDataEspecialista.error.message) });
+            return;
+        }
+
+        const dataEspecialista = resultDataEspecialista.data as EspecialistaProps;
+
+        const { success, message, especialista } = await ModeloEspecialista.createEspecialista({ dataEspecialista });
 
         if (success) {
             res.status(200).json({ success, message, especialista });
@@ -35,41 +45,42 @@ export class ControllerEspecialistas {
 
 
     static async updateEspecialista(req: Request, res: Response) {
-        const { nombre, apellido, email, telefono, direccion, avatar, servicio, linkedin } = req.body;
+        const resultDataIdModificarEspecialista = validarId(req.params as { id: UUID });
+        const resultDataModificarEspecialista = validarEspecialistaEditar(req.body);
 
-        const { id } = req.params as { id: `${string}-${string}-${string}-${string}-${string}` };
-        const result = validarId({ id });
-        if (result.error) {
-            res.status(400).json({ success: false, message: result.error.message });
+        if (resultDataIdModificarEspecialista.error) {
+            res.status(400).json({ success: false, message: resultDataIdModificarEspecialista.error.message });
             return;
         }
 
-        const data = { nombre, apellido, email, telefono, direccion, avatar, servicio, linkedin };
+        const idEspecialistaModificar = resultDataIdModificarEspecialista.data.id as UUID;
+        const dataModificarEspecialista = resultDataModificarEspecialista.data as EspecialistaCrearProps;
 
-        const { success, message, cambios } = await ModeloEspecialista.updateEspecialista(result.data.id, data);
+        const { success, message, especialista } = await ModeloEspecialista.updateEspecialista({ id: idEspecialistaModificar, dataEspecialista: dataModificarEspecialista });
 
         if (success) {
-            res.status(200).json({ success, message, cambios });
+            res.status(200).json({ success, message, especialista });
         } else {
-            res.status(500).json({ success, message, cambios });
+            res.status(500).json({ success, message, especialista });
         }
     }
 
     static async deleteEspecialista(req: Request, res: Response) {
-        const id = req.params.id as `${string}-${string}-${string}-${string}-${string}`;
 
-        const result = validarId({ id });
-        if (result.error) {
-            res.status(400).json({ success: false, message: result.error.message });
+        const resultDataIdEliminarEspecialista = validarId(req.params as { id: UUID });
+
+        if (resultDataIdEliminarEspecialista.error) {
+            res.status(400).json({ success: false, message: resultDataIdEliminarEspecialista.error.message });
             return;
         }
+        const idEspecialistaEliminar = resultDataIdEliminarEspecialista.data.id as UUID;
 
-        const { success, message } = await ModeloEspecialista.deleteEspecialista(result.data.id);
+        const { success, message, especialista } = await ModeloEspecialista.deleteEspecialista({ id: idEspecialistaEliminar });
 
         if (success) {
-            res.status(200).json({ success, message });
+            res.status(200).json({ success, message, especialista });
         } else {
-            res.status(500).json({ success, message });
+            res.status(500).json({ success, message, especialista });
         }
     }
 }
