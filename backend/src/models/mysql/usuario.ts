@@ -1,65 +1,79 @@
 import { db } from '@/database/db';
 import { validarId } from '@/utils/Validacion';
-interface Usuario {
-    username: string;
-    password: string;
-}
-const ID_USER = process.env.USUARIO_ID;
+import { USUARIO_ID } from '@/config';
+import { UUID } from '@/types/types';
+import { CambiosUsuarioProps, UsuarioEditarProps, UsuarioEditarResponseProps } from '@/types/usuario';
 
 export class ModeloUsuario {
 
     static async getUsuario() {
         try {
-            const resultID = validarId({ id: ID_USER as `${string}-${string}-${string}-${string}-${string}` });
+            if (!USUARIO_ID) throw new Error("No se ha definido el ID de usuario");
+
+            const resultID = validarId({ id: USUARIO_ID as UUID });
+
             if (resultID.error) {
-                return { success: false, message: 'ID de usuario no válido' };
+                return { success: false, message: 'ID de usuario no válido', usuario: {} };
             }
 
-            const [rows] = await db.query(`SELECT username, password FROM Usuario WHERE id = ?`, [ID_USER]);
+            const ID_USER = resultID.data.id as UUID;
+
+            const [resultDataUsuario] = await db.query(`SELECT username, password FROM Usuario WHERE id = ?`, [ID_USER]);
+
+            if (!resultDataUsuario) throw new Error("No se ha encontrado el usuario");
             return {
-                success: true,
-                message: rows,
+                success: true, message: "Usuario obtenido correctamente", usuario: resultDataUsuario
             };
         } catch (error) {
-            return { success: false, message: 'Error en la base de datos' };
+            return { success: false, message: error || "Error al obtener el usuario", usuario: {} };
         }
     }
 
-    static async updateUsuario({ username, password }: Partial<Usuario>) {
+    static async updateUsuario({ cambiosUsuario }: CambiosUsuarioProps) {
         try {
-            const resultID = validarId({ id: ID_USER as `${string}-${string}-${string}-${string}-${string}` });
+
+            if (!USUARIO_ID) throw new Error("No se ha definido el ID de usuario");
+            const resultID = validarId({ id: USUARIO_ID as UUID });
+
             if (resultID.error) {
                 return { success: false, message: 'ID de usuario no válido' };
             }
 
-            const campos = [];
-            const valores = [];
+            const allowedFields = ['username', 'password'];
 
-            if (username) {
-                campos.push('username = ?');
-                valores.push(username);
+            const fields: string[] = [];
+            const values: string[] = [];
+
+            for (const key of Object.keys(cambiosUsuario) as (keyof UsuarioEditarProps)[]) {
+                if (allowedFields.includes(key as keyof UsuarioEditarProps) && cambiosUsuario[key] !== undefined) {
+                    fields.push(`${key} = ?`);
+                    values.push(cambiosUsuario[key] as string);
+                }
             }
 
-            if (password) {
-                campos.push('password = ?');
-                valores.push(password);
-            }
-
-            if (campos.length === 0) {
+            if (fields.length === 0) {
                 return { success: false, message: 'No se proporcionaron campos para actualizar' };
             }
 
-            valores.push(ID_USER); // ID al final
+            const ID_USER = resultID.data.id as UUID;
 
-            const query = `UPDATE Usuario SET ${campos.join(', ')} WHERE id = ?`;
-            const [rows] = await db.query(query, valores);
+            values.push(ID_USER);
 
-            return {
-                success: true,
-                message: rows,
-            };
+            const query = `UPDATE Usuario SET ${fields.join(', ')} WHERE id = ?`;
+            const [resultModificarUsuario] = await db.query(query, values);
+
+            if (!resultModificarUsuario) throw new Error('Error al modificar el usuario');
+
+            const [resultUsuarioModificado] = await db.query<UsuarioEditarResponseProps[]>('SELECT * FROM Usuario WHERE id = ?', [ID_USER]);
+
+            if (!resultUsuarioModificado) throw new Error('Error al obtener el usuario modificado');
+
+            const UsuarioModificado = resultUsuarioModificado[0];
+
+            return { success: true, message: "Usuario actualizado correctamente", usuario: UsuarioModificado };
+
         } catch (error) {
-            return { success: false, message: 'Error en la base de datos' };
+            return { success: false, message: error || 'Error al actualizar el usuario', usuario: {} };
         }
     }
 }

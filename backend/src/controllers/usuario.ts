@@ -8,13 +8,13 @@ export class ContrallerUsuario {
 
     static async getUsuario(_req: Request, res: Response) {
         try {
-            const { success, message } = await ModeloUsuario.getUsuario();
+            const { success, message, usuario } = await ModeloUsuario.getUsuario();
 
             if (success) {
-                res.status(200).json({ success, message });
+                res.status(200).json({ success, message, usuario });
             }
             else {
-                res.status(500).json({ success, message });
+                res.status(500).json({ success, message, usuario: {} });
             }
         } catch (error) {
             res.status(500).json({ success: false, message: 'Error en la base de datos' });
@@ -31,12 +31,12 @@ export class ContrallerUsuario {
 
         const dataModificarUsuario = resultDataModificarUsuario.data as UsuarioEditarProps;
 
-        const { success, message } = await ModeloUsuario.updateUsuario(dataModificarUsuario);
+        const { success, message, usuario } = await ModeloUsuario.updateUsuario({ cambiosUsuario: dataModificarUsuario });
 
         if (success) {
-            res.status(200).json({ success, message });
+            res.status(200).json({ success, message, usuario });
         } else {
-            res.status(500).json({ success, message });
+            res.status(500).json({ success, message, usuario: {} });
         }
     }
 
