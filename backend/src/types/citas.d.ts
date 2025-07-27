@@ -1,15 +1,25 @@
-export interface Cita {
-    id: string;
+import { RowDataPacket } from 'mysql2';
+import { UUID } from './types';
+export interface CitaProps {
+    id: UUID;
     nombre: string;
     email: string;
     mensaje: string;
     telefono: string;
-    servicio: `${string}-${string}-${string}-${string}-${string}`;
+    servicio: UUID
     comentarios: string;
     fecha: string;
     hora: string;
+    completado: boolean;
 }
 
-export interface CitaCrear extends Omit<Cita, 'id'> {
-    id: string; // o id?: string; si quieres que sea opcional
-}
+export interface CitaResponseProps extends RowDataPacket, CitaProps { }
+
+
+export interface CitaEditarProps {
+    id: UUID;
+    completado: boolean;
+};
+
+export type CitaCrearProps = Omit<CitaProps, 'id'>;
+

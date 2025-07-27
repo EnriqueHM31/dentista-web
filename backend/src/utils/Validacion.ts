@@ -1,5 +1,5 @@
-import { z } from "zod";
-
+import { UUID } from '@/types/types';
+import { z } from 'zod';
 export class Validacion {
     static idsObjetos = z.object({
         id: z.string().min(1, { message: "El id es requerido" }),
@@ -15,6 +15,10 @@ export class Validacion {
         email: z.string(),
         servicio: z.string(),
         mensaje: z.string().min(1, { message: "El comentario es requerido" }),
+    })
+
+    static comentarioEditar = z.object({
+        visible: z.boolean(),
     })
 
 
@@ -46,7 +50,7 @@ export class Validacion {
     })
 }
 
-export function validarId(data: { id: `${string}-${string}-${string}-${string}-${string}` }) {
+export function validarId(data: { id: UUID }) {
     return Validacion.idsObjetos.safeParse(data);
 }
 
@@ -73,3 +77,8 @@ export function validarEditarPregunta(data: { pregunta: string, respuesta: strin
 export function validarEditarUsuario(data: { username: string, password: string }) {
     return Validacion.user.partial().safeParse(data);
 }
+
+export function validarComentarioEditar(data: { visible: boolean }) {
+    return Validacion.comentarioEditar.safeParse(data);
+}
+

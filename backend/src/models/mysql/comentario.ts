@@ -1,123 +1,93 @@
 import { transporter } from '@/utils/contacto';
 import { db } from '@/database/db';
-import { REMITENTE, DESTINATARIO } from '@/config';
+import { ComentarioEditarProps, ComentarioEditarResponseProps, ComentarioEnviarMensajeProps, ComentarioResponseProps } from '@/types/comentario';
+import { MensajeCorreo } from '@/utils/mensaje';
+import { generarIdUnico } from '@/utils/generador';
+import { UUID } from '@/types/types';
 
-interface Comentario {
-    nombre: string;
-    ranking: number;
-    email: string;
-    servicio: string;
-    mensaje: string;
-    comentario: string;
-}
 
 export class ModeloContacto {
 
     static async getComentarios() {
         try {
-            const [rows] = await db.query('SELECT * FROM Comentarios');
-            return { success: true, message: rows };
+            const [Comentarios] = await db.query('SELECT * FROM Comentarios');
+
+            if (!Comentarios) throw new Error('Error obteniendo comentarios');
+            return { success: true, message: "Comentarios obtenidos correctamente", comentarios: Comentarios };
         } catch (error) {
-            return { success: false, message: 'Error en la base de datos + error: ' + error };
+            return { success: false, message: error || 'Error con obtener comentarios', comentarios: {} };
         }
     }
 
     static async getComentariosVisibles() {
         try {
-            const [rows] = await db.query('SELECT * FROM Comentarios WHERE visible = 1');
-            return { success: true, message: rows };
+            const [ComentariosVisibles] = await db.query('SELECT * FROM Comentarios WHERE visible = 1');
+
+            if (!ComentariosVisibles) throw new Error('Error obteniendo comentarios visibles');
+
+            return { success: true, message: "Comentarios obtenidos correctamente", comentarios: ComentariosVisibles };
         } catch (error) {
-            return { success: false, message: 'Error en la base de datos + error: ' + error };
+            return { success: false, message: error || 'Error con obtener comentarios visibles', comentarios: {} };
         }
     }
 
-    static async EnviarMensaje({ nombre, ranking, email, servicio, mensaje }: Comentario) {
+    static async EnviarMensaje({ nombre, ranking, email, servicio, mensaje }: ComentarioEnviarMensajeProps) {
 
-        const mailOptions = {
-            from: REMITENTE,
-            to: DESTINATARIO,
-            subject: 'Nuevo mensaje desde Odontología LEHM',
-            text: mensaje,
-            html: `
-            <div style="background-color: rgb(2, 19, 49); color: #ffffff; font-family: Arial, sans-serif; padding: 24px; border-radius: 10px; max-width: 600px; margin: auto;">
-            <h1 style="font-size: 24px; margin: 0; text-align: center;">Nuevo mensaje desde Odontología LEHM</h1>
-            
-            <p style="font-size: 16px; margin: 10px 0;">
-            <strong>Nombre:</strong> ${nombre}
-            </p>
-            
-            <p style="font-size: 16px; margin: 10px 0;">
-            <strong>Correo electrónico:</strong> <a href="mailto:${email}" style="color: #4da6ff; text-decoration: none;">${email}</a>
-            </p>
-            
-            <p style="font-size: 16px; margin: 10px 0;">
-            <strong>Comentario sobre:</strong> ${servicio}
-            </p>
-            
-            <p style="font-size: 16px; margin: 10px 0;">
-            <strong>Puntuacion:</strong> ${ranking} estrellas
-            </p>
-
-            <div style="background-color: rgb(0, 12, 37); padding: 16px; border-left: 4px solid #ffffff88; border-radius: 8px; margin-top: 20px;">
-            <p style="font-size: 16px; margin: 0;"><strong>Mensaje:</strong></p>
-            <p style="margin-top: 8px;">${mensaje}</p>
-            </div>
-        </div>
-        `
-        };
-
+        const mailOptions = MensajeCorreo({ nombre, ranking, email, servicio, mensaje });
         try {
             const info = await transporter.sendMail(mailOptions);
 
-            if (info.accepted.length > 0) {
+            if (!info.accepted) throw new Error('Error enviando el mensaje');
 
-                const [result] = await db.query('INSERT INTO Comentarios (nombre, ranking, email, servicio, mensaje) VALUES (?, ?, ?, ?, ?)', [nombre, ranking, email, servicio, mensaje]);
+            const id = generarIdUnico()
 
-                if (result) {
-                    return { success: true, message: 'Comentario enviado correctamente' }
-                }
-                else {
-                    return { success: false, message: 'Error al guardar el mensaje' };
-                }
-            }
-            else {
-                return { success: false, message: 'Error enviando el mensaje' };
-            }
+            const [resultInsertarComentario] = await db.query('INSERT INTO Comentarios (id, nombre, ranking, email, servicio, mensaje, visible) VALUES (?, ?, ?, ?, ?, ?, ?)', [id, nombre, ranking, email, servicio, mensaje, true]);
 
+            if (!resultInsertarComentario) throw new Error('Error al guardar el mensaje');
+
+            const [Comentario] = await db.query<ComentarioResponseProps[]>(`SELECT * FROM Comentarios WHERE id = ?`, [id]);
+
+            if (!Comentario) throw new Error('Error al obtener el mensaje');
+
+            const ComentarioGuardado = Comentario[0];
+
+            return { success: true, message: 'Comentario enviado correctamente', comentario: ComentarioGuardado }
         }
         catch (error) {
-            return { success: false, message: 'Error enviando el mensaje' + error };
+            return { success: false, message: error || 'Error enviando el mensaje', comentario: {} };
         }
     }
 
-    static async updateComentario(id: string, visible: boolean) {
+    static async updateComentario({ id, visible }: ComentarioEditarProps) {
         try {
-            const [rows] = await db.query('UPDATE Comentarios SET visible = ? WHERE id = ?', [visible, id]);
-            if (!rows) {
-                return { success: false, message: 'No se encontró la pregunta a modificar' };
-            }
+            const [resultModificarComentario] = await db.query('UPDATE Comentarios SET visible = ? WHERE id = ?', [visible, id]);
 
-            const [resultVisible] = await db.execute(
-                'SELECT id, visible FROM Comentarios WHERE id = ?',
-                [id]
-            );
+            if (!resultModificarComentario) throw new Error('Error al modificar el comentario');
 
-            return { success: true, message: "Comentario actualizado correctamente", comentario: resultVisible };
+            const [resultComentarioModificado] = await db.query<ComentarioEditarResponseProps[]>('SELECT id, visible FROM Comentarios WHERE id = ?', [id]);
+
+            if (!resultComentarioModificado) throw new Error('Error al obtener el comentario modificado');
+
+            const ComentarioModificado = resultComentarioModificado[0];
+
+            return { success: true, message: "Comentario actualizado correctamente", comentario: ComentarioModificado };
+
         } catch (error) {
-            return { success: false, message: 'Error en la base de datos' };
+            return { success: false, message: error || 'Error al actualizar el comentario', comentario: {} };
         }
     }
 
 
-    static async deleteComentario(id: string) {
+    static async deleteComentario({ id }: { id: UUID }) {
         try {
-            const [rows] = await db.query('DELETE FROM Comentarios WHERE id = ?', [id]);
-            if (!rows) {
-                return { success: false, message: 'No se encontró la pregunta a eliminar' };
-            }
-            return { success: true, message: "Se elimino el comentario" };
+            const [resultEliminarComentario] = await db.query('DELETE FROM Comentarios WHERE id = ?', [id]);
+
+            if (!resultEliminarComentario) throw new Error('Error al eliminar el comentario');
+
+            return { success: true, message: "Se elimino el comentario", comentario: { id } };
+
         } catch (error) {
-            return { success: false, message: 'Error en la base de datos' };
+            return { success: false, message: error || 'Error al eliminar el comentario', comentario: {} };
         }
     }
 }

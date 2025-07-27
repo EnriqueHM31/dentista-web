@@ -2,8 +2,9 @@
 import { Request, Response } from 'express';
 import { ModeloCita } from '@/models/MySQL/citas';
 import { validarId } from '@/utils/Validacion';
-import { CitaCrear } from '@/types/citas';
+import { CitaCrearProps } from '@/types/citas';
 import { UUID } from '@/types/types';
+import { validarCita, validarCitaEditar } from '@/utils/Validaciones/Citas';
 
 export class CitasController {
 
@@ -22,9 +23,17 @@ export class CitasController {
     }
 
     static async createCita(req: Request, res: Response) {
-        const { nombre, email, mensaje, telefono, servicio, comentarios, fecha, hora } = req.body;
 
-        const { success, message, cita } = await ModeloCita.createCita({ nombre, email, mensaje, telefono, servicio, comentarios, fecha, hora } as CitaCrear);
+        const resultDataCrearCita = validarCita(req.body);
+
+        if (resultDataCrearCita.error) {
+            res.status(400).json({ success: false, message: JSON.parse(resultDataCrearCita.error.message) });
+            return;
+        }
+
+        const dataCrearCita = resultDataCrearCita.data as CitaCrearProps;
+
+        const { success, message, cita } = await ModeloCita.createCita(dataCrearCita);
 
         if (success) {
             res.status(200).json({ success, message, cita });
@@ -34,38 +43,49 @@ export class CitasController {
     }
 
     static async deleteCita(req: Request, res: Response) {
-        const { id } = req.params as { id: UUID };
 
-        const result = validarId({ id });
+        const resultDataIdEliminarCita = validarId(req.params as { id: UUID });
 
-        if (result.error) {
-            res.status(400).json({ success: false, message: result.error.message });
+        if (resultDataIdEliminarCita.error) {
+            res.status(400).json({ success: false, message: resultDataIdEliminarCita.error.message, cita: {} });
             return;
         }
 
-        const { success, message } = await ModeloCita.deleteCita(result.data.id);
+        const idCitaEliminar = resultDataIdEliminarCita.data.id as UUID;
+
+        const { success, message, cita } = await ModeloCita.deleteCita(idCitaEliminar);
 
         if (success) {
-            res.status(200).json({ success, message });
+            res.status(200).json({ success, message, cita });
         } else {
-            res.status(500).json({ success, message });
+            res.status(500).json({ success, message, cita: {} });
         }
     }
 
     static async updateCita(req: Request, res: Response) {
-        const { completada } = req.body as { completada: boolean };
-        const { id } = req.params as { id: UUID };
+        const resultDataModificarCita = validarCitaEditar(req.body);
 
-        const resultID = validarId({ id });
-        if (resultID.error) {
-            res.status(400).json({ success: false, message: resultID.error.message });
+        if (resultDataModificarCita.error) {
+            res.status(400).json({ success: false, message: JSON.parse(resultDataModificarCita.error.message) });
             return;
         }
 
-        const { success, message } = await ModeloCita.updateCita(resultID.data.id, { completado: completada });
+        const resultDataIdModificarCita = validarId(req.params as { id: UUID });
+
+        if (resultDataIdModificarCita.error) {
+            res.status(400).json({ success: false, message: resultDataIdModificarCita.error.message });
+            return;
+        }
+
+        const idCitaModificar = resultDataIdModificarCita.data.id as UUID;
+        const dataModificarCita = resultDataModificarCita.data.completado;
+
+        const { success, message, cita } = await ModeloCita.updateCita({ id: idCitaModificar, completado: dataModificarCita });
 
         if (success) {
-            res.status(200).json({ success, message });
+            res.status(200).json({ success, message, cita });
+        } else {
+            res.status(500).json({ success, message, cita: {} });
         }
     }
 }
