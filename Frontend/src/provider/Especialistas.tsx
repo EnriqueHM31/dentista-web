@@ -10,14 +10,14 @@ export function EspecialistasProvider({ children }: { children: React.ReactNode 
 
     useEffect(() => {
         const obtenerEspecialistas = async () => {
-            const { success, message } = await getEspecialistas();
+            const { success, message, especialistas } = await getEspecialistas();
 
             if (!success) {
                 toast.error(message);
                 return;
             }
 
-            setEspecialistas(message);
+            setEspecialistas(especialistas);
         };
         obtenerEspecialistas();
     }, []);

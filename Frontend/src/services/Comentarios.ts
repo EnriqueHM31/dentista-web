@@ -11,8 +11,7 @@ export async function getComentarios() {
     if (!response.ok) {
         throw new Error("Error al obtener los comentarios");
     }
-    const { success, message } = await response.json();
-    return { success, message };
+    return await response.json();
 }
 
 export async function createComentario({ nombre, email, mensaje, ranking, servicio }: FormCrearComentarioProps) {
@@ -60,6 +59,5 @@ export async function deleteComentario(id: UUID) {
         },
     });
 
-    const { success, message } = await response.json();
-    return { success, message };
+    return await response.json();
 }

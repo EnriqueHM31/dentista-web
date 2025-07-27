@@ -10,17 +10,18 @@ export function useGetUsuario() {
     useEffect(() => {
 
         const recuperarDatosInicioSesion = async () => {
-            const { success, message } = await getUsuario();
+            const { success, message, usuario } = await getUsuario();
             if (!success) {
                 toast.error(message);
                 return;
             }
-            const usuario = message[0]
-            setDatosUsuario({ username: usuario.username, password: usuario.password });
+            setDatosUsuario(usuario);
         }
 
         recuperarDatosInicioSesion();
     }, []);
+
+    console.log(datosUsuario);
     return {
         datosUsuario
     }

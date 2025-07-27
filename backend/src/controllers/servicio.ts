@@ -30,16 +30,16 @@ export class ServiciosController {
 
     static async getServicios(_req: Request, res: Response) {
         try {
-            const { success, message } = await ModeloServicio.getServicios();
+            const { success, message, servicios } = await ModeloServicio.getServicios();
 
             if (success) {
-                res.status(200).json({ success, message });
+                res.status(200).json({ success, message, servicios });
             }
             else {
-                res.status(500).json({ success, message });
+                res.status(500).json({ success, message, servicios: [] });
             }
         } catch (error) {
-            res.status(500).json({ success: false, message: 'Error al obtener los servicios' });
+            res.status(500).json({ success: false, message: 'Error al obtener los servicios', servicios: [] });
         }
     }
 
@@ -73,15 +73,15 @@ export class ServiciosController {
             return;
         }
 
-        const idServicioModificar = resultDataIdModificarServicio.data.id;
+        const idServicioModificar = resultDataIdModificarServicio.data.id as UUID;
         const servicioAModificar = resultDataModificarServicio.data as ServicioCrearProps
 
-        const { success, message, cambios } = await ModeloServicio.updateServicio(idServicioModificar, servicioAModificar);
+        const { success, message, servicio } = await ModeloServicio.updateServicio({ id: idServicioModificar, cambiosServicio: servicioAModificar });
 
         if (success) {
-            res.status(200).json({ success, message, cambios });
+            res.status(200).json({ success, message, servicio });
         } else {
-            res.status(500).json({ success, message, cambios });
+            res.status(500).json({ success, message, servicio });
         }
     }
 
@@ -93,9 +93,9 @@ export class ServiciosController {
             return;
         }
 
-        const dataIdEliminarComentario = resultDataIdEliminarServicio.data.id;
+        const dataIdEliminarComentario = resultDataIdEliminarServicio.data.id as UUID;
 
-        const { success, message } = await ModeloServicio.deleteServicio(dataIdEliminarComentario)
+        const { success, message } = await ModeloServicio.deleteServicio({ id: dataIdEliminarComentario })
 
         if (success) {
             res.status(200).json({ success, message });

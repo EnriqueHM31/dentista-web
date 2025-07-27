@@ -10,13 +10,11 @@ export async function getEspecialistas() {
             "Content-Type": "application/json",
         },
     });
-    const { success, message } = await response.json();
-
-    if (!success) {
-        throw new Error(message);
+    if (response.ok) {
+        return await response.json();
+    } else {
+        return { success: false, message: "Error al obtener los especialistas", especialistas: [] };
     }
-
-    return { success, message };
 }
 
 export async function createEspecialista(newEspecialista: FormCrearEspecialistaProps) {
@@ -31,7 +29,7 @@ export async function createEspecialista(newEspecialista: FormCrearEspecialistaP
     if (!response.ok) {
         return await response.json();
     } else {
-        return { success: false, message: "Error al crear el especialista" };
+        return { success: false, message: "Error al crear el especialista", especialista: {} };
     }
 }
 
@@ -46,7 +44,7 @@ export async function updateEspecialista(id: UUID, camposCambiados: Partial<Espe
     if (response.ok) {
         return await response.json();
     } else {
-        return { success: false, message: "Error al actualizar el especialista" };
+        return { success: false, message: "Error al actualizar el especialista", especialista: {} };
     }
 }
 
@@ -62,7 +60,7 @@ export async function deleteEspecialista(id: UUID) {
     if (response.ok) {
         return await response.json();
     } else {
-        return { success: false, message: "Error al eliminar el especialista" };
+        return { success: false, message: "Error al eliminar el especialista", especialista: {} };
     }
 }
 

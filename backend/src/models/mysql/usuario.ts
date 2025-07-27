@@ -18,11 +18,13 @@ export class ModeloUsuario {
 
             const ID_USER = resultID.data.id as UUID;
 
-            const [resultDataUsuario] = await db.query(`SELECT username, password FROM Usuario WHERE id = ?`, [ID_USER]);
+            const [resultDataUsuario] = await db.query<UsuarioEditarResponseProps[]>(`SELECT username, password FROM Usuario WHERE id = ?`, [ID_USER]);
 
             if (!resultDataUsuario) throw new Error("No se ha encontrado el usuario");
+
+            const Datausuario = resultDataUsuario[0];
             return {
-                success: true, message: "Usuario obtenido correctamente", usuario: resultDataUsuario
+                success: true, message: "Usuario obtenido correctamente", usuario: Datausuario
             };
         } catch (error) {
             return { success: false, message: error || "Error al obtener el usuario", usuario: {} };

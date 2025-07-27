@@ -11,4 +11,4 @@ export interface CambiosUsuarioProps {
     cambiosUsuario: Partial<UsuarioProps>;
 }
 
-export interface UsuarioEditarResponseProps extends RowDataPacket, UsuarioEditarProps { }
+export interface UsuarioEditarResponseProps extends RowDataPacket, UsuarioProps { }

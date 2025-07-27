@@ -5,9 +5,8 @@ import type { UUID } from "@/types/types";
 export const getDataPreguntas = async () => {
 
     const response = await fetch(`${VITE_API_URL}/preguntas`);
-    const { success, message } = await response.json();
     if (response.ok) {
-        return { success, message };
+        return await response.json();
     } else {
         return { success: false, message: "Error al obtener las preguntas" };
     }

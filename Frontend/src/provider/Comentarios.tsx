@@ -3,7 +3,7 @@ import { toast } from "sonner";
 import { getComentarios } from "@/services/Comentarios";
 import { ComentariosContext } from "@/context/Comentarios";
 import type { ComentarioProps, Filtros } from "@/types/Comentarios/types";
-import { FILTROS_CHECKEADOS, FILTROS_ORDEN, LOCAL_STORAGE_FILTROS_KEY } from "@/constants/filtrosComentarios";
+import { FILTROS_CHECKEADOS, FILTROS_ORDEN, LOCAL_STORAGE_FILTROS_KEY } from "@/constants/FiltrosComentarios";
 import type { UUID } from "@/types/types";
 
 // Clave para guardar los filtros en localStorage
@@ -38,11 +38,11 @@ export function ComentariosProvider({ children }: { children: React.ReactNode })
     // Obtener comentarios original
     useEffect(() => {
         const obtenerComentarios = async () => {
-            const { success, message } = await getComentarios();
+            const { success, message, comentarios } = await getComentarios();
 
             if (success) {
-                setComentariosOriginales(message);
-                setComentariosFiltrados(message); // inicial: sin filtro
+                setComentariosOriginales(comentarios);
+                setComentariosFiltrados(comentarios); // inicial: sin filtro
             } else {
                 toast.error(message);
             }

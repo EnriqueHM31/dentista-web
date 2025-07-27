@@ -10,12 +10,12 @@ export const PreguntasProvider = ({ children }: { children: React.ReactNode }) =
 
 
     const obtenerPreguntas = async () => {
-        const { success, message } = await getDataPreguntas();
+        const { success, message, preguntas } = await getDataPreguntas();
         if (!success) {
-            toast.error("Error al cargar preguntas");
+            toast.error(message);
             return;
         }
-        setPreguntas(message.sort((a: PreguntaProps, b: PreguntaProps) => a.pregunta.localeCompare(b.pregunta)));
+        setPreguntas(preguntas.sort((a: PreguntaProps, b: PreguntaProps) => a.pregunta.localeCompare(b.pregunta)));
     };
 
     useEffect(() => {
