@@ -4,7 +4,9 @@ import type { UUID } from "@/types/types";
 
 export const getDataPreguntas = async () => {
 
-    const response = await fetch(`${VITE_API_URL}/preguntas`);
+    const response = await fetch(`${VITE_API_URL}/preguntas`, {
+        credentials: "include",
+    });
     if (response.ok) {
         return await response.json();
     } else {
@@ -17,6 +19,7 @@ export const createPregunta = async (pregunta: string, respuesta: string) => {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ pregunta, respuesta }),
+        credentials: "include",
     });
 
     if (response.ok) {
@@ -30,6 +33,7 @@ export const createPregunta = async (pregunta: string, respuesta: string) => {
 export const deletePregunta = async (id: UUID) => {
     const response = await fetch(`${VITE_API_URL}/preguntas/${id}`, {
         method: "DELETE",
+        credentials: "include",
     });
 
     if (response.ok) {
@@ -48,6 +52,7 @@ export const updatePregunta = async (id: UUID, pregunta: string, respuesta: stri
             pregunta: pregunta,
             respuesta: respuesta,
         }),
+        credentials: "include",
     });
 
     if (response.ok) {

@@ -1,5 +1,5 @@
 import { updateSocial } from "@/services/Sociales";
-import type { SocialProps } from "@/types/Sociales/types";
+import type { SocialesEditadasProps, SocialProps } from "@/types/Sociales/types";
 import { useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
 import type { SocialEditarProps } from "@/types/Sociales/types";
@@ -38,34 +38,32 @@ export function useSociales() {
         }
 
         try {
-            for (const cambio of cambiosSociales) {
-                const { id, referencia } = cambio;
+            const redesActualizadas: SocialesEditadasProps = [];
 
-                const { success, message } = await updateSocial(id, referencia);
+            for (const cambio of cambiosSociales) {
+                const { id, referencia, nombre } = cambio;
+
+                const { success, message, redSocial } = await updateSocial(id, referencia);
+
                 if (!success) {
-                    toast.error(`Error al actualizar ${cambio.nombre}: ${message}`);
+                    toast.error(`Error al actualizar ${nombre}: ${message}`);
                     return;
                 }
+
+                redesActualizadas.push(redSocial);
             }
 
             const nombresModificados = cambiosSociales.map(c => c.nombre).join(", ");
             toast.success(`Cambios guardados exitosamente en: ${nombresModificados}`);
 
-            setSocialEdit(prev => {
-                const actualizados = prev.map(s => {
-                    const cambioAplicado = cambiosSociales.find(c => c.id === s.id);
-                    return cambioAplicado ? { ...s, referencia: cambioAplicado.referencia } : s;
-                });
+            setSocialEdit(prev => prev.map((red) => {
+                const actualizada = redesActualizadas.find((r) => r.id === red.id);
+                return actualizada ? { ...red, ...actualizada } : red;
+            }));
 
-                // ✅ Actualizar también el ref con esos valores
-                originalSocialRef.current = [...actualizados];
-                return actualizados;
-            });
-
-            // ✅ Salir del modo edición
             setEditMode({});
         } catch {
-            toast.error('Error al guardar los cambios');
+            toast.error("Error al guardar los cambios");
         }
     };
 

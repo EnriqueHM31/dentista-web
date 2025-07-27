@@ -4,7 +4,9 @@ import type { UUID } from "@/types/types";
 
 export const getDataSociales = async () => {
 
-    const response = await fetch(`${VITE_API_URL}/sociales`);
+    const response = await fetch(`${VITE_API_URL}/sociales`, {
+        credentials: "include",
+    });
 
     if (response.ok) {
         return await response.json();
@@ -18,6 +20,7 @@ export const updateSocial = async (id: UUID, referencia: string) => {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ referencia: referencia }),
+        credentials: "include",
     });
 
     if (response.ok) {

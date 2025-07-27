@@ -17,3 +17,5 @@ export type SocialEditarProps = {
 };
 
 export type FormSocialProps = Omit<SocialProps, "id">;
+
+export type SocialesEditadasProps = Omit<SocialProps, 'nombre'>[]

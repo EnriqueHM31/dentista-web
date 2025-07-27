@@ -45,13 +45,13 @@ export class ServiciosController {
 
     static async getDisponibles(_req: Request, res: Response) {
         try {
-            const { success, message } = await ModeloServicio.getDisponibles();
+            const { success, message, serviciosDisponibles: servicios } = await ModeloServicio.getDisponibles();
 
             if (success) {
-                res.status(200).json({ success, message });
+                res.status(200).json({ success, message, servicios });
             }
             else {
-                res.status(500).json({ success, message });
+                res.status(500).json({ success, message, servicios: [] });
             }
         }
         catch (error) {

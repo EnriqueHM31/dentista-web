@@ -20,17 +20,17 @@ export const ServicioProvider = ({ children }: { children: React.ReactNode }) =>
                 getServiciosDisponibles(),
             ]);
 
-            if (!serviciosRes.success) {
+            if (!serviciosRes.success || !serviciosRes.servicios) {
                 toast.error(serviciosRes.message);
-            } else {
-                setServicios(ordenarServicios(serviciosRes.servicios));
+                return
             }
+            setServicios(ordenarServicios(serviciosRes.servicios));
 
-            if (!disponiblesRes.success) {
+            if (!disponiblesRes.success || !disponiblesRes.servicios) {
                 toast.error(disponiblesRes.message);
-            } else {
-                setServiciosDisponibles(ordenarServicios(disponiblesRes.servicios));
             }
+            setServiciosDisponibles(ordenarServicios(disponiblesRes.servicios));
+
         } catch {
             toast.error("Error al cargar datos");
         }
