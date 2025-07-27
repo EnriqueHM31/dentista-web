@@ -1,5 +1,6 @@
 import { ModeloPreguntas } from '@/models/MySQL/preguntas';
-import { validarEditarPregunta, validarId, validarPregunta } from '@/utils/Validacion';
+import { validarId } from '@/utils/Validacion';
+import { validarEditarPregunta, validarPregunta } from '@/utils/Validaciones/Preguntas';
 import { Request, Response } from 'express';
 import type { PreguntaProps, PreguntaEditarProps } from '@/types/pregunta';
 import { UUID } from '@/types/types';
@@ -7,15 +8,15 @@ import { UUID } from '@/types/types';
 export class ControllerPreguntas {
     static async getAll(_req: Request, res: Response) {
         try {
-            const { success, message } = await ModeloPreguntas.getAll();
+            const { success, message, preguntas } = await ModeloPreguntas.getAll();
 
             if (success) {
-                res.status(200).json({ success, message });
+                res.status(200).json({ success, message, preguntas });
             } else {
-                res.status(500).json({ message });
+                res.status(500).json({ success, message, preguntas: [] });
             }
         } catch (error) {
-            res.status(500).json({ message: 'Ocurrio un error interno del servidor' });
+            res.status(500).json({ success: false, message: 'Error al obtener las preguntas', preguntas: [] });
         }
     }
 
@@ -42,9 +43,8 @@ export class ControllerPreguntas {
     static async updatePregunta(req: Request, res: Response) {
 
         const dataEditarPregunta = validarEditarPregunta(req.body);
-        const { id } = req.params as { id: UUID };
 
-        const dataIdEditarPregunta = validarId({ id });
+        const dataIdEditarPregunta = validarId({ id: req.params.id as UUID });
         if (dataIdEditarPregunta.error) {
             res.status(400).json({ success: false, message: dataIdEditarPregunta.error.message });
             return;
@@ -55,35 +55,34 @@ export class ControllerPreguntas {
             return;
         }
 
-        const idPreguntaModificar = dataIdEditarPregunta.data.id;
+        const idPreguntaModificar = dataIdEditarPregunta.data.id as UUID;
         const preguntaAModificar = dataEditarPregunta.data as PreguntaEditarProps;
 
-        const { success, message } = await ModeloPreguntas.updatePregunta(idPreguntaModificar, preguntaAModificar);
+        const { success, message, pregunta } = await ModeloPreguntas.updatePregunta({ id: idPreguntaModificar, camposPregunta: preguntaAModificar });
 
         if (success) {
-            res.status(200).json({ success, message });
+            res.status(200).json({ success, message, pregunta });
         } else {
-            res.status(500).json({ success, message });
+            res.status(500).json({ success, message, pregunta: {} });
         }
     }
 
     static async deletePregunta(req: Request, res: Response) {
-        const { id } = req.params as { id: UUID };
 
-        const dataIdEliminarPregunta = validarId({ id });
+        const dataIdEliminarPregunta = validarId({ id: req.params.id as UUID });
         if (dataIdEliminarPregunta.error) {
             res.status(400).json({ success: false, message: dataIdEliminarPregunta.error.message });
             return;
         }
 
-        const idPreguntaEliminar = dataIdEliminarPregunta.data.id;
+        const idPreguntaEliminar = dataIdEliminarPregunta.data.id as UUID;
 
-        const { success, message } = await ModeloPreguntas.deletePregunta(idPreguntaEliminar);
+        const { success, message, pregunta } = await ModeloPreguntas.deletePregunta({ id: idPreguntaEliminar });
 
         if (success) {
-            res.status(200).json({ success, message });
+            res.status(200).json({ success, message, pregunta });
         } else {
-            res.status(500).json({ success, message });
+            res.status(500).json({ success, message, pregunta: {} });
         }
     }
 }

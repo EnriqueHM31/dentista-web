@@ -1,6 +1,7 @@
 import type { Request, Response } from 'express';
 import { ModeloContacto } from '@/models/MySQL/comentario';
-import { validarComentario, validarComentarioEditar, validarId } from '@/utils/Validacion';
+import { validarId } from '@/utils/Validacion';
+import { validarComentario, validarComentarioEditar } from '@/utils/Validaciones/Comentarios';
 import { UUID } from 'crypto';
 
 
