@@ -1,4 +1,5 @@
 import { ModeloSocial } from '@/models/MySQL/social';
+import { UUID } from '@/types/types';
 import { validarId } from '@/utils/Validacion';
 import { Request, Response } from 'express';
 
@@ -19,19 +20,20 @@ export class ContrallerSocial {
 
     static async updateSocial(req: Request, res: Response) {
         const { referencia } = req.body;
-        const { id } = req.params as { id: `${string}-${string}-${string}-${string}-${string}` };
 
-        const resultID = validarId({ id });
-        if (resultID.error) {
-            res.status(400).json({ success: false, message: resultID.error.message });
+        const resultDataIdModificarSocial = validarId(req.params as { id: UUID });
+        if (resultDataIdModificarSocial.error) {
+            res.status(400).json({ success: false, message: resultDataIdModificarSocial.error.message });
             return;
         }
 
-        if (!id || !referencia) {
+        if (!referencia) {
             res.status(400).json({ success: false, message: 'Faltan datos' });
         }
 
-        const { success, message } = await ModeloSocial.updateSocial(resultID.data.id, referencia);
+        const idSocialModificar = resultDataIdModificarSocial.data.id;
+
+        const { success, message } = await ModeloSocial.updateSocial(idSocialModificar, referencia);
 
         if (success) {
             res.status(200).json({ success, message });

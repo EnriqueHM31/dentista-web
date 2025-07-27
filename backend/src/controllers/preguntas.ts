@@ -1,11 +1,8 @@
 import { ModeloPreguntas } from '@/models/MySQL/preguntas';
 import { validarEditarPregunta, validarId, validarPregunta } from '@/utils/Validacion';
 import { Request, Response } from 'express';
-
-interface Pregunta {
-    pregunta: string;
-    respuesta: string;
-}
+import type { PreguntaProps, PreguntaEditarProps } from '@/types/pregunta';
+import { UUID } from '@/types/types';
 
 export class ControllerPreguntas {
     static async getAll(_req: Request, res: Response) {
@@ -25,14 +22,15 @@ export class ControllerPreguntas {
 
     static async createPregunta(req: Request, res: Response) {
 
-        const result = validarPregunta(req.body);
+        const resultDataCrearPregunta = validarPregunta(req.body);
 
-        if (result.error) {
-            res.status(400).json({ success: false, message: JSON.parse(result.error.message) });
+        if (resultDataCrearPregunta.error) {
+            res.status(400).json({ success: false, message: JSON.parse(resultDataCrearPregunta.error.message) });
         }
 
+        const dataCrearPregunta = resultDataCrearPregunta.data as PreguntaProps;
 
-        const { success, message, pregunta } = await ModeloPreguntas.createPregunta({ ...result.data } as Pregunta);
+        const { success, message, pregunta } = await ModeloPreguntas.createPregunta(dataCrearPregunta);
 
         if (success) {
             res.status(200).json({ success, message, pregunta });
@@ -43,21 +41,24 @@ export class ControllerPreguntas {
 
     static async updatePregunta(req: Request, res: Response) {
 
-        const result = validarEditarPregunta(req.body);
-        const { id } = req.params as { id: `${string}-${string}-${string}-${string}-${string}` };
+        const dataEditarPregunta = validarEditarPregunta(req.body);
+        const { id } = req.params as { id: UUID };
 
-        const resultID = validarId({ id });
-        if (resultID.error) {
-            res.status(400).json({ success: false, message: resultID.error.message });
+        const dataIdEditarPregunta = validarId({ id });
+        if (dataIdEditarPregunta.error) {
+            res.status(400).json({ success: false, message: dataIdEditarPregunta.error.message });
             return;
         }
 
-        if (result.error) {
-            res.status(400).json({ success: false, message: JSON.parse(result.error.message) });
+        if (dataEditarPregunta.error) {
+            res.status(400).json({ success: false, message: JSON.parse(dataEditarPregunta.error.message) });
             return;
         }
 
-        const { success, message } = await ModeloPreguntas.updatePregunta(resultID.data.id, { ...result.data });
+        const idPreguntaModificar = dataIdEditarPregunta.data.id;
+        const preguntaAModificar = dataEditarPregunta.data as PreguntaEditarProps;
+
+        const { success, message } = await ModeloPreguntas.updatePregunta(idPreguntaModificar, preguntaAModificar);
 
         if (success) {
             res.status(200).json({ success, message });
@@ -67,20 +68,17 @@ export class ControllerPreguntas {
     }
 
     static async deletePregunta(req: Request, res: Response) {
-        const { id } = req.params as { id: `${string}-${string}-${string}-${string}-${string}` };
+        const { id } = req.params as { id: UUID };
 
-        const resultID = validarId({ id });
-        if (resultID.error) {
-            res.status(400).json({ success: false, message: resultID.error.message });
+        const dataIdEliminarPregunta = validarId({ id });
+        if (dataIdEliminarPregunta.error) {
+            res.status(400).json({ success: false, message: dataIdEliminarPregunta.error.message });
             return;
         }
 
+        const idPreguntaEliminar = dataIdEliminarPregunta.data.id;
 
-        if (!id) {
-            res.status(400).json({ success: false, message: 'Faltan datos' });
-        }
-
-        const { success, message } = await ModeloPreguntas.deletePregunta(resultID.data.id);
+        const { success, message } = await ModeloPreguntas.deletePregunta(idPreguntaEliminar);
 
         if (success) {
             res.status(200).json({ success, message });

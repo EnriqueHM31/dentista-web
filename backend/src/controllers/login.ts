@@ -42,7 +42,7 @@ export class ControllerLogin {
         const token = req.cookies.token;
 
         if (!SECRET) {
-            throw new Error("SECRET no está definido en .env");
+            throw new Error("Ocurrió un error al verificar el token");
         }
 
         if (!token) {

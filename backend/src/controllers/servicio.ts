@@ -1,20 +1,24 @@
 import { Request, Response } from 'express';
 import { ModeloServicio } from '../models/MySQL/servicio';
 import { validarEditarServicio, validarId, validarServicio } from '../utils/Validacion';
+import { UUID } from '@/types/types';
+import { ServicioCrearProps } from '@/types/servicio';
 
 
 export class ServiciosController {
 
     static async crearServicio(req: Request, res: Response) {
 
-        const result = validarServicio(req.body);
+        const resultDataCrearServicio = validarServicio(req.body);
 
-        if (result.error) {
-            res.status(400).json({ success: false, message: JSON.parse(result.error.message) });
+        if (resultDataCrearServicio.error) {
+            res.status(400).json({ success: false, message: JSON.parse(resultDataCrearServicio.error.message) });
             return;
         }
 
-        const { success, message, servicio } = await ModeloServicio.crearServicio({ ...result.data });
+        const dataCrearServicio = resultDataCrearServicio.data as ServicioCrearProps;
+
+        const { success, message, servicio } = await ModeloServicio.crearServicio(dataCrearServicio);
 
         if (success) {
             res.status(200).json({ success, message, servicio });
@@ -55,22 +59,23 @@ export class ServiciosController {
     }
 
     static async updateServicio(req: Request, res: Response) {
-        const id = req.params.id as `${string}-${string}-${string}-${string}-${string}`;
+        const resultDataIdModificarServicio = validarId(req.params as { id: UUID });
+        const resultDataModificarServicio = validarEditarServicio(req.body);
 
-        const resultID = validarId({ id });
-        if (resultID.error) {
-            res.status(400).json({ success: false, message: resultID.error.message });
+        if (resultDataIdModificarServicio.error) {
+            res.status(400).json({ success: false, message: resultDataIdModificarServicio.error.message });
             return;
         }
 
-        const result = validarEditarServicio(req.body);
-
-        if (result.error) {
-            res.status(400).json({ success: false, message: JSON.parse(result.error.message) });
+        if (resultDataModificarServicio.error) {
+            res.status(400).json({ success: false, message: JSON.parse(resultDataModificarServicio.error.message) });
             return;
         }
 
-        const { success, message, cambios } = await ModeloServicio.updateServicio(resultID.data.id, { ...result.data });
+        const idServicioModificar = resultDataIdModificarServicio.data.id;
+        const servicioAModificar = resultDataModificarServicio.data as ServicioCrearProps
+
+        const { success, message, cambios } = await ModeloServicio.updateServicio(idServicioModificar, servicioAModificar);
 
         if (success) {
             res.status(200).json({ success, message, cambios });
@@ -80,15 +85,16 @@ export class ServiciosController {
     }
 
     static async deleteServicio(req: Request, res: Response) {
-        const id = req.params.id as `${string}-${string}-${string}-${string}-${string}`;
+        const resultDataIdEliminarServicio = validarId(req.params as { id: UUID });
 
-        const resultID = validarId({ id });
-        if (resultID.error) {
-            res.status(400).json({ success: false, message: resultID.error.message });
+        if (resultDataIdEliminarServicio.error) {
+            res.status(400).json({ success: false, message: resultDataIdEliminarServicio.error.message });
             return;
         }
 
-        const { success, message } = await ModeloServicio.deleteServicio(resultID.data.id);
+        const dataIdEliminarComentario = resultDataIdEliminarServicio.data.id;
+
+        const { success, message } = await ModeloServicio.deleteServicio(dataIdEliminarComentario)
 
         if (success) {
             res.status(200).json({ success, message });

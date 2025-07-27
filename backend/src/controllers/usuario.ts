@@ -1,6 +1,7 @@
 import { Request, Response } from 'express'
 import { ModeloUsuario } from '@/models/MySQL/usuario';
 import { validarEditarUsuario } from '@/utils/Validacion';
+import { UsuarioEditarProps } from '@/types/usuario';
 
 export class ContrallerUsuario {
 
@@ -21,14 +22,16 @@ export class ContrallerUsuario {
     }
 
     static async updateUsuario(req: Request, res: Response) {
-        const result = validarEditarUsuario(req.body);
+        const resultDataModificarUsuario = validarEditarUsuario(req.body);
 
-        if (result.error) {
-            res.status(400).json({ success: false, message: JSON.parse(result.error.message) });
+        if (resultDataModificarUsuario.error) {
+            res.status(400).json({ success: false, message: JSON.parse(resultDataModificarUsuario.error.message) });
             return;
         }
 
-        const { success, message } = await ModeloUsuario.updateUsuario({ ...result.data } as { username: string, password: string });
+        const dataModificarUsuario = resultDataModificarUsuario.data as UsuarioEditarProps;
+
+        const { success, message } = await ModeloUsuario.updateUsuario(dataModificarUsuario);
 
         if (success) {
             res.status(200).json({ success, message });

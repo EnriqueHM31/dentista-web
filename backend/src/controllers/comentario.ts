@@ -52,13 +52,15 @@ export class ContrallerContacto {
         const { visible } = req.body as { visible: boolean };
         const { id } = req.params as { id: UUID };
 
-        const resultID = validarId({ id });
-        if (resultID.error) {
-            res.status(400).json({ success: false, message: resultID.error.message });
+        const dataIdEditarComentario = validarId({ id });
+        if (dataIdEditarComentario.error) {
+            res.status(400).json({ success: false, message: dataIdEditarComentario.error.message });
             return;
         }
 
-        const { success, message, comentario } = await ModeloContacto.updateComentario(resultID.data.id, visible);
+        const idComentarioModificar = dataIdEditarComentario.data.id;
+
+        const { success, message, comentario } = await ModeloContacto.updateComentario(idComentarioModificar, visible);
 
         if (success) {
             res.status(200).json({ success, message, comentario });
@@ -71,13 +73,15 @@ export class ContrallerContacto {
     static async deleteComentario(req: Request, res: Response) {
         const { id } = req.params as { id: UUID };
 
-        const resultID = validarId({ id });
-        if (resultID.error) {
-            res.status(400).json({ success: false, message: resultID.error.message });
+        const dataIdEliminarComentario = validarId({ id });
+        if (dataIdEliminarComentario.error) {
+            res.status(400).json({ success: false, message: dataIdEliminarComentario.error.message });
             return;
         }
 
-        const { success, message } = await ModeloContacto.deleteComentario(resultID.data.id); // id del comentario
+        const idComentarioEliminar = dataIdEliminarComentario.data.id;
+
+        const { success, message } = await ModeloContacto.deleteComentario(idComentarioEliminar); // id del comentario
         if (success) {
             res.status(200).json({ success, message });
         } else {

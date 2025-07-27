@@ -23,7 +23,6 @@ export class CitasController {
 
     static async createCita(req: Request, res: Response) {
         const { nombre, email, mensaje, telefono, servicio, comentarios, fecha, hora } = req.body;
-        console.log(req.body)
 
         const { success, message, cita } = await ModeloCita.createCita({ nombre, email, mensaje, telefono, servicio, comentarios, fecha, hora } as CitaCrear);
 
