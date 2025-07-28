@@ -8,12 +8,13 @@ export const CitasContext = createContext<CitasContextType>({
     refrescarCitasCrear: () => { },
     refrescarCitasEliminar: () => { },
     refrescarCitasCompletar: () => { },
+    refrescarNewCita: () => { },
 });
 
 
 export function useCitasContext() {
-    const { citas, setCitas, refrescarCitasCrear, refrescarCitasEliminar, refrescarCitasCompletar } = useContext(CitasContext);
-    return { citas, setCitas, refrescarCitasCrear, refrescarCitasEliminar, refrescarCitasCompletar };
+    const { citas, setCitas, refrescarCitasCrear, refrescarCitasEliminar, refrescarCitasCompletar, refrescarNewCita } = useContext(CitasContext);
+    return { citas, setCitas, refrescarCitasCrear, refrescarCitasEliminar, refrescarCitasCompletar, refrescarNewCita };
 }
 
 

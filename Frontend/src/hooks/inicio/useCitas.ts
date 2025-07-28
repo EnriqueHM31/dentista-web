@@ -8,7 +8,7 @@ import { INITIAL_FORM_CITA } from "@/constants/Citas";
 export function useCitas() {
 
     const { servicios } = useServicioContext();
-    const { setCitas } = useCitasContext();
+    const { refrescarNewCita } = useCitasContext();
 
     function generarHoras(inicio: string, fin: string, intervaloMin: number): string[] {
         const [hInicio, mInicio] = inicio.split(":").map(Number);
@@ -45,12 +45,10 @@ export function useCitas() {
         const idServicio = servicios.find(({ titulo }) => titulo === FormCrearCita.servicio)?.id;
         if (!idServicio) return;
 
-        console.log(FormCrearCita)
-
         const { success, message, cita } = await crearCita(FormCrearCita, idServicio);
 
         if (success) {
-            setCitas(citas => [...citas, cita]);
+            refrescarNewCita(cita);
             toast.success(message);
             setFormCrearCita(INITIAL_FORM_CITA);
         } else {

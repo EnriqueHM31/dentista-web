@@ -7,6 +7,7 @@ export interface CitasContextType {
     refrescarCitasCrear: (newCitas: CitaProps[]) => void;
     refrescarCitasEliminar: (id: UUID) => void;
     refrescarCitasCompletar: (citas: CitaProps[], id: UUID) => void;
+    refrescarNewCita: (cita: CitaProps) => void;
 }
 
 

@@ -44,3 +44,14 @@ export function formatearFechaConMes(fechaStr: string): string {
     return new Intl.DateTimeFormat("es-ES", opciones).format(fecha);
 }
 
+
+export function verificacionFechaHora({ hora, fecha }: { hora: string, fecha: string }) {
+    const [horaStr, minutosStr] = hora.split(":");
+    const fechaHoraCita = new Date(fecha);
+    fechaHoraCita.setHours(parseInt(horaStr));
+    fechaHoraCita.setMinutes(parseInt(minutosStr));
+    fechaHoraCita.setSeconds(0);
+    fechaHoraCita.setMilliseconds(0);
+
+    return fechaHoraCita;
+}

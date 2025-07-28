@@ -22,6 +22,11 @@ export default function CitasProvider({ children }: { children: React.ReactNode 
         setCitas(nuevasCitas);
     }
 
+    const refrescarNewCita = (cita: CitaProps) => {
+        setCitas(citas => [...citas, cita]);
+    }
+
+
     const refrescarCitasEliminar = (id: UUID) => {
         const nuevasCitas = citas.filter((cita) => cita.id !== id);
         setCitas(nuevasCitas);
@@ -35,5 +40,5 @@ export default function CitasProvider({ children }: { children: React.ReactNode 
         setCitas(nuevasCitas);
     }
 
-    return <CitasContext.Provider value={{ citas, setCitas, refrescarCitasCrear, refrescarCitasEliminar, refrescarCitasCompletar }}>{children}</CitasContext.Provider>;
+    return <CitasContext.Provider value={{ citas, setCitas, refrescarCitasCrear, refrescarCitasEliminar, refrescarCitasCompletar, refrescarNewCita }}>{children}</CitasContext.Provider>;
 }

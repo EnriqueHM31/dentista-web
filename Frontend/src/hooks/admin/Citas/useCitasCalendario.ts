@@ -5,7 +5,7 @@ import { toast } from "sonner";
 import { completarCita, eliminarCita } from "@/services/Citas";
 import type { CitasCalendarioProps } from "@/types/Citas/types";
 import type { UUID } from "@/types/types";
-import { formatearHora } from "@/utils/Hora";
+import { formatearHora, verificacionFechaHora } from "@/utils/Hora";
 
 export function useCitasCalendario() {
 
@@ -36,13 +36,15 @@ export function useCitasCalendario() {
 
     useEffect(() => {
         const ahora = new Date();
+
         citas.forEach(async (cita) => {
             if (cita.completada) return;
 
-            const fechaCita = new Date(cita.fecha);
+            // Combinar fecha y hora en un solo objeto Date
+            const fechaHoraCita = verificacionFechaHora({ hora: cita.hora, fecha: cita.fecha });
 
-            if (fechaCita < ahora) {
-                // Marcar como completada
+            // Solo completar si la fecha-hora ya pasó
+            if (fechaHoraCita < ahora) {
                 const { success, message } = await completarCita(cita.id);
                 if (success) {
                     refrescarCitasCrear(citas);
