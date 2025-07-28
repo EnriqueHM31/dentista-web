@@ -5,7 +5,7 @@ export class ValidacionCitas {
     static citas = z.object({
         nombre: z.string().min(1, { message: "El nombre es requerido" }),
         email: z.string().includes('@').min(1, { message: "El email es requerido" }),
-        mensaje: z.string().min(1, { message: "El mensaje es requerido" }),
+        comentarios: z.string().min(1, { message: "El mensaje es requerido" }),
         telefono: z.string().min(1, { message: "El teléfono es requerido" }),
         servicio: z.string(),
         fecha: z.iso.date(),

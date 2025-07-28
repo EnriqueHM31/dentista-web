@@ -4,10 +4,9 @@ export interface CitaProps {
     id: UUID;
     nombre: string;
     email: string;
-    mensaje: string;
+    comentarios: string;
     telefono: string;
     servicio: UUID
-    comentarios: string;
     fecha: string;
     hora: string;
     completado: boolean;

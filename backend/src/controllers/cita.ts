@@ -31,7 +31,7 @@ export class CitasController {
             return;
         }
 
-        const dataCrearCita = resultDataCrearCita.data as CitaCrearProps;
+        const dataCrearCita = resultDataCrearCita.data as CitaCrearProps
 
         const { success, message, cita } = await ModeloCita.createCita(dataCrearCita);
 
