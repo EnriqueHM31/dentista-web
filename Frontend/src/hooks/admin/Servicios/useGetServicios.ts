@@ -3,7 +3,7 @@ import { toast } from "sonner";
 import { crearServicio, deleteServicio } from "@/services/Servicios";
 import { esURLValida, MINUTOS_ARRAY } from "@/utils/constantes";
 import { useServicioContext } from "@/context/Servicio";
-import { convertirADuracionEnMinutos, formatoHoraMinutoArray } from "@/utils/Hora";
+import { convertirADuracionEnMinutos } from "@/utils/Hora";
 import type { ServicioCrearProps, ServicioProps, useGetServiciosProps } from "@/types/Servicios/types";
 import { INITIAL_SERVICIO_PROPS } from "@/constants/Servicios";
 import { mostrarToastConfirmacion } from "@/components/General/ToastConfirmacion";
@@ -24,13 +24,11 @@ export function useGetServicios({ handleClickDesactivarModal }: useGetServiciosP
 
 
     useEffect(() => {
-        const opciones = formatoHoraMinutoArray(MINUTOS_ARRAY);
-        if (!servicioCrear.duration && opciones.length > 0) {
-            setServicioCrear((prev) => ({
-                ...prev,
-                duration: convertirADuracionEnMinutos(opciones[0].toString()),
-            }));
-        }
+        setServicioCrear((prev) => ({
+            ...prev,
+            duration: Number(MINUTOS_ARRAY[0]),
+        }));
+        console.log(servicioCrear)
     }, [servicioCrear.duration]);
 
 
@@ -84,6 +82,7 @@ export function useGetServicios({ handleClickDesactivarModal }: useGetServiciosP
             return;
         }
 
+
         if (!esURLValida(img.toString())) {
             toast.error("La imagen no es válida");
             return;
@@ -93,7 +92,7 @@ export function useGetServicios({ handleClickDesactivarModal }: useGetServiciosP
             titulo,
             descripcion,
             img,
-            duration: convertirADuracionEnMinutos(duration.toString())
+            duration: duration.toString().includes("h") ? convertirADuracionEnMinutos(duration.toString()) : duration
         }
 
         try {
@@ -119,11 +118,11 @@ export function useGetServicios({ handleClickDesactivarModal }: useGetServiciosP
                 return;
             }
 
-            const { success, message } = await deleteServicio(id);
+            const { success, message, servicio } = await deleteServicio(id);
 
             if (success) {
                 toast.success("Servicio eliminado correctamente");
-                refrescarServiciosEliminar(id);
+                refrescarServiciosEliminar(servicio.id);
             } else {
                 toast.error(message || "Error al eliminar el servicio");
             }

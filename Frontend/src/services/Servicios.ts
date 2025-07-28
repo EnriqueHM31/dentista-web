@@ -13,7 +13,9 @@ export const getServicios = async () => {
 }
 
 export const getServiciosDisponibles = async () => {
-    const response = await fetch(`${VITE_API_URL}/servicios/disponibles`);
+    const response = await fetch(`${VITE_API_URL}/servicios/disponibles`, {
+        credentials: "include",
+    });
 
     if (response.ok) {
         return await response.json();
@@ -29,7 +31,8 @@ export const crearServicio = async ({ titulo, descripcion, img, duration }: { ti
         body: JSON.stringify({ titulo, descripcion, img, duration }),
         headers: {
             "content-type": "application/json",
-        }
+        },
+        credentials: "include",
     });
 
     if (response.ok) {
@@ -45,7 +48,8 @@ export const modificarServicio = async (id: UUID, data: Partial<ServicioProps>) 
         body: JSON.stringify(data),
         headers: {
             "content-type": "application/json",
-        }
+        },
+        credentials: "include",
     }
     );
 
@@ -61,7 +65,8 @@ export const deleteServicio = async (id: UUID) => {
         method: "DELETE",
         headers: {
             "content-type": "application/json",
-        }
+        },
+        credentials: "include",
     });
 
     if (response.ok) {

@@ -64,12 +64,12 @@ export class ServiciosController {
         const resultDataModificarServicio = validarEditarServicio(req.body);
 
         if (resultDataIdModificarServicio.error) {
-            res.status(400).json({ success: false, message: resultDataIdModificarServicio.error.message });
+            res.status(400).json({ success: false, message: resultDataIdModificarServicio.error.message, servicio: {} });
             return;
         }
 
         if (resultDataModificarServicio.error) {
-            res.status(400).json({ success: false, message: JSON.parse(resultDataModificarServicio.error.message) });
+            res.status(400).json({ success: false, message: JSON.parse(resultDataModificarServicio.error.message), servicio: {} });
             return;
         }
 
@@ -95,12 +95,12 @@ export class ServiciosController {
 
         const dataIdEliminarComentario = resultDataIdEliminarServicio.data.id as UUID;
 
-        const { success, message } = await ModeloServicio.deleteServicio({ id: dataIdEliminarComentario })
+        const { success, message, servicio } = await ModeloServicio.deleteServicio({ id: dataIdEliminarComentario })
 
         if (success) {
-            res.status(200).json({ success, message });
+            res.status(200).json({ success, message, servicio });
         } else {
-            res.status(500).json({ success, message });
+            res.status(500).json({ success, message, servicio });
         }
     }
 

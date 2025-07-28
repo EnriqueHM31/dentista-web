@@ -24,9 +24,9 @@ export default function Sociales() {
                         value={referencia}
                         id={id}
                         onChange={(e) => handleChange(id, e.target.value)}
-                        className={`flex-2 border rounded-lg px-3 py-2 w-full focus:outline-none transition  ${editMode[id as keyof typeof editMode]
-                            ? 'border-primary text-primary bg-white'
-                            : 'border-gray-300 bg-gray-100 text-gray-500'
+                        className={`flex-2 border-2 rounded-lg px-3 py-2 w-full focus:outline-none transition  ${editMode[id as keyof typeof editMode]
+                            ? 'border-green-500 text-primary bg-green-300'
+                            : 'border-gray-500 bg-gray-100 text-gray-500'
                             }`}
                     />
                     <button

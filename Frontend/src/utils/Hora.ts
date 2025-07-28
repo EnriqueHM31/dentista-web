@@ -17,6 +17,7 @@ export const formatoHoraMinutoSingle = (minStr: string) => {
 };
 
 export function convertirADuracionEnMinutos(valor: string) {
+    if (typeof valor !== "string") return valor;
     const horasMatch = valor.match(/(\d+)\s*h/);
     const minutosMatch = valor.match(/(\d+)\s*m/);
 

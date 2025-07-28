@@ -48,7 +48,7 @@ export function useEditarServicio({ serviciosRef, formValues, handleClickDesacti
 
             const { titulo, descripcion, img, duration } = data;
 
-            const { success, message } = await modificarServicio(
+            const { success, message, servicio } = await modificarServicio(
                 id,
                 { titulo, descripcion, img, duration }
             );
@@ -56,7 +56,7 @@ export function useEditarServicio({ serviciosRef, formValues, handleClickDesacti
             if (success) {
                 toast.success("Cambios guardados correctamente");
                 handleClickDesactivarModal();
-                refrescarServiciosEditar(formValues, id);
+                refrescarServiciosEditar(servicio, servicio.id);
             } else {
                 toast.error(message || "Error al guardar los cambios.");
             }
