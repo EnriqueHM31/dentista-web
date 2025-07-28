@@ -8,7 +8,6 @@ export class ValidacionCitas {
         mensaje: z.string().min(1, { message: "El mensaje es requerido" }),
         telefono: z.string().min(1, { message: "El teléfono es requerido" }),
         servicio: z.string(),
-        comentarios: z.string(),
         fecha: z.iso.date(),
         hora: z.iso.time(),
     })

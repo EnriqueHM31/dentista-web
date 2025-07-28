@@ -24,7 +24,7 @@ export async function crearCita(FormCrearCita: FormCrearCitaProps, idServicio: U
             fecha: FormCrearCita.fecha,
             servicio: idServicio,
             hora: FormCrearCita.hora,
-            comentarios: FormCrearCita.comentarios,
+            mensaje: FormCrearCita.mensaje,
         }),
     });
 
@@ -42,7 +42,7 @@ export async function completarCita(id: UUID) {
         headers: {
             "Content-Type": "application/json",
         },
-        body: JSON.stringify({ completada: true }),
+        body: JSON.stringify({ completado: true }),
     });
 
     if (response.ok) {

@@ -4,6 +4,8 @@ import { useCitas } from "@/hooks/inicio/useCitas";
 export default function Citas() {
 
     const { horas, handleChangeCrearCita, handleSubmitCrearCita, FormCrearCita, servicios } = useCitas();
+
+    console.log(FormCrearCita)
     return (
         <section className="min-h-screen bg-white flex flex-col lg:flex-row items-center justify-center px-0 md:px-4 py-12 mt-10 max-w-11/12 md:max-w-10/12 mx-auto w-full">
             <div className="flex flex-col lg:flex-row max-w-full md:max-w-11/12 w-full bg-white border border-gray-500 rounded-xl shadow-2xl ">
@@ -38,7 +40,7 @@ export default function Citas() {
                             <input
                                 id="correo"
                                 type="email"
-                                name="correo"
+                                name="email"
                                 value={FormCrearCita.email}
                                 onChange={handleChangeCrearCita}
                                 required
@@ -110,8 +112,8 @@ export default function Citas() {
                             <label htmlFor="comentarios" className="text-sm text-gray-600">Comentarios adicionales</label>
                             <textarea
                                 id="comentarios"
-                                name="comentarios"
-                                value={FormCrearCita.comentarios}
+                                name="mensaje"
+                                value={FormCrearCita.mensaje}
                                 onChange={handleChangeCrearCita}
                                 placeholder="Ej. Tengo molestias en una muela..."
                                 className="mt-1 px-4 py-2 border border-primary rounded-md resize-none h-24 focus:outline-none focus:ring-2 focus:ring-primary"

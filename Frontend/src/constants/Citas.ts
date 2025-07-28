@@ -7,5 +7,5 @@ export const INITIAL_FORM_CITA: CitaFormProps = {
     fecha: "",
     servicio: "",
     hora: "",
-    comentarios: "",
+    mensaje: "",
 }

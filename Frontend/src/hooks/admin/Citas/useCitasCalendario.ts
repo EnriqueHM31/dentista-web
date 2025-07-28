@@ -21,7 +21,7 @@ export function useCitasCalendario() {
             nombre: cita.nombre,
             telefono: cita.telefono,
             email: cita.email,
-            comentarios: cita.comentarios,
+            comentarios: cita.mensaje,
             servicio: cita.servicio,
             fecha: cita.fecha,
             hora: cita.hora,
@@ -53,7 +53,7 @@ export function useCitasCalendario() {
         const { id, title, start, backgroundColor, extendedProps } = info.event;
 
         setEventoSeleccionado({
-            id,
+            id: id as UUID,
             title,
             start: start?.toString() || '',
             backgroundColor: backgroundColor || "#3B82F6",
@@ -77,7 +77,7 @@ export function useCitasCalendario() {
         setEventoSeleccionado(null);
     };
 
-    const onCitaCompletada = async (id: UUID) => {
+    const onCitaCompletada = async ({ id }: { id: UUID }) => {
 
         const { success, message } = await completarCita(id);
         if (success) {
@@ -92,7 +92,7 @@ export function useCitasCalendario() {
 
     };
 
-    const onCitaEliminada = async (id: UUID) => {
+    const onCitaEliminada = async ({ id }: { id: UUID }) => {
 
         const { success, message } = await eliminarCita(id);
         if (success) {

@@ -16,7 +16,7 @@ export interface CitaProps {
     email: string;
     servicio: string;
     telefono: string;
-    comentarios: string
+    mensaje: string
     fecha: string;
     hora: string
     completada: boolean
@@ -28,7 +28,7 @@ export type FormCrearCitaProps = Omit<CitaProps, "id" | "servicio" | "completada
 
 
 export interface CitasCalendarioProps {
-    id: string;
+    id: UUID;
     title: string;
     start: string;
     backgroundColor: string;

@@ -1,3 +1,5 @@
+import type { UUID } from "../types";
+
 export interface ModalProps {
     isOpen?: boolean;
     onClose: () => void;
@@ -24,6 +26,6 @@ export interface ModalCitaProps {
         };
     } | null;
     onClose: () => void;
-    onCitaCompletada: (id: string) => void;
-    onCitaEliminada: (id: string) => void;
+    onCitaCompletada: ({ id }: { id: UUID }) => void;
+    onCitaEliminada: ({ id }: { id: UUID }) => void;
 }

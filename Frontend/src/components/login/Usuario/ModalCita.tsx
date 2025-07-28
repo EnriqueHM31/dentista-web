@@ -1,6 +1,7 @@
 import { FaCalendarAlt, FaClock, FaEnvelope, FaPhoneAlt, FaUser, FaTooth, FaCheckCircle } from "react-icons/fa";
 import { MdClose } from "react-icons/md";
 import type { ModalCitaProps } from "@/types/Modales/types";
+import type { UUID } from "@/types/types";
 
 
 export default function ModalCita({ evento, onClose, onCitaCompletada, onCitaEliminada }: ModalCitaProps) {
@@ -16,7 +17,7 @@ export default function ModalCita({ evento, onClose, onCitaCompletada, onCitaEli
                 {/* Botón cerrar */}
                 <button
                     onClick={onClose}
-                    className="absolute top-3 right-3 text-primary hover:text-gray-600 transition"
+                    className="absolute top-3 right-3 text-primary hover:text-gray-600 transition cursor-pointer"
                 >
                     <MdClose className="text-4xl" />
                 </button>
@@ -62,15 +63,15 @@ export default function ModalCita({ evento, onClose, onCitaCompletada, onCitaEli
                 {/* Acciones */}
                 <div className="mt-6 flex justify-end gap-2">
                     <button
-                        onClick={() => onCitaCompletada(evento.id)}
+                        onClick={() => onCitaCompletada({ id: evento.id as UUID })}
                         disabled={completada}
-                        className={`px-4 py-2 rounded   text-white text-sm ${completada ? 'bg-green-700' : 'bg-primary hover:bg-blue-700'}`}
+                        className={`px-4 py-2 rounded cursor-pointer   text-white text-sm ${completada ? 'bg-green-700' : 'bg-primary hover:bg-blue-700'}`}
                     >
                         {completada ? 'Cita completada' : 'Completar cita'}
                     </button>
                     <button
-                        onClick={() => onCitaEliminada(evento.id)}
-                        className="px-4 py-2 rounded bg-red-500 hover:bg-red-800 text-white text-sm"
+                        onClick={() => onCitaEliminada({ id: evento.id as UUID })}
+                        className="px-4 py-2 rounded cursor-pointer bg-red-500 hover:bg-red-800 text-white text-sm"
                     >
                         Eliminar cita
                     </button>
