@@ -28,3 +28,19 @@ export function convertirADuracionEnMinutos(valor: string) {
 
     return totalMinutos; // Retorna número entero: 30, 60, 90, 120...
 }
+
+export function formatearHora(hora: string): string {
+    const [horas, minutos] = hora.split(":");
+    // Asegura dos dígitos (por si alguna vez llega sin)
+    const h = horas.padStart(2, "0");
+    const m = minutos.padStart(2, "0");
+    return `${h}:${m}`;
+}
+
+export function formatearFechaConMes(fechaStr: string): string {
+    const [dia, mes, año] = fechaStr.split("/").map(Number);
+    const fecha = new Date(año, mes - 1, dia);
+    const opciones: Intl.DateTimeFormatOptions = { day: "numeric", month: "long", year: "numeric" };
+    return new Intl.DateTimeFormat("es-ES", opciones).format(fecha);
+}
+

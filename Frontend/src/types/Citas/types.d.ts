@@ -16,7 +16,7 @@ export interface CitaProps {
     email: string;
     servicio: string;
     telefono: string;
-    mensaje: string
+    comentarios: string
     fecha: string;
     hora: string
     completada: boolean

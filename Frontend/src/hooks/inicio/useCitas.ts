@@ -45,6 +45,8 @@ export function useCitas() {
         const idServicio = servicios.find(({ titulo }) => titulo === FormCrearCita.servicio)?.id;
         if (!idServicio) return;
 
+        console.log(FormCrearCita)
+
         const { success, message, cita } = await crearCita(FormCrearCita, idServicio);
 
         if (success) {

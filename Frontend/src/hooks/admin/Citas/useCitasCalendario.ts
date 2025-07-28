@@ -5,6 +5,7 @@ import { toast } from "sonner";
 import { completarCita, eliminarCita } from "@/services/Citas";
 import type { CitasCalendarioProps } from "@/types/Citas/types";
 import type { UUID } from "@/types/types";
+import { formatearHora } from "@/utils/Hora";
 
 export function useCitasCalendario() {
 
@@ -12,22 +13,26 @@ export function useCitasCalendario() {
     const [eventoSeleccionado, setEventoSeleccionado] = useState<CitasCalendarioProps | null>(null);
     const { citas, refrescarCitasCompletar, refrescarCitasEliminar, refrescarCitasCrear } = useCitasContext();
 
-    const citasFormateadas: CitasCalendarioProps[] = citas.map((cita) => ({
-        id: cita.id,
-        title: `${cita.nombre} - ${cita.servicio}`,
-        start: `${cita.fecha.substring(0, 10)}T${cita.hora}`,
-        backgroundColor: cita.completada ? "#22c55e" : "#3B82F6", // Verde si está completada
-        extendedProps: {
-            nombre: cita.nombre,
-            telefono: cita.telefono,
-            email: cita.email,
-            comentarios: cita.mensaje,
-            servicio: cita.servicio,
-            fecha: cita.fecha,
-            hora: cita.hora,
-            completada: cita.completada,
-        },
-    }));
+
+    const citasFormateadas: CitasCalendarioProps[] = citas.map((cita) => {
+        console.log(formatearHora(cita.hora));
+        return {
+            id: cita.id,
+            title: `${cita.nombre} - ${cita.servicio}`,
+            start: `${cita.fecha.substring(0, 10)}T${formatearHora(cita.hora)}`,
+            backgroundColor: cita.completada ? "#22c55e" : "#3B82F6",
+            extendedProps: {
+                nombre: cita.nombre,
+                telefono: cita.telefono,
+                email: cita.email,
+                comentarios: cita.comentarios,
+                servicio: cita.servicio,
+                fecha: cita.fecha,
+                hora: cita.hora,
+                completada: cita.completada,
+            },
+        };
+    });
 
     useEffect(() => {
         const ahora = new Date();

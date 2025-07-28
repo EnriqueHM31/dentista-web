@@ -2,6 +2,7 @@ import { FaCalendarAlt, FaClock, FaEnvelope, FaPhoneAlt, FaUser, FaTooth, FaChec
 import { MdClose } from "react-icons/md";
 import type { ModalCitaProps } from "@/types/Modales/types";
 import type { UUID } from "@/types/types";
+import { formatearFechaConMes, formatearHora } from "@/utils/Hora";
 
 
 export default function ModalCita({ evento, onClose, onCitaCompletada, onCitaEliminada }: ModalCitaProps) {
@@ -41,10 +42,10 @@ export default function ModalCita({ evento, onClose, onCitaCompletada, onCitaEli
                     </p>
                     <p className="flex items-center gap-2">
                         <FaCalendarAlt className="text-primary" /> <strong>Fecha:</strong>{" "}
-                        {new Date(fecha).toLocaleDateString()}
+                        {formatearFechaConMes(new Date(fecha).toLocaleDateString())}
                     </p>
                     <p className="flex items-center gap-2">
-                        <FaClock className="text-primary" /> <strong>Hora:</strong> {hora}
+                        <FaClock className="text-primary" /> <strong>Hora:</strong> {formatearHora(hora)}
                     </p>
                     {completada ? (
                         <p className="flex items-center gap-2">

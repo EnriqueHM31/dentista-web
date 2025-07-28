@@ -24,7 +24,7 @@ export async function crearCita(FormCrearCita: FormCrearCitaProps, idServicio: U
             fecha: FormCrearCita.fecha,
             servicio: idServicio,
             hora: FormCrearCita.hora,
-            mensaje: FormCrearCita.mensaje,
+            comentarios: FormCrearCita.comentarios,
         }),
     });
 
