@@ -26,7 +26,7 @@ export async function createEspecialista(newEspecialista: FormCrearEspecialistaP
         body: JSON.stringify(newEspecialista),
         credentials: "include",
     });
-    if (!response.ok) {
+    if (response.ok) {
         return await response.json();
     } else {
         return { success: false, message: "Error al crear el especialista", especialista: {} };

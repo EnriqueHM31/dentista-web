@@ -13,7 +13,7 @@ export default function Sociales() {
             <h2 className="text-2xl font-semibold text-primary text-center md:text-left">Redes Sociales y Contacto</h2>
 
             {SocialEdit.map(({ id, nombre, referencia }) => (
-                <div key={id} className="flex flex-col md:flex-row items-start md:items-center gap-3 relative">
+                <div key={id} className="flex flex-col md:flex-row items-start  md:items-center gap-3 relative">
                     <div className="text-xl flex gap-4 items-center flex-1">
                         {getIconosSociales().find((i) => i.label.toLowerCase() === nombre.toLowerCase())?.icon}
                         <p className="text-lg">{nombre}</p>
@@ -31,11 +31,11 @@ export default function Sociales() {
                     />
                     <button
                         onClick={() => handleEditClick(id)}
-                        className="text-primary hover:text-blue-700 cursor-pointer absolute right-0 top-1 md:relative"
+                        className="text-primary hover:text-blue-700 cursor-pointer absolute right-0 top-1 md:static"
                         title={editMode[id as keyof typeof editMode] ? 'Bloquear' : 'Editar'}
                         aria-label={editMode[id as keyof typeof editMode] ? 'Bloquear' : 'Editar'}
                     >
-                        <FaEdit />
+                        <FaEdit className="text-xl" />
                     </button>
                 </div>
             ))}

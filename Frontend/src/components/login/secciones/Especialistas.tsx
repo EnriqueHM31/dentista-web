@@ -56,7 +56,7 @@ export default function Especialistas() {
                     <h2 className="text-2xl font-bold text-center md:text-left">Especialistas</h2>
                     <div className="flex justify-end">
                         <button
-                            className="bg-primary text-white px-6 py-2 rounded-lg hover:bg-primary/90 transition"
+                            className="bg-primary text-white px-6 py-2 rounded-lg hover:bg-primary/90 transition cursor-pointer"
                             onClick={() => {
                                 if (serviciosDisponibles.length === 0) {
                                     toast.error("No puedes crear un especialista sin servicios disponibles");

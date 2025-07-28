@@ -11,6 +11,7 @@ export class ValidacionEspecialista {
         direccion: z.string().min(1, { message: "La dirección es requerida" }),
         avatar: z.string().min(1, { message: "La imagen es requerida" }).startsWith("https://"),
         linkedin: z.string().min(1, { message: "La referencia es requerida" }).startsWith("https://"),
+        servicio: z.string().min(1, { message: "El servicio es requerido" }),
     })
 
 }

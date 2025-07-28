@@ -60,6 +60,7 @@ export const ServicioProvider = ({ children }: { children: React.ReactNode }) =>
         setServiciosDisponibles(serviciosDisponibles.filter(servicio => servicio.id !== id));
     }
 
+
     return (
         <ServicioContext.Provider value={{
             servicios, setServicios, serviciosDisponibles, setServiciosDisponibles, refrescarServiciosCrear, refrescarServiciosEditar, refrescarServiciosEliminar, refrescarServiciosDisponiblesAñadir, refrescarServiciosDisponiblesEliminar

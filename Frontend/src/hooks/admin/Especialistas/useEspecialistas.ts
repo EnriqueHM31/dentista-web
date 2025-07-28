@@ -7,7 +7,7 @@ import { toast } from "sonner";
 import { useEspecialistasContext } from "@/context/Especialistas";
 import { useRef, useState } from "react";
 import { useServicioContext } from "@/context/Servicio";
-import type { EspecialistaProps, FormCrearEspecialistaProps, InitialEspecialistaProps } from "@/types/Especialistas/types";
+import type { EspecialistaEditarProps, EspecialistaProps, FormCrearEspecialistaProps, InitialEspecialistaProps } from "@/types/Especialistas/types";
 import type { PropsHookEspecialistas } from "@/types/Especialistas/types";
 import type { UUID } from "@/types/types";
 
@@ -143,8 +143,8 @@ export function useEspecialistas({ toggle, handleClickDesactivarModal }: PropsHo
             } else {
                 toast.error(message);
             }
-        } catch {
-            toast.error("Error al crear el especialista.");
+        } catch (e) {
+            toast.error("Error al crear el especialista." + e);
         }
     };
 
@@ -173,43 +173,25 @@ export function useEspecialistas({ toggle, handleClickDesactivarModal }: PropsHo
 
 
 
-    async function editarEspecialista({ id, camposCambiados }: { id: UUID, camposCambiados: Partial<EspecialistaProps> }) {
+    async function editarEspecialista({ id, camposCambiados }: { id: UUID, camposCambiados: Partial<EspecialistaEditarProps> }) {
         try {
-            const { success, message, cambios } = await updateEspecialista(id, camposCambiados);
-            if (success) {
-                toast.success(message);
-                if ("servicio" in cambios) {
-                    // 1. Devolver el servicio anterior a la lista de disponibles
-                    const servicioAnterior = servicios.find(
-                        servicio => servicio.titulo === especialistaSeleccionado?.servicio
-                    );
+            const { success, message, especialista } = await updateEspecialista(id, camposCambiados);
+            console.log(camposCambiados)
 
-                    if (servicioAnterior) {
-                        setServiciosDisponibles(prev => {
-                            const yaExiste = prev.some(s => s.id === servicioAnterior.id);
-                            return yaExiste ? prev : [...prev, servicioAnterior];
-                        });
-                    }
+            if (!success) throw new Error(message);
 
-                    // 2. Obtener el nuevo servicio (por ID) y poner su título en el especialista
-                    const nuevoServicio = servicios.find(
-                        servicio => servicio.id === cambios.servicio
-                    );
+            if ("servicio" in camposCambiados) {
 
-                    if (nuevoServicio) {
-                        cambios.servicio = nuevoServicio.titulo;
-                    }
-                }
-
-                // 3. Actualizar al especialista con los nuevos datos
-                refrescarEspecialistasEditar(id, cambios);
-
-                handleClickDesactivarModal();
-            } else {
-                toast.error(message);
+                const servicioAnterior = servicios.find(servicio => servicio.id === especialista.id_servicio);
+                if (!servicioAnterior) throw new Error("Servicio anterior no encontrado");
+                refrescarServiciosDisponiblesEliminar(especialista.id_servicio);
             }
-        } catch {
-            toast.error("Error al actualizar el especialista.");
+
+            refrescarEspecialistasEditar(id, especialista);
+            toast.success(message);
+            handleClickDesactivarModal();
+        } catch (e) {
+            toast.error("Error al actualizar el especialista " + e);
         }
     }
 

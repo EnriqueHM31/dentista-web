@@ -22,6 +22,10 @@ export interface EspecialistaProps {
     servicio: string;
 }
 
+export interface EspecialistaEditarProps extends Partial<EspecialistaProps> {
+    id_servicio: UUID;
+}
+
 export type FormCrearEspecialistaProps = Omit<EspecialistaProps, "id">
 
 export type InitialEspecialistaProps = Omit<FormCrearEspecialistaProps, "servicio">

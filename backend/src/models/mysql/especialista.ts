@@ -30,7 +30,7 @@ export class ModeloEspecialista {
 
             if (!resultCrearEspecialista) throw new Error('Error al crear el especialista');
 
-            const [resultEspecialistaCreado] = await db.query<EspecialistaResponseProps[]>(`SELECT E.id,E.nombre,E.apellido,E.email,E.telefono,E.direccion,E.avatar,E.linkedin,S.titulo AS servicio FROM Especialistas E JOIN ServiciosDentales S ON E.servicio = S.titulo WHERE E.id = ?`, [id]);
+            const [resultEspecialistaCreado] = await db.query<EspecialistaResponseProps[]>(`SELECT E.id,E.nombre,E.apellido,E.email,E.telefono,E.direccion,E.avatar,E.linkedin,S.titulo AS servicio FROM Especialistas E LEFT JOIN ServiciosDentales S ON E.servicio = S.id WHERE E.id = ?`, [id]);
 
             if (!resultEspecialistaCreado) throw new Error('Error al obtener el especialista creado');
 
@@ -71,8 +71,9 @@ export class ModeloEspecialista {
 
             if (!resultEditarEspecialista) throw new Error('Error al editar el especialista');
 
-            const [resultEspecialistaEditado] = await db.query<EspecialistaResponseProps[]>(`SELECT E.id,E.nombre,E.apellido,E.email,E.telefono,E.direccion,E.avatar,E.linkedin,S.titulo AS servicio FROM Especialistas E JOIN ServiciosDentales S ON E.servicio = S.titulo WHERE E.id = ?`, [id]);
+            const [resultEspecialistaEditado] = await db.query<EspecialistaResponseProps[]>(`SELECT E.id,E.nombre,E.apellido,E.email,E.telefono,E.direccion,E.avatar,E.linkedin,S.titulo AS servicio, S.id AS id_servicio FROM Especialistas E LEFT JOIN ServiciosDentales S ON E.servicio = S.id WHERE E.id = ?`, [id]);
 
+            console.log("entro", resultEspecialistaEditado)
             if (!resultEspecialistaEditado) throw new Error('Error al obtener el especialista editado');
 
             const EspecialistaEditado = resultEspecialistaEditado[0];
