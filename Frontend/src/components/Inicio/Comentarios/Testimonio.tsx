@@ -15,7 +15,7 @@ export default function Testimonio({ comentario, onCheckToggle, movil = false, c
 
             {/* Checkbox de selección para visibilidad */}
             {onCheckToggle && !movil && (
-                <div className="flex flex-wrap justify-center items-center size-7 mx-auto select-none gap-2 rounded-xl bg-amber-200 absolute top-4 right-4 md:right-14">
+                <div className="flex flex-wrap justify-center items-center size-7 mx-auto select-none gap-2 rounded-xl bg-amber-200 absolute top-4 right-14">
                     <label className="text-gray-500 w-full h-full relative">
                         <input
                             type="checkbox"
@@ -40,7 +40,7 @@ export default function Testimonio({ comentario, onCheckToggle, movil = false, c
             )}
             {
                 !movil && (
-                    <button className="flex flex-wrap justify-center items-center size-7 mx-auto select-none gap-2 rounded-xl  absolute top-16 md:top-4 right-4 bg-red-500 text-white hover:bg-red-800 hover:text-white transition duration-300 ease-in-out"
+                    <button className="flex flex-wrap justify-center items-center size-7 mx-auto select-none gap-2 rounded-xl  absolute top-4 right-4 bg-red-500 text-white hover:bg-red-800 hover:text-white transition duration-300 ease-in-out"
                         onClick={() => handleEliminarComentario(comentario.id)}
                     >
                         <FaTrash />
@@ -56,12 +56,12 @@ export default function Testimonio({ comentario, onCheckToggle, movil = false, c
                     className="size-10 rounded-full object-cover"
                 />
                 <div className="flex flex-col gap-2 ">
-                    <h2 className="text-base md:text-xl xl:text-xl font-bold ">{comentario.nombre}</h2>
+                    <p className="text-base md:text-xl xl:text-xl font-bold ">{comentario.nombre}</p>
                     <StartsTestimonials numero={comentario.ranking} />
                 </div>
             </div>
 
-            <div className="flex-1 text-start">
+            <div className="flex-1 text-start max-w-10/12 w-full ">
                 <p>{comentario.mensaje}</p>
             </div>
         </li>

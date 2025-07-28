@@ -77,7 +77,7 @@ export default function Especialistas() {
                     </div>
                 ) : (
 
-                    <ul className="grid md:grid-cols-2 xl:grid-cols-3 gap-6 w-full">
+                    <ul className="grid grid-cols-[repeat(auto-fit,minmax(350px,1fr))] gap-6 ">
                         {especialistas.map((especialista) => (
                             <EspecialistasCard key={especialista.id} handleOpen={handleOpen} handleDelete={handleDelete} especialista={especialista} />
 

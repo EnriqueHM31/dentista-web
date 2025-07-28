@@ -16,7 +16,10 @@ export default function EspecialistasCard({ handleOpen, handleDelete, especialis
                         <img src={especialista.avatar} alt={especialista.nombre} className="w-10 h-10 rounded-full" />
                         <div className="flex flex-col">
                             <p className="text-lg font-semibold text-white dark:text-gray-50 truncate">
-                                {`${especialista.nombre} ${especialista.apellido}`}
+                                {`${especialista.nombre}`}
+                            </p>
+                            <p className="text-lg font-semibold text-white dark:text-gray-50 truncate">
+                                {` ${especialista.apellido}`}
                             </p>
                             <p className="text-sm text-white/60 dark:text-gray-200 truncate">{especialista.email}</p>
 

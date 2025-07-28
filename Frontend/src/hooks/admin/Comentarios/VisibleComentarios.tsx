@@ -31,7 +31,7 @@ export default function useVisibleComentarios({ comentarios }: ArrayComentariosP
         );
 
         comentariosOriginalesRef.current = visiblesOriginales;
-        if (!localStorage.getItem(LOCAL_STORAGE_KEY)) setSeleccionados(visiblesOriginales);
+        setSeleccionados(visiblesOriginales);
     }, [comentarios]);
 
 
@@ -58,6 +58,8 @@ export default function useVisibleComentarios({ comentarios }: ArrayComentariosP
                 return seleccionados[uuid] !== comentariosOriginalesRef.current[uuid];
             }).length;
     };
+
+
     const comentarioModificado = (id: UUID): boolean => {
         return seleccionados[id] !== comentariosOriginalesRef.current[id];
     };

@@ -11,7 +11,7 @@ export default function Comentarios() {
 
     return (
         <section className="max-w-full mx-auto md:p-4 px-0 flex flex-col gap-4 min-h-screen">
-            <header className="flex flex-col md:flex-row gap-4 md:gap-0 justify-between items-center">
+            <header className="flex flex-col lg:flex-row gap-4 lg:gap-0 justify-between items-center">
                 <h2 className="text-2xl font-bold text-center md:text-left">
                     Comentarios de los clientes
                 </h2>
@@ -46,7 +46,10 @@ export default function Comentarios() {
             <Filtros />
 
             {comentarios.length > 0 ? (
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-4">
+                <div className={`grid gap-8 mt-4 ${comentarios.length === 1
+                        ? "grid-cols-[400px]"
+                        : "grid-cols-[repeat(auto-fit,minmax(350px,1fr))]"
+                    }`}>
                     {comentarios.map((comentario) => (
                         <Testimonio
                             comentario={comentario}
