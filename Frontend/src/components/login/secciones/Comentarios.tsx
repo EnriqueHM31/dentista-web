@@ -5,7 +5,9 @@ import Testimonio from "@/components/Inicio/Comentarios/Testimonio";
 
 export default function Comentarios() {
     const { comentarios } = useComentariosContext();
-    const { seleccionados, toggleCheck, guardarSeleccion, comentarioModificado } = useVisibleComentarios({ comentarios });
+    const { seleccionados, toggleCheck, guardarSeleccion, limpiarSeleccion, cantidadComentariosModificados, comentarioModificado } = useVisibleComentarios({ comentarios });
+
+    const comentariosModificados = cantidadComentariosModificados();
 
     return (
         <section className="max-w-full mx-auto md:p-4 px-0 flex flex-col gap-4 min-h-screen">
@@ -13,15 +15,33 @@ export default function Comentarios() {
                 <h2 className="text-2xl font-bold text-center md:text-left">
                     Comentarios de los clientes
                 </h2>
-                <div className="flex justify-end">
+                <div className="flex justify-end gap-4">
+                    <button
+                        onClick={limpiarSeleccion}
+                        className="bg-red-500 hover:bg-red-800 cursor-pointer text-white px-6 py-2 rounded-lg  transition"
+                    >
+                        Limpiar selección
+                    </button>
+
                     <button
                         onClick={guardarSeleccion}
-                        className="bg-primary text-white px-6 py-2 rounded-lg hover:bg-primary/90 transition"
+                        className="bg-blue-500 hover:bg-blue-800 cursor-pointer text-white px-6 py-2 rounded-lg  transition"
                     >
                         Guardar selección
                     </button>
+
                 </div>
             </header>
+
+            {
+                comentariosModificados > 0 && (
+                    <div className="fixed bottom-1/12 right-20 size-14 flex flex-col gap-4 items-center justify-center bg-green-500 text-white rounded-full z-80">
+                        <h2 className="text-2xl font-bold">
+                            {comentariosModificados}
+                        </h2>
+                    </div>
+                )
+            }
 
             <Filtros />
 

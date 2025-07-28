@@ -11,11 +11,17 @@ type VisibilidadMap = Record<UUID, boolean>;
 
 type ArrayVisiblesComentarios = Array<{ id: UUID; visible: boolean }>;
 
+const LOCAL_STORAGE_KEY = "comentarios_seleccionados"
+
 export default function useVisibleComentarios({ comentarios }: ArrayComentariosProps) {
-    const [seleccionados, setSeleccionados] = useState<VisibilidadMap>({});
+    const [seleccionados, setSeleccionados] = useState<VisibilidadMap>(() => {
+        return JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY) || "{}");
+    });
     const comentariosRef = useRef<ComentarioProps[]>(comentarios);
     const comentariosOriginalesRef = useRef<VisibilidadMap>({});
     const { refrescarComentariosEditar } = useComentariosContext();
+
+
 
     useEffect(() => {
         comentariosRef.current = comentarios;
@@ -25,8 +31,13 @@ export default function useVisibleComentarios({ comentarios }: ArrayComentariosP
         );
 
         comentariosOriginalesRef.current = visiblesOriginales;
-        setSeleccionados(visiblesOriginales);
+        if (!localStorage.getItem(LOCAL_STORAGE_KEY)) setSeleccionados(visiblesOriginales);
     }, [comentarios]);
+
+
+    useEffect(() => {
+        localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(seleccionados));
+    }, [seleccionados]);
 
     const toggleCheck = (id: UUID) => {
         setSeleccionados((prev) => ({
@@ -35,6 +46,18 @@ export default function useVisibleComentarios({ comentarios }: ArrayComentariosP
         }));
     };
 
+    const limpiarSeleccion = async () => {
+        setSeleccionados(comentariosOriginalesRef.current);
+    }
+
+
+    const cantidadComentariosModificados = (): number => {
+        return Object.keys(seleccionados)
+            .filter((id) => {
+                const uuid = id as UUID;
+                return seleccionados[uuid] !== comentariosOriginalesRef.current[uuid];
+            }).length;
+    };
     const comentarioModificado = (id: UUID): boolean => {
         return seleccionados[id] !== comentariosOriginalesRef.current[id];
     };
@@ -66,7 +89,7 @@ export default function useVisibleComentarios({ comentarios }: ArrayComentariosP
             const comentariosActualizados = await Promise.all(
                 actualizaciones.map(({ id, visible }) =>
                     updateComentarioVisibilidad({ id, visible }).then(
-                        (respuesta) => respuesta.comentario[0]
+                        (respuesta) => respuesta.comentario
                     )
                 )
             );
@@ -90,6 +113,8 @@ export default function useVisibleComentarios({ comentarios }: ArrayComentariosP
             comentariosOriginalesRef.current = nuevosOriginales;
             comentariosRef.current = nuevosRef;
 
+            localStorage.removeItem(LOCAL_STORAGE_KEY);
+
             setSeleccionados(nuevosOriginales);
 
             refrescarComentariosEditar(nuevosRef);
@@ -106,6 +131,8 @@ export default function useVisibleComentarios({ comentarios }: ArrayComentariosP
         guardarSeleccion,
         comentariosRef,
         comentarioModificado,
+        cantidadComentariosModificados,
+        limpiarSeleccion
     };
 }
 
