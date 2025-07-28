@@ -23,6 +23,7 @@ export default function CalendarioCitas() {
                     center: 'title',
                     right: 'dayGridMonth,timeGridDay',
                 }}
+                eventClassNames={`cursor-pointer`}
                 locale={esLocale}
                 height="auto"
             />
