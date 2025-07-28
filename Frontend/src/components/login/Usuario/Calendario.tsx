@@ -26,6 +26,11 @@ export default function CalendarioCitas() {
                 eventClassNames={`cursor-pointer`}
                 locale={esLocale}
                 height="auto"
+                eventTimeFormat={{
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    hour12: false,
+                }}
             />
 
             {modalOpen && eventoSeleccionado && (
