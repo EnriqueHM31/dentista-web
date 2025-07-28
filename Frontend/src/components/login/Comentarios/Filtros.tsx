@@ -32,7 +32,7 @@ export default function Filtros() {
                 <button
                     className={`${btnBase} ${isActive(
                         !filtros.ordenar && !filtros.ranking && !filtros.seleccion
-                    )}`}
+                    )} `}
                     onClick={() => seleccionarFiltro(MENU_FILTROS.todos)}
                 >
                     Todos
@@ -42,7 +42,7 @@ export default function Filtros() {
                 <div className="relative">
                     <button
                         onClick={() => toggleMenu(MENU_FILTROS.ordenar)}
-                        className={`${btnBase} ${isActive(!!filtros.ordenar)}`}
+                        className={`${btnBase} ${isActive(!!filtros.ordenar)} `}
                     >
                         {textoOrden(filtros)} <FaChevronDown className="text-xs" />
                     </button>

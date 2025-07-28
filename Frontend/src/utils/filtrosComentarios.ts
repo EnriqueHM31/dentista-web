@@ -22,9 +22,9 @@ export const textoSeleccion = (filtros: Filtros) =>
 
 
 
-export const btnBase = "px-4 py-2 rounded-lg transition border border-gray-300 flex items-center gap-2";
+export const btnBase = "px-4 py-2 rounded-lg transition border border-gray-300 flex items-center gap-2 cursor-pointer";
 export const isActive = (condition: boolean) =>
-    condition ? "bg-primary text-white hover:bg-primary/90" : "bg-white text-black hover:bg-primary/10";
+    condition ? "bg-primary text-white cursor-pointer hover:bg-primary/90" : "bg-white text-black hover:bg-primary/10";
 
 export const menuItemClass = (active: boolean) =>
-    `w-full text-left px-4 py-2 hover:bg-primary hover:text-white ${active ? "bg-primary text-white font-semibold" : ""}`;
+    `w-full text-left px-4 py-2 hover:bg-primary cursor-pointer hover:text-white ${active ? "bg-primary text-white font-semibold" : ""}`;
