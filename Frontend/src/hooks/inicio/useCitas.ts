@@ -1,9 +1,12 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useServicioContext } from "@/context/Servicio";
 import { useCitasContext } from "@/context/Citas";
 import { toast } from "sonner";
 import { crearCita } from "@/services/Citas";
 import { INITIAL_FORM_CITA } from "@/constants/Citas";
+import { generateAllSlots, isSlotRangeAvailable, parseFechaToISO } from "@/utils/InputHora";
+import type { Appointment } from "@/types/Citas/types";
+import { validarCamposLlenos } from "@/utils/Validacion";
 
 export function useCitas() {
 
@@ -36,16 +39,54 @@ export function useCitas() {
 
     const [FormCrearCita, setFormCrearCita] = useState(INITIAL_FORM_CITA);
 
+    useEffect(() => {
+        const today = new Date();
+        const tomorrow = new Date(today);
+        tomorrow.setDate(today.getDate() + 1);
+
+        const fechaFormateada = tomorrow.toLocaleDateString("mx-MX", {
+            timeZone: "America/Mexico_City"
+        });
+
+        setFormCrearCita(prev => ({ ...prev, fecha: fechaFormateada }));
+
+    }, [servicios]);
+
     const handleChangeCrearCita = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
         setFormCrearCita({ ...FormCrearCita, [e.target.name]: e.target.value });
     }
 
-    const handleSubmitCrearCita = async (e: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmitCrearCita = async (e: React.FormEvent<HTMLFormElement>, allAppointments: Appointment[]) => {
         e.preventDefault();
-        const idServicio = servicios.find(({ titulo }) => titulo === FormCrearCita.servicio)?.id;
-        if (!idServicio) return;
 
-        const { success, message, cita } = await crearCita(FormCrearCita, idServicio);
+        const camposValidos = validarCamposLlenos(FormCrearCita);
+        if (!camposValidos) return; // Detener el envío si falta algún campo
+
+        const idServicio = servicios.find(({ titulo }) => titulo === FormCrearCita.servicio)?.id;
+        const duracion = servicios.find(({ titulo }) => titulo === FormCrearCita.servicio)?.duration;
+        if (!idServicio || !duracion) return;
+
+
+
+        const slots = generateAllSlots(FormCrearCita.fecha, allAppointments);
+
+        const esValido = isSlotRangeAvailable(FormCrearCita.hora, duracion, slots);
+        if (!esValido) {
+            toast.error("No hay suficiente espacio disponible en ese horario para este servicio.");
+            return;
+        }
+
+        const dataCrearCita = {
+            nombre: FormCrearCita.nombre,
+            email: FormCrearCita.email,
+            telefono: FormCrearCita.telefono,
+            comentarios: FormCrearCita.comentarios,
+            servicio: idServicio,
+            fecha: parseFechaToISO(FormCrearCita.fecha),
+            hora: FormCrearCita.hora,
+        }
+
+        const { success, message, cita } = await crearCita(dataCrearCita, idServicio);
 
         if (success) {
             refrescarNewCita(cita);
@@ -54,7 +95,7 @@ export function useCitas() {
         } else {
             toast.error(message);
         }
-    }
+    };
 
     return {
         horas,
