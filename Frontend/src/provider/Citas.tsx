@@ -9,7 +9,7 @@ export default function CitasProvider({ children }: { children: React.ReactNode 
 
     useEffect(() => {
         const fetchCitas = async () => {
-            const citas = await getCitas();
+            const { citas } = await getCitas();
             setCitas(citas);
         }
         fetchCitas();
