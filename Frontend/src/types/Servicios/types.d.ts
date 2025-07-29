@@ -26,7 +26,7 @@ export interface ServicioProps extends ServicioCrearProps {
 
 
 export interface CardServicioProps {
-    servicio: ServicioCrearProps;
+    servicio: ServicioProps;
     index: number;
 }
 
