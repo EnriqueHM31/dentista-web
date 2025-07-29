@@ -29,7 +29,7 @@ export class ModeloCita {
             if (!ResultInsertCita) return { success: false, message: 'No se insertó la cita', cita: {} };
 
 
-            const [ResultCitaCreada] = await db.query<CitaResponseProps[]>(`SELECT * FROM Citas WHERE id = ?`, [id]);
+            const [ResultCitaCreada] = await db.query<CitaResponseProps[]>(`SELECT C.id,C.nombre, C.email, C.telefono, S.titulo AS servicio, C.comentarios, C.fecha, C.hora, C.completada, C.aceptada FROM Citas C JOIN ServiciosDentales S ON C.servicio = S.id AND C.id = ?`, [id]);
 
             if (!ResultCitaCreada) return { success: false, message: 'No se insertó la cita', cita: {} };
 

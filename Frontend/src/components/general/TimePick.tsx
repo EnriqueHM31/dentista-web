@@ -6,6 +6,7 @@ import { useTimePicket } from '@/hooks/general/useTimePicket';
 export default function TimePicker({ name, date, appointments, value, onChange }: TimePickerProps) {
     const { slots, isOpen, handleSelect, ref, handleOpenSelect } = useTimePicket({ name, date, appointments, onChange });
 
+    console.log({ slots })
     return (
 
         <div className='relative' ref={ref}>

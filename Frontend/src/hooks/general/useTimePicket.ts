@@ -17,7 +17,7 @@ export function useTimePicket({ name, date, appointments, onChange }: useTimePic
     useEffect(() => {
         const allSlots = generateAllSlots(date, appointments);
         setSlots(allSlots);
-    }, [appointments]);
+    }, [appointments, date]);
 
     // Cerrar dropdown si clic fuera
     useEffect(() => {

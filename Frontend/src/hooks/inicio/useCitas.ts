@@ -19,7 +19,6 @@ export function useCitas() {
         setFormCrearCita(prev => ({ ...prev, fecha: ObtenerFechaActualMasUno(), servicio: servicios[0]?.titulo }));
     }, [citas]);
 
-    console.log(FormCrearCita)
 
     const handleChangeCrearCita = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
         setFormCrearCita({ ...FormCrearCita, [e.target.name]: e.target.value });
@@ -59,6 +58,7 @@ export function useCitas() {
 
         if (success) {
             refrescarNewCita(cita);
+
             toast.success(message);
             setFormCrearCita(INITIAL_FORM_CITA);
         } else {

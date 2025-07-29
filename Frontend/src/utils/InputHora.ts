@@ -31,24 +31,32 @@ export function parseFechaToISO(fecha: string): string {
 }
 
 export function generateAllSlots(
-    selectedDate: string,
-    appointments: Appointment[],
+    selectedDate: string,          // formato: "YYYY-MM-DD"
+    appointments: Appointment[]
 ): TimeSlot[] {
+    console.log(selectedDate);
     const slots: TimeSlot[] = [];
     const start = 9 * 60;  // 09:00
     const end = 18 * 60;   // 18:00
 
-    // Convertir la fecha seleccionada al formato ISO válido
-    const fechaISO = parseFechaToISO(selectedDate);
-
-    const now = new Date();
-    const today = new Date().toLocaleDateString("en-CA", {
+    // Obtener la fecha actual en zona horaria de México
+    const todayStr = new Date().toLocaleDateString("en-CA", {
         timeZone: "America/Mexico_City",
     });
-    const currentMinutes = now.getHours() * 60 + now.getMinutes();
 
+    // Obtener hora actual en México para comparación
+    const nowInMexico = new Date().toLocaleString("en-US", {
+        timeZone: "America/Mexico_City",
+    });
+    const [horaActual, minutosActuales] = new Date(nowInMexico)
+        .toTimeString()
+        .split(":")
+        .map(Number);
+    const currentMinutes = horaActual * 60 + minutosActuales;
+
+    // Filtrar las citas del día seleccionado
     const todays = appointments
-        .filter(a => a.fecha.slice(0, 10) === fechaISO)
+        .filter(a => a.fecha.slice(0, 10) === selectedDate)
         .map(a => ({
             ...a,
             hora: normalizeHHMM(a.hora.slice(0, 5)),
@@ -59,11 +67,11 @@ export function generateAllSlots(
     for (let m = start; m <= end; m += 30) {
         const slot = minutesToHHMM(m);
 
-        // Evitar mostrar horarios pasados si es el día actual
-        if (fechaISO === today && m <= currentMinutes) continue;
+        // Si es hoy, no mostrar horas ya pasadas
+        if (selectedDate === todayStr && m <= currentMinutes) continue;
 
         const slotStart = m;
-        const slotEnd = slotStart;
+        const slotEnd = slotStart + 30; // cada slot dura 30 minutos
 
         let isAvailable = true;
 
@@ -72,14 +80,13 @@ export function generateAllSlots(
             const aEnd = aStart + a.duration;
 
             const hayTraslape = slotStart < aEnd && slotEnd > aStart;
-
             if (hayTraslape) {
                 isAvailable = false;
                 break;
             }
         }
 
-        // También marcamos como ocupado si la hora coincide exacta
+        // También marcar como ocupado si coincide exacto
         if (HorasCitaExacta.includes(slot)) {
             isAvailable = false;
         }
@@ -89,6 +96,7 @@ export function generateAllSlots(
 
     return slots;
 }
+
 
 export function isSlotRangeAvailable(
     selectedTime: string,

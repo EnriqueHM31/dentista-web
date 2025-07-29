@@ -8,18 +8,39 @@ import { FaInfo } from "react-icons/fa6";
 import { useModalIndependiente } from "@/hooks/general/useModalIndependiente";
 import Modal from "@/components/General/Modal";
 import ServicioInfo from "@/components/Contacto/InfoServicios";
+import { useMemo } from "react";
+import { useCitasContext } from "@/context/Citas";
+import type { Appointment } from "@/types/Citas/types";
 
 export default function Citas() {
 
     const { handleChangeCrearCita, handleSubmitCrearCita, FormCrearCita } = useCitas();
 
     const { servicios: ArrayServicios } = useServicioContext();
+    const { citas } = useCitasContext();
 
-    const { hora, fecha, handleDateChange, handleTimeChange, allAppointments, minDate } = useTiempo({ FormCrearCita, handleChangeCrearCita });
+    const { hora, fecha, handleDateChange, handleTimeChange, minDate, handleResetearHora } = useTiempo({ FormCrearCita, handleChangeCrearCita });
 
     const { activeModal, handleClickActivarModalIndependiente, handleClickDesactivarModal } = useModalIndependiente()
 
 
+    const allAppointments = useMemo(() => {
+        handleResetearHora();
+        return citas
+            .map((cita) => {
+                const servicio = ArrayServicios.find(s => s.titulo === cita.servicio);
+                if (!servicio) return null;
+                return {
+                    id: cita.id,
+                    fecha: cita.fecha,
+                    hora: cita.hora,
+                    duration: servicio.duration,
+                };
+            })
+            .filter(Boolean) as Appointment[];
+    }, [citas, ArrayServicios]);
+
+    console.log({ fecha })
     return (
 
         <>

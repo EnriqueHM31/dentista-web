@@ -1,16 +1,17 @@
+import { useMemo, useState } from "react";
 import { ObtenerFechaActualMasUno } from "@/constants/Citas";
 import { useCitasContext } from "@/context/Citas";
 import { useServicioContext } from "@/context/Servicio";
 import type { CitaFormProps, Appointment } from "@/types/Citas/types";
-import { useEffect, useState } from "react";
 
 interface UseTiempoProps {
     FormCrearCita: CitaFormProps;
-    handleChangeCrearCita: (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => void;
+    handleChangeCrearCita: (
+        e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
+    ) => void;
 }
 
 export function useTiempo({ handleChangeCrearCita }: UseTiempoProps) {
-
     const { citas } = useCitasContext();
     const { servicios: ArrayServicios } = useServicioContext();
 
@@ -18,13 +19,14 @@ export function useTiempo({ handleChangeCrearCita }: UseTiempoProps) {
 
     const [fecha, setFecha] = useState<string>(minDate);
     const [hora, setHora] = useState<string>("");
-    const [allAppointments, setAllAppointments] = useState<Appointment[]>([]);
 
-    // Transformar citas a formato necesario
-    useEffect(() => {
-        const allAppointments: Appointment[] = citas
+    // Transformar citas a formato necesario (solo cuando citas o servicios cambien)
+    const allAppointments: Appointment[] = useMemo(() => {
+        return citas
             .map((cita) => {
-                const servicio = ArrayServicios.find((s) => s.titulo === cita.servicio);
+                const servicio = ArrayServicios.find(
+                    (s) => s.titulo === cita.servicio
+                );
                 if (!servicio) return null;
                 return {
                     id: cita.id,
@@ -34,21 +36,32 @@ export function useTiempo({ handleChangeCrearCita }: UseTiempoProps) {
                 };
             })
             .filter(Boolean) as Appointment[];
-        setAllAppointments(allAppointments);
-    }, [citas]);
+    }, [citas, ArrayServicios]);
 
-
-
-    const handleDateChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    // Manejo del cambio de fecha
+    const handleDateChange = (
+        e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+    ) => {
         setFecha(e.target.value);
-        setHora('');
+        setHora("");
         handleChangeCrearCita(e);
+    };
+
+    const handleResetearHora = () => {
+        setHora("");
     }
 
-    const handleTimeChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement> | { target: { value: string; name: string } }) => {
+    // Manejo del cambio de hora
+    const handleTimeChange = (
+        e:
+            | React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+            | { target: { value: string; name: string } }
+    ) => {
         setHora(e.target.value);
-        handleChangeCrearCita(e as React.ChangeEvent<HTMLInputElement | HTMLSelectElement>);
-    }
+        handleChangeCrearCita(
+            e as React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+        );
+    };
 
     return {
         hora,
@@ -56,6 +69,7 @@ export function useTiempo({ handleChangeCrearCita }: UseTiempoProps) {
         handleDateChange,
         handleTimeChange,
         allAppointments,
-        minDate
+        minDate,
+        handleResetearHora
     };
 }
