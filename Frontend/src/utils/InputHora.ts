@@ -34,7 +34,6 @@ export function generateAllSlots(
     selectedDate: string,          // formato: "YYYY-MM-DD"
     appointments: Appointment[]
 ): TimeSlot[] {
-    console.log(selectedDate);
     const slots: TimeSlot[] = [];
     const start = 9 * 60;  // 09:00
     const end = 18 * 60;   // 18:00

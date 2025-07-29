@@ -28,7 +28,6 @@ export function useGetServicios({ handleClickDesactivarModal }: useGetServiciosP
             ...prev,
             duration: Number(MINUTOS_ARRAY[0]),
         }));
-        console.log(servicioCrear)
     }, [servicioCrear.duration]);
 
 

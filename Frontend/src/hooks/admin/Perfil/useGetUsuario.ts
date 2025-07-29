@@ -21,7 +21,6 @@ export function useGetUsuario() {
         recuperarDatosInicioSesion();
     }, []);
 
-    console.log(datosUsuario);
     return {
         datosUsuario
     }

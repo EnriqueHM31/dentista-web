@@ -40,7 +40,6 @@ export default function Citas() {
             .filter(Boolean) as Appointment[];
     }, [citas, ArrayServicios]);
 
-    console.log({ fecha })
     return (
 
         <>

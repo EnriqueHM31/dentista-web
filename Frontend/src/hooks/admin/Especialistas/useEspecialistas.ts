@@ -176,7 +176,6 @@ export function useEspecialistas({ toggle, handleClickDesactivarModal }: PropsHo
     async function editarEspecialista({ id, camposCambiados }: { id: UUID, camposCambiados: Partial<EspecialistaEditarProps> }) {
         try {
             const { success, message, especialista } = await updateEspecialista(id, camposCambiados);
-            console.log(camposCambiados)
 
             if (!success) throw new Error(message);
 
