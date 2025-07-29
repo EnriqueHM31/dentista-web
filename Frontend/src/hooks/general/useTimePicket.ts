@@ -1,18 +1,12 @@
-import type { Appointment, TimeSlot } from "@/types/Citas/types";
+import type { TimeSlot } from "@/types/Citas/types";
 import { generateAllSlots } from "@/utils/InputHora";
 import { useEffect, useRef, useState } from "react";
-
-interface useTimePicketProps {
-    name: string;
-    date: string;
-    appointments: Appointment[];
-    onChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
-}
+import type { useTimePicketProps } from "@/types/Components/types";
 
 export function useTimePicket({ name, date, appointments, onChange }: useTimePicketProps) {
     const [slots, setSlots] = useState<TimeSlot[]>([]);
     const [isOpen, setIsOpen] = useState(false);
-    const ref = useRef<HTMLDivElement>(null);
+    const ContenedorRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
         const allSlots = generateAllSlots(date, appointments);
@@ -22,7 +16,7 @@ export function useTimePicket({ name, date, appointments, onChange }: useTimePic
     // Cerrar dropdown si clic fuera
     useEffect(() => {
         function handleClickOutside(event: MouseEvent) {
-            if (ref.current && !ref.current.contains(event.target as Node)) {
+            if (ContenedorRef.current && !ContenedorRef.current.contains(event.target as Node)) {
                 setIsOpen(false);
             }
         }
@@ -40,5 +34,5 @@ export function useTimePicket({ name, date, appointments, onChange }: useTimePic
     };
 
 
-    return { slots, isOpen, handleSelect, ref, handleOpenSelect };
+    return { slots, isOpen, handleSelect, ContenedorRef, handleOpenSelect };
 }

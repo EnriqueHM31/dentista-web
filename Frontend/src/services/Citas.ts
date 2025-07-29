@@ -58,7 +58,7 @@ export async function completarCita(id: UUID) {
 }
 
 
-export async function eliminarCita(id: UUID) {
+export async function eliminarCita({ id }: { id: UUID }) {
     const response = await fetch(`${VITE_API_URL}/citas/${id}`, {
         method: "DELETE",
         credentials: "include",
@@ -71,7 +71,7 @@ export async function eliminarCita(id: UUID) {
     }
 }
 
-export async function aceptarCita(id: UUID) {
+export async function aceptarCita({ id }: { id: UUID }) {
     const response = await fetch(`${VITE_API_URL}/citas/${id}/aceptar`, {
         method: "PATCH",
         headers: {

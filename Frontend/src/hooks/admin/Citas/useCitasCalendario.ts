@@ -12,11 +12,7 @@ export function useCitasCalendario() {
 
     const [eventoSeleccionado, setEventoSeleccionado] = useState<CitasCalendarioProps | null>(null);
     const { citas, refrescarCitasCompletar, refrescarCitasEliminar, refrescarCitasAceptar } = useCitasContext();
-
     const { close, isOpen, toggle } = useOpenWithTransition();
-
-
-
 
     const citasFormateadas: CitasCalendarioProps[] = citas.map((cita) => {
         const styleEvento = cita.completada ? "#22c55e" : cita.aceptada ? "#f0f" : "#f00";
@@ -106,7 +102,7 @@ export function useCitasCalendario() {
 
     const onCitaEliminada = async ({ id }: { id: UUID }) => {
 
-        const { success, message } = await eliminarCita(id);
+        const { success, message } = await eliminarCita({ id });
         if (success) {
             refrescarCitasEliminar(id);
             toast.success(message || "La cita se eliminó correctamente");
@@ -118,7 +114,7 @@ export function useCitasCalendario() {
 
 
     const onCitaAceptada = async ({ id }: { id: UUID }) => {
-        const { success, message, cita } = await aceptarCita(id);
+        const { success, message, cita } = await aceptarCita({ id });
         if (success) {
             refrescarCitasAceptar({ id: cita.id });
             close();

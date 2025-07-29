@@ -1,3 +1,5 @@
+import type { Appointment, CitaFormProps } from "../Citas/types";
+
 const POSITIONS = ["top", "bottom", "left", "right"] as const;
 
 export interface TituloSeccionProps {
@@ -65,4 +67,18 @@ export interface RankingProps {
 export interface useCopyTextProps {
     text: string;
     mensaje: string;
+}
+
+export interface UseTiempoProps {
+    FormCrearCita: CitaFormProps;
+    handleChangeCrearCita: (
+        e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
+    ) => void;
+}
+
+interface useTimePicketProps {
+    name: string;
+    date: string;
+    appointments: Appointment[];
+    onChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
 }

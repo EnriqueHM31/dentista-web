@@ -39,7 +39,7 @@ export interface ModalEditarServicioProps {
 
 
 export interface ModalServicioProps {
-    servicio: ServicioCrearProps
+    servicio: ServicioProps
 }
 
 // LOGIN ----------------------------------------------

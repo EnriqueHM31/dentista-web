@@ -4,11 +4,11 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { useTimePicket } from '@/hooks/general/useTimePicket';
 
 export default function TimePicker({ name, date, appointments, value, onChange }: TimePickerProps) {
-    const { slots, isOpen, handleSelect, ref, handleOpenSelect } = useTimePicket({ name, date, appointments, onChange });
+    const { slots, isOpen, handleSelect, ContenedorRef, handleOpenSelect } = useTimePicket({ name, date, appointments, onChange });
 
     return (
 
-        <div className='relative' ref={ref}>
+        <div className='relative' ref={ContenedorRef}>
 
             <select name={name} id={name} value={value} onChange={onChange} className="hidden"></select>
             <button
