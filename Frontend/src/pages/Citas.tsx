@@ -1,23 +1,33 @@
+import { DatePicker } from "@/components/General/DatePick";
 import AnimatedSelect from "@/components/General/Select";
+import { TimePicker } from "@/components/General/TimePick";
+import { useServicioContext } from "@/context/Servicio";
 import { useCitas } from "@/hooks/inicio/useCitas";
+import { useTiempo } from "@/hooks/admin/Citas/useTiempo";
 
 export default function Citas() {
 
-    const { horas, handleChangeCrearCita, handleSubmitCrearCita, FormCrearCita, servicios } = useCitas();
+    const { handleChangeCrearCita, handleSubmitCrearCita, FormCrearCita } = useCitas();
+
+    const { servicios: ArrayServicios } = useServicioContext();
+
+    const { hora, fecha, handleDateChange, handleTimeChange, allAppointments, minDate } = useTiempo({ FormCrearCita, handleChangeCrearCita });
+
 
     return (
         <section className="min-h-screen bg-white flex flex-col lg:flex-row items-center justify-center px-0 md:px-4 py-12 mt-10 max-w-11/12 md:max-w-10/12 mx-auto w-full">
             <div className="flex flex-col lg:flex-row max-w-full md:max-w-11/12 w-full bg-white border border-gray-500 rounded-xl shadow-2xl ">
-                {/* Panel Izquierdo - Login */}
                 <div className="w-full px-6 py-8 md:p-12 flex flex-col justify-center gap-6 flex-4">
                     <header>
-                        <h1 className="text-xl md:text-3xl font-bold text-primary">Bienvenido agenda tu cita ahora...</h1>
+                        <h1 className="text-xl md:text-3xl font-bold text-primary">
+                            Bienvenido agenda tu cita ahora...
+                        </h1>
                         <p className="text-gray-500 mt-2 text-sm md:text-base">
                             Completa el formulario para agendar tu cita
                         </p>
                     </header>
 
-                    <form onSubmit={handleSubmitCrearCita} className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <form onSubmit={(e) => handleSubmitCrearCita(e, allAppointments)} className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         {/* Nombre completo */}
                         <div className="flex flex-col">
                             <label htmlFor="nombre" className="text-sm text-gray-600">Nombre completo</label>
@@ -40,6 +50,7 @@ export default function Citas() {
                                 id="correo"
                                 type="email"
                                 name="email"
+                                autoComplete="on"
                                 value={FormCrearCita.email}
                                 onChange={handleChangeCrearCita}
                                 required
@@ -65,48 +76,42 @@ export default function Citas() {
                         </div>
 
                         {/* Fecha */}
-                        <div className="flex flex-col">
+                        <div className="flex flex-col ">
                             <label htmlFor="fecha" className="text-sm text-gray-600">Fecha de la cita</label>
-                            <input
-                                id="fecha"
-                                type="date"
+                            <DatePicker
                                 name="fecha"
-                                value={FormCrearCita.fecha}
-                                onChange={handleChangeCrearCita}
-                                required
-                                className="mt-1 px-4 py-2 border border-primary rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
+                                value={fecha}
+                                minDate={minDate}
+                                onChange={handleDateChange}
                             />
                         </div>
 
                         {/* Servicio odontológico */}
-
                         <div className="flex flex-col">
                             <label htmlFor="servicio" className="text-sm text-gray-600">Servicio odontológico</label>
                             <AnimatedSelect
                                 name="servicio"
-                                select="Selecciona un servicio"
                                 onChange={handleChangeCrearCita}
                                 selectClass="bg-white border border-primary mt-1 text-primary"
                                 itemClass="bg-white text-primary"
                                 itemHoverClass="hover:bg-primary hover:text-white"
-                                options={servicios.map(({ titulo }) => titulo)}
+                                options={ArrayServicios.map(({ titulo }) => titulo)}
                             />
                         </div>
 
                         {/* Hora de la cita */}
                         <div className="flex flex-col">
                             <label htmlFor="hora" className="text-sm text-gray-600">Hora de la cita</label>
-                            <AnimatedSelect
+                            <TimePicker
                                 name="hora"
-                                selectClass="bg-white border border-primary mt-1 text-primary"
-                                itemClass="bg-white text-primary"
-                                itemHoverClass="hover:bg-primary hover:text-white"
-                                select={horas[0]}
-                                onChange={handleChangeCrearCita}
-                                options={horas} />
+                                date={fecha}
+                                appointments={allAppointments}
+                                value={hora}
+                                onChange={handleTimeChange}
+                            />
                         </div>
 
-                        {/* Comentarios (ocupa las 2 columnas) */}
+                        {/* Comentarios */}
                         <div className="md:col-span-2 flex flex-col">
                             <label htmlFor="comentarios" className="text-sm text-gray-600">Comentarios adicionales</label>
                             <textarea
@@ -119,7 +124,7 @@ export default function Citas() {
                             ></textarea>
                         </div>
 
-                        {/* Botón (ocupa 2 columnas) */}
+                        {/* Botón */}
                         <div className="md:col-span-2 flex justify-end">
                             <button
                                 type="submit"
@@ -129,17 +134,13 @@ export default function Citas() {
                             </button>
                         </div>
                     </form>
-
-
-
-
                 </div>
 
-                {/* Panel Derecho - Imagen */}
+                {/* Imagen lateral */}
                 <div className="flex-3">
                     <img
-                        src="https://imgs.search.brave.com/9-xigrgjvKyqnCgUydFr2ebwAgD5Vssd4NiNAStnTXw/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly93d3cu/c29ycmlhc2VtcHJl/cXVlcHVkZXIuY29t/LmJyL3dwLWNvbnRl/bnQvdXBsb2Fkcy8y/MDI0LzAxL3NpZ25p/ZmljYWRvLXNpZ2xh/cy1vZG9udG9sb2dp/YS1wZXJpb2RvbnRv/LmpwZw" // ✅ actualiza esta ruta si la mueves
-                        alt="Fondo tropical"
+                        src="https://imgs.search.brave.com/9-xigrgjvKyqnCgUydFr2ebwAgD5Vssd4NiNAStnTXw/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly93d3cu/c29ycmlhc2VtcHJl/cXVlcHVkZXIuY29t/LmJyL3dwLWNvbnRl/bnQvdXBsb2Fkcy8y/MDI0LzAxL3NpZ25p/ZmljYWRvLXNpZ2xh/cy1vZG9udG9sb2dp/YS1wZXJpb2RvbnRv/LmpwZw"
+                        alt="Fondo odontología"
                         className="h-full w-full object-cover"
                     />
                 </div>
