@@ -6,10 +6,12 @@ import interactionPlugin from '@fullcalendar/interaction';
 import FullCalendar from '@fullcalendar/react';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import ModalCita from './ModalCita';
+import Modal from '@/components/General/Modal';
 
 
 export default function CalendarioCitas() {
-    const { citasFormateadas, modalOpen, eventoSeleccionado, handleEventClick, onClose, onCitaCompletada, onCitaEliminada, onCitaAceptada } = useCitasCalendario();
+    const { citasFormateadas, eventoSeleccionado, handleEventClick, onCitaCompletada, onCitaEliminada, onCitaAceptada, isOpen, onClose } = useCitasCalendario();
+
 
     return (
         <>
@@ -33,15 +35,22 @@ export default function CalendarioCitas() {
                 }}
             />
 
-            {modalOpen && eventoSeleccionado && (
-                <ModalCita
-                    evento={eventoSeleccionado}
+            {isOpen && eventoSeleccionado && (
+
+                <Modal
+                    isOpen={isOpen}
                     onClose={onClose}
-                    onCitaCompletada={onCitaCompletada}
-                    onCitaEliminada={onCitaEliminada}
-                    onCitaAceptada={onCitaAceptada}
-                />
-            )}
+                    clases="max-w-11/12 md:max-w-1/2 w-full"
+                >
+                    <ModalCita
+                        evento={eventoSeleccionado}
+                        onCitaCompletada={onCitaCompletada}
+                        onCitaEliminada={onCitaEliminada}
+                        onCitaAceptada={onCitaAceptada}
+                    />
+                </Modal >
+            )
+            }
         </>
     );
 }

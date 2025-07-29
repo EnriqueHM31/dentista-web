@@ -6,18 +6,19 @@ import { aceptarCita, completarCita, eliminarCita } from "@/services/Citas";
 import type { CitasCalendarioProps } from "@/types/Citas/types";
 import type { UUID } from "@/types/types";
 import { formatearHora, verificacionFechaHora } from "@/utils/Hora";
+import { useOpenWithTransition } from "@/hooks/general/useOpen";
 
 export function useCitasCalendario() {
 
-    const [modalOpen, setModalOpen] = useState(false);
     const [eventoSeleccionado, setEventoSeleccionado] = useState<CitasCalendarioProps | null>(null);
     const { citas, refrescarCitasCompletar, refrescarCitasEliminar, refrescarCitasCrear, refrescarCitasAceptar } = useCitasContext();
+
+    const { close, isOpen, toggle } = useOpenWithTransition();
 
 
 
 
     const citasFormateadas: CitasCalendarioProps[] = citas.map((cita) => {
-        console.log(formatearHora(cita.hora));
         const styleEvento = cita.completada ? "#22c55e" : cita.aceptada ? "#f0f" : "#f00";
         return {
             id: cita.id,
@@ -80,12 +81,11 @@ export function useCitasCalendario() {
                 aceptada: extendedProps.aceptada,
             },
         });
-
-        setModalOpen(true);
+        toggle();
     };
 
     const onClose = () => {
-        setModalOpen(false);
+        close();
         setEventoSeleccionado(null);
     };
 
@@ -94,7 +94,7 @@ export function useCitasCalendario() {
         const { success, message } = await completarCita(id);
         if (success) {
             refrescarCitasCompletar(citas, id);
-            setModalOpen(false);
+            close();
             toast.success(message || "La cita se completó correctamente");
             setEventoSeleccionado(null);
         } else {
@@ -110,7 +110,7 @@ export function useCitasCalendario() {
         if (success) {
             refrescarCitasEliminar(id);
             toast.success(message || "La cita se eliminó correctamente");
-            setModalOpen(false);
+            close();
         } else {
             toast.error("Error al eliminar la cita");
         }
@@ -121,19 +121,21 @@ export function useCitasCalendario() {
         const { success, message, cita } = await aceptarCita(id);
         if (success) {
             refrescarCitasAceptar({ id: cita.id });
-            setModalOpen(false);
+            close();
             toast.success(message);
         }
     }
 
     return {
         citasFormateadas,
-        modalOpen,
         eventoSeleccionado,
         handleEventClick,
         onClose,
         onCitaCompletada,
         onCitaEliminada,
-        onCitaAceptada
+        onCitaAceptada,
+        toggle,
+        isOpen
+
     };
 }
