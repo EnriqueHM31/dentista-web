@@ -102,7 +102,7 @@ export default function Citas() {
                                 <label htmlFor="fecha" className="text-sm text-gray-600">Fecha de la cita</label>
                                 <DatePicker
                                     name="fecha"
-                                    value={fecha}
+                                    value={FormCrearCita.fecha}
                                     minDate={minDate}
                                     onChange={handleDateChange}
                                 />
@@ -113,6 +113,7 @@ export default function Citas() {
                                 <label htmlFor="servicio" className="text-sm text-gray-600">Servicio odontológico</label>
                                 <AnimatedSelect
                                     name="servicio"
+                                    select={FormCrearCita.servicio}
                                     onChange={handleChangeCrearCita}
                                     selectClass="bg-white border border-primary mt-1 text-primary"
                                     itemClass="bg-white text-primary"

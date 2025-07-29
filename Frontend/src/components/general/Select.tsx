@@ -21,10 +21,9 @@ export default function AnimatedSelect({
     const containerRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
-        if (!selected && options.length > 0) {
-            setSelected(options[0]);
-        }
-    }, [options, selected]);
+        setSelected(select || options[0] || "");
+    }, [select, options]);
+
 
     const handleSelect = (value: string) => {
         setSelected(value);

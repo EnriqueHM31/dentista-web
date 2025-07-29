@@ -3,7 +3,7 @@ import { useServicioContext } from "@/context/Servicio";
 import { useCitasContext } from "@/context/Citas";
 import { toast } from "sonner";
 import { crearCita } from "@/services/Citas";
-import { INITIAL_FORM_CITA } from "@/constants/Citas";
+import { INITIAL_FORM_CITA, ObtenerFechaActualMasUno } from "@/constants/Citas";
 import { generateAllSlots, isSlotRangeAvailable, parseFechaToISO } from "@/utils/InputHora";
 import type { Appointment } from "@/types/Citas/types";
 import { validarCamposLlenos } from "@/utils/Validacion";
@@ -11,46 +11,15 @@ import { validarCamposLlenos } from "@/utils/Validacion";
 export function useCitas() {
 
     const { servicios } = useServicioContext();
-    const { refrescarNewCita } = useCitasContext();
-
-    function generarHoras(inicio: string, fin: string, intervaloMin: number): string[] {
-        const [hInicio, mInicio] = inicio.split(":").map(Number);
-        const [hFin, mFin] = fin.split(":").map(Number);
-
-        const resultado: string[] = [];
-
-        const fecha = new Date();
-        fecha.setHours(hInicio, mInicio, 0, 0);
-
-        const finFecha = new Date();
-        finFecha.setHours(hFin, mFin, 0, 0);
-
-        while (fecha <= finFecha) {
-            const hora = fecha.toTimeString().slice(0, 5);
-            resultado.push(hora);
-            fecha.setMinutes(fecha.getMinutes() + intervaloMin);
-        }
-
-        return resultado;
-    }
-
-
-    const horas = generarHoras("08:00", "18:00", 30);
+    const { citas, refrescarNewCita } = useCitasContext();
 
     const [FormCrearCita, setFormCrearCita] = useState(INITIAL_FORM_CITA);
 
     useEffect(() => {
-        const today = new Date();
-        const tomorrow = new Date(today);
-        tomorrow.setDate(today.getDate() + 1);
+        setFormCrearCita(prev => ({ ...prev, fecha: ObtenerFechaActualMasUno(), servicio: servicios[0]?.titulo }));
+    }, [citas]);
 
-        const fechaFormateada = tomorrow.toLocaleDateString("mx-MX", {
-            timeZone: "America/Mexico_City"
-        });
-
-        setFormCrearCita(prev => ({ ...prev, fecha: fechaFormateada }));
-
-    }, [servicios]);
+    console.log(FormCrearCita)
 
     const handleChangeCrearCita = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
         setFormCrearCita({ ...FormCrearCita, [e.target.name]: e.target.value });
@@ -98,7 +67,6 @@ export function useCitas() {
     };
 
     return {
-        horas,
         FormCrearCita,
         handleChangeCrearCita,
         handleSubmitCrearCita,

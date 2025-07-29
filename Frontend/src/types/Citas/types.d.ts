@@ -25,9 +25,9 @@ export interface CitaProps {
     aceptada: boolean
 }
 
-export type CitaFormProps = Omit<CitaProps, "id" | "completada">;
+export type CitaFormProps = Omit<CitaProps, "id" | "completada" | "aceptada">;
 
-export type FormCrearCitaProps = Omit<CitaProps, "id" | "servicio" | "completada">;
+export type FormCrearCitaProps = Omit<CitaProps, "id" | "servicio" | "completada" | "aceptada">;
 
 
 export interface CitasCalendarioProps {
@@ -74,5 +74,5 @@ interface DatePickerProps {
     name: string;
     value: string;                    // "YYYY-MM-DD"
     onChange: (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => void;
-    minDate?: string;                 // opcional, p.ej. para bloquear fechas pasadas
+    minDate: string;                 // opcional, p.ej. para bloquear fechas pasadas
 }

@@ -11,7 +11,7 @@ import { useOpenWithTransition } from "@/hooks/general/useOpen";
 export function useCitasCalendario() {
 
     const [eventoSeleccionado, setEventoSeleccionado] = useState<CitasCalendarioProps | null>(null);
-    const { citas, refrescarCitasCompletar, refrescarCitasEliminar, refrescarCitasCrear, refrescarCitasAceptar } = useCitasContext();
+    const { citas, refrescarCitasCompletar, refrescarCitasEliminar, refrescarCitasAceptar } = useCitasContext();
 
     const { close, isOpen, toggle } = useOpenWithTransition();
 
@@ -52,7 +52,7 @@ export function useCitasCalendario() {
             if (fechaHoraCita < ahora) {
                 const { success, message, cita: citaCompletada } = await completarCita(cita.id);
                 if (success) {
-                    refrescarCitasCrear({ citaModificada: { id: citaCompletada.id, completada: citaCompletada.completada } });
+                    refrescarCitasCompletar(citas, citaCompletada.id || cita.id);
                     toast.success(message || "La cita se completó correctamente");
                 } else {
                     toast.error("Error al completar la cita");
@@ -91,9 +91,9 @@ export function useCitasCalendario() {
 
     const onCitaCompletada = async ({ id }: { id: UUID }) => {
 
-        const { success, message } = await completarCita(id);
+        const { success, message, cita } = await completarCita(id);
         if (success) {
-            refrescarCitasCompletar(citas, id);
+            refrescarCitasCompletar(citas, cita.id || id);
             close();
             toast.success(message || "La cita se completó correctamente");
             setEventoSeleccionado(null);
