@@ -88,4 +88,24 @@ export class CitasController {
             res.status(500).json({ success, message, cita: {} });
         }
     }
+
+
+    static async updateCitaAceptada(req: Request, res: Response) {
+        const resultDataIdAceptada = validarId(req.params as { id: UUID });
+
+        if (resultDataIdAceptada.error) {
+            res.status(400).json({ success: false, message: resultDataIdAceptada.error.message, cita: {} });
+            return;
+        }
+
+        const idCitaAceptada = resultDataIdAceptada.data.id as UUID;
+
+        const { success, message, cita } = await ModeloCita.updateCitaAceptada({ id: idCitaAceptada });
+
+        if (success) {
+            res.status(200).json({ success, message, cita });
+        } else {
+            res.status(500).json({ success, message, cita: {} });
+        }
+    }
 }

@@ -10,6 +10,7 @@ export interface CitaProps {
     fecha: string;
     hora: string;
     completado: boolean;
+    aceotada: boolean;
 }
 
 export interface CitaResponseProps extends RowDataPacket, CitaProps { }

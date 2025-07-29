@@ -1,4 +1,5 @@
 import { DESTINATARIO, REMITENTE } from "@/config";
+import { CitaProps } from "@/types/citas";
 import { ComentarioEnviarMensajeProps } from "@/types/comentario";
 
 export const MensajeCorreo = ({ nombre, ranking, email, servicio, mensaje }: ComentarioEnviarMensajeProps) => {
@@ -36,3 +37,57 @@ export const MensajeCorreo = ({ nombre, ranking, email, servicio, mensaje }: Com
     };
 
 }
+
+export const MensajeCorreoAceptarSolicitud = ({
+    nombre,
+    email,
+    comentarios,
+    telefono,
+    servicio,
+    fecha,
+    hora,
+}: CitaProps) => {
+    const fechaFormateada = new Date(`${fecha}T${hora}`).toLocaleString("es-MX", {
+        weekday: "long",
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+        hour: "2-digit",
+        minute: "2-digit",
+    });
+
+    return {
+        from: REMITENTE,
+        to: email,
+        subject: 'Confirmación de tu cita en Odontología LEHM',
+        text: `Hola ${nombre}, tu cita para el servicio de ${servicio} ha sido aceptada. Te esperamos el ${fechaFormateada}.`,
+        html: `
+      <div style="background-color: #021331; color: #ffffff; font-family: Arial, sans-serif; padding: 24px; border-radius: 12px; max-width: 600px; margin: auto;">
+        <h2 style="text-align: center; font-size: 22px; margin-bottom: 24px;">🎉 ¡Tu cita ha sido aceptada!</h2>
+
+        <p style="font-size: 16px; margin-bottom: 8px;">Hola <strong>${nombre}</strong>,</p>
+        <p style="font-size: 16px; margin-bottom: 16px;">
+          Te confirmamos que tu cita ha sido <strong>aceptada</strong> en <strong>Odontología LEHM</strong>. A continuación, te compartimos los detalles:
+        </p>
+
+        <div style="background-color: #00142f; padding: 16px; border-left: 4px solid #4da6ff; border-radius: 8px;">
+          <p><strong>🦷 Servicio:</strong> ${servicio}</p>
+          <p><strong>📅 Fecha y hora:</strong> ${fechaFormateada}</p>
+          <p><strong>📞 Teléfono:</strong> ${telefono}</p>
+          ${comentarios
+                ? `<p><strong>💬 Comentarios:</strong> ${comentarios}</p>`
+                : ""
+            }
+        </div>
+
+        <p style="margin-top: 24px; font-size: 15px;">
+          Si tienes alguna duda o necesitas reprogramar tu cita, no dudes en contactarnos respondiendo a este correo.
+        </p>
+
+        <p style="margin-top: 24px; text-align: center; font-size: 14px; color: #aaaaaa;">
+          © ${new Date().getFullYear()} Odontología LEHM · Todos los derechos reservados
+        </p>
+      </div>
+    `,
+    };
+};
