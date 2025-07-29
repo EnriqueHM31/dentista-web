@@ -12,11 +12,16 @@ export function useLogin() {
     async function handleLogin(e: React.FormEvent<HTMLFormElement>) {
 
         e.preventDefault();
-        const data = new FormData(e.currentTarget);
-        const { username, password } = Object.fromEntries(data);
+        const username = (e.currentTarget.username as HTMLInputElement).value;
+        const password = (e.currentTarget.password as HTMLInputElement).value;
+
+        if (username === "" || password === "") {
+            toast.error("Debes rellenar todos los campos");
+            return;
+        }
 
         try {
-            const { success, message } = await Login(username.toString(), password.toString());
+            const { success, message } = await Login({ username, password });
 
             if (!success) {
                 toast.error(message || "Error al iniciar sesión");

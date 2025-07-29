@@ -27,7 +27,7 @@ export function useTestimonio() {
 
     async function eliminarComentario({ id }: { id: UUID }) {
         try {
-            const { success, message } = await deleteComentario(id);
+            const { success, message } = await deleteComentario({ id });
 
             if (!success) {
                 toast.error(message || "No se pudo eliminar el comentario");

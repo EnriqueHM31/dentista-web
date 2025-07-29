@@ -117,7 +117,7 @@ export function useGetServicios({ handleClickDesactivarModal }: useGetServiciosP
                 return;
             }
 
-            const { success, message, servicio } = await deleteServicio(id);
+            const { success, message, servicio } = await deleteServicio({ id });
 
             if (success) {
                 toast.success("Servicio eliminado correctamente");

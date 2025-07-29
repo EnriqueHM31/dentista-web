@@ -132,7 +132,7 @@ export function useEspecialistas({ toggle, handleClickDesactivarModal }: PropsHo
         const newEspecialista = { ...especialistaCrear, servicio: servicioDisponible.id };
 
         try {
-            const { success, message, especialista: especialistaCreado } = await createEspecialista(newEspecialista);
+            const { success, message, especialista: especialistaCreado } = await createEspecialista({ newEspecialista });
 
             if (success) {
                 toast.success(message);
@@ -174,7 +174,7 @@ export function useEspecialistas({ toggle, handleClickDesactivarModal }: PropsHo
 
     async function editarEspecialista({ id, camposCambiados }: { id: UUID, camposCambiados: Partial<EspecialistaEditarProps> }) {
         try {
-            const { success, message, especialista } = await updateEspecialista(id, camposCambiados);
+            const { success, message, especialista } = await updateEspecialista({ id, camposCambiados });
 
             if (!success) throw new Error(message);
 
@@ -195,7 +195,7 @@ export function useEspecialistas({ toggle, handleClickDesactivarModal }: PropsHo
 
     async function eliminarEspecialista(especialista: EspecialistaProps) {
         try {
-            const { success, message } = await deleteEspecialista(especialista.id);
+            const { success, message } = await deleteEspecialista({ id: especialista.id });
             if (success) {
                 toast.success(message);
                 refrescarEspecialistasEliminar(especialista.id);

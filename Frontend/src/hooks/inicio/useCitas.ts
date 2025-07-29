@@ -55,7 +55,7 @@ export function useCitas() {
             hora: FormCrearCita.hora,
         }
 
-        const { success, message, cita } = await crearCita(dataCrearCita, idServicio);
+        const { success, message, cita } = await crearCita({ FormCrearCita: dataCrearCita, idServicio });
 
         if (success) {
             refrescarNewCita(cita);

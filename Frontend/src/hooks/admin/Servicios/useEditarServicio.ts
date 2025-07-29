@@ -46,12 +46,8 @@ export function useEditarServicio({ serviciosRef, formValues, handleClickDesacti
                     .filter(([, value]) => value !== undefined)
             ) as Partial<ServicioCrearProps>;
 
-            const { titulo, descripcion, img, duration } = data;
 
-            const { success, message, servicio } = await modificarServicio(
-                id,
-                { titulo, descripcion, img, duration }
-            );
+            const { success, message, servicio } = await modificarServicio({ id, data });
 
             if (success) {
                 toast.success("Cambios guardados correctamente");

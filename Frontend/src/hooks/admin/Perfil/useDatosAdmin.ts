@@ -24,7 +24,7 @@ export function useUpdateUsuario(cerrarMenu: () => void) {
     async function modificarUsuario(username: string, password: string) {
         try {
             const toastId = toast.loading("Cargando...");
-            const { success, message } = await updateUsuario(username, password);;
+            const { success, message } = await updateUsuario({ username, password });
 
             if (!success) {
                 toast.error(message, { id: toastId });

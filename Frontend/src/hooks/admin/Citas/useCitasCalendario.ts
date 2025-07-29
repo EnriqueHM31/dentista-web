@@ -46,7 +46,7 @@ export function useCitasCalendario() {
 
             // Solo completar si la fecha-hora ya pasó
             if (fechaHoraCita < ahora) {
-                const { success, message, cita: citaCompletada } = await completarCita(cita.id);
+                const { success, message, cita: citaCompletada } = await completarCita({ id: cita.id });
                 if (success) {
                     refrescarCitasCompletar(citas, citaCompletada.id || cita.id);
                     toast.success(message || "La cita se completó correctamente");
@@ -87,7 +87,7 @@ export function useCitasCalendario() {
 
     const onCitaCompletada = async ({ id }: { id: UUID }) => {
 
-        const { success, message, cita } = await completarCita(id);
+        const { success, message, cita } = await completarCita({ id });
         if (success) {
             refrescarCitasCompletar(citas, cita.id || id);
             close();

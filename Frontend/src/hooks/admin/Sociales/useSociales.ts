@@ -43,7 +43,7 @@ export function useSociales() {
             for (const cambio of cambiosSociales) {
                 const { id, referencia, nombre } = cambio;
 
-                const { success, message, redSocial } = await updateSocial(id, referencia);
+                const { success, message, redSocial } = await updateSocial({ id, referencia });
 
                 if (!success) {
                     toast.error(`Error al actualizar ${nombre}: ${message}`);

@@ -67,7 +67,7 @@ export function useEditarPregunta(handleClickDesactivarModal: () => void) {
         try {
             const { id, pregunta, respuesta } = preguntaSeleccionada;
 
-            const { success, message } = await updatePregunta(id, pregunta, respuesta);
+            const { success, message } = await updatePregunta({ id, pregunta, respuesta });
 
             if (!success) {
                 toast.error(message);
