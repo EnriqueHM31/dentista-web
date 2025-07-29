@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ObtenerFechaActualMasUno } from "@/constants/Citas";
+import { ObtenerFechaActualMasUno } from "@/utils/Hora";
 import type { UseTiempoProps } from "@/types/Components/types";
 
 

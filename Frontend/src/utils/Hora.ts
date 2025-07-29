@@ -58,3 +58,13 @@ export function verificacionFechaHora({ hora, fecha }: { hora: string, fecha: st
 
     return fechaHoraCita;
 }
+
+export const ObtenerFechaActualMasUno = () => {
+    const date = new Date();
+    date.setDate(date.getDate() + 1);
+    const year = date.getFullYear();
+    const month = `${date.getMonth() + 1}`.padStart(2, "0");
+    const day = `${date.getDate()}`.padStart(2, "0");
+    return `${year}-${month}-${day}`; // ✅ "yyyy-MM-dd"
+};
+
