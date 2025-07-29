@@ -15,7 +15,7 @@ export async function getCitas() {
     }
 }
 
-export async function crearCita(FormCrearCita: FormCrearCitaProps, idServicio: UUID) {
+export async function crearCita({ FormCrearCita, idServicio }: { FormCrearCita: FormCrearCitaProps, idServicio: UUID }) {
     const response = await fetch(`${VITE_API_URL}/citas`, {
         method: "POST",
         headers: {
@@ -40,7 +40,7 @@ export async function crearCita(FormCrearCita: FormCrearCitaProps, idServicio: U
     }
 }
 
-export async function completarCita(id: UUID) {
+export async function completarCita({ id }: { id: UUID }) {
     const response = await fetch(`${VITE_API_URL}/citas/${id}`, {
         method: "PATCH",
         credentials: "include",

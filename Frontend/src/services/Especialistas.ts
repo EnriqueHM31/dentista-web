@@ -17,7 +17,7 @@ export async function getEspecialistas() {
     }
 }
 
-export async function createEspecialista(newEspecialista: FormCrearEspecialistaProps) {
+export async function createEspecialista({ newEspecialista }: { newEspecialista: FormCrearEspecialistaProps }) {
     const response = await fetch(`${VITE_API_URL}/especialistas`, {
         method: "POST",
         headers: {
@@ -33,7 +33,7 @@ export async function createEspecialista(newEspecialista: FormCrearEspecialistaP
     }
 }
 
-export async function updateEspecialista(id: UUID, camposCambiados: Partial<EspecialistaProps>) {
+export async function updateEspecialista({ id, camposCambiados }: { id: UUID, camposCambiados: Partial<EspecialistaProps> }) {
     const response = await fetch(`${VITE_API_URL}/especialistas/${id}`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
@@ -48,7 +48,7 @@ export async function updateEspecialista(id: UUID, camposCambiados: Partial<Espe
     }
 }
 
-export async function deleteEspecialista(id: UUID) {
+export async function deleteEspecialista({ id }: { id: UUID }) {
     const response = await fetch(`${VITE_API_URL}/especialistas/${id}`, {
         method: "DELETE",
         headers: {

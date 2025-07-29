@@ -51,7 +51,7 @@ export async function updateComentarioVisibilidad({ id, visible }: FormActualiza
 }
 
 
-export async function deleteComentario(id: UUID) {
+export async function deleteComentario({ id }: { id: UUID }) {
     const response = await fetch(`${VITE_API_URL}/comentarios/${id}`, {
         method: "DELETE",
         headers: {

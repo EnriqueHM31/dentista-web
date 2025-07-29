@@ -42,7 +42,7 @@ export const crearServicio = async ({ titulo, descripcion, img, duration }: { ti
     }
 }
 
-export const modificarServicio = async (id: UUID, data: Partial<ServicioProps>) => {
+export const modificarServicio = async ({ id, data }: { id: UUID, data: Partial<ServicioProps> }) => {
     const response = await fetch(`${VITE_API_URL}/servicios/${id}`, {
         method: "PUT",
         body: JSON.stringify(data),
@@ -60,7 +60,7 @@ export const modificarServicio = async (id: UUID, data: Partial<ServicioProps>) 
     }
 }
 
-export const deleteServicio = async (id: UUID) => {
+export const deleteServicio = async ({ id }: { id: UUID }) => {
     const response = await fetch(`${VITE_API_URL}/servicios/${id}`, {
         method: "DELETE",
         headers: {

@@ -14,7 +14,7 @@ export async function getUsuario() {
     }
 }
 
-export async function updateUsuario(username: string, password: string) {
+export async function updateUsuario({ username, password }: { username: string, password: string }) {
     const response = await fetch(`${VITE_API_URL}/usuario`, {
         method: "PUT",
         headers: {

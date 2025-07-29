@@ -15,7 +15,7 @@ export const getDataSociales = async () => {
     }
 }
 
-export const updateSocial = async (id: UUID, referencia: string) => {
+export const updateSocial = async ({ id, referencia }: { id: UUID, referencia: string }) => {
     const response = await fetch(`${VITE_API_URL}/sociales/${id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },

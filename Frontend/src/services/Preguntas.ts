@@ -14,7 +14,7 @@ export const getDataPreguntas = async () => {
     }
 }
 
-export const createPregunta = async (pregunta: string, respuesta: string) => {
+export const createPregunta = async ({ pregunta, respuesta }: { pregunta: string, respuesta: string }) => {
     const response = await fetch(`${VITE_API_URL}/preguntas`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -44,7 +44,7 @@ export const deletePregunta = async (id: UUID) => {
 }
 
 
-export const updatePregunta = async (id: UUID, pregunta: string, respuesta: string) => {
+export const updatePregunta = async ({ id, pregunta, respuesta }: { id: UUID, pregunta: string, respuesta: string }) => {
     const response = await fetch(`${VITE_API_URL}/preguntas/${id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
