@@ -7,9 +7,9 @@ import { SocialesProvider } from "@/provider/Sociales";
 export default function PublicPages() {
     return (
         <>
-            <Navegacion />
-            <Outlet />
             <SocialesProvider>
+                <Navegacion />
+                <Outlet />
                 <Footer />
             </SocialesProvider>
         </>

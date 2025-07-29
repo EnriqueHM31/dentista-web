@@ -3,9 +3,14 @@ import { FaPhone } from "react-icons/fa6";
 import { IoLogoLinkedin } from "react-icons/io5";
 import Tooltip from '@/components/General/Tooltip';
 import { useUtils } from "@/hooks/general/useUtils";
+import { useSocialesContext } from "@/context/Sociales";
 
 export default function SectionHero() {
     const { handleClickCopy } = useUtils();
+    const { sociales } = useSocialesContext();
+
+    const telefono = sociales.find(s => s.nombre === "Telefono")?.referencia;
+    const LinkedIn = sociales.find(s => s.nombre === "LinkedIn")?.referencia;
 
     return (
         <motion.section
@@ -47,7 +52,7 @@ export default function SectionHero() {
                     <Tooltip text="Copiar contacto" position="top">
                         <motion.button
                             className='flex items-center gap-4 transition-transform bg-white border border-primary duration-300 ease-in-out rounded-2xl px-4 py-3 shadow-xs shadow-primary relative w-full max-w-md cursor-pointer'
-                            onClick={() => handleClickCopy("2731266282", "El teléfono de emergencias dentales fue copiado")}
+                            onClick={() => handleClickCopy({ text: telefono || "", mensaje: "Contacto copiado al portapapeles" })}
                         >
                             <div className='p-2 rounded-2xl border border-primary size-10 flex gap-2'>
                                 <FaPhone className="text-xl text-primary" />
@@ -73,20 +78,19 @@ export default function SectionHero() {
                     viewport={{ once: true, amount: 0.3 }}
                 >
                     <motion.a
-                        href="https://www.linkedin.com/in/samantha-edison-6b1b1b1b1b/"
+                        href={LinkedIn}
                         target="_blank"
                         rel="noopener noreferrer"
                         className='flex flex-col gap-4 p-4 rounded-2xl shadow-md transition-all duration-500 ease-in hover:shadow-gray-900 relative max-w-md w-full bg-white'
                     >
                         <IoLogoLinkedin className='text-3xl text-primary absolute top-6 right-6' />
-                        <div className='flex items-center gap-4'>
-                            <img src="https://randomuser.me/api/portraits/thumb/women/70.jpg" alt="dentista" className="rounded-full w-full h-full max-w-10 object-contain" />
-                            <div>
-                                <h3 className='text-sm font-bold'>Samantha Edison</h3>
-                                <p className='text-xs'>Dental Specialist</p>
+                        <div className='flex md:items-start items-center gap-4'>
+                            <div className="">
+                                <h3 className='text-sm font-bold text-center md:text-start'>LEHM</h3>
+                                <p className='text-xs text-center md:text-start'>Especialista Dental</p>
                             </div>
                         </div>
-                        <p className='text-sm'>
+                        <p className='text-sm text-center md:text-start '>
                             Tratamientos dentales de alta calidad realizados por expertos en el área, altamente recomendados para todos
                         </p>
                     </motion.a>
