@@ -1,9 +1,6 @@
 import type { ModalEditarPreguntaProps } from "@/types/Preguntas/types";
 
-
-
 export default function ModalEditarPregunta({ preguntaSeleccionada, toggle, handleEditarCampoPregunta, handleEditarPregunta }: ModalEditarPreguntaProps) {
-
 
     return (
         <section className="bg-primary text-white rounded-lg shadow p-6 w-full max-w-full scrollbar-invisible">

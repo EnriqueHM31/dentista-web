@@ -27,7 +27,7 @@ export default function MenuLateral({ isOpen, toggleMenu, clases }: MenuNavegaci
                                 <Link
                                     to={link.path}
                                     onClick={toggleMenu}
-                                    className={`block py-2 text-lg transition duration-300 hover:text-primary ${location.pathname === link.path ? "font-bold" : ""
+                                    className={`block py-2 text-lg transition duration-300 ${hoverColor} ${location.pathname === link.path ? "font-bold italic" : ""
                                         }`}
                                 >
                                     {link.name}

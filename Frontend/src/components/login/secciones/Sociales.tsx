@@ -7,7 +7,6 @@ export default function Sociales() {
 
     const { SocialEdit, handleEditClick, handleChange, handleEditarRedSocial, editMode } = useSociales();
 
-
     return (
         <div className="max-w-2xl bg-white rounded-xl md:p-8 py-8 px-4 space-y-8 shadow ">
             <h2 className="text-2xl font-semibold text-primary text-center md:text-left">Redes Sociales y Contacto</h2>

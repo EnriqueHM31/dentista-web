@@ -13,6 +13,7 @@ import Comentarios from "./Secciones/Comentarios";
 import { useProtegerRutaPrivada } from "@/hooks/admin/Perfil/useProtegerRutaPrivada";
 import Especialistas from "./Secciones/Especialistas";
 import CitasProvider from "@/provider/Citas";
+import { DATA_STATUS_SELECTED } from "@/constants/Menu";
 
 
 export default function Dashboard() {
@@ -26,12 +27,12 @@ export default function Dashboard() {
             {/* Main content */}
             <main className="flex-1 py-16 max-w-11/12 md:max-w-full mx-auto w-full md:p-6 p-2 min-h-screen md:h-screen overflow-auto">
                 <div className="bg-white rounded shadow">
-                    {selected === "perfil" && <CitasProvider><Perfil />   </CitasProvider>}
-                    {selected === "servicios" && <ServicioProvider> <Servicios /> </ServicioProvider>}
-                    {selected === "share" && <SocialesProvider > <Sociales /> </SocialesProvider>}
-                    {selected === "faq" && <PreguntasProvider> <ListaPreguntas /> </PreguntasProvider>}
-                    {selected === "comentarios" && <ComentariosProvider> <Comentarios /> </ComentariosProvider>}
-                    {selected === "especialistas" &&
+                    {selected === DATA_STATUS_SELECTED.perfil && <CitasProvider><Perfil />   </CitasProvider>}
+                    {selected === DATA_STATUS_SELECTED.servicios && <ServicioProvider> <Servicios /> </ServicioProvider>}
+                    {selected === DATA_STATUS_SELECTED.share && <SocialesProvider > <Sociales /> </SocialesProvider>}
+                    {selected === DATA_STATUS_SELECTED.faq && <PreguntasProvider> <ListaPreguntas /> </PreguntasProvider>}
+                    {selected === DATA_STATUS_SELECTED.comentarios && <ComentariosProvider> <Comentarios /> </ComentariosProvider>}
+                    {selected === DATA_STATUS_SELECTED.especialistas &&
                         <EspecialistasProvider>
                             <ServicioProvider>
                                 <Especialistas />
