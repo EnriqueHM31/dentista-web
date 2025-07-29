@@ -1,9 +1,9 @@
-import { FaCalendarAlt, FaClock, FaEnvelope, FaPhoneAlt, FaUser, FaTooth } from "react-icons/fa";
-import { MdClose } from "react-icons/md";
 import type { ModalCitaProps } from "@/types/Modales/types";
 import type { UUID } from "@/types/types";
 import { formatearFechaConMes, formatearHora } from "@/utils/Hora";
+import { FaCalendarAlt, FaClock, FaEnvelope, FaPhoneAlt, FaTooth, FaUser } from "react-icons/fa";
 import { FiUserCheck } from "react-icons/fi";
+import { MdClose } from "react-icons/md";
 
 
 export default function ModalCita({ evento, onClose, onCitaCompletada, onCitaEliminada, onCitaAceptada }: ModalCitaProps) {

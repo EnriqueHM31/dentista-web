@@ -78,7 +78,7 @@ export class ModeloCita {
 
             if (!resultCitaModificada) throw new Error('No se encontró la cita o no se realizaron cambios');
 
-            const [dataCitaAceptada] = await db.query<CitaResponseProps[]>(`SELECT * FROM Citas WHERE id = ?`, [id]);
+            const [dataCitaAceptada] = await db.query<CitaResponseProps[]>(`SELECT C.id,C.nombre, C.email, C.telefono, S.titulo AS servicio, C.comentarios, C.fecha, C.hora, C.completada, C.aceptada FROM Citas C JOIN ServiciosDentales S ON C.servicio = S.id AND C.id = ?`, [id]);
 
             const citaAceptada = dataCitaAceptada[0];
             const mailOptions = MensajeCorreoAceptarSolicitud(citaAceptada)

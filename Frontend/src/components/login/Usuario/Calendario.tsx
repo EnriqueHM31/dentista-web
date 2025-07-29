@@ -1,11 +1,11 @@
-import FullCalendar from '@fullcalendar/react';
+import { useCitasCalendario } from '@/hooks/admin/Citas/useCitasCalendario';
+import "@/styles/Calendario.css";
+import esLocale from '@fullcalendar/core/locales/es';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
+import FullCalendar from '@fullcalendar/react';
 import timeGridPlugin from '@fullcalendar/timegrid';
-import esLocale from '@fullcalendar/core/locales/es';
-import "@/styles/Calendario.css";
 import ModalCita from './ModalCita';
-import { useCitasCalendario } from '@/hooks/admin/Citas/useCitasCalendario';
 
 
 export default function CalendarioCitas() {
