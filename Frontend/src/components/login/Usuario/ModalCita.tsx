@@ -13,15 +13,23 @@ export default function ModalCita({ evento, onClose, onCitaCompletada, onCitaEli
         extendedProps: { nombre, email, telefono, comentarios, servicio, fecha, hora, completada, aceptada },
     } = evento;
 
-    const InfoCita = completada && completada ? {
+
+
+    const STATUS_CITA = completada && completada ? {
         icon: FiUserCheck,
         title: "Cita Completada ✅",
+        boton_aceptar: false,
+        boton_completar: false,
     } : !completada && aceptada ? {
         icon: FiUserCheck,
         title: "Cita Aceptada ℹ️",
+        boton_aceptar: false,
+        boton_completar: true,
     } : {
         icon: FaClock,
         title: "Cita Pendiente ❌",
+        boton_aceptar: true,
+        boton_completar: false,
     }
 
     return (
@@ -61,7 +69,7 @@ export default function ModalCita({ evento, onClose, onCitaCompletada, onCitaEli
                     </p>
                     {
                         <p className="flex items-center gap-2">
-                            <InfoCita.icon className="text-primary text-xl" /> <strong>{InfoCita.title}</strong>
+                            <STATUS_CITA.icon className="text-primary text-xl" /> <strong>{STATUS_CITA.title}</strong>
                         </p>
                     }
                     <p className="mt-2">
@@ -71,24 +79,30 @@ export default function ModalCita({ evento, onClose, onCitaCompletada, onCitaEli
 
                 {/* Acciones */}
                 <div className="mt-6 flex justify-end gap-2">
-                    <button
-                        onClick={() => onCitaCompletada({ id: evento.id as UUID })}
-                        disabled={completada}
-                        className={`px-4 py-2 rounded cursor-pointer   text-white text-sm ${completada ? 'bg-green-700' : 'bg-green-600 hover:bg-green-700'}`}
-                    >
-                        {completada ? 'Cita completada' : 'Completar cita'}
-                    </button>
+                    {
+                        STATUS_CITA.boton_completar && (
+                            <button
+                                onClick={() => onCitaCompletada({ id: evento.id as UUID })}
+                                className="px-4 py-2 rounded cursor-pointer bg-green-700 hover:bg-green-800 text-white text-sm">
+                                Completar Cita
+                            </button>
+                        )
+                    }
                     <button
                         onClick={() => onCitaEliminada({ id: evento.id as UUID })}
                         className="px-4 py-2 rounded cursor-pointer bg-red-500 hover:bg-red-800 text-white text-sm"
                     >
                         Eliminar cita
                     </button>
-                    <button
-                        onClick={() => onCitaAceptada({ id: evento.id as UUID })}
-                        className="px-4 py-2 rounded cursor-pointer bg-primary hover:bg-blue-800 text-white text-sm">
-                        Aceptar Cita
-                    </button>
+                    {
+                        STATUS_CITA.boton_aceptar && (
+                            <button
+                                onClick={() => onCitaAceptada({ id: evento.id as UUID })}
+                                className="px-4 py-2 rounded cursor-pointer bg-primary hover:bg-blue-800 text-white text-sm">
+                                Aceptar Cita
+                            </button>
+                        )
+                    }
                 </div>
             </div>
         </div>
