@@ -4,7 +4,7 @@ import type { UUID } from "../types";
 export interface CitasContextType {
     citas: CitaProps[];
     setCitas: Dispatch<SetStateAction<CitaProps[]>>;
-    refrescarCitasCrear: (newCitas: CitaProps[]) => void;
+    refrescarCitasCrear: ({ citaModificada }: { citaModificada: { id: UUID, completada: boolean } }) => void;
     refrescarCitasEliminar: (id: UUID) => void;
     refrescarCitasCompletar: (citas: CitaProps[], id: UUID) => void;
     refrescarNewCita: (cita: CitaProps) => void;

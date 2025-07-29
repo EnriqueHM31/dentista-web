@@ -15,9 +15,9 @@ export default function CitasProvider({ children }: { children: React.ReactNode 
         fetchCitas();
     }, []);
 
-    const refrescarCitasCrear = (citas: CitaProps[]) => {
+    const refrescarCitasCrear = ({ citaModificada }: { citaModificada: { id: UUID, completada: boolean } }) => {
         const nuevasCitas = citas.map((cita) =>
-            cita.id === cita.id ? { ...cita, completada: true } : cita
+            cita.id === citaModificada.id ? { ...cita, completada: citaModificada.completada } : cita
         );
         setCitas(nuevasCitas);
     }

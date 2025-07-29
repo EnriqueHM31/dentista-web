@@ -49,9 +49,9 @@ export function useCitasCalendario() {
 
             // Solo completar si la fecha-hora ya pasó
             if (fechaHoraCita < ahora) {
-                const { success, message } = await completarCita(cita.id);
+                const { success, message, cita: citaCompletada } = await completarCita(cita.id);
                 if (success) {
-                    refrescarCitasCrear(citas);
+                    refrescarCitasCrear({ citaModificada: { id: citaCompletada.id, completada: citaCompletada.completada } });
                     toast.success(message || "La cita se completó correctamente");
                 } else {
                     toast.error("Error al completar la cita");
