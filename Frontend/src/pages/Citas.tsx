@@ -1,6 +1,6 @@
 import { DatePicker } from "@/components/General/DatePick";
 import AnimatedSelect from "@/components/General/Select";
-import { TimePicker } from "@/components/General/TimePick";
+import CustomTimePickerePicker from "@/components/General/TimePick";
 import { useServicioContext } from "@/context/Servicio";
 import { useCitas } from "@/hooks/inicio/useCitas";
 import { useTiempo } from "@/hooks/admin/Citas/useTiempo";
@@ -39,7 +39,7 @@ export default function Citas() {
                                 value={FormCrearCita.nombre}
                                 onChange={handleChangeCrearCita}
                                 placeholder="Juan Pérez"
-                                className="mt-1 px-4 py-2 border border-primary rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
+                                className="mt-1 px-4 py-2 border border-primary rounded focus:outline-none focus:ring-2 focus:ring-primary"
                             />
                         </div>
 
@@ -55,7 +55,7 @@ export default function Citas() {
                                 onChange={handleChangeCrearCita}
                                 required
                                 placeholder="juan@example.com"
-                                className="mt-1 px-4 py-2 border border-primary rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
+                                className="mt-1 px-4 py-2 border border-primary rounded focus:outline-none focus:ring-2 focus:ring-primary"
                             />
                         </div>
 
@@ -71,7 +71,7 @@ export default function Citas() {
                                 value={FormCrearCita.telefono}
                                 onChange={handleChangeCrearCita}
                                 pattern="[0-9]{10}"
-                                className="mt-1 px-4 py-2 border border-primary rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
+                                className="mt-1 px-4 py-2 border border-primary rounded focus:outline-none focus:ring-2 focus:ring-primary"
                             />
                         </div>
 
@@ -102,12 +102,13 @@ export default function Citas() {
                         {/* Hora de la cita */}
                         <div className="flex flex-col">
                             <label htmlFor="hora" className="text-sm text-gray-600">Hora de la cita</label>
-                            <TimePicker
+                            <CustomTimePickerePicker
                                 name="hora"
                                 date={fecha}
                                 appointments={allAppointments}
                                 value={hora}
                                 onChange={handleTimeChange}
+
                             />
                         </div>
 
@@ -120,7 +121,7 @@ export default function Citas() {
                                 value={FormCrearCita.comentarios}
                                 onChange={handleChangeCrearCita}
                                 placeholder="Ej. Tengo molestias en una muela..."
-                                className="mt-1 px-4 py-2 border border-primary rounded-md resize-none h-24 focus:outline-none focus:ring-2 focus:ring-primary"
+                                className="mt-1 px-4 py-2 border border-primary rounded resize-none h-24 focus:outline-none focus:ring-2 focus:ring-primary"
                             ></textarea>
                         </div>
 
@@ -128,7 +129,7 @@ export default function Citas() {
                         <div className="md:col-span-2 flex justify-end">
                             <button
                                 type="submit"
-                                className="bg-blue-600 cursor-pointer hover:bg-blue-800 text-white px-6 py-2 rounded-md transition-all"
+                                className="bg-blue-600 cursor-pointer hover:bg-blue-800 text-white px-6 py-2 rounded transition-all"
                             >
                                 Agendar cita
                             </button>
