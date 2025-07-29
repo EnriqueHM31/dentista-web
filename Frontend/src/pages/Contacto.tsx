@@ -7,18 +7,16 @@ import { FaUser } from "react-icons/fa";
 import { FaMessage } from "react-icons/fa6";
 import IMAGENCONTACTO from "@/assets/img/contacto.png";
 import { useUtils } from "@/hooks/general/useUtils";
-import { toast } from "sonner";
 import { useSocialesContext } from "@/context/Sociales";
 import StarRating from "@/components/Inicio/Comentarios/Ranking";
 import { useServicioContext } from "@/context/Servicio";
-import { createComentario } from "@/services/Comentarios";
+import { useCorreo } from "@/hooks/Contacto/useCorreo";
 
 const MAS_CONTACTOS = [
     { icono: <CgPhone className="text-2xl " />, label: "Telefono" },
     { icono: <MdEmail className="text-2xl" />, label: "Correo" },
     { icono: <FaMapMarkerAlt className="text-2xl " />, label: "Direccion" },
 ]
-
 
 export default function Contacto() {
 
@@ -28,25 +26,7 @@ export default function Contacto() {
 
     const formData = sociales.filter(({ nombre }) => MAS_CONTACTOS.some(({ label }) => label === nombre));
 
-    const handleSubmitCorreo = async (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-        const data = new FormData(e.currentTarget);
-        const form = Object.fromEntries(data) as Record<string, string>;
-
-        const { username, email, categoria, message: comentario, experiencia } = form;
-
-        try {
-            const { success, message } = await createComentario({ nombre: username, email, mensaje: comentario, ranking: parseInt(experiencia), servicio: categoria })
-
-            if (!success) {
-                toast.error(message);
-            }
-
-            toast.success(message || "Mensaje enviado exitosamente");
-        } catch {
-            toast.error("Error al enviar mensaje");
-        }
-    }
+    const { handleSubmitCorreo } = useCorreo();
 
 
     return (
