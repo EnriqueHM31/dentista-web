@@ -6,8 +6,12 @@ export async function getCitas() {
     const response = await fetch(`${import.meta.env.VITE_API_URL}/citas`, {
         credentials: "include",
     });
-    const { citas } = await response.json();
-    return citas;
+    if (response.ok) {
+        return await response.json();
+
+    } else {
+        return { success: false, message: "Error al obtener las citas", citas: [] };
+    }
 }
 
 export async function crearCita(FormCrearCita: FormCrearCitaProps, idServicio: UUID) {
