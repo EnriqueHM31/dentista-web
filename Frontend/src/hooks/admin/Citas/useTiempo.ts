@@ -54,9 +54,9 @@ export function useTiempo({ FormCrearCita, handleChangeCrearCita }: UseTiempoPro
         handleChangeCrearCita(e);
     }
 
-    const handleTimeChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    const handleTimeChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement> | { target: { value: string; name: string } }) => {
         setHora(e.target.value);
-        handleChangeCrearCita(e);
+        handleChangeCrearCita(e as React.ChangeEvent<HTMLInputElement | HTMLSelectElement>);
     }
 
     return {
