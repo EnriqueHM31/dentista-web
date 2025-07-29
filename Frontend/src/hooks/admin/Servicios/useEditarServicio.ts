@@ -5,7 +5,7 @@ import { modificarServicio } from "@/services/Servicios";
 import { useServicioContext } from "@/context/Servicio";
 import { mostrarToastConfirmacion } from "@/components/General/ToastConfirmacion";
 import type { UUID } from "@/types/types";
-import { verificarCambiosServicio } from "@/constants/Servicios";
+import { verificarCambiosServicio } from "@/utils/Cambios";
 import { KEY_SERVICIOS } from "@/constants/Servicios";
 
 export function useEditarServicio({ serviciosRef, formValues, handleClickDesactivarModal }: useEditarServicioProps) {

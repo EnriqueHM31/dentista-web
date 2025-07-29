@@ -20,3 +20,4 @@ export const INITIAL_ESPECIALISTA_CREAR: InitialEspecialistaProps = {
     linkedin: "",
     avatar: "",
 }
+

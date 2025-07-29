@@ -5,7 +5,7 @@ import { toast } from "sonner";
 import type { SocialEditarProps } from "@/types/Sociales/types";
 import { useSocialesContext } from "@/context/Sociales";
 import type { UUID } from "@/types/types";
-import { ExistenModificacionesSociales } from "@/constants/Sociales";
+import { ExistenModificacionesSociales } from "@/utils/Cambios";
 
 
 export function useSociales() {

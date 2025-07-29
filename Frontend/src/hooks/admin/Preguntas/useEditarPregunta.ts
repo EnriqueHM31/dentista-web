@@ -4,7 +4,7 @@ import { updatePregunta } from "@/services/Preguntas";
 import type { PreguntaProps } from "@/types/Preguntas/types";
 import { useRef, useState } from "react";
 import { toast } from "sonner";
-import { sonPreguntasIguales } from "@/constants/Preguntas";
+import { sonPreguntasIguales } from "@/utils/Cambios";
 
 export function useEditarPregunta(handleClickDesactivarModal: () => void) {
     const { refrescarPreguntasEditar } = usePreguntasContext();

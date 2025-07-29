@@ -28,15 +28,3 @@ export const OPCIONES_EDITAR_SERVICIO = [
     { label: "Imagen", value: "img" },
     { label: "Duración", value: "duration" },
 ];
-
-
-export function verificarCambiosServicio({ serviciosRef, formValues, id }: { serviciosRef: React.MutableRefObject<ServicioProps[]>, formValues: Partial<ServicioProps>, id: UUID }) {
-    return (Object.keys(formValues) as (keyof ServicioProps)[]).filter((key) => {
-        if (key === "id") return false;
-
-        const nuevoValor = formValues[key];
-        const original = serviciosRef.current.find((s) => s.id === id)?.[key];
-
-        return nuevoValor !== original;
-    });
-}
