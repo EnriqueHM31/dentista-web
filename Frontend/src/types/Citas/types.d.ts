@@ -44,3 +44,32 @@ export interface CitasCalendarioProps {
         completada: boolean;
     };
 }
+
+
+export interface Appointment {
+    id: string;
+    fecha: string; // formato ISO: "YYYY-MM-DDTHH:mm:ss.sssZ"
+    hora: string;  // formato "HH:mm:ss" o "HH:mm"
+    duration: number; // minutos
+}
+
+interface TimeSlot {
+    time: string;
+    available: boolean;
+}
+
+
+interface TimePickerProps {
+    name: string;
+    date: string; // formato "YYYY-MM-DD"
+    appointments: Appointment[];
+    value: string;
+    onChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
+}
+
+interface DatePickerProps {
+    name: string;
+    value: string;                    // "YYYY-MM-DD"
+    onChange: (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => void;
+    minDate?: string;                 // opcional, p.ej. para bloquear fechas pasadas
+}
