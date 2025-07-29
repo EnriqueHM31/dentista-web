@@ -44,6 +44,7 @@ export interface CitasCalendarioProps {
         fecha: string;
         hora: string;
         completada: boolean;
+        aceptada: boolean;
     };
 }
 

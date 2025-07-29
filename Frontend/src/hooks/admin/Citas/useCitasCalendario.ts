@@ -14,13 +14,16 @@ export function useCitasCalendario() {
     const { citas, refrescarCitasCompletar, refrescarCitasEliminar, refrescarCitasCrear, refrescarCitasAceptar } = useCitasContext();
 
 
+
+
     const citasFormateadas: CitasCalendarioProps[] = citas.map((cita) => {
         console.log(formatearHora(cita.hora));
+        const styleEvento = cita.completada ? "#22c55e" : cita.aceptada ? "#f0f" : "#f00";
         return {
             id: cita.id,
             title: `${cita.nombre} - ${cita.servicio}`,
             start: `${cita.fecha.substring(0, 10)}T${formatearHora(cita.hora)}`,
-            backgroundColor: cita.completada ? "#22c55e" : "#3B82F6",
+            backgroundColor: styleEvento,
             extendedProps: {
                 nombre: cita.nombre,
                 telefono: cita.telefono,
@@ -30,6 +33,7 @@ export function useCitasCalendario() {
                 fecha: cita.fecha,
                 hora: cita.hora,
                 completada: cita.completada,
+                aceptada: cita.aceptada,
             },
         };
     });
@@ -73,6 +77,7 @@ export function useCitasCalendario() {
                 fecha: extendedProps.fecha,
                 hora: extendedProps.hora,
                 completada: extendedProps.completada,
+                aceptada: extendedProps.aceptada,
             },
         });
 

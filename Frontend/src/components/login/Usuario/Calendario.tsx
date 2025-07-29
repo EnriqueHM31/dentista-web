@@ -9,7 +9,7 @@ import { useCitasCalendario } from '@/hooks/admin/Citas/useCitasCalendario';
 
 
 export default function CalendarioCitas() {
-    const { citasFormateadas, modalOpen, eventoSeleccionado, handleEventClick, onClose, onCitaCompletada, onCitaEliminada } = useCitasCalendario();
+    const { citasFormateadas, modalOpen, eventoSeleccionado, handleEventClick, onClose, onCitaCompletada, onCitaEliminada, onCitaAceptada } = useCitasCalendario();
 
     return (
         <>
@@ -39,6 +39,7 @@ export default function CalendarioCitas() {
                     onClose={onClose}
                     onCitaCompletada={onCitaCompletada}
                     onCitaEliminada={onCitaEliminada}
+                    onCitaAceptada={onCitaAceptada}
                 />
             )}
         </>

@@ -1,16 +1,28 @@
-import { FaCalendarAlt, FaClock, FaEnvelope, FaPhoneAlt, FaUser, FaTooth, FaCheckCircle } from "react-icons/fa";
+import { FaCalendarAlt, FaClock, FaEnvelope, FaPhoneAlt, FaUser, FaTooth } from "react-icons/fa";
 import { MdClose } from "react-icons/md";
 import type { ModalCitaProps } from "@/types/Modales/types";
 import type { UUID } from "@/types/types";
 import { formatearFechaConMes, formatearHora } from "@/utils/Hora";
+import { FiUserCheck } from "react-icons/fi";
 
 
-export default function ModalCita({ evento, onClose, onCitaCompletada, onCitaEliminada }: ModalCitaProps) {
+export default function ModalCita({ evento, onClose, onCitaCompletada, onCitaEliminada, onCitaAceptada }: ModalCitaProps) {
     if (!evento) return null;
 
     const {
-        extendedProps: { nombre, email, telefono, comentarios, servicio, fecha, hora, completada },
+        extendedProps: { nombre, email, telefono, comentarios, servicio, fecha, hora, completada, aceptada },
     } = evento;
+
+    const InfoCita = completada && completada ? {
+        icon: FiUserCheck,
+        title: "Cita Completada ✅",
+    } : !completada && aceptada ? {
+        icon: FiUserCheck,
+        title: "Cita Aceptada ℹ️",
+    } : {
+        icon: FaClock,
+        title: "Cita Pendiente ❌",
+    }
 
     return (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
@@ -29,36 +41,32 @@ export default function ModalCita({ evento, onClose, onCitaCompletada, onCitaEli
                 {/* Información */}
                 <div className="space-y-2 text-gray-700 text-sm">
                     <p className="flex items-center gap-2">
-                        <FaUser className="text-primary" /> <strong>Paciente:</strong> {nombre}
+                        <FaUser className="text-primary text-xl" /> <strong>Paciente:</strong> {nombre}
                     </p>
                     <p className="flex items-center gap-2">
-                        <FaEnvelope className="text-primary" /> <strong>Email:</strong> {email}
+                        <FaEnvelope className="text-primary text-xl" /> <strong>Email:</strong> {email}
                     </p>
                     <p className="flex items-center gap-2">
-                        <FaPhoneAlt className="text-primary" /> <strong>Teléfono:</strong> {telefono}
+                        <FaPhoneAlt className="text-primary text-xl" /> <strong>Teléfono:</strong> {telefono}
                     </p>
                     <p className="flex items-center gap-2">
-                        <FaTooth className="text-primary" /> <strong>Servicio:</strong> {servicio}
+                        <FaTooth className="text-primary text-xl" /> <strong>Servicio:</strong> {servicio}
                     </p>
                     <p className="flex items-center gap-2">
-                        <FaCalendarAlt className="text-primary" /> <strong>Fecha:</strong>{" "}
+                        <FaCalendarAlt className="text-primary text-xl" /> <strong>Fecha:</strong>{" "}
                         {formatearFechaConMes(new Date(fecha).toLocaleDateString())}
                     </p>
                     <p className="flex items-center gap-2">
-                        <FaClock className="text-primary" /> <strong>Hora:</strong> {formatearHora(hora)}
+                        <FaClock className="text-primary text-xl" /> <strong>Hora:</strong> {formatearHora(hora)}
                     </p>
-                    {completada ? (
+                    {
                         <p className="flex items-center gap-2">
-                            <FaCheckCircle className="text-primary" /> <strong>Cita completada ✅</strong>
+                            <InfoCita.icon className="text-primary text-xl" /> <strong>{InfoCita.title}</strong>
                         </p>
-                    ) : (
-                        <p className="flex items-center gap-2">
-                            <FaClock className="text-primary" /> <strong>Cita Pendiente ❌</strong>
-                        </p>
-                    )}
+                    }
                     <p className="mt-2">
                         <strong>Comentarios:</strong> <br /> {comentarios}
-                    </p>
+                    </p >
                 </div>
 
                 {/* Acciones */}
@@ -76,7 +84,9 @@ export default function ModalCita({ evento, onClose, onCitaCompletada, onCitaEli
                     >
                         Eliminar cita
                     </button>
-                    <button className="px-4 py-2 rounded cursor-pointer bg-primary hover:bg-blue-800 text-white text-sm">
+                    <button
+                        onClick={() => onCitaAceptada({ id: evento.id as UUID })}
+                        className="px-4 py-2 rounded cursor-pointer bg-primary hover:bg-blue-800 text-white text-sm">
                         Aceptar Cita
                     </button>
                 </div>

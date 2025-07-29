@@ -23,9 +23,11 @@ export interface ModalCitaProps {
             fecha: string;
             hora: string;
             completada: boolean;
+            aceptada: boolean;
         };
     } | null;
     onClose: () => void;
     onCitaCompletada: ({ id }: { id: UUID }) => void;
     onCitaEliminada: ({ id }: { id: UUID }) => void;
+    onCitaAceptada: ({ id }: { id: UUID }) => void;
 }

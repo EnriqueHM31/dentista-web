@@ -1,9 +1,10 @@
 import { toast } from "sonner";
 import type { FormCrearCitaProps } from "@/types/Citas/types";
 import type { UUID } from "@/types/types";
+import { VITE_API_URL } from "@/config";
 
 export async function getCitas() {
-    const response = await fetch(`${import.meta.env.VITE_API_URL}/citas`, {
+    const response = await fetch(`${VITE_API_URL}/citas`, {
         credentials: "include",
     });
     if (response.ok) {
@@ -15,7 +16,7 @@ export async function getCitas() {
 }
 
 export async function crearCita(FormCrearCita: FormCrearCitaProps, idServicio: UUID) {
-    const response = await fetch(`${import.meta.env.VITE_API_URL}/citas`, {
+    const response = await fetch(`${VITE_API_URL}/citas`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -40,7 +41,7 @@ export async function crearCita(FormCrearCita: FormCrearCitaProps, idServicio: U
 }
 
 export async function completarCita(id: UUID) {
-    const response = await fetch(`${import.meta.env.VITE_API_URL}/citas/${id}`, {
+    const response = await fetch(`${VITE_API_URL}/citas/${id}`, {
         method: "PATCH",
         credentials: "include",
         headers: {
@@ -58,7 +59,7 @@ export async function completarCita(id: UUID) {
 
 
 export async function eliminarCita(id: UUID) {
-    const response = await fetch(`${import.meta.env.VITE_API_URL}/citas/${id}`, {
+    const response = await fetch(`${VITE_API_URL}/citas/${id}`, {
         method: "DELETE",
         credentials: "include",
     });
@@ -71,13 +72,13 @@ export async function eliminarCita(id: UUID) {
 }
 
 export async function aceptarCita(id: UUID) {
-    const response = await fetch(`${import.meta.env.VITE_API_URL}/citas/${id}/aceptar`, {
+    const response = await fetch(`${VITE_API_URL}/citas/${id}/aceptar`, {
         method: "PATCH",
-        credentials: "include",
         headers: {
             "Content-Type": "application/json",
         },
         body: JSON.stringify({ aceptada: true }),
+        credentials: "include",
     });
 
     if (response.ok) {
