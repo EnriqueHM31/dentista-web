@@ -2,7 +2,7 @@ import { useCitasContext } from "@/context/Citas";
 import { useEffect, useState } from "react";
 import type { EventClickArg } from '@fullcalendar/core';
 import { toast } from "sonner";
-import { completarCita, eliminarCita } from "@/services/Citas";
+import { aceptarCita, completarCita, eliminarCita } from "@/services/Citas";
 import type { CitasCalendarioProps } from "@/types/Citas/types";
 import type { UUID } from "@/types/types";
 import { formatearHora, verificacionFechaHora } from "@/utils/Hora";
@@ -11,7 +11,7 @@ export function useCitasCalendario() {
 
     const [modalOpen, setModalOpen] = useState(false);
     const [eventoSeleccionado, setEventoSeleccionado] = useState<CitasCalendarioProps | null>(null);
-    const { citas, refrescarCitasCompletar, refrescarCitasEliminar, refrescarCitasCrear } = useCitasContext();
+    const { citas, refrescarCitasCompletar, refrescarCitasEliminar, refrescarCitasCrear, refrescarCitasAceptar } = useCitasContext();
 
 
     const citasFormateadas: CitasCalendarioProps[] = citas.map((cita) => {
@@ -111,6 +111,16 @@ export function useCitasCalendario() {
         }
     };
 
+
+    const onCitaAceptada = async ({ id }: { id: UUID }) => {
+        const { success, message, cita } = await aceptarCita(id);
+        if (success) {
+            refrescarCitasAceptar({ id: cita.id });
+            setModalOpen(false);
+            toast.success(message);
+        }
+    }
+
     return {
         citasFormateadas,
         modalOpen,
@@ -119,5 +129,6 @@ export function useCitasCalendario() {
         onClose,
         onCitaCompletada,
         onCitaEliminada,
+        onCitaAceptada
     };
 }

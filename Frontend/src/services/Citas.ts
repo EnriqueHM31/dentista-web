@@ -69,3 +69,20 @@ export async function eliminarCita(id: UUID) {
         toast.error("Error al eliminar la cita");
     }
 }
+
+export async function aceptarCita(id: UUID) {
+    const response = await fetch(`${import.meta.env.VITE_API_URL}/citas/${id}/aceptar`, {
+        method: "PATCH",
+        credentials: "include",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ aceptada: true }),
+    });
+
+    if (response.ok) {
+        return await response.json();
+    } else {
+        toast.error("Error al aceptar la cita");
+    }
+}

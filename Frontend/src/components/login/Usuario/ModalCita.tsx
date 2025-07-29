@@ -14,7 +14,7 @@ export default function ModalCita({ evento, onClose, onCitaCompletada, onCitaEli
 
     return (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-            <div className="bg-white rounded-2xl shadow-xl max-w-md w-full p-6 relative">
+            <div className="bg-white rounded-2xl shadow-xl max-w-2xl w-full p-6 relative">
                 {/* Botón cerrar */}
                 <button
                     onClick={onClose}
@@ -66,7 +66,7 @@ export default function ModalCita({ evento, onClose, onCitaCompletada, onCitaEli
                     <button
                         onClick={() => onCitaCompletada({ id: evento.id as UUID })}
                         disabled={completada}
-                        className={`px-4 py-2 rounded cursor-pointer   text-white text-sm ${completada ? 'bg-green-700' : 'bg-primary hover:bg-blue-700'}`}
+                        className={`px-4 py-2 rounded cursor-pointer   text-white text-sm ${completada ? 'bg-green-700' : 'bg-green-600 hover:bg-green-700'}`}
                     >
                         {completada ? 'Cita completada' : 'Completar cita'}
                     </button>
@@ -75,6 +75,9 @@ export default function ModalCita({ evento, onClose, onCitaCompletada, onCitaEli
                         className="px-4 py-2 rounded cursor-pointer bg-red-500 hover:bg-red-800 text-white text-sm"
                     >
                         Eliminar cita
+                    </button>
+                    <button className="px-4 py-2 rounded cursor-pointer bg-primary hover:bg-blue-800 text-white text-sm">
+                        Aceptar Cita
                     </button>
                 </div>
             </div>

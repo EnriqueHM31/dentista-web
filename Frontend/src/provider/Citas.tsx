@@ -40,5 +40,9 @@ export default function CitasProvider({ children }: { children: React.ReactNode 
         setCitas(nuevasCitas);
     }
 
-    return <CitasContext.Provider value={{ citas, setCitas, refrescarCitasCrear, refrescarCitasEliminar, refrescarCitasCompletar, refrescarNewCita }}>{children}</CitasContext.Provider>;
+    const refrescarCitasAceptar = ({ id }: { id: UUID }) => {
+        setCitas(prev => prev.map(cita => cita.id === id ? { ...cita, aceptada: true } : cita));
+    }
+
+    return <CitasContext.Provider value={{ citas, setCitas, refrescarCitasCrear, refrescarCitasEliminar, refrescarCitasCompletar, refrescarNewCita, refrescarCitasAceptar }}>{children}</CitasContext.Provider>;
 }

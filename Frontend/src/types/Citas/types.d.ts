@@ -8,6 +8,7 @@ export interface CitasContextType {
     refrescarCitasEliminar: (id: UUID) => void;
     refrescarCitasCompletar: (citas: CitaProps[], id: UUID) => void;
     refrescarNewCita: (cita: CitaProps) => void;
+    refrescarCitasAceptar: ({ id }: { id: UUID }) => void;
 }
 
 
@@ -21,6 +22,7 @@ export interface CitaProps {
     fecha: string;
     hora: string
     completada: boolean
+    aceptada: boolean
 }
 
 export type CitaFormProps = Omit<CitaProps, "id" | "completada">;
