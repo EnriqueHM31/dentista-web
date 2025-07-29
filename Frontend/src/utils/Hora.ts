@@ -13,6 +13,9 @@ export const formatoHoraMinutoSingle = (minStr: string) => {
     const horas = Math.floor(minutosTotales / 60);
     const minutos = minutosTotales % 60;
 
+    if (minutos === 0) return `${horas}:00h`;
+    if (horas === 0) return `${minutos}:00m`;
+
     return `${horas > 0 ? `${horas}h ` : ""}${minutos > 0 ? `${minutos}m` : ""}`.trim();
 };
 
