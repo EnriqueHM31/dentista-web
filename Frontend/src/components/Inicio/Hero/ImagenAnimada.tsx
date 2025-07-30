@@ -1,5 +1,5 @@
-import { motion } from "framer-motion";
 import HERO from '@/assets/hero/hero.png';
+import { motion } from "framer-motion";
 
 
 export default function ImagenAnimada() {

@@ -1,15 +1,15 @@
 import { DatePicker } from "@/components/General/DatePick";
+import { FaInfo } from "react-icons/fa6";
+import { useCitas } from "@/hooks/inicio/useCitas";
+import { useCitasContext } from "@/context/Citas";
+import { useMemo } from "react";
+import { useModalIndependiente } from "@/hooks/general/useModalIndependiente";
+import { useServicioContext } from "@/context/Servicio";
+import { useTiempo } from "@/hooks/admin/Citas/useTiempo";
 import AnimatedSelect from "@/components/General/Select";
 import CustomTimePickerePicker from "@/components/General/TimePick";
-import { useServicioContext } from "@/context/Servicio";
-import { useCitas } from "@/hooks/inicio/useCitas";
-import { useTiempo } from "@/hooks/admin/Citas/useTiempo";
-import { FaInfo } from "react-icons/fa6";
-import { useModalIndependiente } from "@/hooks/general/useModalIndependiente";
 import Modal from "@/components/General/Modal";
 import ServicioInfo from "@/components/Contacto/InfoServicios";
-import { useMemo } from "react";
-import { useCitasContext } from "@/context/Citas";
 import type { Appointment } from "@/types/Citas/types";
 
 export default function Citas() {

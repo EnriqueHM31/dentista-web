@@ -1,11 +1,10 @@
-import { updateSocial } from "@/services/Sociales";
-import type { SocialesEditadasProps, SocialProps } from "@/types/Sociales/types";
-import { useEffect, useRef, useState } from "react";
-import { toast } from "sonner";
-import type { SocialEditarProps } from "@/types/Sociales/types";
 import { useSocialesContext } from "@/context/Sociales";
+import { updateSocial } from "@/services/Sociales";
+import type { SocialEditarProps, SocialesEditadasProps, SocialProps } from "@/types/Sociales/types";
 import type { UUID } from "@/types/types";
 import { ExistenModificacionesSociales } from "@/utils/Cambios";
+import { useEffect, useRef, useState } from "react";
+import { toast } from "sonner";
 
 
 export function useSociales() {

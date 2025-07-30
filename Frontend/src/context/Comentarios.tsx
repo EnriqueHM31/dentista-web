@@ -1,6 +1,6 @@
+import type { ComentariosContextTypeProps } from "@/types/Comentarios/types";
 import { createContext, useContext } from "react";
 import { } from "sonner";
-import type { ComentariosContextTypeProps } from "@/types/Comentarios/types";
 
 
 export const ComentariosContext = createContext<ComentariosContextTypeProps>({

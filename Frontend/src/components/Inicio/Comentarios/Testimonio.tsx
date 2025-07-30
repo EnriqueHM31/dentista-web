@@ -1,8 +1,8 @@
 import StartsTestimonials from "@/components/Inicio/Comentarios/StartsTestimonials.";
-import { FaTrash } from "react-icons/fa";
-import { FaCheck } from "react-icons/fa6";
 import { useTestimonio } from "@/hooks/admin/Comentarios/useTestimonio";
 import type { TestimonioProps } from "@/types/Comentarios/types";
+import { FaTrash } from "react-icons/fa";
+import { FaCheck } from "react-icons/fa6";
 
 
 export default function Testimonio({ comentario, onCheckToggle, movil = false, checked = false, comentarioModificado = false }: TestimonioProps) {

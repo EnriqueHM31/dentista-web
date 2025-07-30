@@ -1,7 +1,7 @@
-import { useState, useEffect, useRef } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { FaChevronDown } from "react-icons/fa";
 import type { SelectProps } from "@/types/Components/types";
+import { AnimatePresence, motion } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
+import { FaChevronDown } from "react-icons/fa";
 
 
 export default function AnimatedSelect({

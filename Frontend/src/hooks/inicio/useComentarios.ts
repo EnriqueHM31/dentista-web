@@ -1,5 +1,5 @@
-import { useState, useEffect } from "react";
 import type { ComentarioProps } from "@/types/Comentarios/types";
+import { useEffect, useState } from "react";
 
 export function useComentarios(comentariosVisibles: ComentarioProps[]) {
     const [page, setPage] = useState(0);

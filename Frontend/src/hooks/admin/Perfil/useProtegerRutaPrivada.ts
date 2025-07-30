@@ -1,7 +1,7 @@
-import { useLocation, useNavigate } from "react-router-dom";
-import { useEffect } from "react";
-import { toast } from "sonner";
 import { CheckLogin } from "@/services/Login";
+import { useEffect } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import { toast } from "sonner";
 
 export function useProtegerRutaPrivada() {
     const navigate = useNavigate();

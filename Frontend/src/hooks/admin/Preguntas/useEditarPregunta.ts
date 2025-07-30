@@ -2,9 +2,9 @@ import { mostrarToastConfirmacion } from "@/components/General/ToastConfirmacion
 import { usePreguntasContext } from "@/context/Preguntas";
 import { updatePregunta } from "@/services/Preguntas";
 import type { PreguntaProps } from "@/types/Preguntas/types";
+import { sonPreguntasIguales } from "@/utils/Cambios";
 import { useRef, useState } from "react";
 import { toast } from "sonner";
-import { sonPreguntasIguales } from "@/utils/Cambios";
 
 export function useEditarPregunta(handleClickDesactivarModal: () => void) {
     const { refrescarPreguntasEditar } = usePreguntasContext();

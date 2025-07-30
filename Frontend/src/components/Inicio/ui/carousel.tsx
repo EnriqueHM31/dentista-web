@@ -1,9 +1,8 @@
-import { useEffect, useRef } from "react";
-import { useId } from "react";
-import type { CarouselProps } from "@/types/Components/types";
-import Slide from "@/components/Inicio/Carusel/Slide";
 import CarouselControl from "@/components/Inicio/Carusel/CaruselControl";
+import Slide from "@/components/Inicio/Carusel/Slide";
 import { useCarrusel } from "@/hooks/general/useCarrusel";
+import type { CarouselProps } from "@/types/Components/types";
+import { useEffect, useId, useRef } from "react";
 
 
 export default function Carousel({ slides }: CarouselProps) {

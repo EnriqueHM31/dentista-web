@@ -1,5 +1,5 @@
-import { motion } from "framer-motion";
 import type { ModalServicioProps } from "@/types/Servicios/types";
+import { motion } from "framer-motion";
 
 export default function ModalServicio({ servicio }: ModalServicioProps) {
     return (

@@ -1,9 +1,9 @@
-import { toast } from "sonner";
-import { useState } from "react";
-import { deletePregunta } from "@/services/Preguntas";
-import { usePreguntasContext } from "@/context/Preguntas";
 import { mostrarToastConfirmacion } from "@/components/General/ToastConfirmacion";
+import { usePreguntasContext } from "@/context/Preguntas";
+import { deletePregunta } from "@/services/Preguntas";
 import type { UUID } from "@/types/types";
+import { useState } from "react";
+import { toast } from "sonner";
 
 
 export function usePreguntas() {

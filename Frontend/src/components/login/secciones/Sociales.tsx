@@ -1,6 +1,6 @@
-import { FaEdit, FaSave } from 'react-icons/fa';
 import { getIconosSociales } from "@/components/General/ObjetosIconos";
 import { useSociales } from '@/hooks/admin/Sociales/useSociales';
+import { FaEdit, FaSave } from 'react-icons/fa';
 
 
 export default function Sociales() {

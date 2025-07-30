@@ -1,5 +1,5 @@
-import { toast } from "sonner";
 import type { ToastConfirmacionOptions } from "@/types/Components/types";
+import { toast } from "sonner";
 
 export function mostrarToastConfirmacion({
     mensaje,

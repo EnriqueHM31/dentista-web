@@ -1,8 +1,8 @@
 import { CitasContext } from "@/context/Citas";
-import { useEffect, useState } from "react";
-import type { CitaProps } from "@/types/Citas/types";
 import { getCitas } from "@/services/Citas";
+import type { CitaProps } from "@/types/Citas/types";
 import type { UUID } from "@/types/types";
+import { useEffect, useState } from "react";
 
 export default function CitasProvider({ children }: { children: React.ReactNode }) {
     const [citas, setCitas] = useState<CitaProps[]>([]);

@@ -1,13 +1,13 @@
-import { useState } from "react";
-import { IoIosArrowDown } from "react-icons/io";
+import AnimatedSelect from "@/components/General/Select";
+import { MINUTOS_ARRAY } from "@/constants/generales";
+import { OPCIONES_EDITAR_SERVICIO } from "@/constants/Servicios";
 import { useEditarServicio } from "@/hooks/admin/Servicios/useEditarServicio";
 import type { ModalEditarServicioProps, ServicioProps } from "@/types/Servicios/types";
-import AnimatedSelect from "@/components/General/Select";
-import { formatoHoraMinutoArray, formatoHoraMinutoSingle } from "@/utils/Hora";
-import { MINUTOS_ARRAY } from "@/constants/generales";
-import { FaPencil } from "react-icons/fa6";
 import type { UUID } from "@/types/types";
-import { OPCIONES_EDITAR_SERVICIO } from "@/constants/Servicios";
+import { formatoHoraMinutoArray, formatoHoraMinutoSingle } from "@/utils/Hora";
+import { useState } from "react";
+import { FaPencil } from "react-icons/fa6";
+import { IoIosArrowDown } from "react-icons/io";
 
 
 export default function ModalEditarServicio({ serviciosRef, handleClickDesactivarModal, formValues, handleChange }: ModalEditarServicioProps) {

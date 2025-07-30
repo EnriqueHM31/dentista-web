@@ -1,9 +1,9 @@
+import Tooltip from '@/components/General/Tooltip';
+import { useSocialesContext } from "@/context/Sociales";
+import { useUtils } from "@/hooks/general/useUtils";
 import { motion } from "framer-motion";
 import { FaPhone } from "react-icons/fa6";
 import { IoLogoLinkedin } from "react-icons/io5";
-import Tooltip from '@/components/General/Tooltip';
-import { useUtils } from "@/hooks/general/useUtils";
-import { useSocialesContext } from "@/context/Sociales";
 
 export default function SectionHero() {
     const { handleClickCopy } = useUtils();

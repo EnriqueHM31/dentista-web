@@ -1,13 +1,19 @@
+import { AiOutlineUser } from "react-icons/ai";
+import { FaQuestionCircle } from "react-icons/fa";
+import { FaComment } from "react-icons/fa6";
 import { GrServices } from "react-icons/gr";
 import { IoShareSocialSharp } from "react-icons/io5";
-import { FaQuestionCircle } from "react-icons/fa";
-import { AiOutlineUser } from "react-icons/ai";
-import { RiLogoutCircleLine } from "react-icons/ri";
-import { FaComment } from "react-icons/fa6";
 import { PiUsersFourDuotone } from "react-icons/pi";
+import { RiLogoutCircleLine } from "react-icons/ri";
 
 import {
-    FaFacebook, FaLinkedin, FaInstagram, FaTwitter, FaPhone, FaEnvelope, FaMapMarkerAlt
+    FaEnvelope,
+    FaFacebook,
+    FaInstagram,
+    FaLinkedin,
+    FaMapMarkerAlt,
+    FaPhone,
+    FaTwitter
 } from 'react-icons/fa';
 
 export function getIconosAside() {

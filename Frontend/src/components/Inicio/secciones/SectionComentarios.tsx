@@ -1,10 +1,10 @@
-import { FaArrowLeft, FaArrowRight } from "react-icons/fa6";
-import { motion } from "framer-motion";
-import { useComentarios } from "@/hooks/inicio/useComentarios";
+import Tooltip from "@/components/General/Tooltip";
 import Testimonio from "@/components/Inicio/Comentarios/Testimonio";
 import TituloSeccion from "@/components/Inicio/ui/TituloSeccion";
-import Tooltip from "@/components/General/Tooltip";
 import { useComentariosContext } from "@/context/Comentarios";
+import { useComentarios } from "@/hooks/inicio/useComentarios";
+import { motion } from "framer-motion";
+import { FaArrowLeft, FaArrowRight } from "react-icons/fa6";
 
 export default function SectionComentarios() {
 

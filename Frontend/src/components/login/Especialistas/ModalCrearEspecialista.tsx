@@ -1,10 +1,14 @@
 import AnimatedSelect from "@/components/General/Select";
 import { useServicioContext } from "@/context/Servicio";
+import type { PropsModalCrearEspecialista } from "@/types/Especialistas/types";
 import { useEffect } from "react";
 import {
-    AiOutlineUser, AiOutlineMail, AiOutlinePhone, AiOutlineLink, AiOutlinePicture, AiOutlineTool, AiOutlineHome,
+    AiOutlineHome,
+    AiOutlineLink,
+    AiOutlineMail, AiOutlinePhone,
+    AiOutlinePicture, AiOutlineTool,
+    AiOutlineUser,
 } from "react-icons/ai";
-import type { PropsModalCrearEspecialista } from "@/types/Especialistas/types";
 
 
 export default function ModalCrearEspecialista({ handleClickDesactivarModal, handleCrearEspecialista, handleChangeCrearEspecialista }: PropsModalCrearEspecialista) {

@@ -1,7 +1,7 @@
-import { motion, AnimatePresence } from "framer-motion";
-import { Link, useLocation } from "react-router-dom";
-import { VARIANTES_MENU, LINKS_NAVEGACION } from "@/constants/generales";
+import { LINKS_NAVEGACION, VARIANTES_MENU } from "@/constants/generales";
 import type { MenuNavegacionProps } from "@/types/Menu/types";
+import { AnimatePresence, motion } from "framer-motion";
+import { Link, useLocation } from "react-router-dom";
 
 export default function MenuLateral({ isOpen, toggleMenu, clases }: MenuNavegacionProps) {
     const location = useLocation();

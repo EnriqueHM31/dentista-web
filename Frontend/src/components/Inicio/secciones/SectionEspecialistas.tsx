@@ -1,7 +1,7 @@
-import { motion } from "framer-motion";
 import TituloSeccion from "@/components/Inicio/ui/TituloSeccion";
 import Carousel from "@/components/Inicio/ui/carousel";
 import { useEspecialistasContext } from "@/context/Especialistas";
+import { motion } from "framer-motion";
 
 export default function SectionEspecialistas() {
 

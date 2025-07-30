@@ -1,3 +1,4 @@
+import Modal from '@/components/General/Modal';
 import { useCitasCalendario } from '@/hooks/admin/Citas/useCitasCalendario';
 import "@/styles/Calendario.css";
 import esLocale from '@fullcalendar/core/locales/es';
@@ -6,7 +7,6 @@ import interactionPlugin from '@fullcalendar/interaction';
 import FullCalendar from '@fullcalendar/react';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import ModalCita from './ModalCita';
-import Modal from '@/components/General/Modal';
 
 
 export default function CalendarioCitas() {

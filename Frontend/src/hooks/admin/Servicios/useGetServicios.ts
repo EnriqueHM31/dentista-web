@@ -1,14 +1,14 @@
+import { mostrarToastConfirmacion } from "@/components/General/ToastConfirmacion";
+import { MINUTOS_ARRAY } from "@/constants/generales";
+import { INITIAL_SERVICIO_PROPS } from "@/constants/Servicios";
+import { useServicioContext } from "@/context/Servicio";
+import { crearServicio, deleteServicio } from "@/services/Servicios";
+import type { ServicioCrearProps, ServicioProps, useGetServiciosProps } from "@/types/Servicios/types";
+import type { UUID } from "@/types/types";
+import { convertirADuracionEnMinutos } from "@/utils/Hora";
+import { esURLValida } from "@/utils/Validacion";
 import { useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
-import { crearServicio, deleteServicio } from "@/services/Servicios";
-import { MINUTOS_ARRAY } from "@/constants/generales";
-import { esURLValida } from "@/utils/Validacion";
-import { useServicioContext } from "@/context/Servicio";
-import { convertirADuracionEnMinutos } from "@/utils/Hora";
-import type { ServicioCrearProps, ServicioProps, useGetServiciosProps } from "@/types/Servicios/types";
-import { INITIAL_SERVICIO_PROPS } from "@/constants/Servicios";
-import { mostrarToastConfirmacion } from "@/components/General/ToastConfirmacion";
-import type { UUID } from "@/types/types";
 
 
 export function useGetServicios({ handleClickDesactivarModal }: useGetServiciosProps) {

@@ -1,19 +1,19 @@
 import AsideMenu from "@/components/login/AsideMenu";
 import Perfil from "@/components/login/Secciones/Perfil";
-import Sociales from "./Secciones/Sociales";
-import ListaPreguntas from "./Secciones/Preguntas";
+import { DATA_STATUS_SELECTED } from "@/constants/Menu";
+import { useProtegerRutaPrivada } from "@/hooks/admin/Perfil/useProtegerRutaPrivada";
 import { useNavAsideLocal } from "@/hooks/general/useNavAsideLocal";
-import Servicios from "./Secciones/Servicios";
-import { SocialesProvider } from "@/provider/Sociales";
-import { ServicioProvider } from "@/provider/Servicios";
-import { PreguntasProvider } from "@/provider/Preguntas";
+import CitasProvider from "@/provider/Citas";
 import { ComentariosProvider } from "@/provider/Comentarios";
 import { EspecialistasProvider } from "@/provider/Especialistas";
+import { PreguntasProvider } from "@/provider/Preguntas";
+import { ServicioProvider } from "@/provider/Servicios";
+import { SocialesProvider } from "@/provider/Sociales";
 import Comentarios from "./Secciones/Comentarios";
-import { useProtegerRutaPrivada } from "@/hooks/admin/Perfil/useProtegerRutaPrivada";
 import Especialistas from "./Secciones/Especialistas";
-import CitasProvider from "@/provider/Citas";
-import { DATA_STATUS_SELECTED } from "@/constants/Menu";
+import ListaPreguntas from "./Secciones/Preguntas";
+import Servicios from "./Secciones/Servicios";
+import Sociales from "./Secciones/Sociales";
 
 
 export default function Dashboard() {

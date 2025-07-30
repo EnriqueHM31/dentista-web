@@ -1,7 +1,7 @@
 import AnimatedSelect from "@/components/General/Select"
-import { formatoHoraMinutoArray, formatoHoraMinutoSingle } from "@/utils/Hora"
 import { MINUTOS_ARRAY } from "@/constants/generales"
 import type { ModalCrearServicioProps } from "@/types/Servicios/types"
+import { formatoHoraMinutoArray, formatoHoraMinutoSingle } from "@/utils/Hora"
 
 export default function ModalCrearServicio({ handleClickDesactivarModal, handleSubmitCrearServicio, handledescartarCambiosCrearServicio, handleCambiarCampoServicio, servicioCrear }: ModalCrearServicioProps) {
 

@@ -1,10 +1,10 @@
-import { AiOutlineDingtalk } from "react-icons/ai";
-import { RiMenu3Fill } from "react-icons/ri";
-import { CgClose } from "react-icons/cg";
-import { motion, AnimatePresence } from 'framer-motion'
 import MenuNavegacion from '@/components/Inicio/ui/MenuNavegacion';
 import { useOpenWithTransition } from "@/hooks/general/useOpen";
 import { useScroll } from "@/hooks/inicio/useScroll";
+import { AnimatePresence, motion } from 'framer-motion';
+import { AiOutlineDingtalk } from "react-icons/ai";
+import { CgClose } from "react-icons/cg";
+import { RiMenu3Fill } from "react-icons/ri";
 
 export default function Navegacion() {
 

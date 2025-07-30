@@ -1,7 +1,7 @@
-import type { TimePickerProps } from "@/types/Citas/types";
-import { FaChevronDown } from 'react-icons/fa6';
-import { AnimatePresence, motion } from 'framer-motion';
 import { useTimePicket } from '@/hooks/general/useTimePicket';
+import type { TimePickerProps } from "@/types/Citas/types";
+import { AnimatePresence, motion } from 'framer-motion';
+import { FaChevronDown } from 'react-icons/fa6';
 
 export default function TimePicker({ name, date, appointments, value, onChange }: TimePickerProps) {
     const { slots, isOpen, handleSelect, ContenedorRef, handleOpenSelect } = useTimePicket({ name, date, appointments, onChange });

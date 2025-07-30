@@ -1,9 +1,9 @@
-import { getEspecialistas } from "@/services/Especialistas";
-import { useEffect, useState } from "react";
-import { toast } from "sonner";
 import { EspecialistasContext } from "@/context/Especialistas";
+import { getEspecialistas } from "@/services/Especialistas";
 import type { EspecialistaProps } from "@/types/Especialistas/types";
 import type { UUID } from "@/types/types";
+import { useEffect, useState } from "react";
+import { toast } from "sonner";
 
 export function EspecialistasProvider({ children }: { children: React.ReactNode }) {
     const [especialistas, setEspecialistas] = useState<EspecialistaProps[]>([]);

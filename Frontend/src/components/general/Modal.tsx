@@ -1,7 +1,7 @@
 // components/ui/Modal.tsx
+import type { ModalProps } from "@/types/Modales/types";
 import { AnimatePresence, motion } from "framer-motion";
 import { CgClose } from "react-icons/cg";
-import type { ModalProps } from "@/types/Modales/types";
 
 export default function Modal({ isOpen, onClose, children, clases, modalId, activeId }: ModalProps) {
     const shouldShow = modalId ? activeId === modalId : isOpen;

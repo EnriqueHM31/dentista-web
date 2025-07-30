@@ -1,7 +1,7 @@
 // hooks/useRedirigirSiAutenticado.ts
+import { CheckLogin } from "@/services/Login";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { CheckLogin } from "@/services/Login";
 
 export function useRedirigirSiAutenticado() {
     const navigate = useNavigate();

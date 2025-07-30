@@ -1,8 +1,8 @@
-import { useComentariosContext } from "@/context/Comentarios";
-import { toast } from "sonner";
-import { deleteComentario } from "@/services/Comentarios";
 import { mostrarToastConfirmacion } from "@/components/General/ToastConfirmacion";
+import { useComentariosContext } from "@/context/Comentarios";
+import { deleteComentario } from "@/services/Comentarios";
 import type { UUID } from "@/types/types";
+import { toast } from "sonner";
 
 const IMAGEN_DEFECTO = `https://us.123rf.com/450wm/valentint/valentint1602/valentint160203120/52348140-user-profile-icon-internet-button-on-blue-background.webp`
 

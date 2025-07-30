@@ -1,12 +1,12 @@
-import { useCitasContext } from "@/context/Citas";
-import { useOpenWithTransition } from "@/hooks/general/useOpen";
 import { aceptarCita, completarCita, eliminarCita } from "@/services/Citas";
-import type { CitasCalendarioProps } from "@/types/Citas/types";
-import type { UUID } from "@/types/types";
 import { formatearHora, verificacionFechaHora } from "@/utils/Hora";
-import type { EventClickArg } from '@fullcalendar/core';
-import { useEffect, useState } from "react";
 import { toast } from "sonner";
+import { useCitasContext } from "@/context/Citas";
+import { useEffect, useState } from "react";
+import { useOpenWithTransition } from "@/hooks/general/useOpen";
+import type { CitasCalendarioProps } from "@/types/Citas/types";
+import type { EventClickArg } from '@fullcalendar/core';
+import type { UUID } from "@/types/types";
 
 export function useCitasCalendario() {
 

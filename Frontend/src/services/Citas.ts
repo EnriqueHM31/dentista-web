@@ -1,7 +1,7 @@
-import { toast } from "sonner";
+import { VITE_API_URL } from "@/config";
 import type { FormCrearCitaProps } from "@/types/Citas/types";
 import type { UUID } from "@/types/types";
-import { VITE_API_URL } from "@/config";
+import { toast } from "sonner";
 
 export async function getCitas() {
     const response = await fetch(`${VITE_API_URL}/citas`, {

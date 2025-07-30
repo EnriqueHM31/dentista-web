@@ -1,13 +1,13 @@
-import { INITIAL_FORM_CITA } from "@/constants/Citas";
-import { useCitasContext } from "@/context/Citas";
-import { useServicioContext } from "@/context/Servicio";
 import { crearCita } from "@/services/Citas";
-import type { Appointment } from "@/types/Citas/types";
-import { ObtenerFechaActualMasUno } from "@/utils/Hora";
 import { generateAllSlots, isSlotRangeAvailable, parseFechaToISO } from "@/utils/InputHora";
-import { validarCamposLlenos } from "@/utils/Validacion";
-import { useEffect, useState } from "react";
+import { INITIAL_FORM_CITA } from "@/constants/Citas";
+import { ObtenerFechaActualMasUno } from "@/utils/Hora";
 import { toast } from "sonner";
+import { useCitasContext } from "@/context/Citas";
+import { useEffect, useState } from "react";
+import { useServicioContext } from "@/context/Servicio";
+import { validarCamposLlenos } from "@/utils/Validacion";
+import type { Appointment } from "@/types/Citas/types";
 
 export function useCitas() {
 

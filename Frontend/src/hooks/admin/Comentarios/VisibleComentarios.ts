@@ -1,11 +1,11 @@
+import { actualizacionesDisponiblesComentarios } from "@/utils/Comentarios";
 import { mostrarToastConfirmacion } from "@/components/General/ToastConfirmacion";
-import { useComentariosContext } from "@/context/Comentarios";
+import { toast } from "sonner";
 import { updateComentarioVisibilidad } from "@/services/Comentarios";
+import { useComentariosContext } from "@/context/Comentarios";
+import { useEffect, useRef, useState } from "react";
 import type { ArrayComentariosProps, ComentarioProps } from "@/types/Comentarios/types";
 import type { UUID } from "@/types/types";
-import { actualizacionesDisponiblesComentarios } from "@/utils/Comentarios";
-import { useEffect, useRef, useState } from "react";
-import { toast } from "sonner";
 
 type VisibilidadMap = Record<UUID, boolean>;
 

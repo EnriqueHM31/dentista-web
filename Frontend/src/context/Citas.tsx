@@ -1,5 +1,5 @@
-import { createContext, useContext } from "react";
 import type { CitasContextType } from "@/types/Citas/types";
+import { createContext, useContext } from "react";
 
 
 export const CitasContext = createContext<CitasContextType>({

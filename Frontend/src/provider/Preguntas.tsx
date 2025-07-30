@@ -1,9 +1,9 @@
-import { useState, useEffect } from "react";
-import { toast } from "sonner";
 import { PreguntasContext } from "@/context/Preguntas";
 import { getDataPreguntas } from "@/services/Preguntas";
 import type { PreguntaProps } from "@/types/Preguntas/types";
 import type { UUID } from "@/types/types";
+import { useEffect, useState } from "react";
+import { toast } from "sonner";
 
 export const PreguntasProvider = ({ children }: { children: React.ReactNode }) => {
     const [preguntas, setPreguntas] = useState<PreguntaProps[]>([]);

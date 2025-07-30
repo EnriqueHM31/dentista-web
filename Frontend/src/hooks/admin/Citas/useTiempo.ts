@@ -1,6 +1,6 @@
-import { useState } from "react";
-import { ObtenerFechaActualMasUno } from "@/utils/Hora";
 import type { UseTiempoProps } from "@/types/Components/types";
+import { ObtenerFechaActualMasUno } from "@/utils/Hora";
+import { useState } from "react";
 
 
 export function useTiempo({ handleChangeCrearCita }: UseTiempoProps) {

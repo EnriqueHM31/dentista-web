@@ -1,7 +1,7 @@
-import { useComentariosContext } from "@/context/Comentarios";
-import Filtros from "../Comentarios/Filtros";
-import useVisibleComentarios from "@/hooks/admin/Comentarios/VisibleComentarios";
 import Testimonio from "@/components/Inicio/Comentarios/Testimonio";
+import { useComentariosContext } from "@/context/Comentarios";
+import useVisibleComentarios from "@/hooks/admin/Comentarios/VisibleComentarios";
+import Filtros from "../Comentarios/Filtros";
 
 export default function Comentarios() {
     const { comentarios } = useComentariosContext();
@@ -47,8 +47,8 @@ export default function Comentarios() {
 
             {comentarios.length > 0 ? (
                 <div className={`grid gap-8 mt-4 ${comentarios.length === 1
-                        ? "grid-cols-[400px]"
-                        : "grid-cols-[repeat(auto-fit,minmax(350px,1fr))]"
+                    ? "grid-cols-[400px]"
+                    : "grid-cols-[repeat(auto-fit,minmax(350px,1fr))]"
                     }`}>
                     {comentarios.map((comentario) => (
                         <Testimonio

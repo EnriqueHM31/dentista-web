@@ -1,8 +1,8 @@
-import { useState } from "react";
+import { FILTROS_CHECKEADOS, FILTROS_ORDEN, MENU_FILTROS } from "@/constants/FiltrosComentarios";
 import { useComentariosContext } from "@/context/Comentarios";
-import { MENU_FILTROS, FILTROS_ORDEN, FILTROS_CHECKEADOS } from "@/constants/FiltrosComentarios";
 import type { MenuFiltro } from "@/types/Comentarios/types";
 import { textoOrden, textoRanking, textoSeleccion } from "@/utils/filtrosComentarios";
+import { useState } from "react";
 
 export const useFiltrosComentarios = () => {
     const { filtros, setFiltros } = useComentariosContext();

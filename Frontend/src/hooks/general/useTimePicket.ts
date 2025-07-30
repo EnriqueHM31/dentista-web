@@ -1,7 +1,7 @@
 import type { TimeSlot } from "@/types/Citas/types";
+import type { useTimePicketProps } from "@/types/Components/types";
 import { generateAllSlots } from "@/utils/InputHora";
 import { useEffect, useRef, useState } from "react";
-import type { useTimePicketProps } from "@/types/Components/types";
 
 export function useTimePicket({ name, date, appointments, onChange }: useTimePicketProps) {
     const [slots, setSlots] = useState<TimeSlot[]>([]);

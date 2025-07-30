@@ -1,8 +1,8 @@
-import { motion } from "framer-motion";
-import TituloSeccion from "@/components/Inicio/ui/TituloSeccion";
 import VIDEO from "@/assets/videos/seccionvideo.mp4";
-import { FaPlay } from "react-icons/fa";
+import TituloSeccion from "@/components/Inicio/ui/TituloSeccion";
 import useVideo from "@/hooks/inicio/useVideo";
+import { motion } from "framer-motion";
+import { FaPlay } from "react-icons/fa";
 
 export default function SectionVideo() {
     const { isPlaying, handlePlay, handleEnd, videoRef } = useVideo();

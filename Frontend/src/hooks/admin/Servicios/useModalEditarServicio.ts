@@ -1,9 +1,9 @@
+import { mostrarToastConfirmacion } from "@/components/General/ToastConfirmacion";
+import { INITIAL_SERVICIO_PROPS_WITH_ID, KEY_SERVICIOS } from "@/constants/Servicios";
 import type { ServicioProps } from "@/types/Servicios/types";
+import { convertirADuracionEnMinutos } from "@/utils/Hora";
 import { useRef, useState } from "react";
 import { toast } from "sonner";
-import { INITIAL_SERVICIO_PROPS_WITH_ID, KEY_SERVICIOS } from "@/constants/Servicios";
-import { mostrarToastConfirmacion } from "@/components/General/ToastConfirmacion";
-import { convertirADuracionEnMinutos } from "@/utils/Hora";
 
 
 export function useModalEditarServicio() {

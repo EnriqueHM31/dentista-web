@@ -1,9 +1,9 @@
-import { getServicios, getServiciosDisponibles } from "@/services/Servicios";
-import { toast } from "sonner";
-import { useState, useEffect } from "react";
 import { ServicioContext } from "@/context/Servicio";
+import { getServicios, getServiciosDisponibles } from "@/services/Servicios";
 import type { ServicioProps } from "@/types/Servicios/types";
 import type { UUID } from "@/types/types";
+import { useEffect, useState } from "react";
+import { toast } from "sonner";
 
 export const ServicioProvider = ({ children }: { children: React.ReactNode }) => {
     const [servicios, setServicios] = useState<ServicioProps[]>([]);

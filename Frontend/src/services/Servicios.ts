@@ -1,5 +1,5 @@
-import type { ServicioProps } from "@/types/Servicios/types";
 import { VITE_API_URL } from "@/config";
+import type { ServicioProps } from "@/types/Servicios/types";
 import type { UUID } from "@/types/types";
 
 export const getServicios = async () => {

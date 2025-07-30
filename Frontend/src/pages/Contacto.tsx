@@ -1,16 +1,16 @@
-import TituloSeccion from "@/components/Inicio/ui/TituloSeccion";
 import { CgPhone } from "react-icons/cg";
-import { MdEmail } from "react-icons/md";
 import { FaMapMarkerAlt } from "react-icons/fa";
-import AnimatedSelect from "@/components/General/Select";
-import { FaUser } from "react-icons/fa";
 import { FaMessage } from "react-icons/fa6";
-import IMAGENCONTACTO from "@/assets/img/contacto.png";
-import { useUtils } from "@/hooks/general/useUtils";
-import { useSocialesContext } from "@/context/Sociales";
-import StarRating from "@/components/Inicio/Comentarios/Ranking";
-import { useServicioContext } from "@/context/Servicio";
+import { FaUser } from "react-icons/fa";
+import { MdEmail } from "react-icons/md";
 import { useCorreo } from "@/hooks/Contacto/useCorreo";
+import { useServicioContext } from "@/context/Servicio";
+import { useSocialesContext } from "@/context/Sociales";
+import { useUtils } from "@/hooks/general/useUtils";
+import AnimatedSelect from "@/components/General/Select";
+import IMAGENCONTACTO from "@/assets/img/contacto.png";
+import StarRating from "@/components/Inicio/Comentarios/Ranking";
+import TituloSeccion from "@/components/Inicio/ui/TituloSeccion";
 
 const MAS_CONTACTOS = [
     { icono: <CgPhone className="text-2xl " />, label: "Telefono" },

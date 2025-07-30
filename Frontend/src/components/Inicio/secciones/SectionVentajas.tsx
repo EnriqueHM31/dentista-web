@@ -1,8 +1,8 @@
 import SERCIVIO2 from "@/assets/servicios/servicio2.svg";
-import { MdOutlineSecurity } from "react-icons/md";
+import TituloSeccion from "@/components/Inicio/ui/TituloSeccion";
 import { VENTAJAS } from "@/constants/generales";
 import { motion } from "framer-motion";
-import TituloSeccion from "@/components/Inicio/ui/TituloSeccion";
+import { MdOutlineSecurity } from "react-icons/md";
 
 export default function SectionVentajas() {
     return (

@@ -1,6 +1,6 @@
+import type { SlideProps } from "@/types/Components/types";
 import { AiOutlineDingtalk } from "react-icons/ai";
 import { FaLinkedin } from "react-icons/fa6";
-import type { SlideProps } from "@/types/Components/types";
 
 export default function Slide({ slide, index, current, handleSlideClick }: SlideProps) {
 

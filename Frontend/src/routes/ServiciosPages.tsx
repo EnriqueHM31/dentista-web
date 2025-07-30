@@ -1,8 +1,8 @@
 // layouts/ServiciosLayout.tsx
-import { Outlet } from "react-router-dom";
+import CitasProvider from "@/provider/Citas";
 import { ServicioProvider } from "@/provider/Servicios";
 import { SocialesProvider } from "@/provider/Sociales";
-import CitasProvider from "@/provider/Citas";
+import { Outlet } from "react-router-dom";
 
 export default function ServiciosPages() {
     return (

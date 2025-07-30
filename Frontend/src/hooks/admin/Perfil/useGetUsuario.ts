@@ -1,7 +1,7 @@
 import { getUsuario } from "@/services/Usuario";
+import type { UsuarioProps } from "@/types/Usuario/types";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
-import type { UsuarioProps } from "@/types/Usuario/types";
 
 
 export function useGetUsuario() {

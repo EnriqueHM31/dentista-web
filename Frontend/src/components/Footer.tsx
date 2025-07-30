@@ -1,7 +1,7 @@
-import { AiOutlineDingtalk } from "react-icons/ai";
-import { FaFacebookF, FaInstagram, FaTwitter, FaLinkedin } from "react-icons/fa6";
 import { LINKS_NAVEGACION } from "@/constants/generales";
 import { useSocialesContext } from "@/context/Sociales";
+import { AiOutlineDingtalk } from "react-icons/ai";
+import { FaFacebookF, FaInstagram, FaLinkedin, FaTwitter } from "react-icons/fa6";
 
 const SOCIALS = [
     { label: 'Facebook', icono: <FaFacebookF className="w-5 h-5" /> },

@@ -2,7 +2,11 @@ import AnimatedSelect from "@/components/General/Select";
 import { useServicioContext } from "@/context/Servicio";
 import type { PropsModalEditarEspecialista } from "@/types/Especialistas/types";
 import {
-    AiOutlineUser, AiOutlineMail, AiOutlinePhone, AiOutlineLink, AiOutlinePicture, AiOutlineTool, AiOutlineHome,
+    AiOutlineHome,
+    AiOutlineLink,
+    AiOutlineMail, AiOutlinePhone,
+    AiOutlinePicture, AiOutlineTool,
+    AiOutlineUser,
 } from "react-icons/ai";
 
 

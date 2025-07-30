@@ -1,7 +1,7 @@
-import { useState, useEffect } from "react";
 import { SocialesContext } from "@/context/Sociales";
 import { getDataSociales } from "@/services/Sociales";
 import type { SocialProps } from "@/types/Sociales/types";
+import { useEffect, useState } from "react";
 import { toast } from "sonner";
 
 // 3. Proveedor del contexto
