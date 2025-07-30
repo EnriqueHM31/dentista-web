@@ -1,4 +1,4 @@
-import { type ServicioCardProps } from "@/types/Servicios/types";
+import { type ServicioCardProps } from "@/types/Servicios/types.d";
 import { formatoHoraMinutoSingle } from "@/utils/Hora";
 import { FiEdit, FiTrash } from "react-icons/fi";
 
