@@ -55,6 +55,11 @@ export interface TestimonioProps {
     comentarioModificado?: boolean;
 }
 
+interface ComentariosActualizarProps {
+    seleccionados: Record<UUID, boolean>;
+    originalComentarios: Record<UUID, boolean>;
+}
+
 
 // LOGIN ----------------------------------------------
 export interface ComentariosCardProps {
@@ -62,3 +67,4 @@ export interface ComentariosCardProps {
     onCheckToggle: (id: UUID) => void;
     seleccionados: { [key: UUID]: boolean };
 }
+

@@ -16,3 +16,14 @@ export function validarCamposLlenos(obj: Record<string, unknown>): boolean {
 
     return true;
 }
+
+export const esURLValida = (url: unknown): boolean => {
+    if (typeof url !== "string" || url.trim() === "") return false;
+
+    try {
+        const parsed = new URL(url);
+        return parsed.protocol === "http:" || parsed.protocol === "https:";
+    } catch {
+        return false;
+    }
+};

@@ -4,7 +4,7 @@ import { useEditarServicio } from "@/hooks/admin/Servicios/useEditarServicio";
 import type { ModalEditarServicioProps, ServicioProps } from "@/types/Servicios/types";
 import AnimatedSelect from "@/components/General/Select";
 import { formatoHoraMinutoArray, formatoHoraMinutoSingle } from "@/utils/Hora";
-import { MINUTOS_ARRAY } from "@/utils/constantes";
+import { MINUTOS_ARRAY } from "@/constants/generales";
 import { FaPencil } from "react-icons/fa6";
 import type { UUID } from "@/types/types";
 import { OPCIONES_EDITAR_SERVICIO } from "@/constants/Servicios";

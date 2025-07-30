@@ -1,7 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
 import { crearServicio, deleteServicio } from "@/services/Servicios";
-import { esURLValida, MINUTOS_ARRAY } from "@/utils/constantes";
+import { MINUTOS_ARRAY } from "@/constants/generales";
+import { esURLValida } from "@/utils/Validacion";
 import { useServicioContext } from "@/context/Servicio";
 import { convertirADuracionEnMinutos } from "@/utils/Hora";
 import type { ServicioCrearProps, ServicioProps, useGetServiciosProps } from "@/types/Servicios/types";

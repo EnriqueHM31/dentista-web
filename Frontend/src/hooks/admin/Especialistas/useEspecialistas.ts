@@ -6,7 +6,7 @@ import { createEspecialista, deleteEspecialista, updateEspecialista } from "@/se
 import type { EspecialistaEditarProps, EspecialistaProps, FormCrearEspecialistaProps, InitialEspecialistaProps, PropsHookEspecialistas } from "@/types/Especialistas/types";
 import type { UUID } from "@/types/types";
 import { ExistenCambiosEspecialista } from "@/utils/Cambios";
-import { esURLValida } from "@/utils/constantes";
+import { esURLValida } from "@/utils/Validacion";
 import { useRef, useState } from "react";
 import { toast } from "sonner";
 
