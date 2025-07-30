@@ -2,19 +2,23 @@
     "version": 2,
     "builds": [
         {
-            "src": "build/index.js",
+            "src": "backend/build/index.js",
             "use": "@vercel/node",
             "config": {
                 "includeFiles": [
-                    "build/**"
+                    "backend/build/**"
                 ]
             }
         }
     ],
     "routes": [
         {
-            "src": "build/routes/(.*)",
-            "dest": "build/index.js"
+            "src": "backend/build/routes/(.*)",
+            "dest": "backend/build/index.js"
         }
-    ]
+    ],
+    "controllers": {
+        "src": "backend/build/controllers/(.*)",
+        "dest": "backend/build/index.js"
+    }
 }
