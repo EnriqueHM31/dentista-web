@@ -41,9 +41,9 @@ app.use('/api/usuario', datausuario_routes_1.UsuarioRouter);
 app.use('/api/servicios', servicios_routes_1.ServiciosRoutes);
 app.use('/api/especialistas', especialistas_routes_1.EspecialistasRouter);
 app.use('/api/citas', citas_routes_1.CitasRouter);
+app.use("/", (_req, res) => {
+    res.send("Hola mundo desde Odontología LEHM");
+});
 app.listen(config_1.PORT, () => {
     console.log(`Server is running on port ${config_1.PORT}`);
-});
-app.listen(3000, '192.168.1.104', () => {
-    console.log("API disponible en toda la red en el ip 192.168.1.104");
 });
