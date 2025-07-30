@@ -1,6 +1,6 @@
-import { DESTINATARIO, REMITENTE } from "@/config";
-import { CitaProps } from "@/types/citas";
-import { ComentarioEnviarMensajeProps } from "@/types/comentario";
+import { DESTINATARIO, REMITENTE } from "../config";
+import { CitaProps } from "../types/citas";
+import { ComentarioEnviarMensajeProps } from "../types/comentario";
 import { formatearFechaLarga, formatearHoraLegible } from "./Hora";
 
 export const MensajeCorreo = ({ nombre, ranking, email, servicio, mensaje }: ComentarioEnviarMensajeProps) => {

@@ -1,6 +1,6 @@
 import { Router } from 'express';
-import { ControllerEspecialistas } from '@/controllers/especialista';
-import { verificarTokenDesdeCookie } from '@/middleware/verificarToken';
+import { ControllerEspecialistas } from '../controllers/especialista';
+import { verificarTokenDesdeCookie } from '../middleware/verificarToken';
 
 export const EspecialistasRouter = Router();
 

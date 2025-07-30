@@ -1,6 +1,6 @@
 // Middleware para verificar JWT en cookie
 import jwt from "jsonwebtoken";
-import { SECRET } from "@/config";
+import { SECRET } from "../config";
 import { Request, Response, NextFunction } from "express";
 
 

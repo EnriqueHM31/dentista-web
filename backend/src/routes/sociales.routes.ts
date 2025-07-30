@@ -1,6 +1,6 @@
 import { Router } from 'express';
-import { ContrallerSocial } from '@/controllers/social';
-import { verificarTokenDesdeCookie } from '@/middleware/verificarToken';
+import { ContrallerSocial } from '../controllers/social';
+import { verificarTokenDesdeCookie } from '../middleware/verificarToken';
 
 
 export const SocialesRoutes = Router();

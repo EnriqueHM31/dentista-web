@@ -1,4 +1,4 @@
-import { UUID } from '@/types/types';
+import { UUID } from '../types/types';
 import { z } from 'zod';
 export class Validacion {
     static idsObjetos = z.object({

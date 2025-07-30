@@ -1,7 +1,7 @@
-import { db } from '@/database/db';
-import { EspecialistaCrearProps, EspecialistaEditarProps, EspecialistaProps, EspecialistaResponseProps } from '@/types/especialista';
-import { UUID } from '@/types/types';
-import { generarIdUnico } from '@/utils/generador';
+import { db } from '../../database/db';
+import { EspecialistaCrearProps, EspecialistaEditarProps, EspecialistaProps, EspecialistaResponseProps } from '../../types/especialista';
+import { UUID } from '../../types/types';
+import { generarIdUnico } from '../../utils/generador';
 
 export class ModeloEspecialista {
     static async getAll() {

@@ -1,7 +1,7 @@
-import { db } from '@/database/db';
-import { ServicioCrearProps, ServicioEditarProps, ServicioResponseProps } from '@/types/servicio';
-import { UUID } from '@/types/types';
-import { generarIdUnico } from '@/utils/generador';
+import { db } from '../../database/db';
+import { ServicioCrearProps, ServicioEditarProps, ServicioResponseProps } from '../../types/servicio';
+import { UUID } from '../../types/types';
+import { generarIdUnico } from '../../utils/generador';
 
 export class ModeloServicio {
 

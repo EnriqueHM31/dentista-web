@@ -1,8 +1,8 @@
 import type { Request, Response } from 'express';
 import jwt from 'jsonwebtoken';
-import { ModeloLogin } from '@/models/MySQL/login';
-import { NODE_ENV, NOMBRE_COOKIE } from '@/config';
-import { SECRET } from '@/config';
+import { ModeloLogin } from '../models/MySQL/login';
+import { NODE_ENV, NOMBRE_COOKIE } from '../config';
+import { SECRET } from '../config';
 
 export class ControllerLogin {
 

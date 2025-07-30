@@ -1,10 +1,10 @@
 
 import { Request, Response } from 'express';
-import { ModeloCita } from '@/models/MySQL/citas';
-import { validarId } from '@/utils/Validacion';
-import { CitaCrearProps } from '@/types/citas';
-import { UUID } from '@/types/types';
-import { validarCita, validarCitaEditar } from '@/utils/Validaciones/Citas';
+import { ModeloCita } from '../models/MySQL/citas';
+import { validarId } from '../utils/Validacion';
+import { CitaCrearProps } from '../types/citas';
+import { UUID } from '../types/types';
+import { validarCita, validarCitaEditar } from '../utils/Validaciones/Citas';
 
 export class CitasController {
 

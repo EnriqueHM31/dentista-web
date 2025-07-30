@@ -1,6 +1,6 @@
 import { Router } from 'express';
-import { ContrallerUsuario } from '@/controllers/usuario';
-import { verificarTokenDesdeCookie } from '@/middleware/verificarToken';
+import { ContrallerUsuario } from '../controllers/usuario';
+import { verificarTokenDesdeCookie } from '../middleware/verificarToken';
 
 export const UsuarioRouter = Router();
 

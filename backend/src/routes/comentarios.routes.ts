@@ -1,6 +1,6 @@
 import { Router } from 'express';
-import { ContrallerContacto } from '@/controllers/comentario';
-import { verificarTokenDesdeCookie } from '@/middleware/verificarToken';
+import { ContrallerContacto } from '../controllers/comentario';
+import { verificarTokenDesdeCookie } from '../middleware/verificarToken';
 
 export const ComentariosRouter = Router();
 

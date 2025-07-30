@@ -1,9 +1,9 @@
-import { db } from '@/database/db';
-import { CitaCrearProps, CitaEditarProps, CitaResponseProps } from '@/types/citas';
-import { UUID } from '@/types/types';
-import { transporter } from '@/utils/contacto';
-import { generarIdUnico } from '@/utils/generador';
-import { MensajeCorreoAceptarSolicitud } from '@/utils/mensaje';
+import { db } from '../../database/db';
+import { CitaCrearProps, CitaEditarProps, CitaResponseProps } from '../../types/citas';
+import { UUID } from '../../types/types';
+import { transporter } from '../../utils/contacto';
+import { generarIdUnico } from '../../utils/generador';
+import { MensajeCorreoAceptarSolicitud } from '../../utils/mensaje';
 
 
 export class ModeloCita {

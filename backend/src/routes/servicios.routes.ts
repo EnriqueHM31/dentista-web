@@ -1,6 +1,6 @@
 import { Router } from 'express'
-import { ServiciosController } from '@/controllers/servicio'
-import { verificarTokenDesdeCookie } from '@/middleware/verificarToken'
+import { ServiciosController } from '../controllers/servicio'
+import { verificarTokenDesdeCookie } from '../middleware/verificarToken'
 
 export const ServiciosRoutes = Router()
 

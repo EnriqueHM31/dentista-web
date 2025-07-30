@@ -1,9 +1,9 @@
-import { ModeloPreguntas } from '@/models/MySQL/preguntas';
-import { validarId } from '@/utils/Validacion';
-import { validarEditarPregunta, validarPregunta } from '@/utils/Validaciones/Preguntas';
+import { ModeloPreguntas } from '../models/MySQL/preguntas';
+import { validarId } from '../utils/Validacion';
+import { validarEditarPregunta, validarPregunta } from '../utils/Validaciones/Preguntas';
 import { Request, Response } from 'express';
-import type { PreguntaProps, PreguntaEditarProps } from '@/types/pregunta';
-import { UUID } from '@/types/types';
+import type { PreguntaProps, PreguntaEditarProps } from '../types/pregunta';
+import { UUID } from '../types/types';
 
 export class ControllerPreguntas {
     static async getAll(_req: Request, res: Response) {

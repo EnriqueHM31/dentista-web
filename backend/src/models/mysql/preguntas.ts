@@ -1,7 +1,7 @@
-import { db } from '@/database/db';
-import { PreguntaCrearProps, PreguntaCrearResponseProps } from '@/types/pregunta';
-import { UUID } from '@/types/types';
-import { generarIdUnico } from '@/utils/generador';
+import { db } from '../../database/db';
+import { PreguntaCrearProps, PreguntaCrearResponseProps } from '../../types/pregunta';
+import { UUID } from '../../types/types';
+import { generarIdUnico } from '../../utils/generador';
 export class ModeloPreguntas {
     static async getAll() {
         try {

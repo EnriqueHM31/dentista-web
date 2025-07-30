@@ -2,8 +2,8 @@ import { Request, Response } from 'express';
 import { ModeloServicio } from '../models/MySQL/servicio';
 import { validarId } from '../utils/Validacion';
 import { validarEditarServicio, validarServicio } from '../utils/Validaciones/Servicio';
-import { UUID } from '@/types/types';
-import { ServicioCrearProps } from '@/types/servicio';
+import { UUID } from '../types/types';
+import { ServicioCrearProps } from '../types/servicio';
 
 
 export class ServiciosController {

@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { CitaCrearProps } from '@/types/citas';
+import { CitaCrearProps } from '../../types/citas';
 
 export class ValidacionCitas {
     static citas = z.object({

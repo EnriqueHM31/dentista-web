@@ -1,7 +1,7 @@
 
 import { Router } from 'express';
-import { ControllerPreguntas } from '@/controllers/preguntas';
-import { verificarTokenDesdeCookie } from '@/middleware/verificarToken';
+import { ControllerPreguntas } from '../controllers/preguntas';
+import { verificarTokenDesdeCookie } from '../middleware/verificarToken';
 export const PreguntasRoutes = Router();
 
 PreguntasRoutes.get('/', ControllerPreguntas.getAll);

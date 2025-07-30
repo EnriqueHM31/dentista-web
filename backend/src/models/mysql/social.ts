@@ -1,7 +1,7 @@
-import { db } from '@/database/db';
-import { SocialResponseProps } from '@/types/social';
-import { UUID } from '@/types/types';
-import { generarIdUnico } from '@/utils/generador';
+import { db } from '../../database/db';
+import { SocialResponseProps } from '../../types/social';
+import { UUID } from '../../types/types';
+import { generarIdUnico } from '../../utils/generador';
 
 export class ModeloSocial {
     static async getAll() {

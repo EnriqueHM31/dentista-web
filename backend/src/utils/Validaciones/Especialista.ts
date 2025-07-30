@@ -1,4 +1,4 @@
-import { EspecialistaCrearProps, EspecialistaProps } from '@/types/especialista';
+import { EspecialistaCrearProps, EspecialistaProps } from '../../types/especialista';
 import { z } from 'zod';
 
 export class ValidacionEspecialista {

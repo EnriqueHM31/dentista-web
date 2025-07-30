@@ -1,9 +1,9 @@
 import { Request, Response } from 'express';
-import { ModeloEspecialista } from '@/models/MySQL/especialista';
-import { validarId } from '@/utils/Validacion';
-import { validarEspecialista, validarEspecialistaEditar } from '@/utils/Validaciones/Especialista';
-import { EspecialistaCrearProps, EspecialistaProps } from '@/types/especialista';
-import { UUID } from '@/types/types';
+import { ModeloEspecialista } from '../models/MySQL/especialista';
+import { validarId } from '../utils/Validacion';
+import { validarEspecialista, validarEspecialistaEditar } from '../utils/Validaciones/Especialista';
+import { EspecialistaCrearProps, EspecialistaProps } from '../types/especialista';
+import { UUID } from '../types/types';
 
 export class ControllerEspecialistas {
     static async getAll(_req: Request, res: Response) {

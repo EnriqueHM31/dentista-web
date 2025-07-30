@@ -1,7 +1,7 @@
-import { ModeloSocial } from '@/models/MySQL/social';
-import { UUID } from '@/types/types';
-import { validarId } from '@/utils/Validacion';
-import { validarSocialEditar } from '@/utils/Validaciones/Sociales';
+import { ModeloSocial } from '../models/MySQL/social';
+import { UUID } from '../types/types';
+import { validarId } from '../utils/Validacion';
+import { validarSocialEditar } from '../utils/Validaciones/Sociales';
 import { Request, Response } from 'express';
 
 export class ContrallerSocial {

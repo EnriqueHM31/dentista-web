@@ -1,9 +1,9 @@
-import { transporter } from '@/utils/contacto';
-import { db } from '@/database/db';
-import { ComentarioEditarProps, ComentarioEditarResponseProps, ComentarioEnviarMensajeProps, ComentarioResponseProps } from '@/types/comentario';
-import { MensajeCorreo } from '@/utils/mensaje';
-import { generarIdUnico } from '@/utils/generador';
-import { UUID } from '@/types/types';
+import { transporter } from '../../utils/contacto';
+import { db } from '../../database/db';
+import { ComentarioEditarProps, ComentarioEditarResponseProps, ComentarioEnviarMensajeProps, ComentarioResponseProps } from '../../types/comentario';
+import { MensajeCorreo } from '../../utils/mensaje';
+import { generarIdUnico } from '../../utils/generador';
+import { UUID } from '../../types/types';
 
 
 export class ModeloContacto {

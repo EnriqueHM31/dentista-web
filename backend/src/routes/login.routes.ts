@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { ControllerLogin } from '@/controllers/login';
+import { ControllerLogin } from '../controllers/login';
 
 export const LoginRouter = Router();
 

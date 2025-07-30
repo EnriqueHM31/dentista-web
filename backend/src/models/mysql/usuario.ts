@@ -1,8 +1,8 @@
-import { db } from '@/database/db';
-import { validarId } from '@/utils/Validacion';
-import { USUARIO_ID } from '@/config';
-import { UUID } from '@/types/types';
-import { CambiosUsuarioProps, UsuarioEditarProps, UsuarioEditarResponseProps } from '@/types/usuario';
+import { db } from '../../database/db';
+import { validarId } from '../../utils/Validacion';
+import { USUARIO_ID } from '../../config';
+import { UUID } from '../../types/types';
+import { CambiosUsuarioProps, UsuarioEditarProps, UsuarioEditarResponseProps } from '../../types/usuario';
 
 export class ModeloUsuario {
 
