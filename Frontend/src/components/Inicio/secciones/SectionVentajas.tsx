@@ -1,4 +1,4 @@
-import SERCIVIO2 from "@/assets/servicios/servicio2.svg";
+import SERCIVIO2 from "@/assets/servicios/Servicio2.svg";
 import TituloSeccion from "@/components/Inicio/ui/TituloSeccion";
 import { VENTAJAS } from "@/constants/generales";
 import { motion } from "framer-motion";
