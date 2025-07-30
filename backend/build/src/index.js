@@ -38,6 +38,9 @@ app.use('/api/preguntas', preguntas_routes_1.PreguntasRoutes);
 app.use('/api/usuario', datausuario_routes_1.UsuarioRouter);
 app.use('/api/servicios', servicios_routes_1.ServiciosRoutes);
 app.use('/api/especialistas', especialistas_routes_1.EspecialistasRouter);
+app.use('/', (req, res) => {
+    res.send('Hola mundo desde Odontología LEHM');
+});
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
 });
