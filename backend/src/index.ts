@@ -21,6 +21,8 @@ const allowedOrigins = ['http://localhost:3000', 'http://localhost:3001', 'http:
     'http://192.168.1.104:5173'];
 
 
+
+
 app.use(cors({
     origin: function (origin, callback) {
         if (!origin) return callback(null, true); // para herramientas como Postman
@@ -45,11 +47,10 @@ app.use('/api/usuario', UsuarioRouter);
 app.use('/api/servicios', ServiciosRoutes);
 app.use('/api/especialistas', EspecialistasRouter);
 app.use('/api/citas', CitasRouter);
+app.use("/", (_req, res) => {
+    res.send("Hola mundo desde Odontología LEHM");
+});
 
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`)
 })
-
-app.listen(3000, '192.168.1.104', () => {
-    console.log("API disponible en toda la red en el ip 192.168.1.104");
-});
