@@ -2,19 +2,19 @@
     "version": 2,
     "builds": [
         {
-            "src": "dist/index.js",
+            "src": "build/index.js",
             "use": "@vercel/node",
             "config": {
                 "includeFiles": [
-                    "dist/**"
+                    "build/**"
                 ]
             }
         }
     ],
     "routes": [
         {
-            "src": "dist/routes/(.*)",
-            "dest": "dist/index.js"
+            "src": "build/routes/(.*)",
+            "dest": "build/index.js"
         }
     ]
 }
