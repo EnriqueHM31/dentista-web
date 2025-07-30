@@ -17,8 +17,10 @@
             "dest": "backend/build/index.js"
         }
     ],
-    "controllers": {
-        "src": "backend/build/controllers/(.*)",
-        "dest": "backend/build/index.js"
-    }
+    "controllers": [
+        {
+            "src": "backend/build/controllers/(.*)",
+            "dest": "backend/build/index.js"
+        }
+    ]
 }
