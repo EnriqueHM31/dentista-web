@@ -21,8 +21,8 @@ export function useLogin() {
         }
 
         try {
-            const { success, message } = await Login({ username, password });
-            console.log(success, message);
+            const { success, message, token } = await Login({ username, password });
+            console.log({ success, message, token });
 
             if (!success) {
                 toast.error(message || "Error al iniciar sesión");

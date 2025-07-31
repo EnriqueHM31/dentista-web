@@ -6,6 +6,7 @@ export async function Login({ username, password }: { username: string, password
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ username, password }),
+        credentials: "include",
     });
 
     if (!response.ok) {
@@ -31,10 +32,12 @@ export async function Logout() {
 
 export async function CheckLogin() {
 
+    console.log({ VITE_API_URL });
     const response = await fetch(`${VITE_API_URL}/login/autenticacion`, {
         method: "GET",
         credentials: "include",
     });
+    console.log({ response });
 
     return await response.json();
 
