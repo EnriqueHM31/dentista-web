@@ -43,18 +43,14 @@ export async function crearCita({ FormCrearCita, idServicio }: { FormCrearCita: 
 export async function completarCita({ id }: { id: UUID }) {
     const response = await fetch(`${VITE_API_URL}/citas/${id}`, {
         method: "PATCH",
-        credentials: "include",
         headers: {
             "Content-Type": "application/json",
         },
         body: JSON.stringify({ completado: true }),
+        credentials: "include",
     });
 
-    if (response.ok) {
-        return await response.json();
-    } else {
-        return { success: false, message: "Error al completar la cita", cita: {} };
-    }
+    return await response.json();
 }
 
 

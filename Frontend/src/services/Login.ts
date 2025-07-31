@@ -32,12 +32,10 @@ export async function Logout() {
 
 export async function CheckLogin() {
 
-    console.log({ VITE_API_URL });
     const response = await fetch(`${VITE_API_URL}/login/autenticacion`, {
         method: "GET",
         credentials: "include",
     });
-    console.log({ response });
 
     return await response.json();
 

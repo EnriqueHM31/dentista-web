@@ -51,7 +51,7 @@ export function useCitasCalendario() {
                     refrescarCitasCompletar(citas, citaCompletada.id || cita.id);
                     toast.success(message || "La cita se completó correctamente");
                 } else {
-                    toast.error(message || "Error al completar la cita");
+                    toast.error(message || "Error al completar la cita " + message);
                 }
             }
         });
@@ -94,7 +94,7 @@ export function useCitasCalendario() {
             toast.success(message || "La cita se completó correctamente");
             setEventoSeleccionado(null);
         } else {
-            toast.error("Error al completar la cita");
+            toast.error(message || "Error al completar la cita");
         }
 
 
