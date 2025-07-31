@@ -53,7 +53,7 @@ export async function completarCita({ id }: { id: UUID }) {
     if (response.ok) {
         return await response.json();
     } else {
-        toast.error("Error al completar la cita");
+        return { success: false, message: "Error al completar la cita", cita: {} };
     }
 }
 

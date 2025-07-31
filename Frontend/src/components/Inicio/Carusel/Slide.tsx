@@ -10,7 +10,7 @@ export default function Slide({ slide, index, current, handleSlideClick }: Slide
 
         <>
             <li
-                className="hidden md:flex flex-col items-center justify-center relative text-center text-white opacity-100 transition-all duration-300 ease-in-out xl:w-[70vmin] md:scale-75  w-[90vmin] h-[70vh] xl:h-[70vmin] mx-[4vmin] z-10  border border-white rounded-2xl"
+                className="w-full min-h-[70dvh] "
                 onClick={() => handleSlideClick(index)}
                 style={{
                     transform: current !== index ? "scale(0.7)" : "scale(1.2)",

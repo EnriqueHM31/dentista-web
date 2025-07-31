@@ -1,12 +1,12 @@
-import { aceptarCita, completarCita, eliminarCita } from "@/services/Citas";
-import { formatearHora, verificacionFechaHora } from "@/utils/Hora";
-import { toast } from "sonner";
 import { useCitasContext } from "@/context/Citas";
-import { useEffect, useState } from "react";
 import { useOpenWithTransition } from "@/hooks/general/useOpen";
+import { aceptarCita, completarCita, eliminarCita } from "@/services/Citas";
 import type { CitasCalendarioProps } from "@/types/Citas/types";
-import type { EventClickArg } from '@fullcalendar/core';
 import type { UUID } from "@/types/types";
+import { formatearHora, verificacionFechaHora } from "@/utils/Hora";
+import type { EventClickArg } from '@fullcalendar/core';
+import { useEffect, useState } from "react";
+import { toast } from "sonner";
 
 export function useCitasCalendario() {
 
@@ -51,7 +51,7 @@ export function useCitasCalendario() {
                     refrescarCitasCompletar(citas, citaCompletada.id || cita.id);
                     toast.success(message || "La cita se completó correctamente");
                 } else {
-                    toast.error("Error al completar la cita");
+                    toast.error(message || "Error al completar la cita");
                 }
             }
         });

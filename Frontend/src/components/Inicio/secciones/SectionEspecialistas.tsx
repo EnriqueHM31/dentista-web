@@ -20,7 +20,7 @@ export default function SectionEspecialistas() {
             <p className="max-w-full xl:max-w-3/4 w-full text-center">Utilizamos únicamente los materiales de la más alta calidad disponibles en el mercado para brindar los mejores tratamientos a nuestros pacientes.</p>
 
 
-            <motion.div className="flex flex-col items-center justify-center relative overflow-x-hidden w-full pb-20     md:max-w-10/12 bg-primary rounded-2xl"
+            <motion.div className="flex flex-col items-center justify-center relative overflow-x-hidden w-full h-full     md:max-w-10/12 bg-primary rounded-2xl md:aspect-[16/7] aspect-[16/26] pb-6 md:py-0 "
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{

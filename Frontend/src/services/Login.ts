@@ -6,7 +6,6 @@ export async function Login({ username, password }: { username: string, password
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ username, password }),
-        credentials: "include",
     });
 
     if (!response.ok) {
