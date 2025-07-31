@@ -8,13 +8,13 @@ export default function Sociales() {
     const { SocialEdit, handleEditClick, handleChange, handleEditarRedSocial, editMode } = useSociales();
 
     return (
-        <div className="max-w-full bg-white rounded-xl md:p-8 py-8 px-4 space-y-8 shadow ">
+        <div className="max-w-full bg-white rounded-xl md:p-8 py-0 px-4 space-y-8 shadow ">
 
-            <header className="flex flex-col gap-8 md:flex-row items-center justify-between w-full max-w-3xl">
-                <h2 className="text-2xl font-semibold text-primary text-center md:text-left">Redes Sociales y Contacto</h2>
+            <header className="flex flex-col gap-4 md:gap-8 md:flex-row items-center justify-between w-full max-w-3xl ">
+                <h2 className="text-3xl font-semibold capitalize text-primary text-center md:text-left">Redes Sociales y Contacto</h2>
                 <button
                     onClick={handleEditarRedSocial}
-                    className="bg-primary cursor-pointer text-white px-4 py-2 rounded-lg hover:bg-blue-700 flex items-center gap-2  mx-auto md:mx-0"
+                    className="bg-primary cursor-pointer text-white px-4 py-2 rounded hover:bg-blue-700 flex items-center gap-2  mx-auto md:mx-0"
                     type="button"
                 >
                     <FaSave />

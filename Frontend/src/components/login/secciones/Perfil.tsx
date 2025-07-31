@@ -9,10 +9,10 @@ export default function Perfil() {
 
     const { isOpen, toggle } = useOpenWithTransition()
     return (
-        <section className="flex flex-col gap-4 w-full">
+        <section className="flex flex-col gap-4 w-full p-4">
             <div className="flex items-center justify-between ">
-                <h1 className="text-3xl font-semibold capitalize ">Perfil</h1>
-                <button className="bg-primary text-white  py-2 px-5 text-[15px] font-medium tracking-wide rounded-md hover:bg-primary/90 focus:outline-none cursor-pointer w-fit" onClick={toggle}>
+                <h2 className="text-3xl font-semibold capitalize ">Perfil</h2>
+                <button className="bg-primary text-white  py-2 px-5 font-medium tracking-wide rounded hover:bg-primary/90 focus:outline-none cursor-pointer w-fit" onClick={toggle}>
                     Editar datos
                 </button>
             </div>

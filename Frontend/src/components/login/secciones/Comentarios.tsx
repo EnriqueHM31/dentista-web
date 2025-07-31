@@ -12,7 +12,7 @@ export default function Comentarios() {
     return (
         <section className="max-w-full mx-auto md:p-4 px-0 flex flex-col gap-4 min-h-screen">
             <header className="flex flex-col lg:flex-row gap-4 lg:gap-0 justify-between items-center">
-                <h2 className="text-2xl font-bold text-center md:text-left">
+                <h2 className="text-3xl font-semibold capitalize text-primary text-center md:text-left">
                     Comentarios de los clientes
                 </h2>
                 <div className="flex justify-end gap-4">
