@@ -38,23 +38,30 @@ export function useCitasCalendario() {
     useEffect(() => {
         const ahora = new Date();
 
-        citas.forEach(async (cita) => {
-            if (cita.completada) return;
+        const verificarYCerrarCitas = async () => {
+            let algunaCitaCompletada = false;
 
-            // Combinar fecha y hora en un solo objeto Date
-            const fechaHoraCita = verificacionFechaHora({ hora: cita.hora, fecha: cita.fecha });
+            for (const cita of citas) {
+                if (cita.completada) continue;
 
-            // Solo completar si la fecha-hora ya pasó
-            if (fechaHoraCita < ahora) {
-                const { success, message, cita: citaCompletada } = await completarCita({ id: cita.id });
-                if (success) {
-                    refrescarCitasCompletar(citas, citaCompletada.id || cita.id);
-                    toast.success(message || "La cita se completó correctamente");
-                } else {
-                    toast.error(message || "Error al completar la cita " + message);
+                const fechaHoraCita = verificacionFechaHora({ hora: cita.hora, fecha: cita.fecha });
+
+                if (fechaHoraCita < ahora) {
+                    const { success, cita: citaCompletada } = await completarCita({ id: cita.id });
+
+                    if (success) {
+                        refrescarCitasCompletar(citas, citaCompletada.id || cita.id);
+                        algunaCitaCompletada = true;
+                    }
                 }
             }
-        });
+
+            if (algunaCitaCompletada) {
+                toast.success("Citas actualizadas correctamente");
+            }
+        };
+
+        verificarYCerrarCitas();
     }, [citas]);
 
     const handleEventClick = (info: EventClickArg) => {
