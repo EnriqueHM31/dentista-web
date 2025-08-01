@@ -31,7 +31,6 @@ export async function Logout() {
 }
 
 export async function CheckLogin() {
-
     const response = await fetch(`${VITE_API_URL}/login/autenticacion`, {
         method: "GET",
         credentials: "include",
